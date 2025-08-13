@@ -102,3 +102,5 @@ th, td{ border-color: rgb(var(--border)); }
 .prose h1{ @apply text-3xl font-bold; }
 .prose h2{ @apply text-2xl font-semibold mt-6; }
 .prose p{ @apply leading-7; }
+
+

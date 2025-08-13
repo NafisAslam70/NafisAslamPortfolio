@@ -99,18 +99,18 @@ export default async function RootLayout({ children }) {
         <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
       </head>
       <body className="min-h-screen antialiased flex flex-col">
-        <SiteHeader
-          session={session}
-          lang={lang}
-          nav={[
-            { href: "/", labelEn: "Home", labelHi: "होम" },
-            { href: "/reels", labelEn: "Videos", labelHi: "रील्स" },
-            { href: "/nbs", labelEn: "NBS", labelHi: "NBS" },
-            { href: "/courses", labelEn: "Courses", labelHi: "कोर्स" },
-            { href: "/blog", labelEn: "Blog", labelHi: "ब्लॉग" },
-            { href: "/hire-me", labelEn: "Hire Me", labelHi: "मुझे हायर करें", variant: "primary" },
-          ]}
-        />
+<SiteHeader
+  session={session}
+  lang={lang}
+  nav={[
+    { href: "/", labelEn: "Home", labelHi: "होम" },
+    { href: "/reels", labelEn: "Videos", labelHi: "रील्स" },
+    { href: "/nbs", labelEn: "NBS", labelHi: "NBS" },
+    { href: "/ventures", labelEn: "Ventures", labelHi: "उद्यम" }, // ⬅️ changed
+    { href: "/blog", labelEn: "Blog", labelHi: "ब्लॉग" },
+    { href: "/hire-me", labelEn: "Hire Me", labelHi: "मुझे हायर करें", variant: "primary" },
+  ]}
+/>
         <main className="mx-auto max-w-3xl p-4 sm:p-6 flex-grow">{children}</main>
         <SiteFooter />
       </body>

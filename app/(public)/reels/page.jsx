@@ -10,10 +10,8 @@ export default function ReelsPage(){
   const cardRefs = useRef([]);
   const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "";
 
-  // --- helpers ---
   const cleanYouTubeId = (raw="") => {
     let s = String(raw).trim();
-    // If full URL, extract v= or youtu.be/<id>
     try {
       if (s.startsWith("http")) {
         const u = new URL(s);
@@ -21,9 +19,7 @@ export default function ReelsPage(){
         if (u.searchParams.get("v")) return u.searchParams.get("v");
       }
     } catch {}
-    // strip query/hash if someone pasted "ID?si=..."
-    s = s.split("?")[0].split("&")[0].split("#")[0];
-    return s;
+    return s.split("?")[0].split("&")[0].split("#")[0];
   };
 
   // Fetch + normalize items
@@ -50,14 +46,20 @@ export default function ReelsPage(){
     return () => { alive = false; };
   }, []);
 
-  // Enter viewer mode at clicked index
+  // Robust initial scroll when entering viewer
   useEffect(() => {
     if (mode !== "viewer") return;
-    const id = setTimeout(() => {
+    let raf;
+    const tryScroll = (attempt = 0) => {
       const el = cardRefs.current[activeIndex];
-      if (el) el.scrollIntoView({ behavior: "auto", block: "start" });
-    }, 0);
-    return () => clearTimeout(id);
+      if (el) {
+        el.scrollIntoView({ behavior: "auto", block: "start" });
+      } else if (attempt < 20) {
+        raf = requestAnimationFrame(() => tryScroll(attempt + 1));
+      }
+    };
+    tryScroll();
+    return () => cancelAnimationFrame(raf);
   }, [mode, activeIndex]);
 
   // Observe active card in viewer
@@ -69,13 +71,14 @@ export default function ReelsPage(){
 
     const obs = new IntersectionObserver(
       (entries) => {
+        // pick the most visible card
         const top = entries.slice().sort((a,b)=>b.intersectionRatio - a.intersectionRatio)[0];
         if (top?.isIntersecting) {
           const idx = Number(top.target.dataset.index);
           if (!Number.isNaN(idx)) setActiveIndex(idx);
         }
       },
-      { root, threshold: [0.35, 0.6, 0.85] }
+      { root, threshold: [0.35, 0.6, 0.85], rootMargin: "0px 0px -10% 0px" }
     );
 
     cards.forEach(el => obs.observe(el));
@@ -87,6 +90,7 @@ export default function ReelsPage(){
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
 
+  // Keyboard controls
   useEffect(() => {
     if (mode !== "viewer") return;
     const onKey = (e) => {
@@ -115,21 +119,31 @@ export default function ReelsPage(){
         play();
       } else v.pause();
     }, [active]);
+    // safer URL: let Cloudinary pick best format
+    const src = cloudName && r.publicId
+      ? `https://res.cloudinary.com/${cloudName}/video/upload/f_auto,vc_auto,q_auto/${r.publicId}`
+      : "";
     return (
       <div className="relative h-screen w-full snap-start overflow-hidden bg-black">
-        <video
-          ref={vidRef}
-          playsInline
-          loop
-          muted
-          preload="metadata"
-          className="h-full w-full object-cover"
-          src={`https://res.cloudinary.com/${cloudName}/video/upload/${r.publicId}.mp4`}
-          onClick={() => {
-            const v = vidRef.current; if (!v) return;
-            v.paused ? v.play() : v.pause();
-          }}
-        />
+        {src ? (
+          <video
+            ref={vidRef}
+            playsInline
+            loop
+            muted
+            preload="metadata"
+            className="h-full w-full object-cover"
+            src={src}
+            onClick={() => {
+              const v = vidRef.current; if (!v) return;
+              v.paused ? v.play() : v.pause();
+            }}
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center text-white/60">
+            Missing Cloudinary config
+          </div>
+        )}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
         <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between">
           <div className="space-y-1">
@@ -172,7 +186,14 @@ export default function ReelsPage(){
             allow="autoplay; encrypted-media; picture-in-picture"
             allowFullScreen
           />
-        ) : <div className="absolute inset-0" />}
+        ) : (
+          // Fallback thumbnail so the inactive slides aren't blank
+          <img
+            className="absolute inset-0 h-full w-full object-cover"
+            src={r.ytId ? `https://img.youtube.com/vi/${r.ytId}/hqdefault.jpg` : ""}
+            alt={r.title || "thumbnail"}
+          />
+        )}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
         <div className="absolute bottom-4 left-4 right-4">
           <div className="space-y-1">
@@ -199,7 +220,12 @@ export default function ReelsPage(){
             return (
               <button
                 key={key}
-                onClick={() => { setActiveIndex(i); setMode("viewer"); }}
+                onClick={() => {
+                  // reset refs to avoid stale nodes, then open
+                  cardRefs.current = [];
+                  setActiveIndex(i);
+                  setMode("viewer");
+                }}
                 className="group relative overflow-hidden rounded-2xl border border-[color:var(--border)]"
               >
                 {r.type === "cloudinary" ? (
@@ -212,7 +238,7 @@ export default function ReelsPage(){
                 ) : (
                   <img
                     className="h-56 w-full object-cover transition group-hover:scale-105"
-                    src={`https://img.youtube.com/vi/${r.ytId}/hqdefault.jpg`}
+                    src={r.ytId ? `https://img.youtube.com/vi/${r.ytId}/hqdefault.jpg` : ""}
                     alt={r.title}
                     loading="lazy"
                   />
@@ -230,9 +256,9 @@ export default function ReelsPage(){
     );
   }
 
-  // viewer mode
+  // viewer mode (fixed fullscreen overlay)
   return (
-    <div className="relative bg-black text-white">
+    <div className="fixed inset-0 z-50 bg-black text-white">
       {/* top bar */}
       <div className="pointer-events-auto absolute left-0 right-0 top-0 z-20 flex items-center justify-between p-3">
         <button
@@ -250,7 +276,7 @@ export default function ReelsPage(){
       {/* vertical scroller */}
       <div
         ref={containerRef}
-        className="h-screen w-full snap-y snap-mandatory overflow-y-scroll scroll-smooth"
+        className="h-full w-full snap-y snap-mandatory overflow-y-scroll scroll-smooth"
       >
         {items.map((r, i) => {
           const key = `${r.type}:${r.publicId || r.ytId || r.id || r.ref || i}`;
