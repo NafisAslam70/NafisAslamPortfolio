@@ -48,9 +48,9 @@ export default function SiteHeader({ session, lang = "en", nav = [] }) {
         {/* Brand */}
         <Link href="/" className="flex items-center gap-2">
           <span className="text-lg font-bold">Nafis Aslam</span>
-          <span className="hidden text-xs text-[color:var(--muted)] sm:inline">
+          {/* <span className="hidden text-xs text-[color:var(--muted)] sm:inline">
             {curLang === "hi" ? "सीखो • बनाओ • उठो" : "Learn • Build • Uplift"}
-          </span>
+          </span> */}
         </Link>
 
         {/* Desktop nav */}
