@@ -3,7 +3,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
-      "contentlayer/*": [".contentlayer/*"]
+      "contentlayer/generated": [".contentlayer/generated"]
     }
   },
   "exclude": ["node_modules", ".next", ".contentlayer"]
