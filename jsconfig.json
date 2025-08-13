@@ -1,7 +1,10 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "contentlayer/*": [".contentlayer/*"]
     }
-  }
+  },
+  "exclude": ["node_modules", ".next", ".contentlayer"]
 }
