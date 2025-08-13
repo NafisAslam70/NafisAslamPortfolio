@@ -1,0 +1,125 @@
+{
+  "title": "Nafees Brain Society — Inner Architecture",
+  "subtitle": "The brain is your story. Blocks → Buildings → Floors → Rooms.",
+  "blocks": [
+    {
+      "id": "cs",
+      "title": "Computer Science Block",
+      "description": "Your domain foundation: Languages, DSA, and real-world interface.",
+      "accent": "from-indigo-500 to-fuchsia-500",
+      "buildings": [
+        {
+          "id": "py",
+          "title": "Python Building",
+          "type": "language",
+            "floors": [
+              { "title": "Core", "rooms": ["Syntax", "Functions", "OOP", "Modules"] },
+              { "title": "Ecosystem", "rooms": ["Pandas", "NumPy", "FastAPI"] }
+            ]
+        },
+        {
+          "id": "java",
+          "title": "Java Building",
+          "type": "language",
+          "floors": [
+            { "title": "Core", "rooms": ["JVM", "Classes", "Interfaces", "Collections"] },
+            { "title": "Ecosystem", "rooms": ["Spring Basics"] }
+          ]
+        },
+        {
+          "id": "dsa",
+          "title": "DSA Building",
+          "type": "core",
+          "floors": [
+            { "title": "Arrays & Strings", "rooms": ["Two Pointers", "Kadane"] },
+            { "title": "Trees & Graphs", "rooms": ["DFS/BFS", "Dijkstra"] },
+            { "title": "DP", "rooms": ["Knapsack", "LIS"] }
+          ]
+        },
+        {
+          "id": "world",
+          "title": "World Building (Interface)",
+          "type": "shared",
+          "note": "Where the world actually feels your skill.",
+          "floors": [
+            { "title": "Interviews", "rooms": ["DSA Templates", "Explaining Tradeoffs"] },
+            { "title": "System Design", "rooms": ["Caching", "Sharding"] },
+            { "title": "Projects", "rooms": ["Portfolio Ready", "Case Studies"] }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ds",
+      "title": "Data Science Block",
+      "description": "Your specialization: ML, Analytics, Math, Deployment.",
+      "accent": "from-emerald-500 to-cyan-500",
+      "buildings": [
+        {
+          "id": "ml",
+          "title": "Machine Learning Building",
+          "floors": [
+            { "title": "Supervised", "rooms": ["Linear Regression", "Decision Trees", "SVM"] },
+            { "title": "Deep Learning", "rooms": ["CNNs", "RNNs"] }
+          ]
+        },
+        {
+          "id": "analytics",
+          "title": "Data Analytics Building",
+          "floors": [
+            { "title": "Tooling", "rooms": ["Pandas", "SQL", "Tableau"] },
+            { "title": "Practice", "rooms": ["EDA", "Dashboards"] }
+          ]
+        },
+        {
+          "id": "math",
+          "title": "Math & Stats Building",
+          "floors": [
+            { "title": "Probability", "rooms": ["Bayes", "Random Variables"] },
+            { "title": "Linear Algebra", "rooms": ["Matrix Ops", "Eigen"] }
+          ]
+        },
+        {
+          "id": "deploy",
+          "title": "Big Data & Deployment Building",
+          "floors": [
+            { "title": "Pipelines", "rooms": ["Spark Basics", "Airflow (concepts)"] },
+            { "title": "Serving", "rooms": ["APIs", "Cloud Deploy"] }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "versatility",
+      "title": "Versatility Block",
+      "description": "Life utility & greatness systems that power all domains.",
+      "accent": "from-rose-500 to-orange-500",
+      "buildings": [
+        {
+          "id": "comm",
+          "title": "Communication Mastery",
+          "floors": [
+            { "title": "Speaking", "rooms": ["Hooks", "Pacing", "Story"] },
+            { "title": "Writing", "rooms": ["Clarity", "Structure"] }
+          ]
+        },
+        {
+          "id": "discipline",
+          "title": "Discipline & Systems",
+          "floors": [
+            { "title": "Deep Work", "rooms": ["Focus Blocks", "Distraction Audit"] },
+            { "title": "4DX", "rooms": ["WIG", "Lead Measures", "Scoreboard", "Cadence"] }
+          ]
+        },
+        {
+          "id": "worldsense",
+          "title": "World Sense & Leadership",
+          "floors": [
+            { "title": "Strategy", "rooms": ["Frames", "Levers"] },
+            { "title": "Values", "rooms": ["Integrity", "Conviction"] }
+          ]
+        }
+      ]
+    }
+  ]
+}

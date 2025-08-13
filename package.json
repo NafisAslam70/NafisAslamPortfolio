@@ -3,18 +3,39 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "next dev -p 3000",
+    "build": "contentlayer build || true && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "dbpush": "npx drizzle-kit push",
+    "dbstudio": "npx drizzle-kit studio"
   },
   "dependencies": {
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "next": "15.4.6"
+    "@neondatabase/serverless": "^1.0.1",
+    "@next/mdx": "^15.4.6",
+    "@react-three/drei": "^9.122.0",
+    "@react-three/fiber": "^8.18.0",
+    "bcryptjs": "^3.0.2",
+    "cloudinary": "^2.7.0",
+    "contentlayer": "^0.3.4",
+    "drizzle-orm": "^0.44.4",
+    "fast-xml-parser": "^5.2.5",
+    "framer-motion": "^12.23.12",
+    "jose": "^6.0.12",
+    "lucide-react": "^0.539.0",
+    "next": "^14.2.3",
+    "next-auth": "^5.0.0-beta.29",
+    "next-contentlayer": "^0.3.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^5.5.0",
+    "react-reconciler": "0.29.2",
+    "resend": "^6.0.1",
+    "three": "^0.159.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "drizzle-kit": "^0.31.4",
     "tailwindcss": "^4"
   }
 }

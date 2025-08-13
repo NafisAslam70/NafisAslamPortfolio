@@ -1,0 +1,20 @@
+{
+  "items": [
+    {
+      "slug": "deepwork-ai",
+      "title": "DeepWork AI",
+      "tagline": "Zero-response-time systems for elite output",
+      "url": "/courses/deep-work-ai-foundations",
+      "accent": "from-indigo-500 to-fuchsia-500",
+      "summary": "Training stack, drills, and scoreboards to wire recall speed × accuracy."
+    },
+    {
+      "slug": "meet-public-school",
+      "title": "Meet Public School",
+      "tagline": "Modern, outcomes-first education",
+      "url": "#",
+      "accent": "from-emerald-500 to-teal-500",
+      "summary": "A leadership and rigor model for schools: craft > vibes, systems > slogans."
+    }
+  ]
+}
