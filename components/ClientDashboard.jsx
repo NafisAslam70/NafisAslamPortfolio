@@ -10,7 +10,7 @@ import { Canvas } from "@react-three/fiber";
 import { Stars } from "@react-three/drei";
 
 /* ============ DeepCalendar public API ============ */
-const DC_ORIGIN = "http://localhost:3001"; // ← change if hosted elsewhere
+const DC_ORIGIN = "https://deep-calendar.vercel.app"; // ← change if hosted elsewhere
 const DC_TOKEN  = "18e42020c705668bbfd96cabe813ba61d229abe75dea2d7d";
 
 function dcUrl(path) {
