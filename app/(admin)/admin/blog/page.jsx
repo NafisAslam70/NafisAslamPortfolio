@@ -58,6 +58,7 @@ export async function createPost(formData) {
 
   revalidatePath("/admin/blog");
   revalidatePath("/blog");
+  revalidatePath("/");
 }
 
 export async function updatePost(formData) {
@@ -94,6 +95,7 @@ export async function updatePost(formData) {
 
   revalidatePath("/admin/blog");
   revalidatePath("/blog");
+  revalidatePath("/");
   revalidatePath(`/blog/${slug}`);
 }
 
@@ -109,6 +111,7 @@ export async function deletePost(formData) {
 
   revalidatePath("/admin/blog");
   revalidatePath("/blog");
+  revalidatePath("/");
   if (row?.slug) revalidatePath(`/blog/${row.slug}`);
 }
 

@@ -37,6 +37,8 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "drizzle-kit": "^0.31.4",
+    "eslint": "8.57.1",
+    "eslint-config-next": "15.5.3",
     "kill-port": "^2.0.1",
     "tailwindcss": "^4"
   }

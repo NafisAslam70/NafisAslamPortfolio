@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Brain3D from "@/components/Brain3D";
 import map from "@/content/nbs-map.json";
 import Link from "next/link";
@@ -12,10 +12,15 @@ const LABELS = {
   world: "World Building (Interface)",
 };
 const ORDER = ["cs", "ds", "versatility", "world"];
+const AUTOPLAY_INTERVAL = 7000;
+const AUTOPLAY_RESUME_DELAY = 20000;
 
 export default function Brain3DView() {
   const blocks = useMemo(() => map?.blocks || [], []);
   const [selected, setSelected] = useState(null);
+  const [isAutoplaying, setIsAutoplaying] = useState(true);
+  const [manualPauseUntil, setManualPauseUntil] = useState(0);
+  const autoplayTimerRef = useRef(null);
 
   const currentBlock = useMemo(
     () => (selected ? blocks.find((b) => b.id === selected) || null : null),
@@ -26,11 +31,31 @@ export default function Brain3DView() {
     return cs?.buildings?.find((b) => b.id === "world");
   }, [blocks]);
 
+  const handleUserInteract = useCallback(() => {
+    if (typeof window === "undefined") return;
+    const resumeAt = Date.now() + AUTOPLAY_RESUME_DELAY;
+    setManualPauseUntil((prev) => (prev < resumeAt ? resumeAt : prev));
+    setIsAutoplaying(false);
+  }, []);
+
+  const handleSelect = useCallback(
+    (id, meta = {}) => {
+      if (!id) return;
+      setSelected((prev) => (prev === id ? prev : id));
+      if (meta.origin !== "auto") {
+        handleUserInteract();
+      }
+    },
+    [handleUserInteract]
+  );
+
   useEffect(() => {
     if (typeof window === "undefined") return;
     const hash = window.location.hash?.slice(1);
-    if (hash && LABELS[hash]) setSelected(hash);
-  }, []);
+    if (hash && LABELS[hash]) {
+      handleSelect(hash, { origin: "user" });
+    }
+  }, [handleSelect]);
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (selected && LABELS[selected]) {
@@ -40,29 +65,78 @@ export default function Brain3DView() {
     }
   }, [selected]);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+
+    const availableIds = ORDER.filter(
+      (id) => id === "world" || blocks.some((block) => block.id === id)
+    );
+    if (!availableIds.length) {
+      if (autoplayTimerRef.current) window.clearTimeout(autoplayTimerRef.current);
+      setIsAutoplaying(false);
+      return undefined;
+    }
+
+    const now = Date.now();
+    if (manualPauseUntil && now < manualPauseUntil) {
+      if (autoplayTimerRef.current) window.clearTimeout(autoplayTimerRef.current);
+      const delay = manualPauseUntil - now;
+      autoplayTimerRef.current = window.setTimeout(() => {
+        setManualPauseUntil(0);
+        setIsAutoplaying(true);
+      }, delay);
+      return () => {
+        if (autoplayTimerRef.current) window.clearTimeout(autoplayTimerRef.current);
+      };
+    }
+
+    setIsAutoplaying(true);
+
+    const currentIndex = selected ? availableIds.indexOf(selected) : -1;
+    const nextIndex = currentIndex >= 0 ? (currentIndex + 1) % availableIds.length : 0;
+    const nextId = availableIds[nextIndex];
+    const delay = selected ? AUTOPLAY_INTERVAL : 1800;
+
+    if (autoplayTimerRef.current) window.clearTimeout(autoplayTimerRef.current);
+    autoplayTimerRef.current = window.setTimeout(() => {
+      handleSelect(nextId, { origin: "auto" });
+    }, delay);
+
+    return () => {
+      if (autoplayTimerRef.current) window.clearTimeout(autoplayTimerRef.current);
+    };
+  }, [blocks, handleSelect, manualPauseUntil, selected]);
+
   return (
-    <>
-      <div className="card mb-3 flex flex-wrap gap-2">
-        {ORDER.map((id) => (
-          <button
-            key={id}
-            onClick={() => setSelected(id)}
-            className={`btn ${selected === id ? "bg-black text-white border-black" : ""}`}
-            aria-pressed={selected === id}
-          >
-            {LABELS[id]}
-          </button>
-        ))}
-        <div className="ml-auto flex gap-2">
-          <Link href="/nbs/architecture" className="btn">Architecture Map</Link>
-          <Link href="/hire-me" className="btn btn-primary">Work With Me</Link>
+    <div className="grid gap-4 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
+      <div className="space-y-4">
+        <div className="card flex flex-wrap gap-2">
+          {ORDER.map((id) => (
+            <button
+              key={id}
+              onClick={() => handleSelect(id, { origin: "user" })}
+              className={`btn ${selected === id ? "bg-black text-white border-black" : ""}`}
+              aria-pressed={selected === id}
+            >
+              {LABELS[id]}
+            </button>
+          ))}
+          <div className="ml-auto flex gap-2">
+            <Link href="/nbs/architecture" className="btn">Architecture Map</Link>
+            <Link href="/hire-me" className="btn btn-primary">Work With Me</Link>
+          </div>
         </div>
+
+        <Brain3D
+          selected={selected}
+          onSelect={handleSelect}
+          onUserInteract={handleUserInteract}
+          autoplaying={isAutoplaying}
+        />
       </div>
 
-      <Brain3D selected={selected} onSelect={setSelected} />
-
-      <section className="card-solid mt-6">
-        <div className="flex items-start justify-between">
+      <section className="card-solid lg:sticky lg:top-4 lg:self-start">
+        <div className="flex items-start justify-between gap-4">
           <div>
             <div className="text-xs uppercase tracking-wide muted">Selected</div>
             <h2 className="text-xl font-semibold">
@@ -73,15 +147,15 @@ export default function Brain3DView() {
                 ? selected === "world"
                   ? "Translation layer where internal knowledge becomes interviews, projects, systems, and decisions."
                   : currentBlock?.description || "—"
-                : "Click a glowing dot on the brain to explore."}
+                : "Tap a luminous node or choose a block on the left to load its dossier."}
             </p>
           </div>
-          <Link href="/nbs/architecture" className="btn">Full Map →</Link>
+          <Link href="/nbs/architecture" className="btn shrink-0">Full Map →</Link>
         </div>
 
         {!selected ? (
           <div className="mt-4 text-sm muted">
-            Tip: use the buttons above or click a dot on the brain to view details.
+            Tip: the cortex on the left will auto-tour, but you can override at any time.
           </div>
         ) : selected === "world" ? (
           <div className="mt-4 space-y-3">
@@ -107,7 +181,7 @@ export default function Brain3DView() {
             )}
           </div>
         ) : (
-          <div className="mt-4 grid sm:grid-cols-2 gap-3">
+          <div className="mt-4 space-y-3">
             {(currentBlock?.buildings || []).map((b) => (
               <div key={b.id} className="card">
                 <div className="text-xs uppercase tracking-wide muted">
@@ -125,6 +199,6 @@ export default function Brain3DView() {
           </div>
         )}
       </section>
-    </>
+    </div>
   );
 }

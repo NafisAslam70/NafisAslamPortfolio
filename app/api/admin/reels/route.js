@@ -2,12 +2,13 @@ import { db } from "@/lib/db";
 import { reels } from "@/lib/schema";
 import { NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth";
+import { asc } from "drizzle-orm";
 
 export async function GET(req) {
   if (!(await requireAdmin(req))) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-  const rows = await db.select().from(reels).orderBy(reels.createdAt);
+  const rows = await db.select().from(reels).orderBy(asc(reels.createdAt));
   return NextResponse.json({ items: rows }, { status: 200 });
 }
 

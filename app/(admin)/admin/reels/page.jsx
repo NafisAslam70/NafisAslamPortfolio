@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import { COOKIE, verifyToken } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { reels } from "@/lib/schema";
-import { asc } from "drizzle-orm";
+import { asc, eq } from "drizzle-orm";
 import { cloudinary } from "@/lib/cloudinary";
 
 export const metadata = { title: "Admin • Reels" };
@@ -61,6 +61,26 @@ async function createReel(formData) {
   }
 
   revalidatePath("/admin/reels");
+  revalidatePath("/reels");
+  revalidatePath("/");
+}
+
+/** server action: delete a reel by id */
+async function deleteReel(formData) {
+  "use server";
+
+  const token = cookies().get(COOKIE)?.value || null;
+  const session = await verifyToken(token);
+  if (!session || session.role !== "admin") throw new Error("Unauthorized");
+
+  const id = Number(formData.get("id"));
+  if (!id) throw new Error("Invalid reel id");
+
+  await db.delete(reels).where(eq(reels.id, id));
+
+  revalidatePath("/admin/reels");
+  revalidatePath("/reels");
+  revalidatePath("/");
 }
 
 export default async function AdminReelsPage(){
@@ -133,7 +153,10 @@ export default async function AdminReelsPage(){
               {/* placeholders for future edit/delete */}
               <div className="flex gap-2">
                 <button className="btn btn-ghost" disabled>Edit</button>
-                <button className="btn btn-ghost" disabled>Delete</button>
+                <form action={deleteReel}>
+                  <input type="hidden" name="id" value={r.id} />
+                  <button className="btn btn-ghost" type="submit">Delete</button>
+                </form>
               </div>
             </li>
           ))}

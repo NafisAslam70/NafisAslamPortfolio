@@ -1,13 +1,27 @@
+import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { courseSections } from "@/lib/schema";
 import { eq } from "drizzle-orm";
+import { requireAdmin } from "@/lib/auth";
 
-export async function POST(req){
-  const { courseId, order } = await req.json();
-  if(!courseId || !Array.isArray(order)) return new Response(JSON.stringify({ error:"courseId and order[] required" }), { status: 400 });
-  for(const row of order){
-    if(!row?.id || typeof row.order !== "number") continue;
-    await db.update(courseSections).set({ order: row.order }).where(eq(courseSections.id, Number(row.id)));
+export async function POST(req) {
+  if (!(await requireAdmin(req))) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  try {
+    const body = await req.json();
+    const courseId = Number(body.courseId);
+    const order = Array.isArray(body.order) ? body.order : [];
+    if (!courseId || !order.length) return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
+
+    // Update each section's sortOrder; small N so sequential is fine
+    for (const item of order) {
+      const id = Number(item.id);
+      const ord = Number(item.order) || null;
+      if (!id) continue;
+      await db.update(courseSections).set({ sortOrder: ord }).where(eq(courseSections.id, id));
+    }
+    return NextResponse.json({ success: true });
+  } catch {
+    return NextResponse.json({ error: "Bad request" }, { status: 400 });
   }
-  return new Response(JSON.stringify({ ok:true }), { status: 200 });
 }
+

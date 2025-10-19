@@ -3,9 +3,11 @@ import Link from "next/link";
 import { revalidatePath } from "next/cache";
 import { db } from "@/lib/db";
 import { courses } from "@/lib/schema";
-import { desc, asc } from "drizzle-orm";
+import { desc } from "drizzle-orm";
 import { cookies } from "next/headers";
 import { COOKIE, verifyToken } from "@/lib/auth";
+import DeleteCourseButton from "@/components/admin/DeleteCourseButton";
+import CourseCreatePanel from "@/components/admin/CourseCreatePanel";
 
 export const metadata = { title: "Admin • Courses" };
 
@@ -28,10 +30,13 @@ async function createCourse(formData) {
   if (!title || !slug) throw new Error("Title and slug are required");
 
   await db.insert(courses).values({
-    title, slug, description, coverUrl, isFree, published, priceCents,
+    title, slug, description, coverUrl, isFree, priceCents,
+    status: 'draft',
+    published: false,
   });
 
   revalidatePath("/admin/courses");
+  revalidatePath("/courses");
 }
 
 export default async function AdminCoursesIndex(){
@@ -50,42 +55,7 @@ export default async function AdminCoursesIndex(){
       </section>
 
       {/* Inline create form */}
-      <section className="card-solid">
-        <h3 className="text-lg font-semibold mb-3">New Course</h3>
-        <form action={createCourse} className="grid gap-3 md:grid-cols-2">
-          <div>
-            <label className="text-sm muted">Title</label>
-            <input name="title" className="input w-full" required />
-          </div>
-          <div>
-            <label className="text-sm muted">Slug</label>
-            <input name="slug" className="input w-full" required />
-          </div>
-          <div className="md:col-span-2">
-            <label className="text-sm muted">Description</label>
-            <textarea name="description" rows={3} className="input w-full" />
-          </div>
-          <div>
-            <label className="text-sm muted">Cover URL</label>
-            <input name="coverUrl" className="input w-full" />
-          </div>
-          <div>
-            <label className="text-sm muted">Price (cents)</label>
-            <input name="priceCents" type="number" defaultValue={0} className="input w-full" />
-          </div>
-          <div className="flex items-center gap-6">
-            <label className="flex items-center gap-2 text-sm">
-              <input name="isFree" type="checkbox" /> Free
-            </label>
-            <label className="flex items-center gap-2 text-sm">
-              <input name="published" type="checkbox" /> Published
-            </label>
-          </div>
-          <div className="md:col-span-2">
-            <button className="btn btn-primary">Create Course</button>
-          </div>
-        </form>
-      </section>
+      <CourseCreatePanel action={createCourse} />
 
       {/* List table (unchanged) */}
       <section className="card">
@@ -95,10 +65,12 @@ export default async function AdminCoursesIndex(){
               <tr className="text-left muted">
                 <th className="py-2">Title</th>
                 <th className="py-2">Slug</th>
+                <th className="py-2">Status</th>
                 <th className="py-2">Published</th>
                 <th className="py-2">Free</th>
                 <th className="py-2">Price</th>
                 <th className="py-2">Open</th>
+                <th className="py-2">Delete</th>
               </tr>
             </thead>
             <tbody>
@@ -106,6 +78,7 @@ export default async function AdminCoursesIndex(){
                 <tr key={c.id} className="border-t border-[color:var(--border)]">
                   <td className="py-2">{c.title}</td>
                   <td className="py-2">{c.slug}</td>
+                  <td className="py-2">{c.status || 'draft'}</td>
                   <td className="py-2">{c.published ? "✅" : "—"}</td>
                   <td className="py-2">{c.isFree ? "✅" : "—"}</td>
                   <td className="py-2">{c.priceCents ? `₹${(c.priceCents/100).toFixed(0)}` : "—"}</td>
@@ -115,11 +88,14 @@ export default async function AdminCoursesIndex(){
                       <Link className="btn" href={`/courses/${c.slug}`} target="_blank">View</Link>
                     </div>
                   </td>
+                  <td className="py-2">
+                    <DeleteCourseButton courseId={c.id} courseTitle={c.title} />
+                  </td>
                 </tr>
               ))}
               {rows.length === 0 && (
                 <tr>
-                  <td className="py-6 text-center muted" colSpan={6}>No courses</td>
+                  <td className="py-6 text-center muted" colSpan={8}>No courses</td>
                 </tr>
               )}
             </tbody>

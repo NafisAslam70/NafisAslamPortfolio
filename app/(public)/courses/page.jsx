@@ -1,6 +1,13 @@
-export const metadata = { title: "Courses • Nafees", description: "Coming soon." };
+import Link from "next/link";
+import { db } from "@/lib/db";
+import { courses } from "@/lib/schema";
+import { desc, eq } from "drizzle-orm";
 
-export default function CoursesPage() {
+export const metadata = { title: "Courses • Nafees", description: "Practical, bilingual learning." };
+
+export default async function CoursesPage() {
+  const rows = await db.select().from(courses).where(eq(courses.published, true)).orderBy(desc(courses.createdAt));
+
   return (
     <div className="space-y-6">
       <section className="card">
@@ -8,15 +15,26 @@ export default function CoursesPage() {
         <p className="muted">Learn • Build • Uplift</p>
       </section>
 
-      <section className="card-solid">
-        <div className="flex flex-col items-center justify-center gap-3 py-16 text-center">
-          <div className="text-5xl">🚧</div>
-          <h2 className="text-xl font-semibold">Coming soon</h2>
-          <p className="muted max-w-md">
-            We’re crafting practical, bilingual courses for real-world skills.
-            Check back shortly!
-          </p>
-        </div>
+      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {rows.map(c => (
+          <Link key={c.id} href={`/courses/${c.slug}`} className="group overflow-hidden rounded-2xl border border-[color:var(--border)]">
+            {c.coverUrl ? (
+              <img src={c.coverUrl} alt={c.title} className="h-44 w-full object-cover transition group-hover:scale-105" />
+            ) : (
+              <div className="h-44 w-full bg-[color:var(--muted-200)]" />
+            )}
+            <div className="p-3">
+              <div className="font-semibold">{c.title}</div>
+              <div className="muted text-sm line-clamp-2">{c.description}</div>
+              <div className="mt-2 text-sm">
+                {c.isFree ? <span className="rounded bg-green-100 px-2 py-0.5 text-green-700">Free</span> : (c.priceCents ? `₹${(c.priceCents/100).toFixed(0)}` : "Paid")}
+              </div>
+            </div>
+          </Link>
+        ))}
+        {rows.length === 0 && (
+          <div className="card-solid">No courses yet.</div>
+        )}
       </section>
     </div>
   );

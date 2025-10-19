@@ -3,18 +3,18 @@
     {
       "slug": "deepwork-ai",
       "title": "DeepWork AI",
-      "tagline": "Zero-response-time systems for elite output",
-      "url": "/courses/deep-work-ai-foundations",
+      "tagline": "Focus OS for shipping through chaos",
+      "url": "/ventures/deepwork-ai",
       "accent": "from-indigo-500 to-fuchsia-500",
-      "summary": "Training stack, drills, and scoreboards to wire recall speed × accuracy."
+      "summary": "Ziyang’s case study, the focus playbook, and Nafis’ founder story—with video, systems, and CTA to run your own sprint."
     },
     {
       "slug": "meed-public-school",
       "title": "Meed Public School",
-      "tagline": "Modern, outcomes-first education",
+      "tagline": "Outcomes-first school for first-gen learners",
       "url": "/ventures/meed-public-school",
       "accent": "from-emerald-500 to-teal-500",
-      "summary": "A leadership and rigor model for schools: craft > vibes, systems > slogans."
+      "summary": "Immersive case study with impact metrics, Jharkhand origin story, spotlight PDFs, and contact routes for the scale-out model."
     }
   ]
 }

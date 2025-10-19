@@ -31,6 +31,8 @@ function ThemeInitScript() {
       const sysDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
       const theme = st === "system" ? (sysDark ? "dark" : "light") : st;
       document.documentElement.dataset.theme = theme;
+      document.documentElement.classList.remove("light");
+      document.documentElement.classList.toggle("dark", theme === "dark");
     } catch {}
   `.replace(/\s+/g, " ");
   return <script dangerouslySetInnerHTML={{ __html: code }} />;
@@ -111,7 +113,7 @@ export default async function RootLayout({ children }) {
     { href: "/hire-me", labelEn: "Hire Me", labelHi: "मुझे हायर करें", variant: "primary" },
   ]}
 />
-        <main className="mx-auto max-w-3xl p-4 sm:p-6 flex-grow">{children}</main>
+        <main className="mx-auto w-full max-w-6xl px-4 sm:px-6 md:px-8 flex-grow pt-28 md:pt-32">{children}</main>
         <SiteFooter />
       </body>
     </html>
