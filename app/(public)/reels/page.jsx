@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useMemo, useCallback } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { FaCloud, FaFilm, FaPlayCircle, FaYoutube } from "react-icons/fa";
 
@@ -357,13 +358,15 @@ export default function ReelsPage() {
             allow="autoplay; encrypted-media; picture-in-picture"
             allowFullScreen
           />
-        ) : (
-          <img
-            className="absolute inset-0 h-full w-full object-cover"
-            src={r.ytId ? `https://img.youtube.com/vi/${r.ytId}/hqdefault.jpg` : ""}
-            alt={r.title || "thumbnail"}
+        ) : r.ytId ? (
+          <Image
+            fill
+            src={`https://img.youtube.com/vi/${r.ytId}/hqdefault.jpg`}
+            alt={r.title || "Reel thumbnail"}
+            className="object-cover"
+            sizes="100vw"
           />
-        )}
+        ) : null}
         <ReelOverlay r={r} />
       </div>
     );
@@ -435,10 +438,12 @@ export default function ReelsPage() {
                 >
                   <div className="relative aspect-[10/13] w-full overflow-hidden">
                     {heroThumb ? (
-                      <img
+                      <Image
                         src={heroThumb}
                         alt={heroReel.title || "Reel preview"}
-                        className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                        fill
+                        className="object-cover transition duration-500 group-hover:scale-105"
+                        sizes="(min-width: 1024px) 420px, 100vw"
                       />
                     ) : (
                       <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-indigo-500/20 via-transparent to-transparent text-slate-400 dark:text-white/50">
@@ -548,11 +553,12 @@ export default function ReelsPage() {
                   >
                     <div className="relative aspect-[10/16] w-full overflow-hidden">
                       {r.__thumb ? (
-                        <img
+                        <Image
                           src={r.__thumb}
                           alt={r.title || "Reel thumbnail"}
-                          className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                          loading="lazy"
+                          fill
+                          className="object-cover transition duration-700 group-hover:scale-105"
+                          sizes="(min-width: 1280px) 280px, (min-width: 1024px) 260px, (min-width: 640px) 45vw, 100vw"
                         />
                       ) : (
                         <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-indigo-500/20 via-purple-500/10 to-transparent text-slate-400 dark:text-white/50">

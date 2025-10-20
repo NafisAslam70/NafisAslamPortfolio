@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { db } from "@/lib/db";
 import { courses } from "@/lib/schema";
 import { desc, eq } from "drizzle-orm";
@@ -19,7 +20,14 @@ export default async function CoursesPage() {
         {rows.map(c => (
           <Link key={c.id} href={`/courses/${c.slug}`} className="group overflow-hidden rounded-2xl border border-[color:var(--border)]">
             {c.coverUrl ? (
-              <img src={c.coverUrl} alt={c.title} className="h-44 w-full object-cover transition group-hover:scale-105" />
+              <Image
+                src={c.coverUrl}
+                alt={c.title}
+                width={600}
+                height={320}
+                className="h-44 w-full object-cover transition group-hover:scale-105"
+                unoptimized
+              />
             ) : (
               <div className="h-44 w-full bg-[color:var(--muted-200)]" />
             )}

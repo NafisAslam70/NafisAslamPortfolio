@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -39,10 +40,20 @@ const res = await fetch("/api/local-login", {
       </form>
 
       <div className="card-solid space-y-2">
-        <a className="btn w-full justify-center"
-           href="/api/auth/signin/google?callbackUrl=/api/auth/bridge">Continue with Google</a>
-        <a className="btn w-full justify-center"
-           href="/api/auth/signin/facebook?callbackUrl=/api/auth/bridge">Continue with Facebook</a>
+        <button
+          type="button"
+          className="btn w-full justify-center"
+          onClick={() => signIn("google", { callbackUrl: "/api/auth/bridge" })}
+        >
+          Continue with Google
+        </button>
+        <button
+          type="button"
+          className="btn w-full justify-center"
+          onClick={() => signIn("facebook", { callbackUrl: "/api/auth/bridge" })}
+        >
+          Continue with Facebook
+        </button>
       </div>
     </div>
   );

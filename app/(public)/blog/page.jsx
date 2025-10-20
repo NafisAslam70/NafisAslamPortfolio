@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import Link from "next/link";
+import Image from "next/image";
 import { db } from "@/lib/db";
 import { posts } from "@/lib/schema";
 import { desc } from "drizzle-orm";
@@ -94,8 +95,15 @@ export default async function BlogIndex({ searchParams }){
         {all.map((it, i)=>(
           <article key={`${it.type}:${it.href}:${i}`} className="card-solid space-y-3">
             {it.cover && (
-              <div className="overflow-hidden rounded-xl">
-                <img src={it.cover} alt={it.title} className="h-48 w-full object-cover" />
+              <div className="relative overflow-hidden rounded-xl">
+                <Image
+                  src={it.cover}
+                  alt={it.title}
+                  width={600}
+                  height={320}
+                  className="h-48 w-full object-cover"
+                  unoptimized
+                />
               </div>
             )}
             <div className="text-xs uppercase tracking-wide text-[color:var(--muted)]">

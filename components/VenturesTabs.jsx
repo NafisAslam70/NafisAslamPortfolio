@@ -74,7 +74,7 @@ function ActionButton({ action }) {
 }
 
 export default function VenturesTabs({ items, initialSlug, showDetailCard = true }) {
-  const safeItems = Array.isArray(items) ? items : [];
+  const safeItems = useMemo(() => (Array.isArray(items) ? items : []), [items]);
   const router = useRouter();
   const defaultSlug = useMemo(() => {
     if (safeItems.find((v) => v.slug === "deepwork-ai")) return "deepwork-ai";

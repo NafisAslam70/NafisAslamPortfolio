@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import {
   FaArrowRight,
   FaBolt,
@@ -625,15 +626,19 @@ export default function HireMe() {
             </div>
             <div className={`${SURFACE} overflow-hidden`}>
               <div className="grid gap-3 p-6 md:grid-cols-2">
-                <img
+                <Image
                   src="https://github-readme-stats.vercel.app/api?username=NafisAslam70&show_icons=true&hide_border=true"
                   alt="GitHub Stats"
+                  width={600}
+                  height={320}
                   className="w-full rounded-2xl border border-white/10 bg-white/70 p-3 dark:bg-white/[0.03]"
                   loading="lazy"
                 />
-                <img
+                <Image
                   src="https://github-readme-stats.vercel.app/api/top-langs/?username=NafisAslam70&layout=compact&hide_border=true"
                   alt="Top Languages"
+                  width={600}
+                  height={320}
                   className="w-full rounded-2xl border border-white/10 bg-white/70 p-3 dark:bg-white/[0.03]"
                   loading="lazy"
                 />

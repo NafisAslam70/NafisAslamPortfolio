@@ -1,4 +1,5 @@
 import "./globals.css";
+import Link from "next/link";
 import { cookies } from "next/headers";
 import { jwtVerify } from "jose";
 import SiteHeader from "@/components/SiteHeader";
@@ -55,11 +56,11 @@ function SiteFooter() {
         <div>
           <h3 className="text-lg font-semibold mb-2">Quick Links</h3>
           <ul className="space-y-1 text-sm">
-            <li><a href="/" className="hover:text-primary transition">Home</a></li>
-            <li><a href="/nbs" className="hover:text-primary transition">NBS</a></li>
-            <li><a href="/courses" className="hover:text-primary transition">Courses</a></li>
-            <li><a href="/blog" className="hover:text-primary transition">Blog</a></li>
-            <li><a href="/hire-me" className="hover:text-primary transition">Hire Me</a></li>
+            <li><Link href="/" className="hover:text-primary transition">Home</Link></li>
+            <li><Link href="/nbs" className="hover:text-primary transition">NBS</Link></li>
+            <li><Link href="/courses" className="hover:text-primary transition">Courses</Link></li>
+            <li><Link href="/blog" className="hover:text-primary transition">Blog</Link></li>
+            <li><Link href="/hire-me" className="hover:text-primary transition">Hire Me</Link></li>
           </ul>
         </div>
 

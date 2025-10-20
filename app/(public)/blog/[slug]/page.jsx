@@ -1,5 +1,6 @@
 
 import Link from "next/link";
+import Image from "next/image";
 import { redirect, notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { posts } from "@/lib/schema";
@@ -66,8 +67,16 @@ export default async function PostPage({ params }) {
 
       {/* Cover */}
       {post.coverUrl && (
-        <div className="overflow-hidden rounded-2xl">
-          <img src={post.coverUrl} alt={post.title} className="w-full object-cover" />
+        <div className="relative overflow-hidden rounded-2xl">
+          <Image
+            src={post.coverUrl}
+            alt={post.title}
+            width={1600}
+            height={900}
+            className="h-auto w-full object-cover"
+            priority
+            unoptimized
+          />
         </div>
       )}
 

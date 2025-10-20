@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { db } from "@/lib/db";
 import { courses, courseSections, courseLessons, courseMaterials, enrollments } from "@/lib/schema";
 import { asc, eq, inArray } from "drizzle-orm";
@@ -138,7 +139,14 @@ export default async function CoursePage({ params, searchParams }){
       <section className="card">
         <div className="flex gap-4">
           {course.coverUrl && (
-            <img src={course.coverUrl} alt={course.title} className="h-24 w-24 rounded-xl object-cover" />
+            <Image
+              src={course.coverUrl}
+              alt={course.title}
+              width={240}
+              height={240}
+              className="h-24 w-24 rounded-xl object-cover"
+              unoptimized
+            />
           )}
           <div>
             <h1 className="text-2xl font-bold">{course.title}</h1>

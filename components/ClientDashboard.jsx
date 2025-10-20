@@ -45,30 +45,29 @@ const BUILD_TABS = [
 // ---------- Design tokens ----------
 
 const sparkleKeyframes = `
-@keyframes hire-btn-sparkle {
-  0% { transform: translateX(-130%) scale(0.85); opacity: 0; }
-  35% { opacity: 0.75; }
+@keyframes hire-card-sparkle {
+  0% { transform: translateX(-140%) scale(0.85); opacity: 0; }
+  35% { opacity: 0.8; }
   55% { opacity: 0.45; }
-  100% { transform: translateX(130%) scale(1.05); opacity: 0; }
+  100% { transform: translateX(140%) scale(1.05); opacity: 0; }
 }
-@keyframes hire-btn-glow {
+@keyframes hire-card-pulse {
   0%, 100% { box-shadow: 0 0 0 rgba(99,102,241,0.0); }
-  50% { box-shadow: 0 0 18px rgba(99,102,241,0.45); }
+  50% { box-shadow: 0 0 26px rgba(99,102,241,0.45); }
 }
-.hire-cta-card { position: relative; }
-.hire-cta-button {
+.hire-cta-card {
   position: relative;
   overflow: hidden;
-  animation: hire-btn-glow 3.4s ease-in-out infinite;
+  animation: hire-card-pulse 4.2s ease-in-out infinite;
   will-change: box-shadow;
 }
-.hire-cta-button::after {
+.hire-cta-card::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(120deg, transparent 5%, rgba(255,255,255,0.95) 45%, transparent 75%);
-  transform: translateX(-130%);
-  animation: hire-btn-sparkle 2.6s linear infinite;
+  background: linear-gradient(120deg, transparent 5%, rgba(255,255,255,0.8) 45%, transparent 80%);
+  transform: translateX(-140%);
+  animation: hire-card-sparkle 3.2s linear infinite;
   pointer-events: none;
   mix-blend-mode: screen;
 }
@@ -113,7 +112,6 @@ const CONTACT_LINKS = [
   {
     label: "Call",
     href: "tel:+601137576465",
-    description: "Phone: +60 11-3757-6465",
     hoverText: "+60 11-3757-6465",
     icon: FaPhoneAlt,
     accent: "amber",
@@ -121,7 +119,6 @@ const CONTACT_LINKS = [
   {
     label: "WhatsApp",
     href: "https://wa.me/60172641454",
-    description: "Chat on WhatsApp",
     hoverText: "+60 17-264 1454",
     icon: FaWhatsapp,
     accent: "emerald",
@@ -696,85 +693,84 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
             <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400" />
             {NAV_SECTIONS[activeIndex]?.label ?? "Overview"}
           </motion.div>
-          <div className="hire-cta-card group relative mt-4 overflow-hidden rounded-2xl border border-indigo-200/70 bg-gradient-to-br from-white/90 via-indigo-100/55 to-purple-100/45 p-4 text-center text-[11px] shadow-lg ring-1 ring-transparent transition duration-300 hover:shadow-indigo-300/35 hover:ring-indigo-200/60 dark:border-white/10 dark:from-white/[0.08] dark:via-indigo-900/25 dark:to-purple-900/20">
-            <div className="font-semibold uppercase tracking-[0.28em] text-indigo-600 dark:text-indigo-300">Need a Builder?</div>
-            <p className="mt-2 text-[11px] font-medium text-slate-600 dark:text-slate-200">Let’s scope your next sprint together.</p>
-            <Link
-              href="/hire-me"
-              className="hire-cta-button mt-3 inline-flex items-center justify-center rounded-full bg-indigo-600 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.25em] text-white transition duration-300 hover:bg-indigo-500"
-            >
-              Hire Me
-            </Link>
-          </div>
         </div>
       </nav>
       <aside className="pointer-events-none fixed right-2 top-24 z-40 hidden xl:block">
-        <div className="pointer-events-auto relative w-[132px] overflow-visible rounded-[1.6rem] border border-indigo-200/60 bg-white/85 p-3 shadow-xl backdrop-blur dark:border-white/10 dark:bg-white/[0.08]">
-          <div className="absolute inset-0 bg-gradient-to-br from-white/60 via-transparent to-purple-200/25 opacity-70 dark:from-white/[0.04] dark:via-indigo-900/30 dark:to-purple-900/25" />
-          <div className="relative space-y-3 text-center">
-            <div className="space-y-1">
-              <div className="text-[10px] font-semibold uppercase tracking-[0.28em] text-indigo-500 dark:text-indigo-300">
-                Quick Access
+        <div className="pointer-events-auto flex flex-col items-end gap-4">
+          <div className="relative w-[164px] overflow-visible rounded-[1.6rem] border border-indigo-200/60 bg-white/85 p-3 shadow-xl backdrop-blur dark:border-white/10 dark:bg-white/[0.08]">
+            <div className="absolute inset-0 bg-gradient-to-br from-white/60 via-transparent to-purple-200/25 opacity-70 dark:from-white/[0.04] dark:via-indigo-900/30 dark:to-purple-900/25" />
+            <div className="relative space-y-3 text-center">
+              <div className="space-y-1">
+                <div className="text-[10px] font-semibold uppercase tracking-[0.28em] text-indigo-500 dark:text-indigo-300">
+                  Quick Access
+                </div>
+                <div className="mx-auto h-px w-10 bg-gradient-to-r from-indigo-400/80 to-purple-400/80" />
               </div>
-              <div className="mx-auto h-px w-10 bg-gradient-to-r from-indigo-400/80 to-purple-400/80" />
-            </div>
-            <ul className="flex flex-col items-center gap-3">
-              {PRODUCT_LINKS.map((item) => {
-                const Icon = item.icon || FaLink;
-                const accent = PRODUCT_ACCENTS[item.accent ?? "indigo"];
-                return (
-                  <li key={item.href}>
-                    <a
-                      href={item.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      title={item.label}
-                      aria-label={item.label}
-                      className={`group relative flex h-12 w-12 items-center justify-center rounded-2xl border bg-white/85 text-indigo-600 shadow-sm transition hover:-translate-y-1 dark:border-white/10 dark:bg-white/[0.1] ${accent?.ring ?? "border-indigo-200/70 hover:border-indigo-300"}`}
-                    >
-                      <Icon className={accent?.icon ?? "text-indigo-600 dark:text-indigo-300"} />
-                      <span className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-b from-white/40 via-transparent to-transparent opacity-0 transition group-hover:opacity-100 dark:from-white/10" />
-                      <span className="pointer-events-none absolute right-full top-1/2 -translate-y-1/2 -translate-x-2 whitespace-nowrap rounded-md bg-slate-900 px-4 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-white opacity-0 shadow-lg transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100 dark:bg-white/90 dark:text-slate-900">
-                        {item.label}
-                      </span>
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-            <div className="pt-4">
-              <div className="text-[10px] font-semibold uppercase tracking-[0.28em] text-indigo-500 dark:text-indigo-300">
-                Contact
-              </div>
-              <div className="mx-auto mt-1 h-px w-8 bg-gradient-to-r from-indigo-400/60 to-purple-400/60" />
-              <ul className="mt-3 flex flex-col items-center gap-3">
-                {CONTACT_LINKS.map((item) => {
+              <ul className="flex flex-col items-center gap-3">
+                {PRODUCT_LINKS.map((item) => {
                   const Icon = item.icon || FaLink;
                   const accent = PRODUCT_ACCENTS[item.accent ?? "indigo"];
                   return (
-                    <li key={item.href} className="w-full">
+                    <li key={item.href}>
                       <a
                         href={item.href}
-                        target={item.href.startsWith("http") ? "_blank" : undefined}
-                        rel={item.href.startsWith("http") ? "noreferrer" : undefined}
-                        title={item.description ?? item.label}
-                        aria-label={item.description ?? item.label}
-                        className={`group relative flex items-center justify-center gap-2 rounded-2xl border bg-white/90 px-3 py-2 text-[12px] font-semibold text-indigo-600 shadow-sm transition hover:-translate-y-1 dark:border-white/10 dark:bg-white/[0.12] dark:text-indigo-200 ${accent?.ring ?? "border-indigo-200/70 hover:border-indigo-300"}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        title={item.label}
+                        aria-label={item.label}
+                        className={`group relative flex h-12 w-12 items-center justify-center rounded-2xl border bg-white/85 text-indigo-600 shadow-sm transition hover:-translate-y-1 dark:border-white/10 dark:bg-white/[0.1] ${accent?.ring ?? "border-indigo-200/70 hover:border-indigo-300"}`}
                       >
-                        <Icon className={`${accent?.icon ?? "text-indigo-600 dark:text-indigo-300"} text-sm`} />
-                        <span>{item.label}</span>
+                        <Icon className={accent?.icon ?? "text-indigo-600 dark:text-indigo-300"} />
                         <span className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-b from-white/40 via-transparent to-transparent opacity-0 transition group-hover:opacity-100 dark:from-white/10" />
-                        {item.hoverText && (
-                          <span className="pointer-events-none absolute right-full top-1/2 -translate-y-1/2 -translate-x-2 whitespace-nowrap rounded-md bg-slate-900 px-4 py-0.5 text-[11px] font-semibold tracking-[0.05em] text-white opacity-0 shadow-lg transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100 dark:bg-white/95 dark:text-slate-900">
-                            {item.hoverText}
-                          </span>
-                        )}
+                        <span className="pointer-events-none absolute right-full top-1/2 -translate-y-1/2 -translate-x-2 whitespace-nowrap rounded-md bg-slate-900 px-4 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-white opacity-0 shadow-lg transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100 dark:bg-white/90 dark:text-slate-900">
+                          {item.label}
+                        </span>
                       </a>
                     </li>
                   );
                 })}
               </ul>
+              <div className="pt-4">
+                <div className="text-[10px] font-semibold uppercase tracking-[0.28em] text-indigo-500 dark:text-indigo-300">
+                  Contact
+                </div>
+                <div className="mx-auto mt-1 h-px w-8 bg-gradient-to-r from-indigo-400/60 to-purple-400/60" />
+                <ul className="mt-3 flex flex-col items-center gap-3">
+                  {CONTACT_LINKS.map((item) => {
+                    const Icon = item.icon || FaLink;
+                    const accent = PRODUCT_ACCENTS[item.accent ?? "indigo"];
+                    return (
+                      <li key={item.href}>
+                        <a
+                          href={item.href}
+                          target={item.href.startsWith("http") ? "_blank" : undefined}
+                          rel={item.href.startsWith("http") ? "noreferrer" : undefined}
+                          title={item.hoverText ?? item.label}
+                          aria-label={item.hoverText ?? item.label}
+                          className={`group relative flex h-12 w-12 items-center justify-center rounded-2xl border bg-white/85 text-indigo-600 shadow-sm transition hover:-translate-y-1 dark:border-white/10 dark:bg-white/[0.1] ${accent?.ring ?? "border-indigo-200/70 hover:border-indigo-300"}`}
+                        >
+                          <Icon className={accent?.icon ?? "text-indigo-600 dark:text-indigo-300"} />
+                          <span className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-b from-white/40 via-transparent to-transparent opacity-0 transition group-hover:opacity-100 dark:from-white/10" />
+                          <span className="pointer-events-none absolute right-full top-1/2 -translate-y-1/2 -translate-x-2 whitespace-nowrap rounded-md bg-slate-900 px-4 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-white opacity-0 shadow-lg transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100 dark:bg-white/90 dark:text-slate-900">
+                            {item.hoverText ?? item.label}
+                          </span>
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
             </div>
+          </div>
+          <div className="hire-cta-card relative w-[164px] overflow-hidden rounded-2xl border border-indigo-200/70 bg-gradient-to-br from-white/90 via-indigo-100/55 to-purple-100/45 p-4 text-center text-[11px] shadow-lg ring-1 ring-transparent transition duration-300 hover:shadow-indigo-300/35 hover:ring-indigo-200/60 dark:border-white/10 dark:from-white/[0.08] dark:via-indigo-900/25 dark:to-purple-900/20">
+            <div className="font-semibold uppercase tracking-[0.28em] text-indigo-600 dark:text-indigo-300">Need a Builder?</div>
+            <p className="mt-2 text-[11px] font-medium text-slate-600 dark:text-slate-200">Let’s scope your next sprint together.</p>
+            <Link
+              href="/hire-me"
+              className="mt-3 inline-flex w-full items-center justify-center rounded-full bg-indigo-600 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.25em] text-white transition duration-300 hover:bg-indigo-500"
+            >
+              Hire Me
+            </Link>
           </div>
         </div>
       </aside>

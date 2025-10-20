@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useEffect, useRef } from "react";
+import { useMemo, useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 
 function pickInitialSection(sections) {
@@ -133,14 +133,14 @@ export default function CourseViewer({ course, sections }) {
     } catch {}
   }, [course?.id, course?.slug]);
 
-  function saveProgress(next) {
+  const saveProgress = useCallback((next) => {
     try {
       const key = `course_progress_${course?.id || course?.slug || 'unknown'}`;
       localStorage.setItem(key, JSON.stringify(Array.from(next)));
     } catch {}
-  }
+  }, [course?.id, course?.slug]);
 
-  function markCurrentDone(){
+  const markCurrentDone = useCallback(() => {
     if (!currentLessonId) return;
     setCompleted(prev => {
       const next = new Set(prev);
@@ -148,7 +148,7 @@ export default function CourseViewer({ course, sections }) {
       saveProgress(next);
       return next;
     });
-  }
+  }, [currentLessonId, saveProgress]);
 
   const catalog = useMemo(() => buildLessonCatalog(sections), [sections]);
   const currentSection = useMemo(
@@ -193,7 +193,7 @@ export default function CourseViewer({ course, sections }) {
       if (autoTimerRef.current) clearInterval(autoTimerRef.current);
       autoTimerRef.current = null;
     };
-  }, [currentLessonId, currentLesson?.durationSeconds, completed]);
+  }, [currentLessonId, currentLesson?.durationSeconds, completed, markCurrentDone]);
 
   const currentIndexWithinSection = currentSection
     ? (currentSection.lessons || []).findIndex(lesson => lesson.id === currentLesson?.id)

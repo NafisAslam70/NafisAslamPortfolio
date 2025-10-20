@@ -16,7 +16,7 @@ function Dot({ active }) {
 }
 
 export default function BrainHotspots() {
-  const blocks = map?.blocks || [];
+  const blocks = useMemo(() => map?.blocks ?? [], []);
   const [selected, setSelected] = useState("cs");
   const selectedBlock = useMemo(() => blocks.find((b) => b.id === selected) || blocks[0], [blocks, selected]);
   const worldBuilding = useMemo(() => {

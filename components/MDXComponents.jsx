@@ -12,10 +12,22 @@ export function Callout({ children, type = "note" }) {
   return <div className={`border rounded-xl px-3 py-2 text-sm ${styles[type] || styles.note}`}>{children}</div>;
 }
 
-const A = (props) => <Link {...props} className="link" />;
-const Img = (props) =>
-  props.src?.startsWith("http")
-    ? <img {...props} className="rounded-lg border border-[var(--border)]" />
-    : <Image alt="" width={1200} height={630} {...props} className="rounded-lg border border-[var(--border)]" />;
+const A = ({ className = "", ...props }) => <Link {...props} className={`link ${className}`.trim()} />;
 
-export default { a: A, img: Img, Callout };
+const Img = ({ src, alt = "", width = 1200, height = 630, className = "", ...rest }) => {
+  if (!src) return null;
+  const finalAlt = typeof alt === "string" ? alt : "";
+  const imageProps = {
+    className: `rounded-lg border border-[var(--border)] ${className}`.trim(),
+    ...rest,
+  };
+  if (!("fill" in imageProps)) {
+    imageProps.width = width;
+    imageProps.height = height;
+  }
+  return <Image src={src} alt={finalAlt} {...imageProps} />;
+};
+
+const components = { a: A, img: Img, Callout };
+
+export default components;
