@@ -6,34 +6,103 @@ import { motion } from "framer-motion";
 import {
   FaArrowRight,
   FaBolt,
-  FaBookOpen,
   FaCalendarAlt,
-  FaChartLine,
+  FaChartBar,
+  FaCode,
   FaDownload,
   FaEnvelope,
+  FaExternalLinkAlt,
   FaFileAlt,
-  FaGithub,
+  FaFlask,
+  FaGraduationCap,
   FaHome,
-  FaLinkedin,
+  FaLink,
+  FaMedal,
   FaPenFancy,
-  FaPlayCircle,
   FaRocket,
   FaShapes,
+  FaUsers,
+  FaChalkboardTeacher,
 } from "react-icons/fa";
 
 const SURFACE =
   "rounded-3xl border border-indigo-200/60 bg-white/75 backdrop-blur-md shadow-[0_10px_30px_-12px_rgba(2,6,23,0.18)] dark:bg-white/[0.06] dark:border-white/10";
 const SECTION_CONTAINER = "container mx-auto max-w-screen-2xl px-6 md:px-10";
-const HERO_ROLES = ["systems architect", "AI developer", "focus OS designer", "content operator"];
+const HERO_ROLES = ["AI product engineer", "data systems strategist", "focus OS architect", "edtech operator"];
 const RESUME_URL = "/pdfs/myResume.pdf";
 
 const NAV_SECTIONS = [
   { id: "overview", label: "Overview", icon: FaHome },
-  { id: "offerings", label: "What I Ship", icon: FaRocket },
-  { id: "systems", label: "Execution Systems", icon: FaShapes },
-  { id: "proof", label: "Proof & Signals", icon: FaChartLine },
+  { id: "offerings", label: "Services", icon: FaRocket },
+  { id: "builds", label: "Ventures & Products", icon: FaShapes },
+  { id: "proof", label: "Why Hire Me", icon: FaMedal },
   { id: "resume", label: "Resume", icon: FaFileAlt },
   { id: "contact", label: "Start A Project", icon: FaEnvelope },
+];
+
+const BUILD_TABS = [
+  { id: "ventures", label: "Ventures" },
+  { id: "products", label: "Products" },
+];
+
+const PRODUCT_ACCENTS = {
+  indigo: {
+    ring: "border-indigo-200/70 hover:border-indigo-300",
+    icon: "text-indigo-600 dark:text-indigo-300",
+    glow: "from-indigo-400 via-purple-400 to-pink-400",
+    bubble: "bg-indigo-500/20",
+  },
+  violet: {
+    ring: "border-violet-200/70 hover:border-violet-300",
+    icon: "text-violet-600 dark:text-violet-300",
+    glow: "from-violet-400 via-indigo-400 to-purple-500",
+    bubble: "bg-violet-500/20",
+  },
+  sky: {
+    ring: "border-sky-200/70 hover:border-sky-300",
+    icon: "text-sky-600 dark:text-sky-300",
+    glow: "from-sky-400 via-cyan-400 to-sky-500",
+    bubble: "bg-sky-500/25",
+  },
+  rose: {
+    ring: "border-rose-200/70 hover:border-rose-300",
+    icon: "text-rose-600 dark:text-rose-300",
+    glow: "from-rose-400 via-pink-400 to-rose-500",
+    bubble: "bg-rose-500/20",
+  },
+  amber: {
+    ring: "border-amber-200/70 hover:border-amber-300",
+    icon: "text-amber-600 dark:text-amber-300",
+    glow: "from-amber-400 via-orange-400 to-amber-500",
+    bubble: "bg-amber-500/20",
+  },
+  emerald: {
+    ring: "border-emerald-200/70 hover:border-emerald-300",
+    icon: "text-emerald-600 dark:text-emerald-300",
+    glow: "from-emerald-400 via-teal-400 to-emerald-500",
+    bubble: "bg-emerald-500/20",
+  },
+};
+
+const SERVICE_ROLES = [
+  {
+    title: "AI & Web Developer",
+    highlight: ["Product engineering", "Agentic UX", "Launch & handoff"],
+    icon: FaCode,
+    accent: "indigo",
+  },
+  {
+    title: "AI Research + Model Building",
+    highlight: ["Experiment design", "Model training & eval", "Guardrails & QA"],
+    icon: FaFlask,
+    accent: "violet",
+  },
+  {
+    title: "Data Science & Analysis",
+    highlight: ["Signal pipelines", "Exploratory insights", "Story-driven metrics"],
+    icon: FaChartBar,
+    accent: "sky",
+  },
 ];
 
 function scrollToSection(id) {
@@ -45,61 +114,102 @@ function scrollToSection(id) {
 
 function useSectionObserver(ids, onActive) {
   useEffect(() => {
-    if (typeof window === "undefined" || typeof IntersectionObserver === "undefined") return undefined;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const inView = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (inView[0]?.target?.id) onActive(inView[0].target.id);
-      },
-      { rootMargin: "-55% 0px -35% 0px", threshold: [0.15, 0.4, 0.7] },
-    );
-    ids.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-    return () => observer.disconnect();
+    if (typeof window === "undefined") return undefined;
+
+    const SCROLL_OFFSET = 130;
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(() => {
+          ticking = false;
+          const pointer = SCROLL_OFFSET;
+          const reachedBottom =
+            window.innerHeight + window.scrollY >= document.body.offsetHeight - 2;
+
+          let current = ids[0];
+          for (const id of ids) {
+            const el = document.getElementById(id);
+            if (!el) continue;
+            const { top, bottom } = el.getBoundingClientRect();
+            const abovePointer = top - pointer <= 0;
+            const pointerInside = abovePointer && bottom - pointer > 0;
+            if (pointerInside) {
+              current = id;
+              break;
+            }
+            if (abovePointer) {
+              current = id;
+              continue;
+            }
+            break;
+          }
+
+          if (reachedBottom) {
+            current = ids[ids.length - 1];
+          }
+
+          onActive(current);
+        });
+      }
+    };
+
+    const handleResize = () => {
+      ticking = false;
+      handleScroll();
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleResize);
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
+    };
   }, [ids, onActive]);
 }
 
 function LeftRailNav({ sections, active }) {
   return (
     <nav className="pointer-events-none fixed left-4 top-28 z-30 hidden lg:block">
-      <div className="pointer-events-auto relative w-[210px] overflow-hidden rounded-[1.9rem] border border-indigo-200/50 bg-white/80 p-4 shadow-xl backdrop-blur dark:border-white/10 dark:bg-white/[0.05]">
+      <div className="pointer-events-auto relative w-[210px] overflow-hidden rounded-[1.9rem] border border-indigo-200/50 bg-white/80 shadow-xl backdrop-blur dark:border-white/10 dark:bg-white/[0.05]">
         <div className="absolute -top-10 left-10 h-40 w-40 rounded-full bg-indigo-400/20 blur-3xl dark:bg-indigo-500/20" />
         <div className="absolute -bottom-16 right-6 h-32 w-32 rounded-full bg-purple-400/20 blur-[110px] dark:bg-purple-500/20" />
-        <ul className="relative flex flex-col gap-2">
-          {sections.map((section) => {
-            const Icon = section.icon;
-            const isActive = section.id === active;
-            return (
-              <li key={section.id} className="relative">
-                {isActive && (
-                  <motion.div
-                    layoutId="hire-nav-pill"
-                    transition={{ type: "spring", stiffness: 380, damping: 32 }}
-                    className="absolute inset-y-1 left-0 right-1 rounded-2xl bg-gradient-to-r from-indigo-500/95 via-violet-500/90 to-pink-500/90 shadow-[0_18px_38px_-22px_rgba(79,70,229,0.8)]"
-                  />
-                )}
-                <button
-                  type="button"
-                  onClick={() => scrollToSection(section.id)}
-                  className={`relative flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium transition ${
-                    isActive
-                      ? "text-white"
-                      : "text-slate-600 hover:bg-indigo-50/60 dark:text-slate-200 dark:hover:bg-white/10"
-                  }`}
-                >
-                  <span className={`text-base ${isActive ? "text-white" : "text-indigo-500 dark:text-indigo-300"}`}>
-                    <Icon />
-                  </span>
-                  {section.label}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
+        <div className="relative max-h-[calc(100vh-7rem)] overflow-y-auto p-4">
+          <ul className="flex flex-col gap-2">
+            {sections.map((section) => {
+              const Icon = section.icon;
+              const isActive = section.id === active;
+              return (
+                <li key={section.id} className="relative">
+                  {isActive && (
+                    <motion.div
+                      layoutId="hire-nav-pill"
+                      transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                      className="absolute inset-y-1 left-0 right-1 rounded-2xl bg-gradient-to-r from-indigo-500/95 via-violet-500/90 to-pink-500/90 shadow-[0_18px_38px_-22px_rgba(79,70,229,0.8)]"
+                    />
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => scrollToSection(section.id)}
+                    className={`relative flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium transition ${
+                      isActive
+                        ? "text-white"
+                        : "text-slate-600 hover:bg-indigo-50/60 dark:text-slate-200 dark:hover:bg-white/10"
+                    }`}
+                  >
+                    <span className={`text-base ${isActive ? "text-white" : "text-indigo-500 dark:text-indigo-300"}`}>
+                      <Icon />
+                    </span>
+                    {section.label}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       </div>
     </nav>
   );
@@ -149,24 +259,7 @@ function QuickStat({ icon: Icon, label, value, hint }) {
   );
 }
 
-function ServiceCard({ title, blurb, points }) {
-  return (
-    <div className={`${SURFACE} h-full p-6`}>
-      <div className="text-lg font-semibold text-slate-900 dark:text-white">{title}</div>
-      <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{blurb}</p>
-      <ul className="mt-4 space-y-2 text-sm text-slate-600 dark:text-slate-300">
-        {points.map((point) => (
-          <li key={point} className="flex items-start gap-2">
-            <span className="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-400" />
-            <span>{point}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-function SystemCard({ eyebrow, title, description, link, icon: Icon }) {
+function ProductCard({ eyebrow, title, description, link, icon: Icon }) {
   return (
     <motion.div whileHover={{ y: -4 }} className={`${SURFACE} h-full p-6 transition`}>
       <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-wide text-indigo-500">
@@ -175,15 +268,25 @@ function SystemCard({ eyebrow, title, description, link, icon: Icon }) {
       </div>
       <div className="mt-3 text-lg font-semibold text-slate-900 dark:text-white">{title}</div>
       <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{description}</p>
-      <Link
-        href={link.href}
-        className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 transition hover:text-indigo-500 dark:text-indigo-300"
-        target={link.external ? "_blank" : undefined}
-        rel={link.external ? "noreferrer" : undefined}
-      >
-        {link.label}
-        <FaArrowRight className="h-3 w-3" />
-      </Link>
+      {link.external ? (
+        <a
+          href={link.href}
+          target="_blank"
+          rel="noreferrer"
+          className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 transition hover:text-indigo-500 dark:text-indigo-300"
+        >
+          {link.label}
+          <FaArrowRight className="h-3 w-3" />
+        </a>
+      ) : (
+        <Link
+          href={link.href}
+          className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 transition hover:text-indigo-500 dark:text-indigo-300"
+        >
+          {link.label}
+          <FaArrowRight className="h-3 w-3" />
+        </Link>
+      )}
     </motion.div>
   );
 }
@@ -221,6 +324,7 @@ export default function HireMe() {
   const [roleIndex, setRoleIndex] = useState(0);
   const [typedRole, setTypedRole] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
+  const [activeBuildTab, setActiveBuildTab] = useState(BUILD_TABS[0].id);
 
   const sectionIds = useMemo(() => NAV_SECTIONS.map((section) => section.id), []);
   useSectionObserver(sectionIds, setActiveSection);
@@ -251,108 +355,110 @@ export default function HireMe() {
 
   const quickStats = [
     {
-      label: "Focus systems shipped",
-      value: "DeepWork AI",
-      hint: "Operator-grade OS for accountability pods.",
-      icon: FaBolt,
+      label: "Academic rigor",
+      value: "MIT MicroMasters",
+      hint: "Data, Statistics & Machine Learning (CINEC) + USM AI major graduate.",
+      icon: FaGraduationCap,
     },
     {
-      label: "Ventures live",
-      value: "4 products",
-      hint: "Deep Calendar, Meed School, Meedian AI Flow.",
+      label: "Products operating",
+      value: "DeepWork AI suite",
+      hint: "Deep Calendar, accountability pods, and AI prompts live with users.",
       icon: FaRocket,
     },
     {
-      label: "Content velocity",
-      value: "150+ reels",
-      hint: "Structured storytelling sprints & repurposing loops.",
-      icon: FaPlayCircle,
+      label: "Education leadership",
+      value: "Founder, Meed",
+      hint: "Built Meed Public School & learning systems for first-gen students.",
+      icon: FaChalkboardTeacher,
     },
     {
-      label: "Shipping cadence",
-      value: "Weekly releases",
-      hint: "NBS rituals keep execution focused & traceable.",
+      label: "Delivery rhythm",
+      value: "Deadline locked",
+      hint: "Disciplined, hardworking, skilled—weekly reports until the job ships.",
       icon: FaCalendarAlt,
     },
   ];
 
-  const services = [
+  const ventures = [
     {
-      title: "Brand & Web Systems",
-      blurb: "Narrative, positioning, and conversion-driven experiences built in Next.js + AI copilots.",
-      points: ["Strategic positioning & messaging", "Design + build + analytics", "Conversion loops & SEO hygiene"],
-    },
-    {
-      title: "Content & Distribution",
-      blurb: "Short-form reels, long-form writing, and distribution dashboards without chaos.",
-      points: ["Topic map & storytelling spine", "Repurposing + scheduling workflows", "Analytics feedback loops"],
-    },
-    {
-      title: "Learning Products & EdTech",
-      blurb: "Cohorts and self-paced systems engineered for progress and retention.",
-      points: ["Curriculum & assessments", "Recording + delivery stacks", "Onboarding, payments, community"],
-    },
-  ];
-
-  const systems = [
-    {
-      eyebrow: "Focus OS",
+      eyebrow: "Venture",
       title: "DeepWork AI",
-      description: "Accountability rooms, nudges, and reflection funnels to keep your team in deep work mode.",
-      link: { href: "/ventures/deepwork-ai", label: "Tour the build →" },
+      description: "Focus OS that powers accountability pods, deep work sprints, and operator dashboards.",
+      link: { href: "/ventures/deepwork-ai", label: "Explore venture →" },
       icon: FaBolt,
     },
     {
-      eyebrow: "Execution Rituals",
-      title: "Nafis Builder Society",
-      description: "The operating cadence I run with founders—weekly synthesis, scorecards, and idea lab notes.",
-      link: { href: "/nbs", label: "See the system →" },
-      icon: FaPenFancy,
+      eyebrow: "Venture",
+      title: "Meed Public School",
+      description: "Outcomes-first school for first-gen students with AI-augmented mentorship and rituals.",
+      link: { href: "/ventures/meed-public-school", label: "View case study →" },
+      icon: FaChalkboardTeacher,
     },
     {
-      eyebrow: "Content Engine",
-      title: "Reels Lab",
-      description: "Pipeline that takes raw ideas to finished reels + blogs with measurable velocity.",
-      link: { href: "/reels", label: "Watch samples →" },
-      icon: FaPlayCircle,
+      eyebrow: "Community",
+      title: "Nafis Builder Society",
+      description: "Invite-only operator community running weekly deep work scorecards and synthesis labs.",
+      link: { href: "/nbs", label: "See NBS rituals →" },
+      icon: FaPenFancy,
     },
   ];
 
-  const proofSignals = [
+  const products = [
     {
-      title: "GitHub Signals",
-      summary: "Active repos across AI, data viz, and full-stack experimentation. Shipping happens in public.",
-      actions: [
-        { href: "https://github.com/NafisAslam70", label: "View GitHub", external: true, variant: "primary" },
-      ],
-      icon: FaGithub,
+      eyebrow: "Product",
+      title: "DeepWork AI App",
+      description: "Production build with sprint rooms, nudges, and reflections for builders who want flow.",
+      link: { href: "https://deep-work-ai-nu.vercel.app/", label: "Launch app →", external: true },
+      icon: FaBolt,
     },
     {
-      title: "Ventures & Case Studies",
-      summary: "Systems-first builds for education, focus, and productivity. Each venture doubles as a live lab.",
+      eyebrow: "Product",
+      title: "Deep Calendar",
+      description: "Depth block planner with shutdown scorecards and weekly alignment rituals baked in.",
+      link: { href: "https://deep-calendar.vercel.app/auth/signin?next=%2F", label: "Open planner →", external: true },
+      icon: FaCalendarAlt,
+    },
+    {
+      eyebrow: "Product",
+      title: "Meedian AI Flow",
+      description: "LLM copilots that turn chaotic backlogs into structured execution for students and teams.",
+      link: { href: "https://meedian-ai-flow-v2.vercel.app/", label: "Start flow →", external: true },
+      icon: FaLink,
+    },
+  ];
+
+  const reasons = [
+    {
+      title: "MIT + USM Foundations",
+      summary:
+        "MIT Data, Statistics & Machine Learning MicroMasters (CINEC) plus USM AI major gives you research-backed execution.",
+      actions: [{ href: RESUME_URL, label: "Review credentials", variant: "primary" }],
+      icon: FaGraduationCap,
+    },
+    {
+      title: "Disciplined Operator",
+      summary: "I scope, timeline, and ship. Weekly reports, clear decisions, no missed deadlines.",
+      actions: [{ href: "/nbs", label: "See my rituals" }],
+      icon: FaBolt,
+    },
+    {
+      title: "Products In Market",
+      summary: "DeepWork AI, Deep Calendar, and Meed Public School run live with users across focus and education.",
       actions: [
-        { href: "/ventures", label: "Explore ventures" },
-        { href: "/pdfs/meed-my-journey.pdf", label: "Read Meed vision", external: true },
+        { href: "/ventures", label: "Tour the products" },
+        { href: "/reels", label: "Watch build logs" },
       ],
       icon: FaRocket,
     },
     {
-      title: "Writing & Thinking",
-      summary: "Weekly essays, maps, and research notes capturing how I reason about shipping useful software.",
+      title: "Community Leadership",
+      summary: "Founder & principal at Meed—building pathways for first-gen students and mentoring young operators.",
       actions: [
-        { href: "/blog", label: "Browse articles" },
-        { href: "/now", label: "Current focus" },
+        { href: "/pdfs/meed-my-journey.pdf", label: "Read the mission", external: true },
+        { href: "https://www.linkedin.com/in/nafis-aslam/", label: "Connect on LinkedIn", external: true },
       ],
-      icon: FaBookOpen,
-    },
-    {
-      title: "Social Proof",
-      summary: "Progress logs, behind-the-scenes clips, and operator updates across LinkedIn and the network.",
-      actions: [
-        { href: "https://www.linkedin.com/in/nafis-aslam/", label: "LinkedIn", external: true },
-        { href: "https://wa.me/601156000000", label: "WhatsApp", external: true },
-      ],
-      icon: FaLinkedin,
+      icon: FaUsers,
     },
   ];
 
@@ -374,7 +480,7 @@ export default function HireMe() {
                     transition={{ duration: 0.6 }}
                     className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white md:text-4xl"
                   >
-                    Ship with a{" "}
+                    Ship your next build with a{" "}
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-violet-500 to-pink-500">
                       {typedRole || HERO_ROLES[0]}
                     </span>
@@ -385,12 +491,13 @@ export default function HireMe() {
                     transition={{ duration: 0.6, delay: 0.1 }}
                     className="mt-4 text-base text-slate-600 dark:text-slate-300"
                   >
-                    I help founders and teams focus—shipping products, content, and learning systems that compound.
-                    Everything runs on{" "}
+                    MIT Data, Statistics & Machine Learning MicroMasters (CINEC) grad and USM AI major. Disciplined,
+                    hardworking, and obsessed with delivering on time. You hand me the brief, we lock the deadline, and
+                    you get shippable software, content, or curriculum without noise. Everything runs on{" "}
                     <Link href="/nbs" className="link font-semibold">
                       NBS rituals
                     </Link>{" "}
-                    so we can see signal, make decisions fast, and build momentum with calm execution.
+                    so we can see signal, make decisions fast, and build compounding execution.
                   </motion.p>
                   <div className="mt-6 flex flex-wrap gap-3">
                     <button className="btn btn-primary" onClick={() => scrollToSection("contact")}>
@@ -417,51 +524,147 @@ export default function HireMe() {
 
         <section id="offerings" className="scroll-mt-32 py-16">
           <div className={`${SECTION_CONTAINER} space-y-8`}>
-            <div className="max-w-2xl space-y-3">
-              <span className="text-xs font-semibold uppercase tracking-wide text-indigo-500">What I Ship</span>
-              <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">Operator-grade execution services</h2>
-              <p className="text-sm text-slate-600 dark:text-slate-300">
-                Embed me alongside your team or drop me into a sprint. Expect clarity, speed, and docs that survive handover.
-              </p>
+            <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
+              <div>
+                <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">Services I Offer</h2>
+                <p className="text-sm text-slate-600 dark:text-slate-300">
+                  Build with me—custom AI systems, full-stack execution, and data intelligence stitched end-to-end.
+                </p>
+              </div>
+              <Link
+                href="#contact"
+                className="inline-flex items-center gap-2 rounded-full bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-500"
+              >
+                Discuss a project <FaExternalLinkAlt className="text-[11px]" />
+              </Link>
             </div>
-            <div className="grid gap-4 md:grid-cols-3">
-              {services.map((service) => (
-                <ServiceCard key={service.title} {...service} />
-              ))}
+
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              {SERVICE_ROLES.map((service, idx) => {
+                const accent = PRODUCT_ACCENTS[service.accent ?? "indigo"];
+                const Icon = service.icon || FaBolt;
+                return (
+                  <motion.div
+                    key={service.title}
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.45, delay: idx * 0.08 }}
+                    viewport={{ once: true }}
+                    className={`${SURFACE} relative overflow-hidden p-5 transition hover:shadow-lg`}
+                  >
+                    {accent?.bubble && (
+                      <div className={`pointer-events-none absolute -right-14 -bottom-12 h-24 w-24 rounded-full blur-[70px] ${accent.bubble}`} />
+                    )}
+                    <div className="relative flex items-start gap-3">
+                      <span
+                        className={`flex h-9 w-9 items-center justify-center rounded-2xl border text-base ${
+                          accent?.ring ?? "border-indigo-200/70 hover:border-indigo-300"
+                        }`}
+                      >
+                        <Icon className={accent?.icon ?? "text-indigo-600 dark:text-indigo-300"} />
+                      </span>
+                      <div className="space-y-1">
+                        <span
+                          className={`text-[10px] uppercase tracking-[0.28em] ${
+                            accent?.icon ?? "text-indigo-600 dark:text-indigo-300"
+                          }`}
+                        >
+                          Core Role
+                        </span>
+                        <h3
+                          className={`text-xl font-semibold leading-tight text-transparent bg-clip-text bg-gradient-to-r ${
+                            accent?.glow ?? "from-indigo-500 via-purple-500 to-pink-500"
+                          }`}
+                        >
+                          {service.title}
+                        </h3>
+                        {Array.isArray(service.highlight) && service.highlight.length > 0 && (
+                          <div className="mt-3 flex flex-wrap gap-2">
+                            {service.highlight.map((point) => (
+                              <span
+                                key={point}
+                                className={`rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-wide text-gray-700 dark:text-gray-200 ${
+                                  accent?.ring ?? "border-indigo-200/70 hover:border-indigo-300"
+                                } ${accent?.bubble ?? "bg-indigo-500/15"}`}
+                              >
+                                {point}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </section>
 
-        <section id="systems" className="scroll-mt-32 py-16">
+        <section id="builds" className="scroll-mt-32 py-16">
           <div className={`${SECTION_CONTAINER} space-y-8`}>
-            <div className="max-w-2xl space-y-3">
-              <span className="text-xs font-semibold uppercase tracking-wide text-indigo-500">Execution Systems</span>
-              <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">Proven loops you can plug into tomorrow</h2>
-              <p className="text-sm text-slate-600 dark:text-slate-300">
-                Use my operating systems as-is or let’s adapt them to your stack. Each system is live, measurable, and
-                already compounding inside ventures.
-              </p>
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+              <div className="max-w-2xl space-y-3">
+                <span className="text-xs font-semibold uppercase tracking-wide text-indigo-500">Ventures & Products</span>
+                <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">The systems I run and ship</h2>
+                <p className="text-sm text-slate-600 dark:text-slate-300">
+                  Toggle between live ventures and product builds. Everything is maintained, documented, and ready to
+                  adapt to your team.
+                </p>
+              </div>
+              <div className="inline-flex items-center rounded-full border border-indigo-200/60 bg-white/80 p-1 text-sm font-semibold shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/[0.06]">
+                {BUILD_TABS.map((tab) => {
+                  const isActive = tab.id === activeBuildTab;
+                  return (
+                    <button
+                      key={tab.id}
+                      type="button"
+                      onClick={() => setActiveBuildTab(tab.id)}
+                      className={`relative rounded-full px-4 py-2 transition ${
+                        isActive
+                          ? "text-white"
+                          : "text-slate-600 hover:text-indigo-600 dark:text-slate-200 dark:hover:text-indigo-200"
+                      }`}
+                    >
+                      {isActive && (
+                        <motion.span
+                          layoutId="build-tab-pill"
+                          className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 shadow-[0_12px_30px_-16px_rgba(79,70,229,0.7)]"
+                        />
+                      )}
+                      <span className="relative z-10">{tab.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
-            <div className="grid gap-4 md:grid-cols-3">
-              {systems.map((system) => (
-                <SystemCard key={system.title} {...system} />
+            <motion.div
+              key={activeBuildTab}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35 }}
+              className="grid gap-4 md:grid-cols-3"
+            >
+              {(activeBuildTab === "ventures" ? ventures : products).map((item) => (
+                <ProductCard key={`${activeBuildTab}-${item.title}`} {...item} />
               ))}
-            </div>
+            </motion.div>
           </div>
         </section>
 
         <section id="proof" className="scroll-mt-32 py-16">
           <div className={`${SECTION_CONTAINER} space-y-8`}>
             <div className="max-w-2xl space-y-3">
-              <span className="text-xs font-semibold uppercase tracking-wide text-indigo-500">Proof & Signals</span>
-              <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">What partners look at before we start</h2>
+              <span className="text-xs font-semibold uppercase tracking-wide text-indigo-500">Why Hire Me</span>
+              <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">Signals operators ask for first</h2>
               <p className="text-sm text-slate-600 dark:text-slate-300">
-                Browse the public artifacts if you want to see how I think, build, and run teams. Everything stays transparent.
+                If you’re evaluating me for a build, here’s the shortlist—credentials, delivery history, operating
+                systems, and the communities I steward.
               </p>
             </div>
             <div className="grid gap-4 md:grid-cols-2">
-              {proofSignals.map((signal) => (
-                <ProofCard key={signal.title} {...signal} />
+              {reasons.map((reason) => (
+                <ProofCard key={reason.title} {...reason} />
               ))}
             </div>
             <div className={`${SURFACE} overflow-hidden`}>
@@ -482,7 +685,6 @@ export default function HireMe() {
             </div>
           </div>
         </section>
-
         <section id="resume" className="scroll-mt-32 pb-8 pt-4">
           <div className={SECTION_CONTAINER}>
             <div className={`${SURFACE} grid gap-8 p-8 md:grid-cols-[1fr,0.75fr] md:p-12`}>

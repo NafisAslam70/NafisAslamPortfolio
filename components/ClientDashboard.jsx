@@ -33,8 +33,13 @@ const NAV_SECTIONS = [
   { id: "systems", label: "Focus Systems", icon: FaCalendarAlt },
   { id: "reels", label: "Reels", icon: FaFilm },
   { id: "writing", label: "Writing", icon: FaPenFancy },
-  { id: "spotlight", label: "My Ventures", icon: FaBolt },
+  { id: "builds", label: "Ventures & Products", icon: FaBolt },
   { id: "services", label: "Services", icon: FaRocket },
+];
+
+const BUILD_TABS = [
+  { id: "ventures", label: "Ventures" },
+  { id: "products", label: "Products" },
 ];
 
 // ---------- Design tokens ----------
@@ -140,14 +145,14 @@ const SERVICE_ROLES = [
     accent: "indigo",
   },
   {
-    title: "Research + Model Ops",
-    highlight: ["Experiment design", "Fine-tune & eval", "Guardrails & QA"],
+    title: "AI Research + Model Building",
+    highlight: ["Experiment design", "Model training & eval", "Guardrails & QA"],
     icon: FaFlask,
     accent: "violet",
   },
   {
-    title: "Data Intelligence",
-    highlight: ["Signal pipelines", "Dashboards", "Story-driven metrics"],
+    title: "Data Science & Analysis",
+    highlight: ["Signal pipelines", "Exploratory insights", "Story-driven metrics"],
     icon: FaChartBar,
     accent: "sky",
   },
@@ -245,7 +250,11 @@ function StatCard({ icon, label, value, hint }) {
           <div className="text-xl font-semibold text-gray-900 dark:text-gray-100">{value}</div>
         </div>
       </div>
-      {hint && <p className="mt-3 text-xs text-gray-500 dark:text-gray-400">{hint}</p>}
+      {hint ? (
+        <div className="mt-3 text-xs text-gray-500 dark:text-gray-400">
+          {hint}
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -403,6 +412,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
   const [typedRole, setTypedRole] = useState("");
   const [isDeletingRole, setIsDeletingRole] = useState(false);
   const [activeSection, setActiveSection] = useState("overview");
+  const [activeBuildTab, setActiveBuildTab] = useState(BUILD_TABS[0].id);
 
   useEffect(() => {
     (async () => {
@@ -491,19 +501,19 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
     return map;
   }, [goals]);
 
-  const focusHours7 = useMemo(() => {
-    const sec = stats7d?.totalSec ?? stats7d?.totals?.totalSec ?? stats7d?.total_seconds;
-    return sec ? (sec / 3600).toFixed(1) : null;
-  }, [stats7d]);
-
   const blocksToday = todayItems.length;
 
   const quickStats = [
     {
-      label: "Focus logged (7d)",
-      value: focusHours7 ? `${focusHours7}h` : dcLoading ? "…" : "0h",
-      hint: "Captured through Deep Calendar sessions.",
-      icon: <FaRegClock />,
+      label: "Products shipped",
+      value: "4",
+      hint: (
+        <Link href="#builds" className="inline-flex items-center gap-1 text-indigo-600 hover:text-indigo-500 dark:text-indigo-300 dark:hover:text-indigo-200">
+          Explore builds
+          <FaExternalLinkAlt className="text-[10px]" />
+        </Link>
+      ),
+      icon: <FaRocket />,
     },
     {
       label: "Blocks today",
@@ -936,15 +946,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
 
           {/* DeepCalendar */}
           <div className={`${SURFACE} space-y-4 p-6`}>
-            <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">My Calendar (DeepCalendar)</h2>
-              <button
-                className="text-xs font-medium text-indigo-600 hover:underline dark:text-indigo-300"
-                onClick={() => setModalStatsOpen(true)}
-              >
-                View stats
-              </button>
-            </div>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">My Calendar (DeepCalendar)</h2>
             <div className="rounded-2xl border border-indigo-100/50 bg-indigo-50/50 px-4 py-3 text-xs text-indigo-700 dark:border-indigo-400/40 dark:bg-indigo-500/10 dark:text-indigo-200">
               {todayWindow
                 ? <>Window {fromMinutes(todayWindow.openMin)} – {fromMinutes(todayWindow.closeMin)}</>
@@ -1145,9 +1147,9 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
 
       <GradientDivider />
 
-      {/* ---------- MY VENTURES ---------- */}
+      {/* ---------- BUILDS ---------- */}
       <motion.section
-        id="spotlight"
+        id="builds"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
@@ -1155,95 +1157,187 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
         className={`${SECTION_CONTAINER} scroll-mt-32`}
       >
         <div className="space-y-6">
-          <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">My Ventures</h2>
-            <Link
-              href="/ventures"
-              className="inline-flex items-center gap-2 rounded-full border border-indigo-200 px-4 py-2 text-sm font-semibold text-indigo-600 transition hover:bg-indigo-50 dark:border-indigo-400/40 dark:text-indigo-200 dark:hover:bg-indigo-500/10"
-            >
-              Browse all ventures <FaExternalLinkAlt className="text-[11px]" />
-            </Link>
+          <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Ventures & Products</h2>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                Focus OS builds, learning ventures, and AI tools running live with operators and students.
+              </p>
+            </div>
+            <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center">
+              {activeBuildTab === "ventures" ? (
+                <Link
+                  href="/ventures"
+                  className="inline-flex items-center gap-2 rounded-full border border-indigo-200 px-4 py-2 text-sm font-semibold text-indigo-600 transition hover:bg-indigo-50 dark:border-indigo-400/40 dark:text-indigo-200 dark:hover:bg-indigo-500/10"
+                >
+                  Browse all ventures <FaExternalLinkAlt className="text-[11px]" />
+                </Link>
+              ) : (
+                <span className="text-xs text-gray-500 dark:text-gray-400">
+                  Quick access shortcuts to the tools I maintain.
+                </span>
+              )}
+              <div className="inline-flex items-center rounded-full border border-indigo-200/60 bg-white/85 p-1 text-xs font-semibold shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/[0.08]">
+                {BUILD_TABS.map((tab) => {
+                  const isActive = tab.id === activeBuildTab;
+                  return (
+                    <button
+                      key={tab.id}
+                      type="button"
+                      onClick={() => setActiveBuildTab(tab.id)}
+                      className={`relative rounded-full px-4 py-2 transition ${
+                        isActive
+                          ? "text-white"
+                          : "text-slate-600 hover:text-indigo-600 dark:text-slate-200 dark:hover:text-indigo-200"
+                      }`}
+                    >
+                      {isActive && (
+                        <motion.span
+                          layoutId="client-build-tab"
+                          className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 shadow-[0_12px_30px_-16px_rgba(79,70,229,0.7)]"
+                        />
+                      )}
+                      <span className="relative z-10">{tab.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
           </div>
-          <div className="grid gap-6 lg:grid-cols-3">
-            {ventureSpotlight.map((card, idx) => (
-              <motion.div
-                key={card.title}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: idx * 0.08 }}
-                viewport={{ once: true }}
-                className={
-                  card.variant === "primary"
-                    ? "relative overflow-hidden rounded-3xl border bg-gradient-to-br from-indigo-600 via-indigo-500 to-purple-500 p-6 text-white shadow-lg"
-                    : `${SURFACE} flex flex-col p-6`
-                }
-              >
-                {card.variant === "primary" && (
-                  <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
-                )}
-                <div className="relative space-y-3">
-                  <span
+          <motion.div
+            key={activeBuildTab}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35 }}
+          >
+            {activeBuildTab === "ventures" ? (
+              <div className="grid gap-6 lg:grid-cols-3">
+                {ventureSpotlight.map((card, idx) => (
+                  <motion.div
+                    key={card.title}
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.45, delay: idx * 0.08 }}
+                    viewport={{ once: true }}
                     className={
                       card.variant === "primary"
-                        ? "inline-flex items-center rounded-full bg-white/25 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide"
-                        : "inline-flex items-center rounded-full bg-indigo-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-indigo-600 dark:text-indigo-300"
+                        ? "relative overflow-hidden rounded-3xl border bg-gradient-to-br from-indigo-600 via-indigo-500 to-purple-500 p-6 text-white shadow-lg"
+                        : `${SURFACE} flex flex-col p-6`
                     }
                   >
-                    Venture
-                  </span>
-                  <h3
-                    className={
-                      card.variant === "primary"
-                        ? "text-3xl font-semibold"
-                        : "text-xl font-semibold text-gray-900 dark:text-gray-100"
-                    }
-                  >
-                    {card.title}
-                  </h3>
-                  <p
-                    className={
-                      card.variant === "primary"
-                        ? "text-sm text-white/85"
-                        : "text-sm text-gray-600 dark:text-gray-300"
-                    }
-                  >
-                    {card.summary}
-                  </p>
-                </div>
-                <div className="mt-5 flex flex-wrap gap-3">
-                  {card.actions.map((action) => {
-                    const baseClass =
-                      action.variant === "solid"
-                        ? card.variant === "primary"
-                          ? "inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-white/90"
-                          : "inline-flex items-center gap-2 rounded-full bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
-                        : card.variant === "primary"
-                          ? "inline-flex items-center gap-2 rounded-full border border-white/40 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10"
-                          : "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50 dark:border-slate-700 dark:text-gray-200 dark:hover:bg-slate-900";
+                    {card.variant === "primary" && (
+                      <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
+                    )}
+                    <div className="relative space-y-3">
+                      <span
+                        className={
+                          card.variant === "primary"
+                            ? "inline-flex items-center rounded-full bg-white/25 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide"
+                            : "inline-flex items-center rounded-full bg-indigo-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-indigo-600 dark:text-indigo-300"
+                        }
+                      >
+                        Venture
+                      </span>
+                      <h3
+                        className={
+                          card.variant === "primary"
+                            ? "text-3xl font-semibold"
+                            : "text-xl font-semibold text-gray-900 dark:text-gray-100"
+                        }
+                      >
+                        {card.title}
+                      </h3>
+                      <p
+                        className={
+                          card.variant === "primary"
+                            ? "text-sm text-white/85"
+                            : "text-sm text-gray-600 dark:text-gray-300"
+                        }
+                      >
+                        {card.summary}
+                      </p>
+                    </div>
+                    <div className="mt-5 flex flex-wrap gap-3">
+                      {card.actions.map((action) => {
+                        const baseClass =
+                          action.variant === "solid"
+                            ? card.variant === "primary"
+                              ? "inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-white/90"
+                              : "inline-flex items-center gap-2 rounded-full bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
+                            : card.variant === "primary"
+                              ? "inline-flex items-center gap-2 rounded-full border border-white/40 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10"
+                              : "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50 dark:border-slate-700 dark:text-gray-200 dark:hover:bg-slate-900";
 
-                    if (action.external) {
-                      return (
-                        <a
-                          key={action.label}
-                          className={baseClass}
-                          href={action.href}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          {action.label}
-                        </a>
-                      );
-                    }
-                    return (
-                      <Link key={action.label} className={baseClass} href={action.href}>
-                        {action.label}
+                        if (action.external) {
+                          return (
+                            <a
+                              key={action.label}
+                              className={baseClass}
+                              href={action.href}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              {action.label}
+                            </a>
+                          );
+                        }
+                        return (
+                          <Link key={action.label} className={baseClass} href={action.href}>
+                            {action.label}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            ) : (
+              <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+                {PRODUCT_LINKS.map((product, idx) => (
+                  <motion.div
+                    key={product.label}
+                    initial={{ opacity: 0, y: 18 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: idx * 0.06 }}
+                    viewport={{ once: true }}
+                    className={`${SURFACE} flex flex-col gap-4 p-6`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-indigo-500/10 text-xl text-indigo-600 dark:text-indigo-300">
+                        <product.icon />
+                      </span>
+                      <div>
+                        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{product.label}</h3>
+                        <p className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                          {product.accent === "indigo"
+                            ? "Deep focus OS"
+                            : product.accent === "violet"
+                            ? "Calendar rituals"
+                            : product.accent === "sky"
+                            ? "AI assistance"
+                            : product.accent === "rose"
+                            ? "Learning system"
+                            : "Product"}
+                        </p>
+                      </div>
+                    </div>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">{product.description}</p>
+                    <div className="flex flex-wrap gap-2">
+                      <Link
+                        href={product.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 rounded-full bg-black px-4 py-2 text-sm font-semibold text-white transition hover:opacity-90 dark:bg-white dark:text-black"
+                      >
+                        Open product
+                        <FaExternalLinkAlt className="text-[11px]" />
                       </Link>
-                    );
-                  })}
-                </div>
-              </motion.div>
-            ))}
-          </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            )}
+          </motion.div>
         </div>
       </motion.section>
 
