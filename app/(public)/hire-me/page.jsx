@@ -40,11 +40,6 @@ const NAV_SECTIONS = [
   { id: "contact", label: "Start A Project", icon: FaEnvelope },
 ];
 
-const BUILD_TABS = [
-  { id: "ventures", label: "Ventures" },
-  { id: "products", label: "Products" },
-];
-
 const PRODUCT_ACCENTS = {
   indigo: {
     ring: "border-indigo-200/70 hover:border-indigo-300",
@@ -118,39 +113,53 @@ function useSectionObserver(ids, onActive) {
 
     const SCROLL_OFFSET = 130;
     let ticking = false;
+    let lastActive = ids[0];
 
     const handleScroll = () => {
       if (!ticking) {
         ticking = true;
         window.requestAnimationFrame(() => {
           ticking = false;
-          const pointer = SCROLL_OFFSET;
           const reachedBottom =
             window.innerHeight + window.scrollY >= document.body.offsetHeight - 2;
 
-          let current = ids[0];
+          let current = lastActive;
+          let closestId = lastActive;
+          let closestDistance = Number.POSITIVE_INFINITY;
+
           for (const id of ids) {
             const el = document.getElementById(id);
             if (!el) continue;
-            const { top, bottom } = el.getBoundingClientRect();
-            const abovePointer = top - pointer <= 0;
-            const pointerInside = abovePointer && bottom - pointer > 0;
-            if (pointerInside) {
+            const rect = el.getBoundingClientRect();
+            const pointerTop = SCROLL_OFFSET;
+            const within =
+              rect.top <= pointerTop && rect.bottom >= pointerTop;
+            if (within) {
               current = id;
+              closestDistance = 0;
               break;
             }
-            if (abovePointer) {
-              current = id;
-              continue;
+
+            const distance = Math.min(
+              Math.abs(rect.top - pointerTop),
+              Math.abs(rect.bottom - pointerTop),
+            );
+            if (distance < closestDistance) {
+              closestDistance = distance;
+              closestId = id;
             }
-            break;
           }
 
           if (reachedBottom) {
             current = ids[ids.length - 1];
+          } else if (closestDistance !== 0 && closestId !== lastActive) {
+            current = closestId;
           }
 
-          onActive(current);
+          if (current !== lastActive) {
+            lastActive = current;
+            onActive(current);
+          }
         });
       }
     };
@@ -259,35 +268,30 @@ function QuickStat({ icon: Icon, label, value, hint }) {
   );
 }
 
-function ProductCard({ eyebrow, title, description, link, icon: Icon }) {
+function BuildLinkCard({ title, link }) {
+  const content = (
+    <>
+      <span className="text-sm font-semibold text-slate-900 dark:text-white">{title}</span>
+      <span className="inline-flex items-center gap-2 text-xs font-semibold text-indigo-600 transition group-hover:text-indigo-500 dark:text-indigo-300">
+        {link.label ?? "Open"}
+        <FaArrowRight className="h-3 w-3" />
+      </span>
+    </>
+  );
+
+  const className = `${SURFACE} group flex items-center justify-between gap-4 p-4`;
+  if (link.external) {
+    return (
+      <a href={link.href} target="_blank" rel="noreferrer" className={className}>
+        {content}
+      </a>
+    );
+  }
+
   return (
-    <motion.div whileHover={{ y: -4 }} className={`${SURFACE} h-full p-6 transition`}>
-      <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-wide text-indigo-500">
-        <Icon className="h-4 w-4" />
-        {eyebrow}
-      </div>
-      <div className="mt-3 text-lg font-semibold text-slate-900 dark:text-white">{title}</div>
-      <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{description}</p>
-      {link.external ? (
-        <a
-          href={link.href}
-          target="_blank"
-          rel="noreferrer"
-          className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 transition hover:text-indigo-500 dark:text-indigo-300"
-        >
-          {link.label}
-          <FaArrowRight className="h-3 w-3" />
-        </a>
-      ) : (
-        <Link
-          href={link.href}
-          className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 transition hover:text-indigo-500 dark:text-indigo-300"
-        >
-          {link.label}
-          <FaArrowRight className="h-3 w-3" />
-        </Link>
-      )}
-    </motion.div>
+    <Link href={link.href} className={className}>
+      {content}
+    </Link>
   );
 }
 
@@ -324,7 +328,6 @@ export default function HireMe() {
   const [roleIndex, setRoleIndex] = useState(0);
   const [typedRole, setTypedRole] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
-  const [activeBuildTab, setActiveBuildTab] = useState(BUILD_TABS[0].id);
 
   const sectionIds = useMemo(() => NAV_SECTIONS.map((section) => section.id), []);
   useSectionObserver(sectionIds, setActiveSection);
@@ -381,51 +384,18 @@ export default function HireMe() {
   ];
 
   const ventures = [
-    {
-      eyebrow: "Venture",
-      title: "DeepWork AI",
-      description: "Focus OS that powers accountability pods, deep work sprints, and operator dashboards.",
-      link: { href: "/ventures/deepwork-ai", label: "Explore venture →" },
-      icon: FaBolt,
-    },
-    {
-      eyebrow: "Venture",
-      title: "Meed Public School",
-      description: "Outcomes-first school for first-gen students with AI-augmented mentorship and rituals.",
-      link: { href: "/ventures/meed-public-school", label: "View case study →" },
-      icon: FaChalkboardTeacher,
-    },
-    {
-      eyebrow: "Community",
-      title: "Nafis Builder Society",
-      description: "Invite-only operator community running weekly deep work scorecards and synthesis labs.",
-      link: { href: "/nbs", label: "See NBS rituals →" },
-      icon: FaPenFancy,
-    },
+    { title: "DeepWork AI", link: { href: "/ventures/deepwork-ai", label: "Visit" } },
+    { title: "Meed Public School", link: { href: "/ventures/meed-public-school", label: "Visit" } },
+    { title: "Nafis Builder Society", link: { href: "/nbs", label: "Open" } },
   ];
 
   const products = [
+    { title: "DeepWork AI App", link: { href: "https://deep-work-ai-nu.vercel.app/", label: "Launch", external: true } },
     {
-      eyebrow: "Product",
-      title: "DeepWork AI App",
-      description: "Production build with sprint rooms, nudges, and reflections for builders who want flow.",
-      link: { href: "https://deep-work-ai-nu.vercel.app/", label: "Launch app →", external: true },
-      icon: FaBolt,
-    },
-    {
-      eyebrow: "Product",
       title: "Deep Calendar",
-      description: "Depth block planner with shutdown scorecards and weekly alignment rituals baked in.",
-      link: { href: "https://deep-calendar.vercel.app/auth/signin?next=%2F", label: "Open planner →", external: true },
-      icon: FaCalendarAlt,
+      link: { href: "https://deep-calendar.vercel.app/auth/signin?next=%2F", label: "Launch", external: true },
     },
-    {
-      eyebrow: "Product",
-      title: "Meedian AI Flow",
-      description: "LLM copilots that turn chaotic backlogs into structured execution for students and teams.",
-      link: { href: "https://meedian-ai-flow-v2.vercel.app/", label: "Start flow →", external: true },
-      icon: FaLink,
-    },
+    { title: "Meedian AI Flow", link: { href: "https://meedian-ai-flow-v2.vercel.app/", label: "Launch", external: true } },
   ];
 
   const reasons = [
@@ -603,52 +573,38 @@ export default function HireMe() {
 
         <section id="builds" className="scroll-mt-32 py-16">
           <div className={`${SECTION_CONTAINER} space-y-8`}>
-            <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-              <div className="max-w-2xl space-y-3">
-                <span className="text-xs font-semibold uppercase tracking-wide text-indigo-500">Ventures & Products</span>
-                <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">The systems I run and ship</h2>
-                <p className="text-sm text-slate-600 dark:text-slate-300">
-                  Toggle between live ventures and product builds. Everything is maintained, documented, and ready to
-                  adapt to your team.
-                </p>
+            <div className="max-w-2xl space-y-3">
+              <span className="text-xs font-semibold uppercase tracking-wide text-indigo-500">Ventures & Products</span>
+              <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">The systems I run and ship</h2>
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                Explore the live ventures and product builds I maintain. Each one is documented, staffed with rituals,
+                and ready to adapt to your team.
+              </p>
+            </div>
+            <div className="grid gap-6 lg:grid-cols-2">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Ventures</h3>
+                  <span className="text-xs font-semibold uppercase tracking-[0.3em] text-indigo-500">Live</span>
+                </div>
+                <div className="grid gap-3">
+                  {ventures.map((item) => (
+                    <BuildLinkCard key={`venture-${item.title}`} {...item} />
+                  ))}
+                </div>
               </div>
-              <div className="inline-flex items-center rounded-full border border-indigo-200/60 bg-white/80 p-1 text-sm font-semibold shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/[0.06]">
-                {BUILD_TABS.map((tab) => {
-                  const isActive = tab.id === activeBuildTab;
-                  return (
-                    <button
-                      key={tab.id}
-                      type="button"
-                      onClick={() => setActiveBuildTab(tab.id)}
-                      className={`relative rounded-full px-4 py-2 transition ${
-                        isActive
-                          ? "text-white"
-                          : "text-slate-600 hover:text-indigo-600 dark:text-slate-200 dark:hover:text-indigo-200"
-                      }`}
-                    >
-                      {isActive && (
-                        <motion.span
-                          layoutId="build-tab-pill"
-                          className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 shadow-[0_12px_30px_-16px_rgba(79,70,229,0.7)]"
-                        />
-                      )}
-                      <span className="relative z-10">{tab.label}</span>
-                    </button>
-                  );
-                })}
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Products</h3>
+                  <span className="text-xs font-semibold uppercase tracking-[0.3em] text-indigo-500">In Market</span>
+                </div>
+                <div className="grid gap-3">
+                  {products.map((item) => (
+                    <BuildLinkCard key={`product-${item.title}`} {...item} />
+                  ))}
+                </div>
               </div>
             </div>
-            <motion.div
-              key={activeBuildTab}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35 }}
-              className="grid gap-4 md:grid-cols-3"
-            >
-              {(activeBuildTab === "ventures" ? ventures : products).map((item) => (
-                <ProductCard key={`${activeBuildTab}-${item.title}`} {...item} />
-              ))}
-            </motion.div>
           </div>
         </section>
 
