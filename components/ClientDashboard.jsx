@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -83,7 +83,8 @@ const PRODUCT_LINKS = [
   {
     label: "Meedian AI Flow",
     href: "https://meedian-ai-flow-v2.vercel.app/",
-    description: "AI-assisted flow state for builders and students.",
+    description:
+      "One browser experience across the team for managing tasks, collaboration rooms, deep rituals, chat, attendance, and meeting notes.",
     icon: FaLink,
     accent: "sky",
     badge: "New",
@@ -476,6 +477,24 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
   const [activeSection, setActiveSection] = useState("overview");
   const [activeBuildTab, setActiveBuildTab] = useState(BUILD_TABS[0].id);
   const [hoveredReel, setHoveredReel] = useState(null);
+  const heroVideoRef = useRef(null);
+
+  const handleHeroVideoEnter = () => {
+    const video = heroVideoRef.current;
+    if (video) {
+      video.play().catch(() => {
+        /* ignore autoplay block */
+      });
+    }
+  };
+
+  const handleHeroVideoLeave = () => {
+    const video = heroVideoRef.current;
+    if (video) {
+      video.pause();
+      video.currentTime = 0;
+    }
+  };
 
   useEffect(() => {
     (async () => {
@@ -875,9 +894,9 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                     <FaMagic /> Meedian AI Flow
                     <span className="inline-flex items-center rounded-full bg-white/25 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.3em]">New</span>
                   </div>
-                  <p className="mt-2 text-xs text-white/85">
-                    Agentic copilots that clean your backlog, script focus sprints, and keep teams executing in rhythm.
-                  </p>
+                  <div className="mt-2 text-xs text-white/85">
+                    <p className="font-semibold">MeedianAI Flow — Take your team toward mastery</p>
+                  </div>
                   <Link
                     href="https://meedian-ai-flow-v2.vercel.app/"
                     target="_blank"
@@ -936,16 +955,20 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
               <Link
                 href="/reels"
                 className="relative w-full max-w-3xl overflow-hidden rounded-[2.5rem] border border-white/60 shadow-[0_45px_120px_-45px_rgba(79,70,229,0.6)] transition hover:-translate-y-1"
+                onMouseEnter={handleHeroVideoEnter}
+                onMouseLeave={handleHeroVideoLeave}
               >
                 <div className="relative" style={{ aspectRatio: "16 / 9" }}>
                   <video
+                    ref={heroVideoRef}
                     className="absolute inset-0 h-full w-full object-cover"
                     src="/myvdo1.mov"
-                    autoPlay
                     loop
                     muted
                     playsInline
                     poster="/white2.jpg"
+                    preload="none"
+                    style={{ pointerEvents: "none" }}
                   />
                 </div>
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-indigo-500/15 via-transparent to-purple-500/25" />
