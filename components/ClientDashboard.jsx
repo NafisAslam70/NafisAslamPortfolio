@@ -478,22 +478,29 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
   const [hoveredReel, setHoveredReel] = useState(null);
   const heroVideoRef = useRef(null);
 
-  const handleHeroVideoEnter = () => {
+  useEffect(() => {
     const video = heroVideoRef.current;
-    if (video) {
-      video.play().catch(() => {
-        /* ignore autoplay block */
-      });
-    }
-  };
+    if (!video) return;
 
-  const handleHeroVideoLeave = () => {
-    const video = heroVideoRef.current;
-    if (video) {
-      video.pause();
-      video.currentTime = 0;
+    const attemptPlay = () => {
+      const playPromise = video.play();
+      if (playPromise && typeof playPromise.then === "function") {
+        playPromise.catch(() => {
+          /* autoplay blocked by browser; stay silent */
+        });
+      }
+    };
+
+    if (video.readyState >= 2) {
+      attemptPlay();
+    } else {
+      video.addEventListener("canplay", attemptPlay, { once: true });
     }
-  };
+
+    return () => {
+      video.removeEventListener("canplay", attemptPlay);
+    };
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -954,19 +961,18 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
               <Link
                 href="/reels"
                 className="relative w-full max-w-3xl overflow-hidden rounded-[2.5rem] border border-white/60 shadow-[0_45px_120px_-45px_rgba(79,70,229,0.6)] transition hover:-translate-y-1"
-                onMouseEnter={handleHeroVideoEnter}
-                onMouseLeave={handleHeroVideoLeave}
               >
                 <div className="relative" style={{ aspectRatio: "16 / 9" }}>
                   <video
                     ref={heroVideoRef}
                     className="absolute inset-0 h-full w-full object-cover"
                     src="/myvdo1.mov"
+                    autoPlay
                     loop
                     muted
                     playsInline
                     poster="/white2.jpg"
-                    preload="none"
+                    preload="auto"
                     style={{ pointerEvents: "none" }}
                   />
                 </div>
@@ -1154,7 +1160,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                       viewport={{ once: true }}
                       whileHover={CARD_HOVER_FLOAT}
                       whileTap={CARD_TAP_PRESS}
-                      className="relative overflow-hidden rounded-3xl border border-white/10 bg-slate-950 text-white shadow-lg"
+                      className="relative overflow-hidden rounded-3xl border border-white/10 bg-slate-950 text-white shadow-lg transition-transform duration-300"
                     >
                       <div className="relative overflow-hidden rounded-[2.3rem] border border-white/10 bg-black/60">
                         <div className="relative aspect-[9/16] w-full">
