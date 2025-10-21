@@ -249,25 +249,32 @@ function depthBadge(d) {
   return { text: "Light", border: "#f59e0b", bg: "#f59e0b1a" };
 }
 
-function reelThumbnail(reel) {
-  if (!reel) return "/white2.jpg";
-  if (typeof reel.thumbnail === "string" && reel.thumbnail.trim()) return reel.thumbnail.trim();
-
+function reelYoutubeId(reel) {
+  if (!reel) return null;
   const url = reel.ref || reel.url;
   const explicitId =
     reel.youtubeId ||
     reel.youtube_id ||
     (reel.type && /youtube/i.test(reel.type) && typeof reel.id === "string" ? reel.id : null);
 
-  const derivedId = (() => {
-    if (explicitId) return explicitId;
-    if (typeof url !== "string") return null;
-    const match = url.match(/(?:v=|youtu\.be\/|shorts\/)([A-Za-z0-9_-]{6,})/);
-    return match ? match[1] : null;
-  })();
+  if (explicitId) return explicitId;
+  if (typeof url !== "string") return null;
+  const match = url.match(/(?:v=|youtu\.be\/|shorts\/)([A-Za-z0-9_-]{6,})/);
+  return match ? match[1] : null;
+}
 
-  if (derivedId) return `https://img.youtube.com/vi/${derivedId}/hqdefault.jpg`;
+function reelThumbnail(reel) {
+  if (!reel) return "/white2.jpg";
+  if (typeof reel.thumbnail === "string" && reel.thumbnail.trim()) return reel.thumbnail.trim();
+  const id = reelYoutubeId(reel);
+  if (id) return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
   return "/white2.jpg";
+}
+
+function reelEmbedUrl(reel) {
+  const id = reelYoutubeId(reel);
+  if (!id) return null;
+  return `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1&playsinline=1&loop=1&playlist=${id}`;
 }
 
 const fadeIn = {
@@ -468,6 +475,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
   const [isDeletingRole, setIsDeletingRole] = useState(false);
   const [activeSection, setActiveSection] = useState("overview");
   const [activeBuildTab, setActiveBuildTab] = useState(BUILD_TABS[0].id);
+  const [hoveredReel, setHoveredReel] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -1107,49 +1115,68 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
             {featureReels.length ? (
               featureReels.map((reel, index) => {
                 const thumbSrc = reelThumbnail(reel);
+                const embedUrl = reelEmbedUrl(reel);
+                const cardKey = reel.id ?? reel.youtubeId ?? `reel-${index}`;
                 return (
-                  <motion.div
-                    key={reel.id ?? index}
-                    initial={{ opacity: 0, y: 24 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.45, delay: index * 0.08 }}
-                    viewport={{ once: true }}
-                    whileHover={CARD_HOVER_FLOAT}
-                    whileTap={CARD_TAP_PRESS}
-                    className="group relative overflow-hidden rounded-3xl border border-white/10 bg-slate-950 text-white shadow-lg"
+                  <Link
+                    key={cardKey}
+                    href="/reels"
+                    className="group block"
+                    onMouseEnter={() => setHoveredReel(cardKey)}
+                    onMouseLeave={() => setHoveredReel(null)}
                   >
-                    <div className="relative overflow-hidden rounded-[2.3rem] border border-white/10 bg-black/60">
-                      <div className="aspect-[9/16] w-full">
-                        <div
-                          className="absolute inset-0 scale-105 bg-cover bg-center bg-no-repeat transition duration-700 ease-out group-hover:scale-110"
-                          style={{ backgroundImage: `url(${thumbSrc})` }}
-                          aria-hidden="true"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/35 to-black/80 opacity-90 transition duration-500 group-hover:opacity-95" />
-                        <div className="absolute inset-x-5 bottom-5 flex flex-col gap-2">
-                          <div className="flex items-center gap-2 text-xs text-white/70">
-                            <FaPlayCircle className="text-sm" />
-                            <span>{reel.type ?? "Video"}</span>
-                            <span>•</span>
-                            <span>{formatDate(reel.createdAt)}</span>
-                          </div>
-                          <div className="space-y-3">
-                            <div className="text-lg font-semibold leading-snug">{reel.title}</div>
-                            {reel.href && (
-                              <a
-                                href={reel.href}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="inline-flex items-center justify-center gap-2 self-start rounded-full bg-white/15 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-white transition hover:bg-white/25"
-                              >
-                                Watch now <FaExternalLinkAlt className="text-[11px]" />
-                              </a>
-                            )}
+                    <motion.div
+                      initial={{ opacity: 0, y: 24 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.45, delay: index * 0.08 }}
+                      viewport={{ once: true }}
+                      whileHover={CARD_HOVER_FLOAT}
+                      whileTap={CARD_TAP_PRESS}
+                      className="relative overflow-hidden rounded-3xl border border-white/10 bg-slate-950 text-white shadow-lg"
+                    >
+                      <div className="relative overflow-hidden rounded-[2.3rem] border border-white/10 bg-black/60">
+                        <div className="relative aspect-[9/16] w-full">
+                          {embedUrl && hoveredReel === cardKey ? (
+                            <iframe
+                              title={reel.title ?? `Reel ${index + 1}`}
+                              src={embedUrl}
+                              className="absolute inset-0 h-full w-full pointer-events-none"
+                              loading="lazy"
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                              allowFullScreen
+                            />
+                          ) : (
+                            <>
+                              <div
+                                className="absolute inset-0 scale-105 bg-cover bg-center bg-no-repeat transition duration-700 ease-out group-hover:scale-110"
+                                style={{ backgroundImage: `url(${thumbSrc})` }}
+                                aria-hidden="true"
+                              />
+                            </>
+                          )}
+                          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/35 to-black/80 opacity-90 transition duration-500 group-hover:opacity-95" />
+                          <div className="absolute inset-x-5 bottom-5 flex flex-col gap-2">
+                            <div className="flex items-center gap-2 text-xs text-white/70">
+                              <FaPlayCircle className="text-sm" />
+                              <span>{reel.type ?? "Video"}</span>
+                              {reel.createdAt && (
+                                <>
+                                  <span>•</span>
+                                  <span>{formatDate(reel.createdAt)}</span>
+                                </>
+                              )}
+                            </div>
+                            <div className="space-y-3">
+                              <div className="text-lg font-semibold leading-snug">{reel.title}</div>
+                              <div className="inline-flex items-center justify-center gap-2 self-start rounded-full bg-white/15 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-white transition group-hover:bg-white/25">
+                                Watch on /reels <FaExternalLinkAlt className="text-[11px]" />
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </motion.div>
+                    </motion.div>
+                  </Link>
                 );
               })
             ) : (
