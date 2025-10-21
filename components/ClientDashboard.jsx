@@ -195,6 +195,15 @@ const SERVICE_ROLES = [
   },
 ];
 
+const CARD_HOVER_FLOAT = {
+  y: -6,
+  rotate: 0.2,
+  scale: 1.01,
+  transition: { type: "spring", stiffness: 260, damping: 20 },
+};
+
+const CARD_TAP_PRESS = { scale: 0.995, rotate: 0 };
+
 // ---------- Utils ----------
 function dcUrl(path) {
   const base = DC_ORIGIN.replace(/\/+$/, "");
@@ -277,7 +286,7 @@ function GradientDivider() {
 
 function StatCard({ icon, label, value, hint }) {
   return (
-    <div className={`${SURFACE} p-5`}>
+    <motion.div className={`${SURFACE} p-5`} whileHover={CARD_HOVER_FLOAT} whileTap={CARD_TAP_PRESS}>
       <div className="flex items-center gap-3">
         <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-300">
           {icon}
@@ -292,7 +301,7 @@ function StatCard({ icon, label, value, hint }) {
           {hint}
         </div>
       ) : null}
-    </div>
+    </motion.div>
   );
 }
 
@@ -849,7 +858,11 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
 
               {/* Feature cards */}
               <div className="grid gap-3 text-sm text-gray-700 dark:text-gray-300 sm:grid-cols-3">
-                <div className="relative overflow-hidden rounded-3xl border border-indigo-300/60 bg-gradient-to-br from-indigo-600 via-purple-500 to-pink-500 px-4 py-4 text-white shadow-lg">
+                <motion.div
+                  className="relative overflow-hidden rounded-3xl border border-indigo-300/60 bg-gradient-to-br from-indigo-600 via-purple-500 to-pink-500 px-4 py-4 text-white shadow-lg"
+                  whileHover={CARD_HOVER_FLOAT}
+                  whileTap={CARD_TAP_PRESS}
+                >
                   <div className="flex items-center gap-2 font-semibold">
                     <FaMagic /> Meedian AI Flow
                     <span className="inline-flex items-center rounded-full bg-white/25 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.3em]">New</span>
@@ -866,23 +879,23 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                     Launch app
                     <FaArrowRight className="h-3 w-3" />
                   </Link>
-                </div>
-                <div className={`${SURFACE} px-4 py-3 transition`}>
+                </motion.div>
+                <motion.div className={`${SURFACE} px-4 py-3 transition`} whileHover={CARD_HOVER_FLOAT} whileTap={CARD_TAP_PRESS}>
                   <div className="flex items-center gap-2 font-semibold text-indigo-700 dark:text-indigo-300">
                     <FaBolt /> DeepWork AI
                   </div>
                   <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
                     Focus rooms, accountability nudges, and reflections that keep your shipping streak alive.
                   </p>
-                </div>
-                <div className={`${SURFACE} px-4 py-3 transition`}>
+                </motion.div>
+                <motion.div className={`${SURFACE} px-4 py-3 transition`} whileHover={CARD_HOVER_FLOAT} whileTap={CARD_TAP_PRESS}>
                   <div className="flex items-center gap-2 font-semibold text-indigo-700 dark:text-indigo-300">
                     <FaChartLine /> MPS Society
                   </div>
                   <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
                     Leading schooling reforms with systems thinking & community-first execution.
                   </p>
-                </div>
+                </motion.div>
               </div>
 
               {/* CTAs */}
@@ -910,39 +923,25 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
               </div>
             </div>
 
-            {/* Right column – videos */}
-            <div className="order-1 flex justify-center gap-6 lg:order-2">
-              {/* First video */}
-              <div className="relative h-64 w-full max-w-[440px] overflow-hidden rounded-[2.5rem] border border-white/60 shadow-[0_45px_120px_-45px_rgba(79,70,229,0.6)] md:h-80">
-                <video
-                  className="h-full w-full object-cover"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  poster="/white2.jpg"
-                >
-                  <source src="/myvdo1.mov" type="video/quicktime" />
-                  <source src="/myvdo1.mov" type="video/mp4" />
-                </video>
-                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/15 via-transparent to-purple-500/25" />
-              </div>
-
-              {/* Second video */}
-              <div className="relative h-64 w-full max-w-[440px] overflow-hidden rounded-[2.5rem] border border-white/60 shadow-[0_45px_120px_-45px_rgba(79,70,229,0.6)] md:h-80">
-                <video
-                  className="h-full w-full object-cover"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  poster="/white2.jpg"
-                >
-                  <source src="/myvdo3.mov" type="video/quicktime" />
-                  <source src="/myvdo3.mov" type="video/mp4" />
-                </video>
-                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/15 via-transparent to-purple-500/25" />
-              </div>
+            {/* Right column – hero reel */}
+            <div className="order-1 flex justify-center lg:order-2">
+              <Link
+                href="/reels"
+                className="relative w-full max-w-3xl overflow-hidden rounded-[2.5rem] border border-white/60 shadow-[0_45px_120px_-45px_rgba(79,70,229,0.6)] transition hover:-translate-y-1"
+              >
+                <div className="relative" style={{ aspectRatio: "16 / 9" }}>
+                  <video
+                    className="absolute inset-0 h-full w-full object-cover"
+                    src="/myvdo1.mov"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    poster="/white2.jpg"
+                  />
+                </div>
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-indigo-500/15 via-transparent to-purple-500/25" />
+              </Link>
             </div>
           </div>
         </div>
@@ -1088,7 +1087,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
         </div>
       </motion.section>
 
-      {/* ---------- REELS ---------- */}
+      {/* ---------- SHORT HITS ---------- */}
       <motion.section
         id="reels"
         initial="hidden"
@@ -1100,9 +1099,11 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
         <div className="space-y-6">
           <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Short hits you can binge</h2>
-            <Link href="/reels" className="text-sm text-indigo-600 hover:underline dark:text-indigo-300">Browse all videos</Link>
+            <Link href="/reels" className="text-sm text-indigo-600 hover:underline dark:text-indigo-300">
+              Browse all videos
+            </Link>
           </div>
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {featureReels.length ? (
               featureReels.map((reel, index) => {
                 const thumbSrc = reelThumbnail(reel);
@@ -1113,6 +1114,8 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.45, delay: index * 0.08 }}
                     viewport={{ once: true }}
+                    whileHover={CARD_HOVER_FLOAT}
+                    whileTap={CARD_TAP_PRESS}
                     className="group relative overflow-hidden rounded-3xl border border-white/10 bg-slate-950 text-white shadow-lg"
                   >
                     <div className="relative overflow-hidden rounded-[2.3rem] border border-white/10 bg-black/60">
@@ -1158,6 +1161,8 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
         </div>
       </motion.section>
 
+      <GradientDivider />
+
       {/* ---------- LATEST WRITING ---------- */}
       <motion.section
         id="writing"
@@ -1181,6 +1186,8 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.45, delay: index * 0.08 }}
                   viewport={{ once: true }}
+                  whileHover={CARD_HOVER_FLOAT}
+                  whileTap={CARD_TAP_PRESS}
                   className={`${SURFACE} overflow-hidden transition hover:shadow-md`}
                 >
                   {post.cover && (
@@ -1314,6 +1321,8 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.45, delay: idx * 0.08 }}
                     viewport={{ once: true }}
+                    whileHover={CARD_HOVER_FLOAT}
+                    whileTap={CARD_TAP_PRESS}
                     className={
                       card.variant === "primary"
                         ? "relative overflow-hidden rounded-3xl border bg-gradient-to-br from-indigo-600 via-indigo-500 to-purple-500 p-6 text-white shadow-lg"
@@ -1395,6 +1404,8 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, delay: idx * 0.06 }}
                     viewport={{ once: true }}
+                    whileHover={CARD_HOVER_FLOAT}
+                    whileTap={CARD_TAP_PRESS}
                     className={`${SURFACE} relative flex flex-col gap-4 p-6 ${
                       product.highlight ? "border-indigo-300/70 ring-2 ring-indigo-200/80 shadow-[0_18px_35px_-20px_rgba(79,70,229,0.45)]" : ""
                     }`}
@@ -1482,6 +1493,8 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.45, delay: idx * 0.08 }}
                   viewport={{ once: true }}
+                  whileHover={CARD_HOVER_FLOAT}
+                  whileTap={CARD_TAP_PRESS}
                   className={`${SURFACE} relative overflow-hidden p-5 transition hover:shadow-lg`}
                 >
                   {accent?.bubble && (

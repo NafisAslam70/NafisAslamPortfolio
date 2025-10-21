@@ -102,6 +102,15 @@ const SERVICE_ROLES = [
   },
 ];
 
+const CARD_HOVER_FLOAT = {
+  y: -6,
+  rotate: 0.25,
+  scale: 1.01,
+  transition: { type: "spring", stiffness: 260, damping: 20 },
+};
+
+const CARD_TAP_PRESS = { scale: 0.995, rotate: 0 };
+
 function scrollToSection(id) {
   if (typeof window === "undefined") return;
   const el = document.getElementById(id);
@@ -255,7 +264,7 @@ function MobileTabs({ sections, active }) {
 
 function QuickStat({ icon: Icon, label, value, hint }) {
   return (
-    <div className={`${SURFACE} h-full p-5`}>
+    <motion.div className={`${SURFACE} h-full p-5`} whileHover={CARD_HOVER_FLOAT} whileTap={CARD_TAP_PRESS}>
       <div className="flex items-center gap-3">
         <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-300">
           <Icon />
@@ -266,22 +275,22 @@ function QuickStat({ icon: Icon, label, value, hint }) {
         </div>
       </div>
       {hint && <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">{hint}</p>}
-    </div>
+    </motion.div>
   );
 }
 
 function BuildLinkCard({ title, link, badge, highlight }) {
-  const Wrapper = link.external ? "a" : Link;
   const wrapperProps = link.external
     ? { href: link.href, target: "_blank", rel: "noreferrer" }
     : { href: link.href };
 
-  return (
-    <Wrapper
-      {...wrapperProps}
-      className={`${SURFACE} group relative flex items-center justify-between gap-4 overflow-hidden p-4 transition ${
+  const content = (
+    <motion.div
+      className={`${SURFACE} relative flex items-center justify-between gap-4 overflow-hidden p-4 transition ${
         highlight ? "border-indigo-300/70 ring-2 ring-indigo-200/80 shadow-[0_18px_35px_-20px_rgba(79,70,229,0.45)]" : ""
       }`}
+      whileHover={CARD_HOVER_FLOAT}
+      whileTap={CARD_TAP_PRESS}
     >
       <div className="relative z-10 flex flex-col">
         <span className="text-sm font-semibold text-slate-900 dark:text-white">{title}</span>
@@ -299,13 +308,27 @@ function BuildLinkCard({ title, link, badge, highlight }) {
       {highlight && (
         <span className="pointer-events-none absolute inset-0 -z-10 rounded-3xl bg-gradient-to-r from-indigo-200/25 via-transparent to-purple-200/25 opacity-0 transition group-hover:opacity-100" />
       )}
-    </Wrapper>
+    </motion.div>
+  );
+
+  if (link.external) {
+    return (
+      <a {...wrapperProps} className="group block">
+        {content}
+      </a>
+    );
+  }
+
+  return (
+    <Link {...wrapperProps} className="group block">
+      {content}
+    </Link>
   );
 }
 
 function ProofCard({ title, summary, actions, icon: Icon }) {
   return (
-    <div className={`${SURFACE} h-full p-6`}>
+    <motion.div className={`${SURFACE} h-full p-6`} whileHover={CARD_HOVER_FLOAT} whileTap={CARD_TAP_PRESS}>
       <div className="flex items-center gap-3">
         <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-300">
           <Icon className="h-5 w-5" />
@@ -326,7 +349,7 @@ function ProofCard({ title, summary, actions, icon: Icon }) {
           </Link>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -555,6 +578,8 @@ export default function HireMe() {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.45, delay: idx * 0.08 }}
                     viewport={{ once: true }}
+                    whileHover={CARD_HOVER_FLOAT}
+                    whileTap={CARD_TAP_PRESS}
                     className={`${SURFACE} relative overflow-hidden p-5 transition hover:shadow-lg`}
                   >
                     {accent?.bubble && (
