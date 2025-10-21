@@ -16,6 +16,8 @@ import {
   FaPenFancy,
   FaRegClock,
   FaRocket,
+  FaArrowRight,
+  FaMagic,
   FaPhoneAlt,
   FaWhatsapp,
   FaCode,
@@ -79,6 +81,15 @@ const SECTION_CONTAINER = "container mx-auto max-w-screen-2xl px-6 md:px-10";
 
 const PRODUCT_LINKS = [
   {
+    label: "Meedian AI Flow",
+    href: "https://meedian-ai-flow-v2.vercel.app/",
+    description: "AI-assisted flow state for builders and students.",
+    icon: FaLink,
+    accent: "sky",
+    badge: "New",
+    highlight: true,
+  },
+  {
     label: "DeepWork AI",
     href: "https://deep-work-ai-nu.vercel.app/",
     description: "Focus OS with sprint rooms, nudges, and reflections.",
@@ -91,13 +102,6 @@ const PRODUCT_LINKS = [
     description: "Depth blocks and day-close ritual planner.",
     icon: FaCalendarAlt,
     accent: "violet",
-  },
-  {
-    label: "Meedian AI Flow",
-    href: "https://meedian-ai-flow-v2.vercel.app/",
-    description: "AI-assisted flow state for builders and students.",
-    icon: FaLink,
-    accent: "sky",
   },
   {
     label: "Meed Public School",
@@ -568,7 +572,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
     {
       label: "Ventures live",
       value: ventures.length ? `${ventures.length}` : "—",
-      hint: "DeepWork AI, Deep Calendar, and more to come.",
+      hint: "DeepWork AI, Meed Public School, and more to come.",
       icon: <FaBolt />,
     },
     {
@@ -590,14 +594,6 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
         { href: "https://deep-work-ai-nu.vercel.app/", label: "Launch app", external: true, variant: "ghost" },
       ],
       variant: "primary",
-    },
-    {
-      title: "Deep Calendar",
-      summary: "Depth blocks, day-close rituals, and weekly alignment for builders who want a calm, intentional roadmap.",
-      actions: [
-        { href: "https://deep-calendar.vercel.app", label: "Open planner", external: true, variant: "solid" },
-        { href: "mailto:hello@deepwork.ai?subject=Deep%20Calendar%20APK%20Request", label: "Request mobile APK", external: true, variant: "ghost" },
-      ],
     },
     {
       title: "Meed Public School",
@@ -853,20 +849,30 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
 
               {/* Feature cards */}
               <div className="grid gap-3 text-sm text-gray-700 dark:text-gray-300 sm:grid-cols-3">
+                <div className="relative overflow-hidden rounded-3xl border border-indigo-300/60 bg-gradient-to-br from-indigo-600 via-purple-500 to-pink-500 px-4 py-4 text-white shadow-lg">
+                  <div className="flex items-center gap-2 font-semibold">
+                    <FaMagic /> Meedian AI Flow
+                    <span className="inline-flex items-center rounded-full bg-white/25 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.3em]">New</span>
+                  </div>
+                  <p className="mt-2 text-xs text-white/85">
+                    Agentic copilots that clean your backlog, script focus sprints, and keep teams executing in rhythm.
+                  </p>
+                  <Link
+                    href="https://meedian-ai-flow-v2.vercel.app/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-3 inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.3em] text-indigo-600 transition hover:bg-white"
+                  >
+                    Launch app
+                    <FaArrowRight className="h-3 w-3" />
+                  </Link>
+                </div>
                 <div className={`${SURFACE} px-4 py-3 transition`}>
                   <div className="flex items-center gap-2 font-semibold text-indigo-700 dark:text-indigo-300">
                     <FaBolt /> DeepWork AI
                   </div>
                   <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
                     Focus rooms, accountability nudges, and reflections that keep your shipping streak alive.
-                  </p>
-                </div>
-                <div className={`${SURFACE} px-4 py-3 transition`}>
-                  <div className="flex items-center gap-2 font-semibold text-indigo-700 dark:text-indigo-300">
-                    <FaCalendarAlt /> Deep Calendar
-                  </div>
-                  <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-                    Depth blocks + day-close rituals so your week, routines, and journal stay perfectly aligned.
                   </p>
                 </div>
                 <div className={`${SURFACE} px-4 py-3 transition`}>
@@ -882,16 +888,18 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
               {/* CTAs */}
               <div className="flex flex-wrap gap-3">
                 <Link
+                  href="https://meedian-ai-flow-v2.vercel.app/"
+                  className="inline-flex items-center gap-2 rounded-full bg-indigo-600 px-5 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-500"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Launch Meedian AI Flow <FaExternalLinkAlt className="text-[11px]" />
+                </Link>
+                <Link
                   href="/ventures/deepwork-ai"
                   className="inline-flex items-center gap-2 rounded-full bg-indigo-600 px-5 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-500"
                 >
                   Explore DeepWork AI <FaExternalLinkAlt className="text-[11px]" />
-                </Link>
-                <Link
-                  href="/ventures/deepwork-ai#calendar"
-                  className="inline-flex items-center gap-2 rounded-full border border-indigo-200 px-5 py-2 text-sm font-medium text-indigo-600 hover:bg-indigo-50 dark:border-indigo-400/40 dark:text-indigo-200 dark:hover:bg-indigo-500/10"
-                >
-                  Deep Calendar preview
                 </Link>
                 <Link
                   href="/ventures"
@@ -1387,8 +1395,16 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, delay: idx * 0.06 }}
                     viewport={{ once: true }}
-                    className={`${SURFACE} flex flex-col gap-4 p-6`}
+                    className={`${SURFACE} relative flex flex-col gap-4 p-6 ${
+                      product.highlight ? "border-indigo-300/70 ring-2 ring-indigo-200/80 shadow-[0_18px_35px_-20px_rgba(79,70,229,0.45)]" : ""
+                    }`}
                   >
+                    {product.highlight && (
+                      <span className="absolute left-6 top-6 inline-flex items-center gap-1 rounded-full bg-indigo-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.3em] text-indigo-600 dark:bg-indigo-500/20 dark:text-indigo-200">
+                        <FaMagic className="h-3 w-3" />
+                        {product.badge}
+                      </span>
+                    )}
                     <div className="flex items-center gap-3">
                       <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-indigo-500/10 text-xl text-indigo-600 dark:text-indigo-300">
                         <product.icon />

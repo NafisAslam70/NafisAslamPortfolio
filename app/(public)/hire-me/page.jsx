@@ -24,6 +24,7 @@ import {
   FaShapes,
   FaUsers,
   FaChalkboardTeacher,
+  FaMagic,
 } from "react-icons/fa";
 
 const SURFACE =
@@ -269,30 +270,36 @@ function QuickStat({ icon: Icon, label, value, hint }) {
   );
 }
 
-function BuildLinkCard({ title, link }) {
-  const content = (
-    <>
-      <span className="text-sm font-semibold text-slate-900 dark:text-white">{title}</span>
-      <span className="inline-flex items-center gap-2 text-xs font-semibold text-indigo-600 transition group-hover:text-indigo-500 dark:text-indigo-300">
+function BuildLinkCard({ title, link, badge, highlight }) {
+  const Wrapper = link.external ? "a" : Link;
+  const wrapperProps = link.external
+    ? { href: link.href, target: "_blank", rel: "noreferrer" }
+    : { href: link.href };
+
+  return (
+    <Wrapper
+      {...wrapperProps}
+      className={`${SURFACE} group relative flex items-center justify-between gap-4 overflow-hidden p-4 transition ${
+        highlight ? "border-indigo-300/70 ring-2 ring-indigo-200/80 shadow-[0_18px_35px_-20px_rgba(79,70,229,0.45)]" : ""
+      }`}
+    >
+      <div className="relative z-10 flex flex-col">
+        <span className="text-sm font-semibold text-slate-900 dark:text-white">{title}</span>
+        {badge && (
+          <span className="mt-1 inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-indigo-500">
+            <FaMagic className="h-3 w-3" />
+            {badge}
+          </span>
+        )}
+      </div>
+      <span className="relative z-10 inline-flex items-center gap-2 text-xs font-semibold text-indigo-600 transition group-hover:text-indigo-500 dark:text-indigo-300">
         {link.label ?? "Open"}
         <FaArrowRight className="h-3 w-3" />
       </span>
-    </>
-  );
-
-  const className = `${SURFACE} group flex items-center justify-between gap-4 p-4`;
-  if (link.external) {
-    return (
-      <a href={link.href} target="_blank" rel="noreferrer" className={className}>
-        {content}
-      </a>
-    );
-  }
-
-  return (
-    <Link href={link.href} className={className}>
-      {content}
-    </Link>
+      {highlight && (
+        <span className="pointer-events-none absolute inset-0 -z-10 rounded-3xl bg-gradient-to-r from-indigo-200/25 via-transparent to-purple-200/25 opacity-0 transition group-hover:opacity-100" />
+      )}
+    </Wrapper>
   );
 }
 
@@ -387,16 +394,20 @@ export default function HireMe() {
   const ventures = [
     { title: "DeepWork AI", link: { href: "/ventures/deepwork-ai", label: "Visit" } },
     { title: "Meed Public School", link: { href: "/ventures/meed-public-school", label: "Visit" } },
-    { title: "Nafis Builder Society", link: { href: "/nbs", label: "Open" } },
   ];
 
   const products = [
+    {
+      title: "Meedian AI Flow",
+      badge: "New",
+      highlight: true,
+      link: { href: "https://meedian-ai-flow-v2.vercel.app/", label: "Launch", external: true },
+    },
     { title: "DeepWork AI App", link: { href: "https://deep-work-ai-nu.vercel.app/", label: "Launch", external: true } },
     {
       title: "Deep Calendar",
       link: { href: "https://deep-calendar.vercel.app/auth/signin?next=%2F", label: "Launch", external: true },
     },
-    { title: "Meedian AI Flow", link: { href: "https://meedian-ai-flow-v2.vercel.app/", label: "Launch", external: true } },
   ];
 
   const reasons = [
@@ -481,6 +492,29 @@ export default function HireMe() {
                     <Link href="/reels" className="btn">
                       Watch reels
                     </Link>
+                  </div>
+                  <div className="mt-6 flex flex-col gap-3 rounded-2xl border border-indigo-200/70 bg-white/60 p-4 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/[0.06]">
+                    <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.3em] text-indigo-500">
+                      <FaMagic className="h-4 w-4" />
+                      New Launch
+                    </div>
+                    <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                      <div>
+                        <p className="text-sm font-semibold text-slate-900 dark:text-white">Meedian AI Flow</p>
+                        <p className="text-sm text-slate-600 dark:text-slate-300">
+                          Agentic flow copilot that turns messy backlogs into structured execution for teams and builders.
+                        </p>
+                      </div>
+                      <Link
+                        href="https://meedian-ai-flow-v2.vercel.app/"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-2 rounded-full border border-indigo-300/70 bg-indigo-50 px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-indigo-600 transition hover:bg-indigo-100 dark:border-indigo-400/60 dark:bg-indigo-500/10 dark:text-indigo-200"
+                      >
+                        Launch app
+                        <FaArrowRight className="h-3 w-3" />
+                      </Link>
+                    </div>
                   </div>
                 </div>
                 <div className="grid gap-3 sm:grid-cols-2">
