@@ -215,7 +215,7 @@ function LeftRailNav({ sections, active }) {
                     className={`relative flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium transition ${
                       isActive
                         ? "text-white"
-                        : "text-slate-600 hover:bg-indigo-50/60 dark:text-slate-200 dark:hover:bg-white/10"
+                        : "text-slate-800 hover:bg-indigo-50/60 dark:text-slate-200 dark:hover:bg-white/10"
                     }`}
                   >
                     <span className={`text-base ${isActive ? "text-white" : "text-indigo-500 dark:text-indigo-300"}`}>
@@ -247,7 +247,7 @@ function MobileTabs({ sections, active }) {
               className={`flex shrink-0 items-center gap-2 rounded-2xl border px-4 py-2 text-xs font-medium transition ${
                 isActive
                   ? "border-indigo-500 bg-indigo-500 text-white"
-                  : "border-indigo-100/60 bg-white/70 text-slate-600 dark:border-white/10 dark:bg-white/[0.05] dark:text-slate-200"
+                  : "border-indigo-100/60 bg-white/70 text-slate-800 dark:border-white/10 dark:bg-white/[0.05] dark:text-slate-200"
               }`}
             >
               <Icon className="h-4 w-4" />

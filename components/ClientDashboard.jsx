@@ -937,7 +937,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                   <div className="flex items-center gap-2 font-semibold text-indigo-700 dark:text-indigo-300">
                     <FaBolt /> DeepWork AI
                   </div>
-                  <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                  <p className="mt-2 text-xs text-slate-800 dark:text-gray-400">
                     Focus rooms, accountability nudges, and reflections that protect shipping streaks.
                   </p>
                 </motion.div>
@@ -945,7 +945,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                   <div className="flex items-center gap-2 font-semibold text-indigo-700 dark:text-indigo-300">
                     <FaChartLine /> MPS Society
                   </div>
-                  <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                  <p className="mt-2 text-xs text-slate-800 dark:text-gray-400">
                     Remote Jharkhand school proving systems-first education for 300+ families.
                   </p>
                 </motion.div>
