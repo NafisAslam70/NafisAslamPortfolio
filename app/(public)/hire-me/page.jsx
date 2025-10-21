@@ -10,7 +10,6 @@ import {
   FaCalendarAlt,
   FaChartBar,
   FaCode,
-  FaDownload,
   FaEnvelope,
   FaExternalLinkAlt,
   FaFileAlt,
@@ -19,7 +18,6 @@ import {
   FaHome,
   FaLink,
   FaMedal,
-  FaPenFancy,
   FaRocket,
   FaShapes,
   FaUsers,
@@ -29,7 +27,7 @@ import {
 
 const SURFACE =
   "rounded-3xl border border-indigo-200/60 bg-white/75 backdrop-blur-md shadow-[0_10px_30px_-12px_rgba(2,6,23,0.18)] dark:bg-white/[0.06] dark:border-white/10";
-const SECTION_CONTAINER = "container mx-auto max-w-screen-2xl px-6 md:px-10";
+const SECTION_CONTAINER = "container mx-auto max-w-screen-2xl px-4 sm:px-6 md:px-10";
 const HERO_ROLES = ["AI product engineer", "data systems strategist", "focus OS architect", "edtech operator"];
 const RESUME_URL = "/pdfs/myResume.pdf";
 
@@ -238,7 +236,7 @@ function LeftRailNav({ sections, active }) {
 function MobileTabs({ sections, active }) {
   return (
     <div className="sticky top-[72px] z-20 border-y border-indigo-200/40 bg-white/80 backdrop-blur dark:border-white/10 dark:bg-slate-950/80 lg:hidden">
-      <div className="flex gap-2 overflow-x-auto px-4 py-3 scrollbar-none">
+      <div className="flex gap-2 overflow-x-auto px-3 py-3 scrollbar-none sm:px-4">
         {sections.map((section) => {
           const Icon = section.icon;
           const isActive = active === section.id;
@@ -264,7 +262,7 @@ function MobileTabs({ sections, active }) {
 
 function QuickStat({ icon: Icon, label, value, hint }) {
   return (
-    <motion.div className={`${SURFACE} h-full p-5`} whileHover={CARD_HOVER_FLOAT} whileTap={CARD_TAP_PRESS}>
+    <motion.div className={`${SURFACE} h-full p-4 sm:p-5`} whileHover={CARD_HOVER_FLOAT} whileTap={CARD_TAP_PRESS}>
       <div className="flex items-center gap-3">
         <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-300">
           <Icon />
@@ -286,7 +284,7 @@ function BuildLinkCard({ title, link, badge, highlight }) {
 
   const content = (
     <motion.div
-      className={`${SURFACE} relative flex items-center justify-between gap-4 overflow-hidden p-4 transition ${
+      className={`${SURFACE} relative flex flex-col gap-4 overflow-hidden p-4 transition sm:flex-row sm:items-center sm:justify-between ${
         highlight ? "border-indigo-300/70 ring-2 ring-indigo-200/80 shadow-[0_18px_35px_-20px_rgba(79,70,229,0.45)]" : ""
       }`}
       whileHover={CARD_HOVER_FLOAT}
@@ -301,7 +299,7 @@ function BuildLinkCard({ title, link, badge, highlight }) {
           </span>
         )}
       </div>
-      <span className="relative z-10 inline-flex items-center gap-2 text-xs font-semibold text-indigo-600 transition group-hover:text-indigo-500 dark:text-indigo-300">
+      <span className="relative z-10 inline-flex items-center gap-2 self-start text-xs font-semibold text-indigo-600 transition group-hover:text-indigo-500 dark:text-indigo-300 sm:self-auto">
         {link.label ?? "Open"}
         <FaArrowRight className="h-3 w-3" />
       </span>
@@ -328,7 +326,7 @@ function BuildLinkCard({ title, link, badge, highlight }) {
 
 function ProofCard({ title, summary, actions, icon: Icon }) {
   return (
-    <motion.div className={`${SURFACE} h-full p-6`} whileHover={CARD_HOVER_FLOAT} whileTap={CARD_TAP_PRESS}>
+    <motion.div className={`${SURFACE} h-full p-5 sm:p-6`} whileHover={CARD_HOVER_FLOAT} whileTap={CARD_TAP_PRESS}>
       <div className="flex items-center gap-3">
         <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-300">
           <Icon className="h-5 w-5" />
@@ -343,7 +341,7 @@ function ProofCard({ title, summary, actions, icon: Icon }) {
             href={action.href}
             target={action.external ? "_blank" : undefined}
             rel={action.external ? "noreferrer" : undefined}
-            className={`btn ${action.variant === "primary" ? "btn-primary" : ""}`}
+            className={`btn w-full justify-center ${action.variant === "primary" ? "btn-primary" : ""} sm:w-auto`}
           >
             {action.label}
           </Link>
@@ -362,6 +360,11 @@ export default function HireMe() {
 
   const sectionIds = useMemo(() => NAV_SECTIONS.map((section) => section.id), []);
   useSectionObserver(sectionIds, setActiveSection);
+  const longestRole = useMemo(
+    () => HERO_ROLES.reduce((longest, role) => (role.length > longest.length ? role : longest), HERO_ROLES[0]),
+    [],
+  );
+  const displayRole = typedRole || HERO_ROLES[roleIndex];
 
   useEffect(() => {
     const current = HERO_ROLES[roleIndex];
@@ -389,27 +392,27 @@ export default function HireMe() {
 
   const quickStats = [
     {
-      label: "Academic rigor",
-      value: "MIT MicroMasters",
-      hint: "Data, Statistics & Machine Learning (CINEC) + USM AI major graduate.",
+      label: "Academic base",
+      value: "MIT DSML + USM AI",
+      hint: "Formal training in data, statistics, and machine learning.",
       icon: FaGraduationCap,
     },
     {
-      label: "Products operating",
-      value: "DeepWork AI suite",
-      hint: "Deep Calendar, accountability pods, and AI prompts live with users.",
+      label: "Products live",
+      value: "DeepWork AI",
+      hint: "Shipping calendar, accountability, and agent tools in production.",
       icon: FaRocket,
     },
     {
-      label: "Education leadership",
+      label: "Operator reps",
       value: "Founder, Meed",
-      hint: "Built Meed Public School & learning systems for first-gen students.",
+      hint: "Built a public school and learning systems for first-gen students.",
       icon: FaChalkboardTeacher,
     },
     {
       label: "Delivery rhythm",
-      value: "Deadline locked",
-      hint: "Disciplined, hardworking, skilled—weekly reports until the job ships.",
+      value: "Weekly check-ins",
+      hint: "Scope, decisions, and shipped features on a fixed cadence.",
       icon: FaCalendarAlt,
     },
   ];
@@ -436,20 +439,19 @@ export default function HireMe() {
   const reasons = [
     {
       title: "MIT + USM Foundations",
-      summary:
-        "MIT Data, Statistics & Machine Learning MicroMasters (CINEC) plus USM AI major gives you research-backed execution.",
+      summary: "MIT DSML MicroMasters plus USM AI major—data, models, and research-grade rigor baked in.",
       actions: [{ href: RESUME_URL, label: "Review credentials", variant: "primary" }],
       icon: FaGraduationCap,
     },
     {
       title: "Disciplined Operator",
-      summary: "I scope, timeline, and ship. Weekly reports, clear decisions, no missed deadlines.",
+      summary: "Scopes, plans, and ships with weekly check-ins and clear decisions until we cross the finish line.",
       actions: [{ href: "/nbs", label: "See my rituals" }],
       icon: FaBolt,
     },
     {
       title: "Products In Market",
-      summary: "DeepWork AI, Deep Calendar, and Meed Public School run live with users across focus and education.",
+      summary: "DeepWork AI, Deep Calendar, and Meed Public School are operating today with active users.",
       actions: [
         { href: "/ventures", label: "Tour the products" },
         { href: "/reels", label: "Watch build logs" },
@@ -458,7 +460,7 @@ export default function HireMe() {
     },
     {
       title: "Community Leadership",
-      summary: "Founder & principal at Meed—building pathways for first-gen students and mentoring young operators.",
+      summary: "Founder of Meed—building first-gen talent pipelines and mentoring operators in the open.",
       actions: [
         { href: "/pdfs/meed-my-journey.pdf", label: "Read the mission", external: true },
         { href: "https://www.linkedin.com/in/nafis-aslam/", label: "Connect on LinkedIn", external: true },
@@ -486,8 +488,13 @@ export default function HireMe() {
                     className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white md:text-4xl"
                   >
                     Ship your next build with a{" "}
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-violet-500 to-pink-500">
-                      {typedRole || HERO_ROLES[0]}
+                    <span className="relative inline-flex">
+                      <span className="invisible select-none" aria-hidden="true">
+                        {longestRole}
+                      </span>
+                      <span className="absolute inset-0 text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-violet-500 to-pink-500">
+                        {displayRole}
+                      </span>
                     </span>
                   </motion.h1>
                   <motion.p
@@ -496,28 +503,24 @@ export default function HireMe() {
                     transition={{ duration: 0.6, delay: 0.1 }}
                     className="mt-4 text-base text-slate-600 dark:text-slate-300"
                   >
-                    MIT Data, Statistics & Machine Learning MicroMasters (CINEC) grad and USM AI major. Disciplined,
-                    hardworking, and obsessed with delivering on time. You hand me the brief, we lock the deadline, and
-                    you get shippable software, content, or curriculum without noise. Everything runs on{" "}
-                    <Link href="/nbs" className="link font-semibold">
-                      NBS rituals
-                    </Link>{" "}
-                    so we can see signal, make decisions fast, and build compounding execution.
+                    I scope, build, and ship AI products on deadline. You hand me the brief, we agree on the weekly plan,
+                    and you get working software without extra noise. MIT DSML MicroMasters + USM AI major keeps the work
+                    grounded in research, while live ventures prove the delivery.
                   </motion.p>
                   <div className="mt-6 flex flex-wrap gap-3">
-                    <button className="btn btn-primary" onClick={() => scrollToSection("contact")}>
+                    <button className="btn btn-primary w-full justify-center sm:w-auto" onClick={() => scrollToSection("contact")}>
                       Start a project
                       <FaArrowRight className="ml-2 h-4 w-4" />
                     </button>
-                    <Link href="/nbs" className="btn">
+                    <Link href="/nbs" className="btn w-full justify-center sm:w-auto">
                       Explore NBS
                     </Link>
-                    <Link href="/reels" className="btn">
+                    <Link href="/reels" className="btn w-full justify-center sm:w-auto">
                       Watch reels
                     </Link>
                   </div>
                   <div className="mt-6 flex flex-col gap-3 rounded-2xl border border-indigo-200/70 bg-white/60 p-4 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/[0.06]">
-                    <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.3em] text-indigo-500">
+                    <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-500 sm:tracking-[0.3em]">
                       <FaMagic className="h-4 w-4" />
                       New Launch
                     </div>
@@ -525,14 +528,14 @@ export default function HireMe() {
                       <div>
                         <p className="text-sm font-semibold text-slate-900 dark:text-white">Meedian AI Flow</p>
                         <p className="text-sm text-slate-600 dark:text-slate-300">
-                          Agentic flow copilot that turns messy backlogs into structured execution for teams and builders.
+                          Agent copilot that takes raw backlogs and turns them into shippable week plans.
                         </p>
                       </div>
                       <Link
                         href="https://meedian-ai-flow-v2.vercel.app/"
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center gap-2 rounded-full border border-indigo-300/70 bg-indigo-50 px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-indigo-600 transition hover:bg-indigo-100 dark:border-indigo-400/60 dark:bg-indigo-500/10 dark:text-indigo-200"
+                        className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-indigo-300/70 bg-indigo-50 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-indigo-600 transition hover:bg-indigo-100 dark:border-indigo-400/60 dark:bg-indigo-500/10 dark:text-indigo-200 sm:w-auto sm:justify-between sm:tracking-[0.25em]"
                       >
                         Launch app
                         <FaArrowRight className="h-3 w-3" />
@@ -552,16 +555,16 @@ export default function HireMe() {
 
         <section id="offerings" className="scroll-mt-32 py-16">
           <div className={`${SECTION_CONTAINER} space-y-8`}>
-            <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
+            <div className="flex flex-col items-start gap-3 lg:flex-row lg:items-center lg:justify-between">
               <div>
                 <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">Services I Offer</h2>
                 <p className="text-sm text-slate-600 dark:text-slate-300">
-                  Build with me—custom AI systems, full-stack execution, and data intelligence stitched end-to-end.
+                  Choose the lane you need: ship a product, validate a model, or pull clean signal from your data.
                 </p>
               </div>
               <Link
                 href="#contact"
-                className="inline-flex items-center gap-2 rounded-full bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-500"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-500 sm:w-auto"
               >
                 Discuss a project <FaExternalLinkAlt className="text-[11px]" />
               </Link>
@@ -637,13 +640,12 @@ export default function HireMe() {
               <span className="text-xs font-semibold uppercase tracking-wide text-indigo-500">Ventures & Products</span>
               <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">The systems I run and ship</h2>
               <p className="text-sm text-slate-600 dark:text-slate-300">
-                Explore the live ventures and product builds I maintain. Each one is documented, staffed with rituals,
-                and ready to adapt to your team.
+                These are live builds you can click into today. They show the shipping pace, rituals, and outcomes I run.
               </p>
             </div>
             <div className="grid gap-6 lg:grid-cols-2">
               <div className="space-y-4">
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                   <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Ventures</h3>
                   <span className="text-xs font-semibold uppercase tracking-[0.3em] text-indigo-500">Live</span>
                 </div>
@@ -654,7 +656,7 @@ export default function HireMe() {
                 </div>
               </div>
               <div className="space-y-4">
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                   <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Products</h3>
                   <span className="text-xs font-semibold uppercase tracking-[0.3em] text-indigo-500">In Market</span>
                 </div>
@@ -674,8 +676,7 @@ export default function HireMe() {
               <span className="text-xs font-semibold uppercase tracking-wide text-indigo-500">Why Hire Me</span>
               <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">Signals operators ask for first</h2>
               <p className="text-sm text-slate-600 dark:text-slate-300">
-                If you’re evaluating me for a build, here’s the shortlist—credentials, delivery history, operating
-                systems, and the communities I steward.
+                Evaluate me fast with the four things teams check: training, delivery rhythm, shipped products, and people leadership.
               </p>
             </div>
             <div className="grid gap-4 md:grid-cols-2">
@@ -684,7 +685,7 @@ export default function HireMe() {
               ))}
             </div>
             <div className={`${SURFACE} overflow-hidden`}>
-              <div className="grid gap-3 p-6 md:grid-cols-2">
+              <div className="grid gap-3 p-4 sm:p-6 md:grid-cols-2">
                 <Image
                   src="https://github-readme-stats.vercel.app/api?username=NafisAslam70&show_icons=true&hide_border=true"
                   alt="GitHub Stats"
@@ -692,6 +693,7 @@ export default function HireMe() {
                   height={320}
                   className="w-full rounded-2xl border border-white/10 bg-white/70 p-3 dark:bg-white/[0.03]"
                   loading="lazy"
+                  unoptimized
                 />
                 <Image
                   src="https://github-readme-stats.vercel.app/api/top-langs/?username=NafisAslam70&layout=compact&hide_border=true"
@@ -700,6 +702,7 @@ export default function HireMe() {
                   height={320}
                   className="w-full rounded-2xl border border-white/10 bg-white/70 p-3 dark:bg-white/[0.03]"
                   loading="lazy"
+                  unoptimized
                 />
               </div>
             </div>
@@ -707,63 +710,38 @@ export default function HireMe() {
         </section>
         <section id="resume" className="scroll-mt-32 pb-8 pt-4">
           <div className={SECTION_CONTAINER}>
-            <div className={`${SURFACE} grid gap-8 p-8 md:grid-cols-[1fr,0.75fr] md:p-12`}>
-              <div className="space-y-4">
+            <div className={`${SURFACE} space-y-6 p-6 sm:p-8 md:p-12`}>
+              <div className="space-y-3">
                 <span className="text-xs font-semibold uppercase tracking-wide text-indigo-500">Download</span>
-                <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">Resume / Capabilities Deck</h2>
+                <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">Resume</h2>
                 <p className="text-sm text-slate-600 dark:text-slate-300">
-                  If you need my resume, it’s right here—current roles, venture outcomes, and the NBS operating cadence in one deck.
+                  Download the latest deck covering roles, shipped products, and the operating cadence I bring to teams.
                 </p>
-                <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-300">
-                  <li className="flex items-start gap-2">
-                    <FaFileAlt className="mt-0.5 h-4 w-4 text-indigo-500" />
-                    <span>Project snapshots across DeepWork AI, Deep Calendar, Meed Public School.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <FaPenFancy className="mt-0.5 h-4 w-4 text-indigo-500" />
-                    <span>NBS rituals, sprint formats, and core systems I embed with teams.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <FaDownload className="mt-0.5 h-4 w-4 text-indigo-500" />
-                    <span>PDF formatted for investors, partners, and procurement workflows.</span>
-                  </li>
-                </ul>
-                <div className="flex flex-wrap gap-3">
-                  <a href={RESUME_URL} className="btn btn-primary" download>
-                    Download resume
-                    <FaArrowRight className="ml-2 h-4 w-4" />
-                  </a>
-                  <a href={RESUME_URL} className="btn" target="_blank" rel="noreferrer">
-                    View in browser
-                  </a>
-                </div>
               </div>
-              <div className={`${SURFACE} flex flex-col justify-between gap-4 rounded-3xl border border-indigo-200/60 bg-white/60 p-6 text-sm dark:border-white/10 dark:bg-white/[0.04]`}>
-                <div className="space-y-2">
-                  <div className="text-xs font-semibold uppercase tracking-wide text-indigo-500">Snapshot</div>
-                  <p className="text-slate-600 dark:text-slate-300">
-                    Last updated {new Date().toLocaleDateString("en-US", { year: "numeric", month: "short" })}. Want a tailored or newer version? Mention it when you reach out and I’ll send the latest.
-                  </p>
-                </div>
-                <div className="rounded-2xl border border-dashed border-indigo-200/70 p-5 text-slate-600 dark:border-white/10 dark:text-slate-200">
-                  <p className="text-sm font-semibold text-slate-900 dark:text-white">Missing the file?</p>
-                  <p className="mt-2 text-sm">
-                    Swap the PDF at <code className="rounded bg-slate-900/5 px-2 py-1 dark:bg-white/10">public/pdfs/myResume.pdf</code> or update <code className="rounded bg-slate-900/5 px-2 py-1 dark:bg-white/10">RESUME_URL</code>.
-                  </p>
-                </div>
+              <div className="flex flex-wrap gap-3">
+                <a href={RESUME_URL} className="btn btn-primary" download>
+                  Download resume
+                  <FaArrowRight className="ml-2 h-4 w-4" />
+                </a>
+                <a href={RESUME_URL} className="btn" target="_blank" rel="noreferrer">
+                  View in browser
+                </a>
               </div>
+              <p className="text-xs text-slate-500 dark:text-slate-400">
+                Updated {new Date().toLocaleDateString("en-US", { year: "numeric", month: "short" })}. Need a tailored cut? Let me know in your note.
+              </p>
             </div>
           </div>
         </section>
 
         <section id="contact" className="scroll-mt-32 pb-20 pt-10">
           <div className={SECTION_CONTAINER}>
-            <div className={`${SURFACE} p-8 md:p-12`}>
+            <div className={`${SURFACE} p-6 sm:p-8 md:p-12`}>
               <div className="max-w-2xl space-y-4">
                 <span className="text-xs font-semibold uppercase tracking-wide text-indigo-500">Start a project</span>
                 <h2 className="text-3xl font-semibold text-slate-900 dark:text-white">Tell me what you need built</h2>
                 <p className="text-sm text-slate-600 dark:text-slate-300">
-                  Share the outcome you want and any context around your team. I’ll reply with a snapshot of how we can run it.
+                  Share the outcome, constraints, and timeline. I’ll send back the plan and first steps.
                 </p>
               </div>
               <form
@@ -790,7 +768,7 @@ export default function HireMe() {
                 <input name="email" type="email" placeholder="Email" className="btn w-full" required />
                 <input name="role" placeholder="Role / Company" className="btn w-full" />
                 <textarea name="message" placeholder="What outcome are you chasing?" className="btn w-full h-36" required />
-                <button className="btn btn-primary">
+                <button className="btn btn-primary w-full justify-center sm:w-auto">
                   Send inquiry
                   <FaArrowRight className="ml-2 h-4 w-4" />
                 </button>
