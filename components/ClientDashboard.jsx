@@ -618,7 +618,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
     {
       label: "Ventures live",
       value: ventures.length ? `${ventures.length}` : "—",
-      hint: "DeepWork AI, Meed Public School, and more to come.",
+      hint: "DeepWork AI, Meed Public School in rural Jharkhand, and more to come.",
       icon: <FaBolt />,
     },
     {
@@ -643,7 +643,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
     },
     {
       title: "Meed Public School",
-      summary: "Systems thinking applied to schooling—training operators, uplifting teachers, and building community-first campuses.",
+      summary: "Remote Jharkhand school built from the ground up—serving 300+ families with disciplined operating systems.",
       actions: [
         { href: "/ventures/meed-public-school", label: "Explore case study", external: false, variant: "solid" },
         { href: "/pdfs/meed-my-journey.pdf", label: "Read the vision", external: true, variant: "ghost" },
@@ -847,10 +847,26 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                       <span className="ml-1 inline-block h-5 w-1 animate-pulse rounded bg-indigo-500/80 align-middle" />
                     </span>
                   </h1>
-                  <p className="mt-3 max-w-2xl text-sm text-gray-700 md:text-base dark:text-gray-300">
-                    AI engineer & focus systems builder — Computer Science (AI) @ USM, MIT Data Science MicroMasters,
-                    founder of DeepWork AI & Deep Calendar. I help students & operators weaponise their focus so they
-                    can ship, learn, and lead at elite speed.
+                  <p className="mt-3 max-w-2xl text-sm leading-relaxed text-gray-700 md:text-base dark:text-gray-300">
+                    <span className="inline-block rounded-full bg-indigo-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.3em] text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-200">
+                      Deep Work First
+                    </span>{" "}
+                    AI systems engineer focused on disciplined execution. Computer Science (AI) @ USM · MIT Data Science
+                    MicroMasters. Founder of{" "}
+                    <Link
+                      href="/ventures/deepwork-ai"
+                      className="font-serif text-base font-semibold text-slate-900 transition hover:text-indigo-500 dark:text-slate-100 dark:hover:text-indigo-200 md:text-lg"
+                    >
+                      DeepWork AI
+                    </Link>{" "}
+                    and co-founder at{" "}
+                    <Link
+                      href="/ventures/meed-public-school"
+                      className="font-serif text-base font-semibold text-slate-900 transition hover:text-indigo-500 dark:text-slate-100 dark:hover:text-indigo-200 md:text-lg"
+                    >
+                      Meed
+                    </Link>
+                    . Open to data and AI roles where craft, rigor, and operating systems matter.
                   </p>
                 </div>
 
@@ -904,9 +920,9 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                     <FaMagic /> Meedian AI Flow
                     <span className="inline-flex items-center rounded-full bg-white/25 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.3em]">New</span>
                   </div>
-                  <div className="mt-2 text-xs text-white/85">
-                    <p className="font-semibold">MeedianAI Flow — Take your team toward mastery</p>
-                  </div>
+                  <p className="mt-2 text-xs text-white/85">
+                    One workspace for tasks, rituals, chat, attendance, and notes.
+                  </p>
                   <Link
                     href="https://meedian-ai-flow-v2.vercel.app/"
                     target="_blank"
@@ -922,7 +938,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                     <FaBolt /> DeepWork AI
                   </div>
                   <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-                    Focus rooms, accountability nudges, and reflections that keep your shipping streak alive.
+                    Focus rooms, accountability nudges, and reflections that protect shipping streaks.
                   </p>
                 </motion.div>
                 <motion.div className={`${SURFACE} px-4 py-3 transition`} whileHover={CARD_HOVER_FLOAT} whileTap={CARD_TAP_PRESS}>
@@ -930,7 +946,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                     <FaChartLine /> MPS Society
                   </div>
                   <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-                    Leading schooling reforms with systems thinking & community-first execution.
+                    Remote Jharkhand school proving systems-first education for 300+ families.
                   </p>
                 </motion.div>
               </div>

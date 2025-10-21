@@ -405,8 +405,8 @@ export default function HireMe() {
     },
     {
       label: "Operator reps",
-      value: "Founder, Meed",
-      hint: "Built a public school and learning systems for first-gen students.",
+      value: "Co-founder, Meed",
+      hint: "Built a full-stack school model in a remote district in Jharkhand.",
       icon: FaChalkboardTeacher,
     },
     {
@@ -460,7 +460,7 @@ export default function HireMe() {
     },
     {
       title: "Community Leadership",
-      summary: "Founder of Meed—building first-gen talent pipelines and mentoring operators in the open.",
+      summary: "Co-founder of Meed—running a remote-area school that now serves 300+ families in Sahibganj.",
       actions: [
         { href: "/pdfs/meed-my-journey.pdf", label: "Read the mission", external: true },
         { href: "https://www.linkedin.com/in/nafis-aslam/", label: "Connect on LinkedIn", external: true },
@@ -526,6 +526,9 @@ export default function HireMe() {
                     </h3>
                     <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                       <div>
+                        <span className="mb-1 inline-flex items-center gap-1 rounded-full bg-indigo-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.25em] text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-200">
+                          New product
+                        </span>
                         <p className="text-sm font-semibold text-slate-900 dark:text-white">Meedian AI Flow</p>
                         <p className="text-sm text-slate-600 dark:text-slate-300">
                           One browser experience for tasks, collaboration rooms, deep rituals, chat, attendance, and meeting notes.

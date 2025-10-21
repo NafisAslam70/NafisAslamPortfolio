@@ -173,7 +173,7 @@ export default function MeedPublicSchool() {
               }}
             >
               <dt className="muted uppercase tracking-wide">Role</dt>
-              <dd className="font-medium">Founder · School Director</dd>
+              <dd className="font-medium">Co-founder · School Director</dd>
             </div>
             <div
               className="space-y-1 rounded-2xl border p-4 backdrop-blur-sm"
