@@ -520,15 +520,15 @@ export default function HireMe() {
                     </Link>
                   </div>
                   <div className="mt-6 flex flex-col gap-3 rounded-2xl border border-indigo-200/70 bg-white/60 p-4 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/[0.06]">
-                    <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-500 sm:tracking-[0.3em]">
+                    <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-indigo-500 sm:text-[11px] sm:tracking-[0.3em]">
                       <FaMagic className="h-4 w-4" />
-                      New Launch
-                    </div>
+                      MeedianAI Flow — Take your team toward mastery
+                    </h3>
                     <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                       <div>
                         <p className="text-sm font-semibold text-slate-900 dark:text-white">Meedian AI Flow</p>
                         <p className="text-sm text-slate-600 dark:text-slate-300">
-                          Agent copilot that takes raw backlogs and turns them into shippable week plans.
+                          One browser experience for tasks, collaboration rooms, deep rituals, chat, attendance, and meeting notes.
                         </p>
                       </div>
                       <Link
