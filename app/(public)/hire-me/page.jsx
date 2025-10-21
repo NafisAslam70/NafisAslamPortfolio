@@ -333,7 +333,7 @@ function ProofCard({ title, summary, actions, icon: Icon }) {
         </span>
         <div className="text-lg font-semibold text-slate-900 dark:text-white">{title}</div>
       </div>
-      <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">{summary}</p>
+      <p className="mt-3 text-sm text-slate-800 dark:text-slate-300">{summary}</p>
       <div className="mt-4 flex flex-wrap gap-2">
         {actions.map((action) => (
           <Link
@@ -501,7 +501,7 @@ export default function HireMe() {
                     initial={{ opacity: 0, y: 32 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.1 }}
-                    className="mt-4 text-base text-slate-600 dark:text-slate-300"
+                    className="mt-4 text-base text-slate-800 dark:text-slate-300"
                   >
                     I scope, build, and ship AI products on deadline. You hand me the brief, we agree on the weekly plan,
                     and you get working software without extra noise. MIT DSML MicroMasters + USM AI major keeps the work
@@ -530,7 +530,7 @@ export default function HireMe() {
                           New product
                         </span>
                         <p className="text-sm font-semibold text-slate-900 dark:text-white">Meedian AI Flow</p>
-                        <p className="text-sm text-slate-600 dark:text-slate-300">
+                        <p className="text-sm text-slate-800 dark:text-slate-300">
                           One browser experience for tasks, collaboration rooms, deep rituals, chat, attendance, and meeting notes.
                         </p>
                       </div>
@@ -561,7 +561,7 @@ export default function HireMe() {
             <div className="flex flex-col items-start gap-3 lg:flex-row lg:items-center lg:justify-between">
               <div>
                 <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">Services I Offer</h2>
-                <p className="text-sm text-slate-600 dark:text-slate-300">
+                <p className="text-sm text-slate-800 dark:text-slate-300">
                   Choose the lane you need: ship a product, validate a model, or pull clean signal from your data.
                 </p>
               </div>
@@ -642,7 +642,7 @@ export default function HireMe() {
             <div className="max-w-2xl space-y-3">
               <span className="text-xs font-semibold uppercase tracking-wide text-indigo-500">Ventures & Products</span>
               <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">The systems I run and ship</h2>
-              <p className="text-sm text-slate-600 dark:text-slate-300">
+              <p className="text-sm text-slate-800 dark:text-slate-300">
                 These are live builds you can click into today. They show the shipping pace, rituals, and outcomes I run.
               </p>
             </div>
@@ -678,7 +678,7 @@ export default function HireMe() {
             <div className="max-w-2xl space-y-3">
               <span className="text-xs font-semibold uppercase tracking-wide text-indigo-500">Why Hire Me</span>
               <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">Signals operators ask for first</h2>
-              <p className="text-sm text-slate-600 dark:text-slate-300">
+              <p className="text-sm text-slate-800 dark:text-slate-300">
                 Evaluate me fast with the four things teams check: training, delivery rhythm, shipped products, and people leadership.
               </p>
             </div>
@@ -717,7 +717,7 @@ export default function HireMe() {
               <div className="space-y-3">
                 <span className="text-xs font-semibold uppercase tracking-wide text-indigo-500">Download</span>
                 <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">Resume</h2>
-                <p className="text-sm text-slate-600 dark:text-slate-300">
+                <p className="text-sm text-slate-800 dark:text-slate-300">
                   Download the latest deck covering roles, shipped products, and the operating cadence I bring to teams.
                 </p>
               </div>
@@ -743,7 +743,7 @@ export default function HireMe() {
               <div className="max-w-2xl space-y-4">
                 <span className="text-xs font-semibold uppercase tracking-wide text-indigo-500">Start a project</span>
                 <h2 className="text-3xl font-semibold text-slate-900 dark:text-white">Tell me what you need built</h2>
-                <p className="text-sm text-slate-600 dark:text-slate-300">
+                <p className="text-sm text-slate-800 dark:text-slate-300">
                   Share the outcome, constraints, and timeline. I’ll send back the plan and first steps.
                 </p>
               </div>

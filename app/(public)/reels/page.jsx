@@ -402,7 +402,7 @@ export default function ReelsPage() {
                       <FaPlayCircle />
                     </div>
                     <div>
-                      <p className="text-xs uppercase tracking-[0.24em] text-slate-500 dark:text-indigo-100/70">Focus sequences</p>
+                      <p className="text-xs uppercase tracking-[0.24em] text-slate-700 dark:text-indigo-100/70">Focus sequences</p>
                       <p className="text-2xl font-semibold text-slate-900 dark:text-white">{typeCounts.total}</p>
                     </div>
                   </div>
@@ -411,7 +411,7 @@ export default function ReelsPage() {
                       <FaCloud />
                     </div>
                     <div>
-                      <p className="text-xs uppercase tracking-[0.24em] text-slate-500 dark:text-indigo-100/70">Studio rituals logged</p>
+                      <p className="text-xs uppercase tracking-[0.24em] text-slate-700 dark:text-indigo-100/70">Studio rituals logged</p>
                       <p className="text-2xl font-semibold text-slate-900 dark:text-white">{typeCounts.studio}</p>
                     </div>
                   </div>
@@ -420,7 +420,7 @@ export default function ReelsPage() {
                       <FaYoutube />
                     </div>
                     <div>
-                      <p className="text-xs uppercase tracking-[0.24em] text-slate-500 dark:text-indigo-100/70">Reflections shared</p>
+                      <p className="text-xs uppercase tracking-[0.24em] text-slate-700 dark:text-indigo-100/70">Reflections shared</p>
                       <p className="text-2xl font-semibold text-slate-900 dark:text-white">{typeCounts.youtube}</p>
                     </div>
                   </div>
@@ -446,7 +446,7 @@ export default function ReelsPage() {
                         sizes="(min-width: 1024px) 420px, 100vw"
                       />
                     ) : (
-                      <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-indigo-500/20 via-transparent to-transparent text-slate-400 dark:text-white/50">
+                      <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-indigo-500/20 via-transparent to-transparent text-slate-600 dark:text-white/50">
                         <FaPlayCircle className="text-4xl" />
                       </div>
                     )}
@@ -479,7 +479,7 @@ export default function ReelsPage() {
                 >
                   <div className="space-y-4 px-10">
                     <h2 className="text-xl font-semibold">Reels coming soon</h2>
-                    <p className="text-sm text-slate-500 dark:text-white/60">
+                    <p className="text-sm text-slate-700 dark:text-white/60">
                       Once clips are published, they will appear here with the same dashboard treatment.
                     </p>
                   </div>
@@ -522,11 +522,11 @@ export default function ReelsPage() {
                 ) : null}
               </div>
               {recentTitle ? (
-                <p className="mt-4 text-sm text-slate-500 dark:text-white/60">
+                <p className="mt-4 text-sm text-slate-700 dark:text-white/60">
                   Latest drop: <span className="text-slate-700 dark:text-white/85">{recentTitle}</span>
                 </p>
               ) : (
-                <p className="mt-4 text-sm text-slate-400 dark:text-white/50">Add your first reel to populate this space.</p>
+                <p className="mt-4 text-sm text-slate-600 dark:text-white/50">Add your first reel to populate this space.</p>
               )}
             </section>
             {isLoading ? (
@@ -561,7 +561,7 @@ export default function ReelsPage() {
                           sizes="(min-width: 1280px) 280px, (min-width: 1024px) 260px, (min-width: 640px) 45vw, 100vw"
                         />
                       ) : (
-                        <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-indigo-500/20 via-purple-500/10 to-transparent text-slate-400 dark:text-white/50">
+                        <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-indigo-500/20 via-purple-500/10 to-transparent text-slate-600 dark:text-white/50">
                           <FaPlayCircle className="text-4xl" />
                         </div>
                       )}
@@ -594,7 +594,7 @@ export default function ReelsPage() {
             </div>
           ) : (
             <div className={`${GLASS_CARD} flex flex-col items-center justify-center gap-3 rounded-[28px] px-10 py-16 text-center text-slate-600 dark:text-white/70`}>
-              <FaFilm className="text-3xl text-slate-400 dark:text-white/50" />
+              <FaFilm className="text-3xl text-slate-600 dark:text-white/50" />
               <p className="text-sm">No reels match this filter yet. Switch filters or add new content.</p>
             </div>
           )}

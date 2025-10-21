@@ -842,12 +842,12 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                     <span className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
                       Nafis Aslam
                     </span>
-                    <span className="mt-4 block text-lg font-medium text-gray-700 md:text-2xl dark:text-gray-300">
+                    <span className="mt-4 block text-lg font-medium text-slate-900 md:text-2xl dark:text-slate-200">
                       a {typedRole || ""}
                       <span className="ml-1 inline-block h-5 w-1 animate-pulse rounded bg-indigo-500/80 align-middle" />
                     </span>
                   </h1>
-                  <p className="mt-3 max-w-2xl text-sm leading-relaxed text-gray-700 md:text-base dark:text-gray-300">
+                  <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-900 md:text-base dark:text-slate-200">
                     <span className="inline-block rounded-full bg-indigo-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.3em] text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-200">
                       Deep Work First
                     </span>{" "}
@@ -910,7 +910,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
               </div>
 
               {/* Feature cards */}
-              <div className="grid gap-3 text-sm text-gray-700 dark:text-gray-300 sm:grid-cols-3">
+              <div className="grid gap-3 text-sm text-slate-900 dark:text-slate-200 sm:grid-cols-3">
                 <motion.div
                   className="relative overflow-hidden rounded-3xl border border-indigo-300/60 bg-gradient-to-br from-indigo-600 via-purple-500 to-pink-500 px-4 py-4 text-white shadow-lg"
                   whileHover={CARD_HOVER_FLOAT}
