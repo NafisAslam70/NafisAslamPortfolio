@@ -299,12 +299,12 @@ function StatCard({ icon, label, value, hint }) {
           {icon}
         </span>
         <div>
-          <div className="text-xs font-semibold uppercase tracking-wide text-gray-500">{label}</div>
-          <div className="text-xl font-semibold text-gray-900 dark:text-gray-100">{value}</div>
+          <div className="text-xs font-semibold uppercase tracking-wide text-slate-700">{label}</div>
+          <div className="text-xl font-semibold text-slate-900 dark:text-gray-100">{value}</div>
         </div>
       </div>
       {hint ? (
-        <div className="mt-3 text-xs text-gray-500 dark:text-gray-400">
+        <div className="mt-3 text-xs text-slate-700 dark:text-gray-400">
           {hint}
         </div>
       ) : null}
@@ -321,11 +321,11 @@ function ActiveBlockView({ item }) {
       style={{ borderColor: badge.border, background: badge.bg }}
       title={`Depth ${badge.text}`}
     >
-      <div className="flex items-center justify-between text-xs font-semibold text-gray-800 dark:text-gray-100">
+      <div className="flex items-center justify-between text-xs font-semibold text-slate-900 dark:text-gray-100">
         <span className="truncate">{item.label ?? "Deep block"}</span>
         <span>{fromMinutes(item.startMin)}–{fromMinutes(item.endMin)}</span>
       </div>
-      <div className="mt-1 flex items-center justify-between text-[11px] text-gray-600 dark:text-gray-300">
+      <div className="mt-1 flex items-center justify-between text-[11px] text-slate-800 dark:text-gray-300">
         <span>{badge.text}</span>
         <span>{humanMinutes(durMin)}</span>
       </div>
@@ -345,7 +345,7 @@ function RoutineModal({ open, onClose, items, window, goalById }) {
           </button>
         </div>
         <div className="max-h-[70vh] overflow-auto px-5 py-4 space-y-4">
-          <div className="rounded-2xl bg-gray-50 px-4 py-3 text-xs text-gray-600 dark:bg-slate-900 dark:text-gray-300">
+          <div className="rounded-2xl bg-gray-50 px-4 py-3 text-xs text-slate-800 dark:bg-slate-900 dark:text-gray-300">
             Window: {window ? <b>{fromMinutes(window.openMin)} – {fromMinutes(window.closeMin)}</b> : "—"}
           </div>
           {Array.isArray(items) && items.length ? (
@@ -364,10 +364,10 @@ function RoutineModal({ open, onClose, items, window, goalById }) {
                       <span>{fromMinutes(it.startMin)} – {fromMinutes(it.endMin)}</span>
                       <span>{badge.text}</span>
                     </div>
-                    <div className="mt-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                    <div className="mt-2 text-sm font-medium text-slate-900 dark:text-gray-100">
                       {it.label ?? "Focus block"}
                     </div>
-                    <div className="mt-1 text-xs text-gray-600 dark:text-gray-300">
+                    <div className="mt-1 text-xs text-slate-800 dark:text-gray-300">
                       {goalLabel ? `Goal: ${goalLabel}` : "Unassigned"} • {humanMinutes(durMin)}
                     </div>
                   </li>
@@ -375,9 +375,9 @@ function RoutineModal({ open, onClose, items, window, goalById }) {
               })}
             </ul>
           ) : (
-            <div className="text-sm text-gray-600 dark:text-gray-300">No blocks scheduled for today.</div>
+            <div className="text-sm text-slate-800 dark:text-gray-300">No blocks scheduled for today.</div>
           )}
-          <div className="rounded-2xl bg-gray-50 px-4 py-3 text-xs text-gray-600 dark:bg-slate-900 dark:text-gray-300">
+          <div className="rounded-2xl bg-gray-50 px-4 py-3 text-xs text-slate-800 dark:bg-slate-900 dark:text-gray-300">
             Powered by <span className="font-semibold text-indigo-600 dark:text-indigo-400">Deep Calendar</span>.{" "}
             <a href={DC_ORIGIN} target="_blank" rel="noreferrer" className="text-indigo-600 underline dark:text-indigo-400">
               Explore the planner →
@@ -419,30 +419,30 @@ function StatsModal({ open, onClose, goals, stats7d, summary30d }) {
         <div className="max-h-[70vh] overflow-auto px-5 py-5 space-y-4">
           <div className="grid gap-3 sm:grid-cols-2">
             <div className="rounded-2xl border p-4 text-sm shadow-sm dark:border-slate-800">
-              <div className="text-xs uppercase tracking-wide text-gray-500">Total focus (7 days)</div>
-              <div className="mt-2 text-xl font-semibold text-gray-900 dark:text-gray-100">{total7h} hrs</div>
+              <div className="text-xs uppercase tracking-wide text-slate-700">Total focus (7 days)</div>
+              <div className="mt-2 text-xl font-semibold text-slate-900 dark:text-gray-100">{total7h} hrs</div>
             </div>
             <div className="rounded-2xl border p-4 text-sm shadow-sm dark:border-slate-800">
-              <div className="text-xs uppercase tracking-wide text-gray-500">Total focus (30 days)</div>
-              <div className="mt-2 text-xl font-semibold text-gray-900 dark:text-gray-100">{total30h} hrs</div>
+              <div className="text-xs uppercase tracking-wide text-slate-700">Total focus (30 days)</div>
+              <div className="mt-2 text-xl font-semibold text-slate-900 dark:text-gray-100">{total30h} hrs</div>
             </div>
           </div>
           <div className="rounded-2xl border p-4 shadow-sm dark:border-slate-800">
-            <div className="text-xs font-semibold uppercase tracking-wide text-gray-500">Goals — last 30 days</div>
+            <div className="text-xs font-semibold uppercase tracking-wide text-slate-700">Goals — last 30 days</div>
             {byGoal.length ? (
               <ul className="mt-3 space-y-2 text-sm">
                 {byGoal.map((g) => (
                   <li key={g.id} className="flex items-center justify-between">
-                    <span className="truncate text-gray-800 dark:text-gray-200">{g.label}</span>
-                    <span className="ml-2 shrink-0 text-gray-500">{g.hours.toFixed(1)}h</span>
+                    <span className="truncate text-slate-900 dark:text-gray-200">{g.label}</span>
+                    <span className="ml-2 shrink-0 text-slate-700">{g.hours.toFixed(1)}h</span>
                   </li>
                 ))}
               </ul>
             ) : (
-              <div className="mt-3 text-sm text-gray-600 dark:text-gray-300">No goal data yet.</div>
+              <div className="mt-3 text-sm text-slate-800 dark:text-gray-300">No goal data yet.</div>
             )}
           </div>
-          <div className="rounded-2xl bg-gray-50 px-4 py-3 text-xs text-gray-600 dark:bg-slate-900 dark:text-gray-300">
+          <div className="rounded-2xl bg-gray-50 px-4 py-3 text-xs text-slate-800 dark:bg-slate-900 dark:text-gray-300">
             Insights powered by <span className="font-semibold text-indigo-600 dark:text-indigo-400">Deep Calendar</span>.
           </div>
         </div>
@@ -834,7 +834,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
 
           <div className="relative grid gap-12 lg:grid-cols-[1.05fr,0.95fr] lg:items-center">
             {/* Left column */}
-            <div className="order-2 space-y-8 text-gray-900 lg:order-1 dark:text-gray-100">
+            <div className="order-2 space-y-8 text-slate-900 lg:order-1 dark:text-gray-100">
               <div className="flex items-start gap-8">
                 <div className="min-w-0 flex-1">
                   <h1 className="text-4xl font-semibold leading-tight tracking-tight md:text-6xl">
@@ -969,7 +969,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                 </Link>
                 <Link
                   href="/ventures"
-                  className="inline-flex items-center gap-2 rounded-full border px-5 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-slate-700 dark:text-gray-200 dark:hover:bg-slate-900"
+                  className="inline-flex items-center gap-2 rounded-full border px-5 py-2 text-sm font-medium text-slate-900 hover:bg-gray-50 dark:border-slate-700 dark:text-gray-200 dark:hover:bg-slate-900"
                 >
                   All ventures <FaExternalLinkAlt className="text-[11px]" />
                 </Link>
@@ -1029,14 +1029,14 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
           {/* GitHub Overview */}
           <div className={`${SURFACE} space-y-4 p-6`}>
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">GitHub overview</h2>
-              <span className="text-xs text-gray-500">Live snapshots</span>
+              <h2 className="text-lg font-semibold text-slate-900 dark:text-gray-100">GitHub overview</h2>
+              <span className="text-xs text-slate-700">Live snapshots</span>
             </div>
 
             <div className="grid gap-4 md:grid-cols-2">
               {/* Stats */}
               <div className="rounded-2xl border p-3">
-                <div className="mb-2 text-xs text-gray-500">Stats</div>
+                <div className="mb-2 text-xs text-slate-700">Stats</div>
                 <Image
                   src={`https://github-readme-stats.vercel.app/api?username=${GITHUB_USERNAME}&show_icons=true&rank_icon=github&hide_title=false&theme=transparent`}
                   alt="GitHub Stats"
@@ -1050,7 +1050,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
               {/* Top languages + Streak */}
               <div className="space-y-4">
                 <div className="rounded-2xl border p-3">
-                  <div className="mb-2 text-xs text-gray-500">Top languages</div>
+                  <div className="mb-2 text-xs text-slate-700">Top languages</div>
                   <Image
                     src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${GITHUB_USERNAME}&layout=compact&langs_count=8&card_width=360&theme=transparent`}
                     alt="Top Languages"
@@ -1061,7 +1061,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                   />
                 </div>
                 <div className="rounded-2xl border p-3">
-                  <div className="mb-2 text-xs text-gray-500">Streak</div>
+                  <div className="mb-2 text-xs text-slate-700">Streak</div>
                   <Image
                     src={`https://github-readme-streak-stats.herokuapp.com/?user=${GITHUB_USERNAME}&theme=transparent`}
                     alt="GitHub Streak"
@@ -1096,7 +1096,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
 
           {/* DeepCalendar */}
           <div className={`${SURFACE} space-y-4 p-6`}>
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">My Calendar (DeepCalendar)</h2>
+            <h2 className="text-lg font-semibold text-slate-900 dark:text-gray-100">My Calendar (DeepCalendar)</h2>
             <div className="rounded-2xl border border-indigo-100/50 bg-indigo-50/50 px-4 py-3 text-xs text-indigo-700 dark:border-indigo-400/40 dark:bg-indigo-500/10 dark:text-indigo-200">
               {todayWindow
                 ? <>Window {fromMinutes(todayWindow.openMin)} – {fromMinutes(todayWindow.closeMin)}</>
@@ -1112,7 +1112,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
               ) : activeBlock ? (
                 <ActiveBlockView item={activeBlock} />
               ) : (
-                <div className="rounded-2xl border border-dashed px-4 py-6 text-center text-sm text-gray-500 dark:border-slate-700">
+                <div className="rounded-2xl border border-dashed px-4 py-6 text-center text-sm text-slate-700 dark:border-slate-700">
                   No active deep block.
                 </div>
               )}
@@ -1128,12 +1128,12 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                 href={DC_ORIGIN}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex flex-1 items-center justify-center gap-2 rounded-2xl border px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-slate-700 dark:text-gray-200 dark:hover:bg-slate-900"
+                className="inline-flex flex-1 items-center justify-center gap-2 rounded-2xl border px-4 py-2 text-sm font-medium text-slate-900 hover:bg-gray-50 dark:border-slate-700 dark:text-gray-200 dark:hover:bg-slate-900"
               >
                 Open planner
               </a>
             </div>
-            <div className="pt-1 text-[11px] text-gray-500">
+            <div className="pt-1 text-[11px] text-slate-700">
               Powered by{" "}
               <a className="text-indigo-600 underline" href={DC_ORIGIN} target="_blank" rel="noreferrer">
                 DeepCalendar
@@ -1154,7 +1154,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
       >
         <div className="space-y-6">
           <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Short hits you can binge</h2>
+            <h2 className="text-xl font-semibold text-slate-900 dark:text-gray-100">Short hits you can binge</h2>
             <Link href="/reels" className="text-sm text-indigo-600 hover:underline dark:text-indigo-300">
               Browse all videos
             </Link>
@@ -1224,7 +1224,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                 );
               })
             ) : (
-              <div className={`${SURFACE} rounded-3xl p-5 text-sm text-gray-600 dark:text-gray-300`}>
+              <div className={`${SURFACE} rounded-3xl p-5 text-sm text-slate-800 dark:text-gray-300`}>
                 More videos are being produced – subscribe on YouTube to catch them first.
               </div>
             )}
@@ -1245,7 +1245,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
       >
         <div className="space-y-6">
           <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Latest writing</h2>
+            <h2 className="text-xl font-semibold text-slate-900 dark:text-gray-100">Latest writing</h2>
             <Link href="/blog" className="text-sm text-indigo-600 hover:underline dark:text-indigo-300">Visit the blog</Link>
           </div>
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -1273,7 +1273,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                       />
                     </div>
                   )}
-                  <div className="flex items-center gap-2 text-xs uppercase tracking-wide text-gray-500">
+                  <div className="flex items-center gap-2 text-xs uppercase tracking-wide text-slate-700">
                     {post.source && (
                       <span className="font-semibold text-indigo-600 dark:text-indigo-300">
                         {post.source}
@@ -1296,10 +1296,10 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                     <div className="mt-2 text-lg font-semibold text-indigo-700 dark:text-indigo-300">{post.title}</div>
                   )}
                   {post.summary && (
-                    <p className="mt-3 text-sm text-gray-600 dark:text-gray-300">{post.summary}</p>
+                    <p className="mt-3 text-sm text-slate-800 dark:text-gray-300">{post.summary}</p>
                   )}
                   {Array.isArray(post.tags) && post.tags.length > 0 && (
-                    <div className="mt-4 flex flex-wrap gap-2 text-xs text-gray-500 dark:text-gray-400">
+                    <div className="mt-4 flex flex-wrap gap-2 text-xs text-slate-700 dark:text-gray-400">
                       {post.tags.slice(0, 3).map((tag) => (
                         <span key={tag} className="rounded-full border border-gray-200 px-3 py-1 dark:border-slate-700">
                           #{tag}
@@ -1310,7 +1310,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                 </motion.article>
               ))
             ) : (
-              <div className={`${SURFACE} p-5 text-sm text-gray-600 dark:text-gray-300`}>
+              <div className={`${SURFACE} p-5 text-sm text-slate-800 dark:text-gray-300`}>
                 New essays are in the works — check back soon.
               </div>
             )}
@@ -1332,8 +1332,8 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
         <div className="space-y-6">
           <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Ventures & Products</h2>
-              <p className="text-sm text-gray-600 dark:text-gray-300">
+              <h2 className="text-xl font-semibold text-slate-900 dark:text-gray-100">Ventures & Products</h2>
+              <p className="text-sm text-slate-800 dark:text-gray-300">
                 Focus OS builds, learning ventures, and AI tools running live with operators and students.
               </p>
             </div>
@@ -1346,7 +1346,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                   Browse all ventures <FaExternalLinkAlt className="text-[11px]" />
                 </Link>
               ) : (
-                <span className="text-xs text-gray-500 dark:text-gray-400">
+                <span className="text-xs text-slate-700 dark:text-gray-400">
                   Quick access shortcuts to the tools I maintain.
                 </span>
               )}
@@ -1417,7 +1417,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                         className={
                           card.variant === "primary"
                             ? "text-3xl font-semibold"
-                            : "text-xl font-semibold text-gray-900 dark:text-gray-100"
+                            : "text-xl font-semibold text-slate-900 dark:text-gray-100"
                         }
                       >
                         {card.title}
@@ -1426,7 +1426,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                         className={
                           card.variant === "primary"
                             ? "text-sm text-white/85"
-                            : "text-sm text-gray-600 dark:text-gray-300"
+                            : "text-sm text-slate-800 dark:text-gray-300"
                         }
                       >
                         {card.summary}
@@ -1441,7 +1441,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                               : "inline-flex items-center gap-2 rounded-full bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
                             : card.variant === "primary"
                               ? "inline-flex items-center gap-2 rounded-full border border-white/40 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10"
-                              : "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50 dark:border-slate-700 dark:text-gray-200 dark:hover:bg-slate-900";
+                              : "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold text-slate-900 hover:bg-gray-50 dark:border-slate-700 dark:text-gray-200 dark:hover:bg-slate-900";
 
                         if (action.external) {
                           return (
@@ -1492,8 +1492,8 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                         <product.icon />
                       </span>
                       <div>
-                        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{product.label}</h3>
-                        <p className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                        <h3 className="text-lg font-semibold text-slate-900 dark:text-gray-100">{product.label}</h3>
+                        <p className="text-xs uppercase tracking-wide text-slate-700 dark:text-gray-400">
                           {product.accent === "indigo"
                             ? "Deep focus OS"
                             : product.accent === "violet"
@@ -1506,7 +1506,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                         </p>
                       </div>
                     </div>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">{product.description}</p>
+                    <p className="text-sm text-slate-800 dark:text-gray-300">{product.description}</p>
                     <div className="flex flex-wrap gap-2">
                       <Link
                         href={product.href}
@@ -1540,8 +1540,8 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
         <div className="space-y-6">
           <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Services I Offer</h2>
-              <p className="text-sm text-gray-600 dark:text-gray-300">
+              <h2 className="text-xl font-semibold text-slate-900 dark:text-gray-100">Services I Offer</h2>
+              <p className="text-sm text-slate-800 dark:text-gray-300">
                 Build with me—custom AI systems, full-stack execution, and data intelligence stitched end-to-end.
               </p>
             </div>
@@ -1595,7 +1595,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                           {service.highlight.map((point) => (
                             <span
                               key={point}
-                              className={`rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-wide text-gray-700 dark:text-gray-200 ${
+                              className={`rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-wide text-slate-900 dark:text-gray-200 ${
                                 accent?.ring ?? "border-indigo-200/70 hover:border-indigo-300"
                               } ${accent?.bubble ?? "bg-indigo-500/15"}`}
                             >
