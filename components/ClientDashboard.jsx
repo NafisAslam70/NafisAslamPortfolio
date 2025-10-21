@@ -18,7 +18,6 @@ import {
   FaRocket,
   FaArrowRight,
   FaMagic,
-  FaPhoneAlt,
   FaWhatsapp,
   FaCode,
   FaFlask,
@@ -115,10 +114,10 @@ const PRODUCT_LINKS = [
 
 const CONTACT_LINKS = [
   {
-    label: "Call",
-    href: "tel:+601137576465",
-    hoverText: "+60 11-3757-6465",
-    icon: FaPhoneAlt,
+    label: "Email",
+    href: "mailto:nafisaslam70@gmail.com",
+    hoverText: "nafisaslam70@gmail.com",
+    icon: FaLink,
     accent: "amber",
   },
   {
