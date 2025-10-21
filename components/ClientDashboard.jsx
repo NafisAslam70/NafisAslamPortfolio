@@ -482,24 +482,28 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
     const video = heroVideoRef.current;
     if (!video) return;
 
-    const attemptPlay = () => {
+    const ensurePlayback = () => {
+      video.defaultMuted = true;
+      video.muted = true;
+      video.playsInline = true;
+      video.setAttribute("muted", "");
       const playPromise = video.play();
       if (playPromise && typeof playPromise.then === "function") {
         playPromise.catch(() => {
-          /* autoplay blocked by browser; stay silent */
+          /* autoplay blocked by browser; ignore */
         });
       }
     };
 
     if (video.readyState >= 2) {
-      attemptPlay();
+      requestAnimationFrame(ensurePlayback);
     } else {
-      video.addEventListener("canplay", attemptPlay, { once: true });
+      const handleCanPlay = () => requestAnimationFrame(ensurePlayback);
+      video.addEventListener("canplay", handleCanPlay, { once: true });
+      return () => {
+        video.removeEventListener("canplay", handleCanPlay);
+      };
     }
-
-    return () => {
-      video.removeEventListener("canplay", attemptPlay);
-    };
   }, []);
 
   useEffect(() => {
@@ -1146,13 +1150,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                 const embedUrl = reelEmbedUrl(reel);
                 const cardKey = reel.id ?? reel.youtubeId ?? `reel-${index}`;
                 return (
-                  <Link
-                    key={cardKey}
-                    href="/reels"
-                    className="group block"
-                    onMouseEnter={() => setHoveredReel(cardKey)}
-                    onMouseLeave={() => setHoveredReel(null)}
-                  >
+                  <Link key={cardKey} href="/reels" className="group block">
                     <motion.div
                       initial={{ opacity: 0, y: 24 }}
                       whileInView={{ opacity: 1, y: 0 }}
@@ -1160,6 +1158,8 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                       viewport={{ once: true }}
                       whileHover={CARD_HOVER_FLOAT}
                       whileTap={CARD_TAP_PRESS}
+                      onHoverStart={() => setHoveredReel(cardKey)}
+                      onHoverEnd={() => setHoveredReel(null)}
                       className="relative overflow-hidden rounded-3xl border border-white/10 bg-slate-950 text-white shadow-lg transition-transform duration-300"
                     >
                       <div className="relative overflow-hidden rounded-[2.3rem] border border-white/10 bg-black/60">
