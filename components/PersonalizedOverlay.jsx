@@ -181,13 +181,8 @@ export default function PersonalizedOverlay({ data, onClose }) {
               Tailored plan inside
             </span>
             <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-50">
-              See what I can offer for NAV6/CRC
+              How I can add value to your organisation?
             </h3>
-            {primaryOfferHighlight ? (
-              <p className="text-sm text-slate-600 dark:text-slate-300">
-                Highlight: {primaryOfferHighlight}
-              </p>
-            ) : null}
             <button
               type="button"
               onClick={() => setShowOffersModal(true)}
@@ -196,11 +191,6 @@ export default function PersonalizedOverlay({ data, onClose }) {
             >
               See what I can offer
             </button>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              {totalSlides
-                ? "Opens a quick modal with the full set of offers and reasons to work together."
-                : "Detailed offers coming soon — check back shortly."}
-            </p>
           </div>
 
           <motion.div
@@ -304,12 +294,12 @@ export default function PersonalizedOverlay({ data, onClose }) {
             <span className="text-xs text-slate-600 dark:text-slate-300">
               Close this card any time — the whole site is ready underneath.
             </span>
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
+            <div className="flex flex-row flex-wrap items-center justify-center gap-1.5 sm:flex-row sm:flex-nowrap sm:items-center sm:justify-end sm:gap-3">
               <a
                 href="https://wa.me/601137576465"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center whitespace-normal rounded-full border border-indigo-200 bg-white px-5 py-2 text-sm font-semibold text-indigo-600 shadow-sm transition hover:bg-indigo-50 dark:border-white/15 dark:bg-white/10 dark:text-indigo-200 sm:whitespace-nowrap"
+                className="inline-flex items-center justify-center whitespace-nowrap rounded-full border border-indigo-200 bg-white px-4 py-1.5 text-xs font-semibold text-indigo-600 shadow-sm transition hover:bg-indigo-50 dark:border-white/15 dark:bg-white/10 dark:text-indigo-200 sm:px-5 sm:py-2 sm:text-sm"
               >
                 WhatsApp me
               </a>
@@ -319,7 +309,7 @@ export default function PersonalizedOverlay({ data, onClose }) {
                   href={link.href}
                   target={link.external ? "_blank" : undefined}
                   rel={link.external ? "noreferrer" : undefined}
-                  className={`inline-flex items-center justify-center whitespace-normal rounded-full px-5 py-2 text-sm font-semibold shadow-sm transition sm:whitespace-nowrap ${
+                  className={`inline-flex items-center justify-center whitespace-nowrap rounded-full px-4 py-1.5 text-xs font-semibold shadow-sm transition sm:px-5 sm:py-2 sm:text-sm ${
                     link.primary
                       ? "bg-indigo-600 text-white hover:bg-indigo-500"
                       : "border border-indigo-200 bg-white text-indigo-600 hover:bg-indigo-50 dark:border-white/15 dark:bg-white/10 dark:text-indigo-200"
