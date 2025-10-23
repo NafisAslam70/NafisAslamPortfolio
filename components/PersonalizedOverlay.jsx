@@ -240,15 +240,26 @@ export default function PersonalizedOverlay({ data, onClose }) {
                       </span>
                       <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-50">{currentSlide.title}</h3>
                       {typeof currentSlide.index === "number" && currentSlide.index === 0 ? (
-                        <Link
-                          href="https://meedian-ai-flow-v2.vercel.app/"
-                          target="_blank"
-                          rel="noreferrer"
-                          className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 px-4 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-white shadow-[0_18px_35px_-15px_rgba(79,70,229,0.6)] transition hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-200/70 dark:border-amber-300/40 animate-pulse"
-                        >
-                          <span aria-hidden="true">✨</span>
-                          Open Meedian AI Flow
-                        </Link>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <Link
+                            href="https://meedian-ai-flow-v2.vercel.app/"
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 px-4 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-white shadow-[0_18px_35px_-15px_rgba(79,70,229,0.6)] transition hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-200/70 dark:border-amber-300/40 animate-pulse"
+                          >
+                            <span aria-hidden="true">✨</span>
+                            Open Meedian AI Flow
+                          </Link>
+                          <Link
+                            href="/pdfs/MeedianAI-Flow-for-CRC.pdf"
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-2 rounded-full border border-indigo-200/70 bg-white px-4 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-indigo-600 shadow-sm transition hover:bg-indigo-50 dark:border-white/15 dark:bg-white/10 dark:text-indigo-200"
+                          >
+                            <span aria-hidden="true">🗂️</span>
+                            Tailored plan for CRC
+                          </Link>
+                        </div>
                       ) : null}
                     </div>
                   </div>
@@ -411,15 +422,26 @@ export default function PersonalizedOverlay({ data, onClose }) {
                                 </span>
                                 <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50">{currentSlide.title}</h3>
                                 {typeof currentSlide.index === "number" && currentSlide.index === 0 ? (
-                                  <Link
-                                    href="https://meedian-ai-flow-v2.vercel.app/"
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 px-4 py-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-white shadow-[0_18px_35px_-15px_rgba(79,70,229,0.6)] transition hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-200/70 dark:border-amber-300/40 animate-pulse"
-                                  >
-                                    <span aria-hidden="true">✨</span>
-                                    Open Meedian AI Flow
-                                  </Link>
+                                  <div className="flex flex-wrap items-center gap-2">
+                                    <Link
+                                      href="https://meedian-ai-flow-v2.vercel.app/"
+                                      target="_blank"
+                                      rel="noreferrer"
+                                      className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 px-4 py-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-white shadow-[0_18px_35px_-15px_rgba(79,70,229,0.6)] transition hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-200/70 dark:border-amber-300/40 animate-pulse"
+                                    >
+                                      <span aria-hidden="true">✨</span>
+                                      Open Meedian AI Flow
+                                    </Link>
+                                    <Link
+                                      href="/pdfs/MeedianAI-Flow-for-CRC.pdf"
+                                      target="_blank"
+                                      rel="noreferrer"
+                                      className="inline-flex items-center gap-2 rounded-full border border-indigo-200/70 bg-white px-4 py-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-indigo-600 shadow-sm transition hover:bg-indigo-50 dark:border-white/15 dark:bg-white/10 dark:text-indigo-200"
+                                    >
+                                      <span aria-hidden="true">🗂️</span>
+                                      Tailored plan for CRC
+                                    </Link>
+                                  </div>
                                 ) : null}
                               </div>
                               <ul className="space-y-2 text-sm leading-relaxed text-slate-700 dark:text-slate-200">
@@ -515,15 +537,26 @@ export default function PersonalizedOverlay({ data, onClose }) {
                                 </span>
                                 <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-50">{currentSlide.title}</h3>
                                 {typeof currentSlide.index === "number" && currentSlide.index === 0 ? (
-                                  <Link
-                                    href="https://meedian-ai-flow-v2.vercel.app/"
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 px-4 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-white shadow-[0_18px_35px_-15px_rgba(79,70,229,0.6)] transition hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-200/70 dark:border-amber-300/40 animate-pulse"
-                                  >
-                                    <span aria-hidden="true">✨</span>
-                                    Open Meedian AI Flow
-                                  </Link>
+                                  <div className="flex flex-wrap items-center gap-2">
+                                    <Link
+                                      href="https://meedian-ai-flow-v2.vercel.app/"
+                                      target="_blank"
+                                      rel="noreferrer"
+                                      className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 px-4 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-white shadow-[0_18px_35px_-15px_rgba(79,70,229,0.6)] transition hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-200/70 dark:border-amber-300/40 animate-pulse"
+                                    >
+                                      <span aria-hidden="true">✨</span>
+                                      Open Meedian AI Flow
+                                    </Link>
+                                    <Link
+                                      href="/pdfs/MeedianAI-Flow-for-CRC.pdf"
+                                      target="_blank"
+                                      rel="noreferrer"
+                                      className="inline-flex items-center gap-2 rounded-full border border-indigo-200/70 bg-white px-4 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-indigo-600 shadow-sm transition hover:bg-indigo-50 dark:border-white/15 dark:bg-white/10 dark:text-indigo-200"
+                                    >
+                                      <span aria-hidden="true">🗂️</span>
+                                      Tailored plan for CRC
+                                    </Link>
+                                  </div>
                                 ) : null}
                               </div>
                             </div>
