@@ -244,7 +244,7 @@ export default function PersonalizedOverlay({ data, onClose }) {
                           href="https://meedian-ai-flow-v2.vercel.app/"
                           target="_blank"
                           rel="noreferrer"
-                          className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 px-4 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-white shadow-[0_18px_35px_-15px_rgba(79,70,229,0.6)] transition hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-200/70 dark:border-amber-300/40"
+                          className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 px-4 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-white shadow-[0_18px_35px_-15px_rgba(79,70,229,0.6)] transition hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-200/70 dark:border-amber-300/40 animate-pulse"
                         >
                           <span aria-hidden="true">✨</span>
                           Open Meedian AI Flow
@@ -410,7 +410,7 @@ export default function PersonalizedOverlay({ data, onClose }) {
                                     href="https://meedian-ai-flow-v2.vercel.app/"
                                     target="_blank"
                                     rel="noreferrer"
-                                    className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 px-4 py-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-white shadow-[0_18px_35px_-15px_rgba(79,70,229,0.6)] transition hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-200/70 dark:border-amber-300/40"
+                                    className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 px-4 py-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-white shadow-[0_18px_35px_-15px_rgba(79,70,229,0.6)] transition hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-200/70 dark:border-amber-300/40 animate-pulse"
                                   >
                                     <span aria-hidden="true">✨</span>
                                     Open Meedian AI Flow
@@ -514,7 +514,7 @@ export default function PersonalizedOverlay({ data, onClose }) {
                                     href="https://meedian-ai-flow-v2.vercel.app/"
                                     target="_blank"
                                     rel="noreferrer"
-                                    className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 px-4 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-white shadow-[0_18px_35px_-15px_rgba(79,70,229,0.6)] transition hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-200/70 dark:border-amber-300/40"
+                                    className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 px-4 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-white shadow-[0_18px_35px_-15px_rgba(79,70,229,0.6)] transition hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-200/70 dark:border-amber-300/40 animate-pulse"
                                   >
                                     <span aria-hidden="true">✨</span>
                                     Open Meedian AI Flow
