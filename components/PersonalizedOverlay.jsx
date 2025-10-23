@@ -29,6 +29,19 @@ export default function PersonalizedOverlay({ data, onClose }) {
   const currentSlide = totalSlides ? slides[Math.min(slideIndex, totalSlides - 1)] : null;
   const introText = data?.headline ?? "";
   const footerLinks = data?.footerLinks ?? [];
+  const mobileNextLabel = useMemo(() => {
+    if (totalSlides <= 1) return null;
+    const nextIndex = (slideIndex + 1) % totalSlides;
+    const nextSlide = slides[nextIndex];
+    if (!nextSlide) return "Next";
+    if (nextSlide.kind === "offer") {
+      return nextIndex === 0 ? "Back to first offer" : "Next offer";
+    }
+    if (nextSlide.kind === "qualities") {
+      return "Why work with me";
+    }
+    return "Next";
+  }, [slideIndex, slides, totalSlides]);
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -151,13 +164,92 @@ export default function PersonalizedOverlay({ data, onClose }) {
             <div className="absolute bottom-[-80px] right-[-30px] h-60 w-60 rounded-full bg-pink-300/25 blur-[110px]" />
           </div>
 
+          <div className="w-full space-y-4 sm:hidden">
+            <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.24em] text-indigo-600 dark:text-indigo-300">
+              <span>
+                Card {totalSlides ? slideIndex + 1 : 0} of {totalSlides}
+              </span>
+              {totalSlides > 1 ? (
+                <span className="text-[11px] text-indigo-500 dark:text-indigo-200">Tap for more</span>
+              ) : null}
+            </div>
+            {!currentSlide ? (
+              <div className="rounded-2xl border border-indigo-200/60 bg-white/90 p-5 text-sm text-slate-700 shadow-[0_20px_45px_-40px_rgba(79,70,229,0.35)] dark:border-white/10 dark:bg-white/10 dark:text-slate-200">
+                Personalised offers will be added here soon.
+              </div>
+            ) : (
+              <div className="space-y-4 rounded-2xl border border-indigo-200/60 bg-white p-5 shadow-[0_20px_50px_-40px_rgba(79,70,229,0.35)] dark:border-white/10 dark:bg-white/10">
+                {currentSlide.kind === "offer" ? (
+                  <>
+                    <div className="flex flex-wrap items-center gap-3">
+                      <span className="inline-flex items-center rounded-full bg-indigo-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.32em] text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-200">
+                        Offer
+                      </span>
+                      <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50">{currentSlide.title}</h3>
+                      {typeof currentSlide.index === "number" && currentSlide.index === 0 ? (
+                        <Link
+                          href="https://meedian-ai-flow-v2.vercel.app/"
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center rounded-full border border-indigo-200/70 bg-gradient-to-r from-white via-indigo-50 to-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-indigo-600 shadow-[0_16px_30px_-22px_rgba(79,70,229,0.5)] transition hover:bg-white dark:border-white/15 dark:bg-white/10 dark:text-indigo-200"
+                        >
+                          Open Meedian AI Flow
+                        </Link>
+                      ) : null}
+                    </div>
+                    <ul className="space-y-2 text-sm leading-relaxed text-slate-700 dark:text-slate-200">
+                      {currentSlide.bullets.map((item, idx) => (
+                        <li key={idx} className="flex items-start gap-2">
+                          <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-indigo-500 shadow-[0_0_10px_rgba(79,70,229,0.8)] dark:bg-indigo-300" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                ) : null}
+                {currentSlide.kind === "qualities" ? (
+                  <>
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-xs font-semibold uppercase tracking-[0.32em] text-indigo-600 dark:text-indigo-300">
+                        Why work with me
+                      </h3>
+                    </div>
+                    <ul className="space-y-2 text-sm leading-relaxed text-slate-700 dark:text-slate-200">
+                      {(currentSlide.qualities ?? []).map((quality, idx) => (
+                        <li key={idx} className="flex items-start gap-2">
+                          <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-indigo-500 shadow-[0_0_8px_rgba(79,70,229,0.6)] dark:bg-indigo-300" />
+                          <span>{quality}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <Link
+                      href="/pdfs/myResume.pdf"
+                      className="inline-flex w-full items-center justify-center rounded-full border border-indigo-200/70 bg-indigo-600 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-white transition hover:bg-indigo-500 dark:border-white/15"
+                    >
+                      Download my CV
+                    </Link>
+                  </>
+                ) : null}
+              </div>
+            )}
+            {totalSlides > 1 && mobileNextLabel ? (
+              <button
+                type="button"
+                onClick={() => setSlideIndex((prev) => (prev + 1) % totalSlides)}
+                className="inline-flex w-full items-center justify-center rounded-2xl bg-indigo-600 px-4 py-3 text-sm font-semibold uppercase tracking-[0.28em] text-white shadow-[0_16px_30px_-22px_rgba(79,70,229,0.55)] transition hover:bg-indigo-500"
+              >
+                {mobileNextLabel}
+              </button>
+            ) : null}
+          </div>
+
           <motion.div
             key={slideIndex}
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -24 }}
             transition={{ duration: 0.25 }}
-            className="flex w-full max-w-3xl flex-col rounded-3xl border border-indigo-200/70 bg-gradient-to-br from-white via-indigo-50/40 to-white p-6 shadow-[0_45px_95px_-60px_rgba(79,70,229,0.45)] backdrop-blur-sm dark:border-white/10 dark:bg-slate-900/40 max-h-[600px] lg:max-h-[520px] lg:p-8"
+            className="hidden w-full max-w-3xl flex-col rounded-3xl border border-indigo-200/70 bg-gradient-to-br from-white via-indigo-50/40 to-white p-6 shadow-[0_45px_95px_-60px_rgba(79,70,229,0.45)] backdrop-blur-sm dark:border-white/10 dark:bg-slate-900/40 max-h-[600px] sm:flex lg:max-h-[520px] lg:p-8"
           >
             <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-semibold uppercase tracking-[0.24em] text-indigo-600 dark:text-indigo-300">
               <span>
