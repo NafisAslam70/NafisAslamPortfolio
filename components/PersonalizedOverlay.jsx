@@ -88,7 +88,7 @@ export default function PersonalizedOverlay({ data, onClose }) {
           transition={{ duration: 0.2 }}
           className="relative mx-auto flex max-h-[88vh] w-full max-w-4xl flex-col overflow-hidden rounded-3xl border border-white/20 bg-[#f8f9ff] text-slate-900 shadow-[0_45px_95px_-50px_rgba(79,70,229,0.55)] dark:border-white/15 dark:bg-slate-950 dark:text-slate-100"
         >
-          <header className="flex flex-col gap-4 border-b border-slate-100 px-6 py-6 dark:border-white/10">
+          <header className="relative flex flex-col gap-4 border-b border-slate-100 px-6 py-6 dark:border-white/10">
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div className="space-y-3">
                 <p className="inline-flex items-center gap-2 rounded-full bg-indigo-500/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.35em] text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-300">
@@ -133,7 +133,7 @@ export default function PersonalizedOverlay({ data, onClose }) {
               <button
                 type="button"
                 onClick={onClose}
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-sm font-semibold hover:bg-slate-100 dark:border-white/15 dark:hover:bg-white/10"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-sm font-semibold hover:bg-slate-100 dark:border-white/15 dark:hover:bg-white/10 sm:absolute sm:right-6 sm:top-6"
                 aria-label="Close personalised message"
               >
                 ×
