@@ -106,7 +106,7 @@ const PRODUCT_LINKS = [
   {
     label: "Meed Public School",
     href: "https://www.mymeedai.org/",
-    description: "Systems-first schooling blueprint in Kuala Lumpur.",
+    description: "Systems-first schooling blueprint in Jharkhand, India.",
     icon: FaRocket,
     accent: "rose",
   },
