@@ -297,16 +297,21 @@ export default function PersonalizedOverlay({ data, onClose }) {
             </span>
             <div className="flex flex-row flex-wrap items-center justify-center gap-1.5 sm:flex-row sm:flex-nowrap sm:items-center sm:justify-end sm:gap-3">
               <a
-                href="https://wa.me/601137576465"
+                href="https://wa.me/60172641454"
                 target="_blank"
                 rel="noreferrer"
                 aria-label="WhatsApp me"
                 className="inline-flex items-center justify-center whitespace-nowrap rounded-full border border-indigo-200 bg-white px-4 py-1.5 text-xs font-semibold text-indigo-600 shadow-sm transition hover:bg-indigo-50 dark:border-white/15 dark:bg-white/10 dark:text-indigo-200 sm:px-5 sm:py-2 sm:text-sm"
               >
-                <span className="sm:hidden" aria-hidden="true">
-                  🟢
-                </span>
-                <span className="hidden sm:inline">WhatsApp me</span>
+                <img
+                  src="/whatsapp-icon-green.svg"
+                  width="32"
+                  height="32"
+                  alt=""
+                  aria-hidden="true"
+                  className="h-7 w-7 sm:mr-2"
+                />
+                <span className="hidden sm:inline text-sm font-semibold text-indigo-600">WhatsApp me</span>
               </a>
               {footerLinks.map((link) => {
                 const mobileLabel = link.label.includes("tailored")
