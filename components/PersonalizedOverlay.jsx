@@ -90,7 +90,7 @@ export default function PersonalizedOverlay({ data, onClose }) {
         >
           <header className="relative flex flex-col gap-4 border-b border-slate-100 px-6 py-6 dark:border-white/10">
             <div className="flex flex-wrap items-start justify-between gap-4">
-              <div className="space-y-3">
+              <div className="space-y-3 pr-12 sm:pr-0">
                 <p className="inline-flex items-center gap-2 rounded-full bg-indigo-500/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.35em] text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-300">
                   Personalised card for
                 </p>
@@ -133,7 +133,7 @@ export default function PersonalizedOverlay({ data, onClose }) {
               <button
                 type="button"
                 onClick={onClose}
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-sm font-semibold hover:bg-slate-100 dark:border-white/15 dark:hover:bg-white/10 sm:absolute sm:right-6 sm:top-6"
+                className="absolute right-4 top-4 inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-sm font-semibold hover:bg-slate-100 dark:border-white/15 dark:hover:bg-white/10 sm:right-6 sm:top-6"
                 aria-label="Close personalised message"
               >
                 ×
