@@ -98,7 +98,7 @@ export default function PersonalizedOverlay({ data, onClose }) {
                   {data.displayName ?? data.name}
                 </h2>
                 {data.roleLine ? (
-                  <p className="text-sm text-slate-600 dark:text-slate-300">{data.roleLine}</p>
+                  <p className="hidden text-sm text-slate-600 dark:text-slate-300 sm:block">{data.roleLine}</p>
                 ) : null}
                 {introText ? (
                   <div className="space-y-2 text-sm leading-relaxed text-slate-800 dark:text-slate-200">
@@ -299,25 +299,40 @@ export default function PersonalizedOverlay({ data, onClose }) {
                 href="https://wa.me/601137576465"
                 target="_blank"
                 rel="noreferrer"
+                aria-label="WhatsApp me"
                 className="inline-flex items-center justify-center whitespace-nowrap rounded-full border border-indigo-200 bg-white px-4 py-1.5 text-xs font-semibold text-indigo-600 shadow-sm transition hover:bg-indigo-50 dark:border-white/15 dark:bg-white/10 dark:text-indigo-200 sm:px-5 sm:py-2 sm:text-sm"
               >
-                WhatsApp me
+                <span className="sm:hidden" aria-hidden="true">
+                  💬
+                </span>
+                <span className="hidden sm:inline">WhatsApp me</span>
               </a>
-              {footerLinks.map((link) => (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  target={link.external ? "_blank" : undefined}
-                  rel={link.external ? "noreferrer" : undefined}
-                  className={`inline-flex items-center justify-center whitespace-nowrap rounded-full px-4 py-1.5 text-xs font-semibold shadow-sm transition sm:px-5 sm:py-2 sm:text-sm ${
-                    link.primary
-                      ? "bg-indigo-600 text-white hover:bg-indigo-500"
-                      : "border border-indigo-200 bg-white text-indigo-600 hover:bg-indigo-50 dark:border-white/15 dark:bg-white/10 dark:text-indigo-200"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {footerLinks.map((link) => {
+                const mobileLabel = link.label.includes("tailored")
+                  ? "📄"
+                  : link.label.toLowerCase().includes("exit")
+                  ? "↗"
+                  : "•";
+                return (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    target={link.external ? "_blank" : undefined}
+                    rel={link.external ? "noreferrer" : undefined}
+                    aria-label={link.label}
+                    className={`inline-flex items-center justify-center whitespace-nowrap rounded-full px-4 py-1.5 text-xs font-semibold shadow-sm transition sm:px-5 sm:py-2 sm:text-sm ${
+                      link.primary
+                        ? "bg-indigo-600 text-white hover:bg-indigo-500"
+                        : "border border-indigo-200 bg-white text-indigo-600 hover:bg-indigo-50 dark:border-white/15 dark:bg-white/10 dark:text-indigo-200"
+                    }`}
+                  >
+                    <span className="sm:hidden" aria-hidden="true">
+                      {mobileLabel}
+                    </span>
+                    <span className="hidden sm:inline">{link.label}</span>
+                  </Link>
+                );
+              })}
             </div>
           </footer>
         </motion.div>
