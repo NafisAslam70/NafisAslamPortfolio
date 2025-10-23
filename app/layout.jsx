@@ -3,6 +3,7 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 import { jwtVerify } from "jose";
 import SiteHeader from "@/components/SiteHeader";
+import PersonalizedEntry from "@/components/PersonalizedEntry";
 import { FaGithub, FaLinkedin, FaMedium, FaYoutube } from "react-icons/fa";
 
 export const dynamic = "force-dynamic";
@@ -102,6 +103,7 @@ export default async function RootLayout({ children }) {
         <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
       </head>
       <body className="min-h-screen antialiased flex flex-col">
+        <PersonalizedEntry />
 <SiteHeader
   session={session}
   lang={lang}
