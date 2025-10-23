@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, useMemo, useCallback } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { FaCloud, FaFilm, FaPlayCircle, FaYoutube } from "react-icons/fa";
 
@@ -598,6 +599,87 @@ export default function ReelsPage() {
               <p className="text-sm">No reels match this filter yet. Switch filters or add new content.</p>
             </div>
           )}
+
+          <section className={`${PANEL} space-y-6`}>
+            <div className="space-y-2">
+              <span className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-600/80 dark:text-indigo-100/70">
+                <FaFilm className="text-base text-indigo-500 dark:text-indigo-300" />
+                Project videos
+              </span>
+              <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">Deepwork Ventures in motion</h2>
+              <p className="text-sm text-slate-600 dark:text-white/70">
+                A closer look at how the work comes together—captured on site for two of the Deepwork venture builds.
+              </p>
+              <div className="flex flex-wrap gap-3 pt-1">
+                <Link
+                  href="/ventures"
+                  className="inline-flex items-center gap-2 rounded-full border border-indigo-200/70 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-indigo-600 shadow-sm transition hover:bg-indigo-50 dark:border-white/12 dark:bg-white/10 dark:text-indigo-200"
+                >
+                  Visit ventures
+                </Link>
+              </div>
+            </div>
+            <div className="grid gap-6 md:grid-cols-2">
+              {[
+                { id: "Je0_qLxRbX8", title: "Deepwork Ventures · Walkthrough 1" },
+                { id: "YEI1MAditYg", title: "Deepwork Ventures · Walkthrough 2" },
+              ].map((video) => (
+                <div key={video.id} className={`${GLASS_CARD} rounded-[28px] overflow-hidden`}>
+                  <div className="relative aspect-video w-full">
+                    <iframe
+                      className="absolute inset-0 h-full w-full rounded-[28px]"
+                      src={`https://www.youtube.com/embed/${video.id}`}
+                      title={video.title}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      loading="lazy"
+                      allowFullScreen
+                    />
+                  </div>
+                  <div className="px-5 py-4 text-sm font-semibold uppercase tracking-[0.24em] text-slate-600 dark:text-white/75">
+                    {video.title}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className={`${PANEL} space-y-6`}>
+            <div className="space-y-2">
+              <span className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-600/80 dark:text-indigo-100/70">
+                <FaYoutube className="text-base text-rose-500 dark:text-rose-300" />
+                Social YouTube videos
+              </span>
+              <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">Channel drops &amp; reflections</h2>
+              <p className="text-sm text-slate-600 dark:text-white/70">
+                Short-form reflections from the YouTube channel—spotlighting the thinking behind the systems.
+              </p>
+              <div className="flex flex-wrap gap-3 pt-1">
+                <Link
+                  href="https://www.youtube.com/watch?v=mA032XMzEHw"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-rose-200/70 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-rose-600 shadow-sm transition hover:bg-rose-50 dark:border-white/12 dark:bg-white/10 dark:text-rose-200"
+                >
+                  Visit YouTube
+                </Link>
+              </div>
+            </div>
+            <div className={`${GLASS_CARD} rounded-[28px] overflow-hidden`}>
+              <div className="relative aspect-video w-full">
+                <iframe
+                  className="absolute inset-0 h-full w-full rounded-[28px]"
+                  src="https://www.youtube.com/embed/mA032XMzEHw"
+                  title="Social YouTube update"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  loading="lazy"
+                  allowFullScreen
+                />
+              </div>
+              <div className="px-5 py-4 text-sm font-semibold uppercase tracking-[0.24em] text-slate-600 dark:text-white/75">
+                Social drop · channel reflection
+              </div>
+            </div>
+          </section>
         </div>
       </div>
     </section>
