@@ -805,7 +805,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
             </div>
           </div>
           <div className="hire-cta-card relative w-[164px] overflow-hidden rounded-2xl border border-indigo-200/70 bg-gradient-to-br from-white/90 via-indigo-100/55 to-purple-100/45 p-4 text-center text-[11px] shadow-lg ring-1 ring-transparent transition duration-300 hover:shadow-indigo-300/35 hover:ring-indigo-200/60 dark:border-white/10 dark:from-white/[0.08] dark:via-indigo-900/25 dark:to-purple-900/20">
-            <div className="font-semibold uppercase tracking-[0.28em] text-indigo-600 dark:text-indigo-300">Need a Builder?</div>
+            <div className="font-semibold uppercase tracking-[0.28em] text-indigo-600 dark:text-indigo-300">Need an AI Developer/Researcher?</div>
             <p className="mt-2 text-[11px] font-medium text-slate-600 dark:text-slate-200">Let’s scope your next sprint together.</p>
             <Link
               href="/hire-me"
