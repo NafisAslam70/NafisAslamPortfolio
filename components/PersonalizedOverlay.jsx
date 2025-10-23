@@ -258,7 +258,7 @@ export default function PersonalizedOverlay({ data, onClose }) {
                 href="https://wa.me/601137576465"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center whitespace-nowrap rounded-full border border-indigo-200 bg-white px-5 py-2 text-sm font-semibold text-indigo-600 shadow-sm transition hover:bg-indigo-50 dark:border-white/15 dark:bg-white/10 dark:text-indigo-200"
+                className="inline-flex items-center justify-center whitespace-normal rounded-full border border-indigo-200 bg-white px-5 py-2 text-sm font-semibold text-indigo-600 shadow-sm transition hover:bg-indigo-50 dark:border-white/15 dark:bg-white/10 dark:text-indigo-200 sm:whitespace-nowrap"
               >
                 WhatsApp me
               </a>
@@ -268,7 +268,7 @@ export default function PersonalizedOverlay({ data, onClose }) {
                   href={link.href}
                   target={link.external ? "_blank" : undefined}
                   rel={link.external ? "noreferrer" : undefined}
-                  className={`inline-flex items-center justify-center whitespace-nowrap rounded-full px-5 py-2 text-sm font-semibold shadow-sm transition ${
+                  className={`inline-flex items-center justify-center whitespace-normal rounded-full px-5 py-2 text-sm font-semibold shadow-sm transition sm:whitespace-nowrap ${
                     link.primary
                       ? "bg-indigo-600 text-white hover:bg-indigo-500"
                       : "border border-indigo-200 bg-white text-indigo-600 hover:bg-indigo-50 dark:border-white/15 dark:bg-white/10 dark:text-indigo-200"
