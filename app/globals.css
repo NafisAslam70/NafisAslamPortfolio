@@ -85,7 +85,7 @@ body, .card, .card-solid, .btn, input, textarea, select {
   background:
     linear-gradient(180deg, rgba(255,255,255,.06), transparent),
     rgb(var(--card));
-  border: 1px solid rgba(var(--border) / 1);
+  border: 1px solid rgb(var(--border) / 1);
 }
 
 input, textarea, select{
@@ -94,7 +94,7 @@ input, textarea, select{
   background: rgb(var(--card));
 }
 input:focus, textarea:focus, select:focus{
-  box-shadow: 0 0 0 4px rgba(var(--ring) / .15);
+  box-shadow: 0 0 0 4px rgb(var(--ring) / .15);
   border-color: rgb(var(--ring));
 }
 

@@ -81,7 +81,7 @@ export default function DeepWorkAI() {
                 className="overflow-hidden rounded-3xl border shadow-lg backdrop-blur-sm"
                 style={{
                   borderColor: "rgb(var(--border))",
-                  background: "rgba(var(--card) / 0.8)",
+                  background: "rgb(var(--card) / 0.8)",
                 }}
               >
                 <div className="relative w-full pt-[56.25%]">
@@ -101,8 +101,8 @@ export default function DeepWorkAI() {
                 <span
                   className="inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-wide text-muted"
                   style={{
-                    borderColor: "rgba(var(--fg) / 0.15)",
-                    background: "rgba(var(--fg) / 0.05)",
+                    borderColor: "rgb(var(--fg) / 0.15)",
+                    background: "rgb(var(--fg) / 0.05)",
                   }}
                 >
                   Technical deep dive
@@ -120,8 +120,8 @@ export default function DeepWorkAI() {
                       key={item.title}
                       className="rounded-2xl border px-4 py-3"
                       style={{
-                        borderColor: "rgba(var(--border))",
-                        background: "rgba(var(--card) / 0.72)",
+                        borderColor: "rgb(var(--border))",
+                        background: "rgb(var(--card) / 0.72)",
                       }}
                     >
                       <span className="block font-semibold text-foreground">{item.title}</span>
@@ -136,7 +136,7 @@ export default function DeepWorkAI() {
               className="w-full space-y-6 rounded-3xl border p-8 shadow-sm backdrop-blur-sm md:flex md:items-center md:gap-8 md:p-10"
               style={{
                 borderColor: "rgb(var(--border))",
-                background: "rgba(var(--card) / 0.78)",
+                background: "rgb(var(--card) / 0.78)",
               }}
             >
               <div className="md:w-1/2">
@@ -177,15 +177,15 @@ export default function DeepWorkAI() {
               className="w-full space-y-6 rounded-3xl border p-8 shadow-sm backdrop-blur-sm md:p-10"
               style={{
                 borderColor: "rgb(var(--border))",
-                background: "rgba(var(--card) / 0.78)",
+                background: "rgb(var(--card) / 0.78)",
               }}
             >
               <div className="space-y-3 text-center md:text-left">
                 <span
                   className="inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-wide text-muted"
                   style={{
-                    borderColor: "rgba(var(--fg) / 0.15)",
-                    background: "rgba(var(--fg) / 0.05)",
+                    borderColor: "rgb(var(--fg) / 0.15)",
+                    background: "rgb(var(--fg) / 0.05)",
                   }}
                 >
                   Deep Calendar overview
@@ -240,7 +240,7 @@ export default function DeepWorkAI() {
               className="grid gap-8 rounded-3xl border p-8 shadow-sm backdrop-blur-sm md:grid-cols-[1fr,0.9fr] md:items-center md:p-10"
               style={{
                 borderColor: "rgb(var(--border))",
-                background: "rgba(var(--card) / 0.72)",
+                background: "rgb(var(--card) / 0.72)",
               }}
             >
               <div className="space-y-4">
@@ -304,7 +304,7 @@ export default function DeepWorkAI() {
               className="w-full overflow-hidden rounded-3xl border shadow-lg backdrop-blur-sm"
               style={{
                 borderColor: "rgb(var(--border))",
-                background: "rgba(var(--card) / 0.78)",
+                background: "rgb(var(--card) / 0.78)",
               }}
             >
               <div className="relative w-full pt-[56.25%]">
@@ -401,7 +401,7 @@ export default function DeepWorkAI() {
                     className="group relative overflow-hidden rounded-3xl border p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg"
                     style={{
                       borderColor: "rgb(var(--border))",
-                      background: "rgba(var(--card) / 0.82)",
+                      background: "rgb(var(--card) / 0.82)",
                     }}
                   >
                     <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-indigo-200/30 blur-3xl transition group-hover:scale-125" />
@@ -423,7 +423,7 @@ export default function DeepWorkAI() {
               className="flex flex-col gap-8 rounded-3xl border p-8 shadow-sm backdrop-blur-sm md:flex-row md:items-center md:p-10"
               style={{
                 borderColor: "rgb(var(--border))",
-                background: "rgba(var(--card) / 0.78)",
+                background: "rgb(var(--card) / 0.78)",
               }}
             >
               <div className="md:w-1/2">
@@ -474,7 +474,7 @@ export default function DeepWorkAI() {
       <header className="mx-auto w-full space-y-4 text-center lg:max-w-5xl">
         <span
           className="inline-flex items-center justify-center rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-wide text-muted"
-          style={{ borderColor: "rgba(var(--fg) / 0.15)", background: "rgba(var(--fg) / 0.05)" }}
+          style={{ borderColor: "rgb(var(--fg) / 0.15)", background: "rgb(var(--fg) / 0.05)" }}
         >
           Focus OS • Product & case study
         </span>

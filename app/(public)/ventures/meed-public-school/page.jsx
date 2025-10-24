@@ -77,14 +77,14 @@ export default function MeedPublicSchool() {
         whileInView="visible"
         viewport={{ once: true, amount: 0.5 }}
         variants={sectionVariants}
-        className="rounded-3xl border bg-[rgba(var(--fg)_/_0.045)] p-7 md:p-9"
+        className="rounded-3xl border bg-[rgb(var(--fg)_/_0.045)] p-7 md:p-9"
         style={{ borderColor: "rgb(var(--border))" }}
       >
         <div className="flex flex-col gap-6 md:flex-row md:items-center">
           <div className="space-y-3 md:w-2/3">
             <span
               className="inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-wide text-muted"
-              style={{ borderColor: "rgba(var(--fg) / 0.15)", background: "rgba(var(--fg) / 0.04)" }}
+              style={{ borderColor: "rgb(var(--fg) / 0.15)", background: "rgb(var(--fg) / 0.04)" }}
             >
               Spotlight
             </span>
@@ -114,7 +114,7 @@ export default function MeedPublicSchool() {
         </div>
         <div
           className="mt-4 flex flex-wrap items-center gap-2 rounded-full border px-3 py-1 text-xs uppercase tracking-wide text-muted"
-          style={{ borderColor: "rgba(var(--fg) / 0.18)", background: "rgba(var(--fg) / 0.05)" }}
+          style={{ borderColor: "rgb(var(--fg) / 0.18)", background: "rgb(var(--fg) / 0.05)" }}
         >
           <span className="font-semibold text-[color:rgb(var(--primary))]">FYI</span>
           <span>Records and metrics shown span 2012–2022; I now study in Malaysia while the team runs daily ops.</span>
@@ -133,8 +133,8 @@ export default function MeedPublicSchool() {
           <span
             className="inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-wide text-muted"
             style={{
-              borderColor: "rgba(var(--fg) / 0.12)",
-              background: "rgba(var(--fg) / 0.04)",
+              borderColor: "rgb(var(--fg) / 0.12)",
+              background: "rgb(var(--fg) / 0.04)",
             }}
           >
             Venture Case Study
@@ -169,7 +169,7 @@ export default function MeedPublicSchool() {
               className="space-y-1 rounded-2xl border p-4 backdrop-blur-sm"
               style={{
                 borderColor: "rgb(var(--border))",
-                background: "rgba(var(--card) / 0.7)",
+                background: "rgb(var(--card) / 0.7)",
               }}
             >
               <dt className="muted uppercase tracking-wide">Role</dt>
@@ -179,7 +179,7 @@ export default function MeedPublicSchool() {
               className="space-y-1 rounded-2xl border p-4 backdrop-blur-sm"
               style={{
                 borderColor: "rgb(var(--border))",
-                background: "rgba(var(--card) / 0.7)",
+                background: "rgb(var(--card) / 0.7)",
               }}
             >
               <dt className="muted uppercase tracking-wide">Location</dt>
@@ -192,7 +192,7 @@ export default function MeedPublicSchool() {
               className="space-y-1 rounded-2xl border p-4 backdrop-blur-sm"
               style={{
                 borderColor: "rgb(var(--border))",
-                background: "rgba(var(--card) / 0.7)",
+                background: "rgb(var(--card) / 0.7)",
               }}
             >
               <dt className="muted uppercase tracking-wide">Timeline</dt>
@@ -232,7 +232,7 @@ export default function MeedPublicSchool() {
               className="rounded-3xl border p-6 backdrop-blur-sm"
               style={{
                 borderColor: "rgb(var(--border))",
-                background: "rgba(var(--card) / 0.78)",
+                background: "rgb(var(--card) / 0.78)",
               }}
             >
               <div className="text-sm uppercase tracking-wide text-muted">
@@ -252,11 +252,11 @@ export default function MeedPublicSchool() {
         whileInView="visible"
         viewport={{ once: true, amount: 0.35 }}
         variants={sectionVariants}
-        className="rounded-3xl border bg-[rgba(var(--fg)_/_0.04)] p-6 md:p-8"
+        className="rounded-3xl border bg-[rgb(var(--fg)_/_0.04)] p-6 md:p-8"
         style={{ borderColor: "rgb(var(--border))" }}
       >
         <div className="flex flex-col gap-4 md:flex-row md:items-start">
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border text-sm font-semibold uppercase tracking-wide" style={{ borderColor: "rgba(var(--fg) / 0.18)" }}>
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border text-sm font-semibold uppercase tracking-wide" style={{ borderColor: "rgb(var(--fg) / 0.18)" }}>
             FYI
           </div>
           <div className="space-y-3 text-sm text-muted md:text-base">
@@ -303,8 +303,8 @@ export default function MeedPublicSchool() {
                   <span
                     className="inline-flex items-center rounded-full border px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-muted"
                     style={{
-                      borderColor: "rgba(var(--fg) / 0.15)",
-                      background: "rgba(var(--fg) / 0.04)",
+                      borderColor: "rgb(var(--fg) / 0.15)",
+                      background: "rgb(var(--fg) / 0.04)",
                     }}
                   >
                     Spotlight

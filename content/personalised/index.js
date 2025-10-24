@@ -3,7 +3,7 @@ const SHANKAR_MESSAGE = {
   displayName: "Dr. Shankar Karuppayah",
   roleLine: "Deputy Director & Assoc. Professor, Cybersecurity Research Centre (USM) • CEO, BitRanger Sdn Bhd",
   headline:
-    "Hello Dr Shankar, I’m actively looking for an AI/Web developer or Research Assistant role. Below are the things I could offer to you right now (customised to your current setup).\n\nI’ve just completed the B.CompSc (Intelligent Computing) at USM (Oct 2025) and I’m wrapping up the MIT MicroMasters in Statistics & Data Science (edX) — only the final exam remains. I’d love to contribute to your Machine Learning and AI projects and help NAV6/CRC (Cybersecurity Research Centre, Universiti Sains Malaysia) move faster.",
+    "Hello Dr Shankar, I’m actively looking for an AI/Web developer or Research Assistant role. Below are the services I could offer to you right now (customised to your current setup).\n\nI’ve just completed the B.CompSc (Intelligent Computing) at USM (Oct 2025) and I’m wrapping up the MIT MicroMasters in Statistics & Data Science (edX) — only the final exam remains. I’d love to contribute to your Machine Learning and AI projects and help NAV6/CRC (Cybersecurity Research Centre, Universiti Sains Malaysia) move faster.",
   intro: null,
   offers: [
     {

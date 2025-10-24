@@ -245,7 +245,7 @@ export default function VenturesTabs({ items, initialSlug, showDetailCard = true
           className="relative overflow-hidden rounded-3xl border p-8 shadow-sm md:p-10"
           style={{
             borderColor: "rgb(var(--border))",
-            background: "rgba(var(--card) / 0.78)",
+            background: "rgb(var(--card) / 0.78)",
           }}
         >
           <div
@@ -274,7 +274,7 @@ export default function VenturesTabs({ items, initialSlug, showDetailCard = true
                     className="rounded-2xl border px-4 py-3"
                     style={{
                       borderColor: "rgb(var(--border))",
-                      background: "rgba(var(--card) / 0.72)",
+                      background: "rgb(var(--card) / 0.72)",
                     }}
                   >
                     {point}

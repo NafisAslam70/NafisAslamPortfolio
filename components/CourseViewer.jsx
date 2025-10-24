@@ -89,7 +89,7 @@ function ProgressBadge({ value, size = 'md' }) {
   const safe = Number.isFinite(value) ? Math.max(0, Math.min(100, Math.round(value))) : 0;
   const deg = safe * 3.6;
   const style = {
-    background: `conic-gradient(rgb(var(--primary)) ${deg}deg, rgba(var(--border) / 1) ${deg}deg)`
+    background: `conic-gradient(rgb(var(--primary)) ${deg}deg, rgb(var(--border) / 1) ${deg}deg)`
   };
   const outer = size === 'sm' ? 'h-8 w-8' : 'h-12 w-12';
   const innerPad = size === 'sm' ? 'inset-0.5 text-[10px]' : 'inset-1 text-xs';
@@ -294,7 +294,7 @@ export default function CourseViewer({ course, sections }) {
               return (
                 <div
                   key={section.id}
-                  className={`rounded-xl border bg-[rgb(var(--card))] ${isCurrent ? 'border-[rgba(var(--primary)/.6)] bg-[rgba(var(--primary)/.06)]' : 'border-[color:var(--border)]'}`}
+                  className={`rounded-xl border bg-[rgb(var(--card))] ${isCurrent ? 'border-[rgb(var(--primary)/.6)] bg-[rgb(var(--primary)/.06)]' : 'border-[color:var(--border)]'}`}
                 >
                   <button
                     type="button"
@@ -333,9 +333,9 @@ export default function CourseViewer({ course, sections }) {
                                 <button
                                   type="button"
                                   onClick={() => handleSelectLesson(section, lesson)}
-                                  className={`flex w-full items-center gap-3 rounded-lg px-3 ${denseNav ? 'py-1.5' : 'py-2'} text-sm transition ${isActiveLesson ? "bg-[rgba(var(--primary)/.12)] text-[rgb(var(--primary))]" : "hover:bg-[rgba(var(--border)/.5)]"}`}
+                                  className={`flex w-full items-center gap-3 rounded-lg px-3 ${denseNav ? 'py-1.5' : 'py-2'} text-sm transition ${isActiveLesson ? "bg-[rgb(var(--primary)/.12)] text-[rgb(var(--primary))]" : "hover:bg-[rgb(var(--border)/.5)]"}`}
                                 >
-                                  <span className={`flex h-6 w-6 items-center justify-center rounded-full border text-xs ${completed.has(lesson.id) ? 'bg-[rgba(var(--primary)/.12)] text-[rgb(var(--primary))] border-[rgba(var(--primary)/.4)]' : 'border-[rgba(var(--border)/1)]'}`}>
+                                  <span className={`flex h-6 w-6 items-center justify-center rounded-full border text-xs ${completed.has(lesson.id) ? 'bg-[rgb(var(--primary)/.12)] text-[rgb(var(--primary))] border-[rgb(var(--primary)/.4)]' : 'border-[rgb(var(--border)/1)]'}`}>
                                     {completed.has(lesson.id) ? '✓' : index + 1}
                                   </span>
                                   <span className="flex-1 min-w-0 truncate text-left">{lesson.title}</span>
@@ -506,7 +506,7 @@ export default function CourseViewer({ course, sections }) {
                         </Link>
                       )}
                       {material.resourceType && (
-                        <span className="rounded-full bg-[rgba(var(--primary)/.12)] px-2 py-0.5 text-[10px] uppercase tracking-wide text-[rgb(var(--primary))]">
+                        <span className="rounded-full bg-[rgb(var(--primary)/.12)] px-2 py-0.5 text-[10px] uppercase tracking-wide text-[rgb(var(--primary))]">
                           {material.resourceType}
                         </span>
                       )}

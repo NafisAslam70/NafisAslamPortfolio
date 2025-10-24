@@ -768,7 +768,7 @@ export default function AdminCourseManage({ params }){
                 <div className="space-y-1">
                   <div className="text-sm font-semibold flex items-center gap-2">
                     <span>{section.title || `Module ${index + 1}`}</span>
-                    {ready && <span className="rounded-full bg-[rgba(var(--primary)/.12)] px-2 text-xs text-[rgb(var(--primary))]">Ready</span>}
+                    {ready && <span className="rounded-full bg-[rgb(var(--primary)/.12)] px-2 text-xs text-[rgb(var(--primary))]">Ready</span>}
                   </div>
                   <div className="flex flex-wrap gap-3 text-xs uppercase tracking-wide text-[rgb(var(--muted))]">
                     <span>{lessons.length} lessons</span>
