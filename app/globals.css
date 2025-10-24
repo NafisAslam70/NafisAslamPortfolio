@@ -3,27 +3,45 @@
 /* Light (default) */
 :root{
   --bg: 255 255 255;
+  --bg-rgb: 255, 255, 255;
   --fg: 15 23 42;
+  --fg-rgb: 15, 23, 42;
   --muted: 100 116 139;
+  --muted-rgb: 100, 116, 139;
   --border: 226 232 240;
+  --border-rgb: 226, 232, 240;
   --primary: 99 102 241;
+  --primary-rgb: 99, 102, 241;
   --primary-fg: 255 255 255;
+  --primary-fg-rgb: 255, 255, 255;
   --card: 255 255 255;
+  --card-rgb: 255, 255, 255;
   --card-2: 248 250 252;
+  --card-2-rgb: 248, 250, 252;
   --ring: 99 102 241;
+  --ring-rgb: 99, 102, 241;
 }
 
 /* Dark override via data attribute (set by JS) */
 html[data-theme="dark"]{
   --bg: 3 6 20;
+  --bg-rgb: 3, 6, 20;
   --fg: 226 232 240;
+  --fg-rgb: 226, 232, 240;
   --muted: 148 163 184;
+  --muted-rgb: 148, 163, 184;
   --border: 31 41 55;
+  --border-rgb: 31, 41, 55;
   --primary: 139 92 246;
+  --primary-rgb: 139, 92, 246;
   --primary-fg: 255 255 255;
+  --primary-fg-rgb: 255, 255, 255;
   --card: 9 13 28;
+  --card-rgb: 9, 13, 28;
   --card-2: 12 16 34;
+  --card-2-rgb: 12, 16, 34;
   --ring: 139 92 246;
+  --ring-rgb: 139, 92, 246;
 }
 
 /* Optional: system fallback if no data-theme is set */
