@@ -83,10 +83,10 @@ export const PERSONALIZED_MESSAGES = {
       },
     ],
     qualities: [
-      "Design + tech fluency: I speak architecture, UX, and backend so context never gets lost when we switch lenses.",
-      "Execution-first: scoped sprints, visible progress, and calm documentation so stakeholders always know what’s happening.",
-      "Respect for local contexts: I map workflows to your MENA partners’ realities before proposing automations or tooling.",
-      "Transparent communication: async updates inside Meedian AI Flow, with escalations routed to your channel of choice.",
+      "Accountability-first: clear objectives, deadlines, and visible progress.",
+      "Weekly or alternate-day updates with concise changelogs.",
+      "Hands-on builder: I design, build, and ship—no fuss for web apps; ML scoped realistically.",
+      "All collaboration runs inside Meedian AI Flow: tasks, docs, and live meets.",
     ],
     footerLinks: [
       {

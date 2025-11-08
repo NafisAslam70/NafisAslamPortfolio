@@ -250,15 +250,6 @@ export default function PersonalizedOverlay({ data, onClose }) {
                             <span aria-hidden="true">✨</span>
                             Open Meedian AI Flow
                           </Link>
-                          <Link
-                            href="/pdfs/MeedianAI-Flow-for-CRC.pdf"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="inline-flex items-center gap-2 rounded-full border border-indigo-200/70 bg-white px-4 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-indigo-600 shadow-sm transition hover:bg-indigo-50 dark:border-white/15 dark:bg-white/10 dark:text-indigo-200"
-                          >
-                            <span aria-hidden="true">🗂️</span>
-                            Tailored plan for CRC
-                          </Link>
                         </div>
                       ) : null}
                     </div>
@@ -432,15 +423,6 @@ export default function PersonalizedOverlay({ data, onClose }) {
                                       <span aria-hidden="true">✨</span>
                                       Open Meedian AI Flow
                                     </Link>
-                                    <Link
-                                      href="/pdfs/MeedianAI-Flow-for-CRC.pdf"
-                                      target="_blank"
-                                      rel="noreferrer"
-                                      className="inline-flex items-center gap-2 rounded-full border border-indigo-200/70 bg-white px-4 py-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-indigo-600 shadow-sm transition hover:bg-indigo-50 dark:border-white/15 dark:bg-white/10 dark:text-indigo-200"
-                                    >
-                                      <span aria-hidden="true">🗂️</span>
-                                      Tailored plan for CRC
-                                    </Link>
                                   </div>
                                 ) : null}
                               </div>
@@ -546,15 +528,6 @@ export default function PersonalizedOverlay({ data, onClose }) {
                                     >
                                       <span aria-hidden="true">✨</span>
                                       Open Meedian AI Flow
-                                    </Link>
-                                    <Link
-                                      href="/pdfs/MeedianAI-Flow-for-CRC.pdf"
-                                      target="_blank"
-                                      rel="noreferrer"
-                                      className="inline-flex items-center gap-2 rounded-full border border-indigo-200/70 bg-white px-4 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-indigo-600 shadow-sm transition hover:bg-indigo-50 dark:border-white/15 dark:bg-white/10 dark:text-indigo-200"
-                                    >
-                                      <span aria-hidden="true">🗂️</span>
-                                      Tailored plan for CRC
                                     </Link>
                                   </div>
                                 ) : null}
