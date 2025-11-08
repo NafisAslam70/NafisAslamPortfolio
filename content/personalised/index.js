@@ -3,8 +3,8 @@ const SHANKAR_MESSAGE = {
   displayName: "Dr. Shankar Karuppayah",
   roleLine: "Deputy Director & Assoc. Professor, Cybersecurity Research Centre (USM) • CEO, BitRanger Sdn Bhd",
   headline:
-    "Hello Dr Shankar, I’m actively looking for an AI/Web developer or Research Assistant role.\n\nBelow are the services I could offer to you right now (customised to your current setup).\n\nI’ve just completed the B.CompSc (Intelligent Computing) at USM (Oct 2025) and I’m wrapping up the MIT MicroMasters in Statistics & Data Science (edX) — only the final exam remains. I’d love to contribute to your Machine Learning and AI projects and help NAV6/CRC (Cybersecurity Research Centre, Universiti Sains Malaysia) move faster.",
-  intro: null,
+    "Hello Dr Shankar, I’m actively looking for an AI/Web developer or Research Assistant role.\n\nI’ve just completed the B.CompSc (Intelligent Computing) at USM (Oct 2025) and I’m wrapping up the MIT MicroMasters in Statistics & Data Science (edX) — only the final exam remains. I’d love to contribute to your Machine Learning and AI projects and help NAV6/CRC (Cybersecurity Research Centre, Universiti Sains Malaysia) move faster.",
+  intro: "Below are the services I could offer to you right now (customised to your current setup).",
   offers: [
     {
       title: "Offer 1 · NAV6/CRC Meedian AI Flow",
@@ -50,8 +50,8 @@ export const PERSONALIZED_MESSAGES = {
     roleLine:
       "Designing for Impact in MENA • Architect & UX/Product Designer • Project Coordinator • AI & Data Analytics",
     headline:
-      "Hello Ms Haneen, I’m actively building AI-first design systems and would love to support your impact projects across Fabricademy, MENA, or personal research initiatives that align with my focus areas.\n\nBelow are the services I could offer to you right now (customised to your current setup).\n\nI’ve just completed the B.CompSc (Intelligent Computing) at USM (Oct 2025) and I’m wrapping up the MIT MicroMasters in Statistics & Data Science (edX) — only the final exam remains. I’d love to contribute to your design, AI, and analytics initiatives inside your organisation (or even your personal passion projects) so they move faster without losing craft.",
-    intro: null,
+      "Hello Ms Haneen, I’m actively building AI-first design systems and would love to support your impact projects across Fabricademy, MENA, or personal research initiatives that align with my focus areas.\n\nI’ve just completed the B.CompSc (Intelligent Computing) at USM (Oct 2025) and I’m wrapping up the MIT MicroMasters in Statistics & Data Science (edX) — only the final exam remains. I’d love to contribute to your design, AI, and analytics initiatives inside your organisation (or even your personal passion projects) so they move faster without losing craft.",
+    intro: "Below are the services I could offer to you right now (customised to your current setup).",
     primaryLinks: [
       { label: "Explore MeedianAI Flow demo", href: "https://meedian-ai-flow-v2.vercel.app/", external: true },
       { label: "See my resume", href: "/pdfs/myResume.pdf", external: false },
