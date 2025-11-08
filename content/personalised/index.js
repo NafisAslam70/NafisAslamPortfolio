@@ -50,7 +50,7 @@ export const PERSONALIZED_MESSAGES = {
     roleLine:
       "Designing for Impact in MENA • Architect & UX/Product Designer • Project Coordinator • AI & Data Analytics",
     headline:
-      "Hello Ms Haneen, I’m actively building AI-first design systems and would love to support your impact projects across MENA.\n\nBelow are the services I could offer to you right now (customised to your current setup).\n\nI lead execution inside Meedian AI Flow (my role-aware operating system), so every collaboration keeps UX research, product decisions, and delivery rituals in one place—letting you stay focused on strategy while I handle the ops layer.",
+      "Hello Ms Haneen, I’m actively building AI-first design systems and would love to support your impact projects across MENA.\n\nBelow are the services I could offer to you right now (customised to your current setup).\n\nI’ve just completed the B.CompSc (Intelligent Computing) at USM (Oct 2025) and I’m wrapping up the MIT MicroMasters in Statistics & Data Science (edX) — only the final exam remains. I’d love to contribute to your design, AI, and analytics initiatives inside your organisation (or even your personal passion projects) so they move faster without losing craft.",
     intro: null,
     primaryLinks: [
       { label: "Explore MeedianAI Flow demo", href: "https://meedian-ai-flow-v2.vercel.app/", external: true },
@@ -90,8 +90,8 @@ export const PERSONALIZED_MESSAGES = {
     ],
     footerLinks: [
       {
-        label: "Tailored plan — we’ll map it together next session",
-        href: "/hire-me#contact",
+        label: "View tailored plan for Haneen (PDF)",
+        href: "/pdfs/haneen-impact-plan.pdf",
         external: false,
         primary: true,
       },
