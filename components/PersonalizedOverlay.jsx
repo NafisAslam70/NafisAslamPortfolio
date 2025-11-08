@@ -28,7 +28,11 @@ export default function PersonalizedOverlay({ data, onClose }) {
   const [showOffersModal, setShowOffersModal] = useState(false);
   const totalSlides = slides.length;
   const currentSlide = totalSlides ? slides[Math.min(slideIndex, totalSlides - 1)] : null;
-  const introText = data?.headline ?? "";
+  const headlineParagraphs = (data?.headline ?? "").split(/\n+/).filter(Boolean);
+  const detailParagraphs = (data?.intro ?? "").split(/\n+/).filter(Boolean);
+  const detailSectionId = data?.name
+    ? `intro-details-${data.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`
+    : "intro-details";
   const footerLinks = data?.footerLinks ?? [];
   const primaryOffer = data?.offers?.[0] ?? null;
   const primaryOfferHighlight = primaryOffer?.bullets?.[0] ?? null;
@@ -62,6 +66,10 @@ export default function PersonalizedOverlay({ data, onClose }) {
       setSlideIndex(0);
     }
   }, [slideIndex, totalSlides]);
+
+  useEffect(() => {
+    setShowIntro(false);
+  }, [data]);
 
   useEffect(() => {
     if (showOffersModal) {
@@ -100,32 +108,41 @@ export default function PersonalizedOverlay({ data, onClose }) {
                 {data.roleLine ? (
                   <p className="hidden text-sm text-slate-600 dark:text-slate-300 sm:block">{data.roleLine}</p>
                 ) : null}
-                {introText ? (
+                {headlineParagraphs.length ? (
                   <div className="space-y-2 text-sm leading-relaxed text-slate-800 dark:text-slate-200">
-                    {introText.split(/\n+/).filter(Boolean).map((paragraph, idx) => {
-                      const isVisible = showIntro || idx === 0;
-                      if (!isVisible) return null;
-                      return (
-                        <p
-                          key={idx}
-                          className={`last:mb-0 ${
-                            idx === 0
-                              ? "font-semibold text-slate-900 drop-shadow-[0_2px_8px_rgba(79,70,229,0.25)] dark:text-slate-50"
-                              : ""
-                          }`.trim()}
-                        >
-                          {paragraph}
-                        </p>
-                      );
-                    })}
-                    {introText.split(/\n+/).filter(Boolean).length > 1 ? (
-                      <button
-                        type="button"
-                        onClick={() => setShowIntro((prev) => !prev)}
-                        className="inline-flex items-center gap-2 rounded-full border border-indigo-200/70 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-indigo-600 shadow-sm transition hover:bg-indigo-50 dark:border-white/15 dark:bg-white/10 dark:text-indigo-200"
+                    {headlineParagraphs.map((paragraph, idx) => (
+                      <p
+                        key={`headline-${idx}`}
+                        className={`last:mb-0 ${
+                          idx === 0
+                            ? "font-semibold text-slate-900 drop-shadow-[0_2px_8px_rgba(79,70,229,0.25)] dark:text-slate-50"
+                            : ""
+                        }`.trim()}
                       >
-                        {showIntro ? "Hide details" : "Show full intro"}
-                      </button>
+                        {paragraph}
+                      </p>
+                    ))}
+                    {detailParagraphs.length ? (
+                      <>
+                        {showIntro ? (
+                          <div className="space-y-2" id={detailSectionId}>
+                            {detailParagraphs.map((paragraph, idx) => (
+                              <p key={`detail-${idx}`} className="last:mb-0">
+                                {paragraph}
+                              </p>
+                            ))}
+                          </div>
+                        ) : null}
+                        <button
+                          type="button"
+                          onClick={() => setShowIntro((prev) => !prev)}
+                          aria-expanded={showIntro}
+                          aria-controls={detailSectionId}
+                          className="inline-flex items-center gap-2 rounded-full border border-indigo-200/70 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-indigo-600 shadow-sm transition hover:bg-indigo-50 dark:border-white/15 dark:bg-white/10 dark:text-indigo-200"
+                        >
+                          {showIntro ? "Hide details" : "Show full intro"}
+                        </button>
+                      </>
                     ) : null}
                   </div>
                 ) : null}

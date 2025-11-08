@@ -50,7 +50,7 @@ export const PERSONALIZED_MESSAGES = {
     roleLine:
       "Designing for Impact in MENA • Architect & UX/Product Designer • Project Coordinator • AI & Data Analytics",
     headline:
-      "Hello Dear Ms Haneen, I’m actively building AI-first design systems and would love to support your impact projects across Fabricademy, MENA, or personal research initiatives that align with my focus areas.",
+      "Hello Dear Ms Haneen, I’m actively building AI-first design systems and would love to support your impact projects across Fabricademy, MENA, or personal research initiatives that align with my focus areas.\n\nBelow are the services I could offer to you right now (customised to your current setup).",
     intro:
       "I’m Nafis and I’ve just completed the B.CompSc (Intelligent Computing) at USM (Oct 2025) and I’m wrapping up the MIT MicroMasters in Statistics & Data Science (edX) — only the final exam remains. I’d love to contribute to your design, AI, and analytics initiatives inside your organisation (or even your personal passion projects) so they move faster without losing craft.\n\nYou can know more about me through my site by exiting this card.",
     primaryLinks: [
