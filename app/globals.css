@@ -48,14 +48,23 @@ html[data-theme="dark"]{
 @media (prefers-color-scheme: dark){
   :root:not([data-theme]){
     --bg: 3 6 20;
+    --bg-rgb: 3, 6, 20;
     --fg: 226 232 240;
+    --fg-rgb: 226, 232, 240;
     --muted: 148 163 184;
+    --muted-rgb: 148, 163, 184;
     --border: 31 41 55;
+    --border-rgb: 31, 41, 55;
     --primary: 139 92 246;
+    --primary-rgb: 139, 92, 246;
     --primary-fg: 255 255 255;
+    --primary-fg-rgb: 255, 255, 255;
     --card: 9 13 28;
+    --card-rgb: 9, 13, 28;
     --card-2: 12 16 34;
+    --card-2-rgb: 12, 16, 34;
     --ring: 139 92 246;
+    --ring-rgb: 139, 92, 246;
   }
 }
 
@@ -103,7 +112,7 @@ body, .card, .card-solid, .btn, input, textarea, select {
   background:
     linear-gradient(180deg, rgba(255,255,255,.06), transparent),
     rgb(var(--card));
-  border: 1px solid rgb(var(--border) / 1);
+  border: 1px solid rgba(var(--border-rgb), 1);
 }
 
 input, textarea, select{
@@ -112,7 +121,7 @@ input, textarea, select{
   background: rgb(var(--card));
 }
 input:focus, textarea:focus, select:focus{
-  box-shadow: 0 0 0 4px rgb(var(--ring) / .15);
+  box-shadow: 0 0 0 4px rgba(var(--ring-rgb), .15);
   border-color: rgb(var(--ring));
 }
 

@@ -50,4 +50,57 @@ const SHANKAR_MESSAGE = {
 export const PERSONALIZED_MESSAGES = {
   "dr-shankar-karuppayah": SHANKAR_MESSAGE,
   "shankar-karuppayah": SHANKAR_MESSAGE,
+  "haneen-khaleel": {
+    name: "Ms. Haneen Khaleel",
+    displayName: "Haneen Khaleel",
+    roleLine:
+      "Designing for Impact in MENA • Architect & UX/Product Designer • Project Coordinator • AI & Data Analytics",
+    headline:
+      "Hello Ms Haneen, I’m actively building AI-first design systems and would love to support your impact projects across MENA. Below are the services I could offer to you right now (customised to your current setup).\n\nI lead execution inside Meedian AI Flow (my role-aware operating system), so every collaboration keeps UX research, product decisions, and delivery rituals in one place—letting you stay focused on strategy while I handle the ops layer.",
+    intro: null,
+    primaryLinks: [
+      { label: "Explore MeedianAI Flow demo", href: "https://meedian-ai-flow-v2.vercel.app/", external: true },
+      { label: "See my resume", href: "/pdfs/myResume.pdf", external: false },
+    ],
+    offers: [
+      {
+        title: "Offer 1 · DesignOps in Meedian AI Flow",
+        bullets: [
+          "Set up an end-to-end workspace for your architecture, UX, and coordination tracks—briefs, stakeholder notes, async rituals, and annotated decisions all live in one system.",
+          "Model your teams (mentors, fellows, vendors) so each group has a view tailored to their needs and nothing slips between meetings.",
+          "Automate recaps, stand-ups, and design QA so you can zoom out on strategy without losing fidelity in handovers.",
+        ],
+      },
+      {
+        title: "Offer 2 · Rapid UX + AI build partner",
+        bullets: [
+          "Co-design proof-of-concepts or internal tools (React/Next + Node/Drizzle stack) and ship them with clear documentation for your partners.",
+          "Thread AI/analytics layers into the prototypes—user listening dashboards, copy/UX co-pilots, or lightweight agents scoped to your programs.",
+        ],
+      },
+      {
+        title: "Offer 3 · Strategy & enablement",
+        bullets: [
+          "Curate playbooks and training kits for the designers you mentor—systems thinking, AI-assisted research, and workshop templates ready for reuse.",
+          "Provide async weekly ops support (reports, blockers, insights) so leading simultaneous initiatives stays manageable.",
+        ],
+      },
+    ],
+    qualities: [
+      "Design + tech fluency: I speak architecture, UX, and backend so context never gets lost when we switch lenses.",
+      "Execution-first: scoped sprints, visible progress, and calm documentation so stakeholders always know what’s happening.",
+      "Respect for local contexts: I map workflows to your MENA partners’ realities before proposing automations or tooling.",
+      "Transparent communication: async updates inside Meedian AI Flow, with escalations routed to your channel of choice.",
+    ],
+    footerLinks: [
+      {
+        label: "View tailored plan for Haneen (PDF)",
+        href: "/pdfs/haneen-impact-plan.pdf",
+        external: false,
+        primary: true,
+      },
+      { label: "Exit to full portfolio", href: "/", external: false },
+    ],
+    video: null,
+  },
 };
