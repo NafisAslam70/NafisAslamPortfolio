@@ -3,7 +3,7 @@ const SHANKAR_MESSAGE = {
   displayName: "Dr. Shankar Karuppayah",
   roleLine: "Deputy Director & Assoc. Professor, Cybersecurity Research Centre (USM) • CEO, BitRanger Sdn Bhd",
   headline:
-    "Hello Dr Shankar, I’m actively looking for an AI/Web developer or Research Assistant role. Below are the services I could offer to you right now (customised to your current setup).\n\nI’ve just completed the B.CompSc (Intelligent Computing) at USM (Oct 2025) and I’m wrapping up the MIT MicroMasters in Statistics & Data Science (edX) — only the final exam remains. I’d love to contribute to your Machine Learning and AI projects and help NAV6/CRC (Cybersecurity Research Centre, Universiti Sains Malaysia) move faster.",
+    "Hello Dr Shankar, I’m actively looking for an AI/Web developer or Research Assistant role.\n\nBelow are the services I could offer to you right now (customised to your current setup).\n\nI’ve just completed the B.CompSc (Intelligent Computing) at USM (Oct 2025) and I’m wrapping up the MIT MicroMasters in Statistics & Data Science (edX) — only the final exam remains. I’d love to contribute to your Machine Learning and AI projects and help NAV6/CRC (Cybersecurity Research Centre, Universiti Sains Malaysia) move faster.",
   intro: null,
   offers: [
     {
@@ -36,12 +36,6 @@ const SHANKAR_MESSAGE = {
     "All collaboration runs inside Meedian AI Flow: tasks, docs, and live meets.",
   ],
   footerLinks: [
-    {
-      label: "View tailored plan for NAV6/CRC (PDF)",
-      href: "/pdfs/MeedianAI-Flow-for-CRC.pdf",
-      external: false,
-      primary: true,
-    },
     { label: "Exit to full portfolio", href: "/", external: false },
   ],
   video: null,
@@ -56,7 +50,7 @@ export const PERSONALIZED_MESSAGES = {
     roleLine:
       "Designing for Impact in MENA • Architect & UX/Product Designer • Project Coordinator • AI & Data Analytics",
     headline:
-      "Hello Ms Haneen, I’m actively building AI-first design systems and would love to support your impact projects across MENA. Below are the services I could offer to you right now (customised to your current setup).\n\nI lead execution inside Meedian AI Flow (my role-aware operating system), so every collaboration keeps UX research, product decisions, and delivery rituals in one place—letting you stay focused on strategy while I handle the ops layer.",
+      "Hello Ms Haneen, I’m actively building AI-first design systems and would love to support your impact projects across MENA.\n\nBelow are the services I could offer to you right now (customised to your current setup).\n\nI lead execution inside Meedian AI Flow (my role-aware operating system), so every collaboration keeps UX research, product decisions, and delivery rituals in one place—letting you stay focused on strategy while I handle the ops layer.",
     intro: null,
     primaryLinks: [
       { label: "Explore MeedianAI Flow demo", href: "https://meedian-ai-flow-v2.vercel.app/", external: true },
@@ -64,25 +58,27 @@ export const PERSONALIZED_MESSAGES = {
     ],
     offers: [
       {
-        title: "Offer 1 · DesignOps in Meedian AI Flow",
+        title: "Offer 1 · AI / Web Developer",
         bullets: [
-          "Set up an end-to-end workspace for your architecture, UX, and coordination tracks—briefs, stakeholder notes, async rituals, and annotated decisions all live in one system.",
-          "Model your teams (mentors, fellows, vendors) so each group has a view tailored to their needs and nothing slips between meetings.",
-          "Automate recaps, stand-ups, and design QA so you can zoom out on strategy without losing fidelity in handovers.",
+          "Ship role-aware web apps (Next.js/React + Express/Drizzle/Postgres) that capture your UX decisions with clean handoffs for partner teams.",
+          "Embed dashboards, workflow automation, and documentation inside Meedian AI Flow so every deployment stays maintainable.",
+          "Own sprints end-to-end: scoped backlog, build, QA, and async status drops so you can focus on stakeholder strategy.",
         ],
       },
       {
-        title: "Offer 2 · Rapid UX + AI build partner",
+        title: "Offer 2 · AI Researcher",
         bullets: [
-          "Co-design proof-of-concepts or internal tools (React/Next + Node/Drizzle stack) and ship them with clear documentation for your partners.",
-          "Thread AI/analytics layers into the prototypes—user listening dashboards, copy/UX co-pilots, or lightweight agents scoped to your programs.",
+          "Design lightweight AI/analytics experiments for your impact programs—user clustering, sentiment listening, or ops copilot pilots.",
+          "Handle literature review → prototype pipeline, documenting assumptions and data requirements so you can defend decisions with confidence.",
+          "Deliver tidy briefs + Loom walkthroughs so mentors, coordinators, and design fellows can re-use the research quickly.",
         ],
       },
       {
-        title: "Offer 3 · Strategy & enablement",
+        title: "Offer 3 · AI Engineering (Model Building)",
         bullets: [
-          "Curate playbooks and training kits for the designers you mentor—systems thinking, AI-assisted research, and workshop templates ready for reuse.",
-          "Provide async weekly ops support (reports, blockers, insights) so leading simultaneous initiatives stays manageable.",
+          "Scope, fine-tune, or integrate models (OpenAI, Anthropic, local LLMs) for UX co-pilots, knowledge retrieval, or reporting assistants.",
+          "Instrument telemetry and guardrails so your teams see how models behave before launching them across MENA deployments.",
+          "Package infra notes, env files, and monitoring hooks so technical partners can extend or audit the builds later.",
         ],
       },
     ],
@@ -94,8 +90,8 @@ export const PERSONALIZED_MESSAGES = {
     ],
     footerLinks: [
       {
-        label: "View tailored plan for Haneen (PDF)",
-        href: "/pdfs/haneen-impact-plan.pdf",
+        label: "Tailored plan — we’ll map it together next session",
+        href: "/hire-me#contact",
         external: false,
         primary: true,
       },
