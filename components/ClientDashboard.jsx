@@ -81,7 +81,7 @@ const SECTION_CONTAINER = "container mx-auto max-w-screen-2xl px-6 md:px-10";
 const PRODUCT_LINKS = [
   {
     label: "Meedian AI Flow",
-    href: "https://meedian-ai-flow-v2.vercel.app/",
+    href: "https://meedian-ai-flow-v222.vercel.app/",
     description:
       "One browser experience across the team for managing tasks, collaboration rooms, deep rituals, chat, attendance, and meeting notes.",
     icon: FaLink,
@@ -954,7 +954,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
               {/* CTAs */}
               <div className="flex flex-wrap gap-3">
                 <Link
-                  href="https://meedian-ai-flow-v2.vercel.app/"
+                  href="https://meedian-ai-flow-v222.vercel.app/"
                   className="inline-flex items-center gap-2 rounded-full bg-indigo-600 px-5 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-500"
                   target="_blank"
                   rel="noreferrer"
