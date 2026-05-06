@@ -752,7 +752,6 @@ const PROFILE_CARDS = [
 
 export default function HireMePage() {
   const [activeTab, setActiveTab] = useState(0);
-  const [reasonIndex, setReasonIndex] = useState(0);
   const [showReasons, setShowReasons] = useState(false);
   const [popupReasonIndex, setPopupReasonIndex] = useState(0);
   const [isNight, setIsNight] = useState(true);
@@ -847,13 +846,6 @@ export default function HireMePage() {
     : isResearchTrack
       ? "#d8def8"
       : "#c6e6da";
-
-  useEffect(() => {
-    const id = window.setInterval(() => {
-      setReasonIndex((prev) => (prev + 1) % HIRE_REASONS.length);
-    }, 3200);
-    return () => window.clearInterval(id);
-  }, []);
 
   useEffect(() => {
     const syncViewport = () => setViewportWidth(window.innerWidth);
@@ -1230,8 +1222,8 @@ export default function HireMePage() {
               <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "stretch" : "center", gap: isMobile ? 12 : 16 }}>
                 <div
                   style={{
-                    width: isMobile ? "100%" : 176,
-                    minHeight: isMobile ? 190 : undefined,
+                    width: isMobile ? "68%" : 176,
+                    minHeight: isMobile ? 134 : undefined,
                     alignSelf: isMobile ? "auto" : "stretch",
                     borderRadius: 26,
                     border: "1px solid var(--resume-border)",
@@ -1239,6 +1231,8 @@ export default function HireMePage() {
                     background: "var(--resume-soft-panel)",
                     boxShadow: "0 16px 36px -22px rgba(2,6,23,0.55)",
                     flexShrink: 0,
+                    padding: isMobile ? 8 : 0,
+                    margin: isMobile ? "0 auto" : 0,
                   }}
                 >
                   <Image
@@ -1246,12 +1240,12 @@ export default function HireMePage() {
                     alt="Nafis Aslam"
                     width={176}
                     height={220}
-                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                    style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: isMobile ? 18 : 0 }}
                     priority
                   />
                 </div>
-                <div style={{ minWidth: 0, width: "100%" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8, flexWrap: "wrap", paddingRight: isMobile ? 44 : 0 }}>
+                <div style={{ minWidth: 0, width: "100%", textAlign: isMobile ? "center" : "left" }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: isMobile ? "center" : "flex-start", gap: 10, marginBottom: 8, flexWrap: "wrap", paddingRight: isMobile ? 44 : 0 }}>
                     <span
                       style={{
                         display: "inline-flex",
@@ -1277,30 +1271,71 @@ export default function HireMePage() {
                     <br />
                     USM (AI Major) · MIT MicroMasters · First-Author Preprint
                   </div>
-                  <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", flexWrap: "wrap", gap: 10, marginTop: 10 }}>
-                    <a
-                      href={cvHref}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                  <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 10, alignItems: isMobile ? "center" : "flex-start" }}>
+                    <div
                       style={{
-                        display: "inline-flex",
+                        display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        gap: 8,
-                        fontSize: 13,
-                        fontWeight: 700,
-                        padding: "10px 16px",
-                        borderRadius: 999,
-                        textDecoration: "none",
-                        color: "var(--resume-text)",
-                        background: "var(--resume-panel)",
-                        border: "1px solid var(--resume-border)",
-                        boxShadow: "0 14px 28px -20px rgba(2,6,23,0.2)",
-                        width: isMobile ? "100%" : "auto",
+                        gap: 10,
+                        width: isMobile ? "88%" : "auto",
                       }}
                     >
-                      Download CV
-                    </a>
+                      <a
+                        href={cvHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          gap: 8,
+                          fontSize: 12,
+                          fontWeight: 700,
+                          padding: "9px 14px",
+                          borderRadius: 999,
+                          textDecoration: "none",
+                          color: "var(--resume-text)",
+                          background: "var(--resume-panel)",
+                          border: "1px solid var(--resume-border)",
+                          boxShadow: "0 14px 28px -20px rgba(2,6,23,0.2)",
+                          width: isMobile ? "calc(100% - 64px)" : "auto",
+                          flex: isMobile ? 1 : "0 0 auto",
+                        }}
+                      >
+                        Download CV
+                      </a>
+                      {isMobile ? (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setPopupReasonIndex(0);
+                            setShowReasons(true);
+                          }}
+                          style={{
+                            width: 54,
+                            height: 36,
+                            borderRadius: 999,
+                            border: "1px solid var(--resume-accent-border)",
+                            background: "var(--resume-accent-soft)",
+                            color: "var(--resume-accent-strong)",
+                            boxShadow: "0 14px 28px -20px rgba(2,6,23,0.2)",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            textAlign: "center",
+                            fontSize: 11,
+                            fontWeight: 800,
+                            lineHeight: 1,
+                            cursor: "pointer",
+                            padding: 0,
+                            flexShrink: 0,
+                          }}
+                        >
+                          Why?
+                        </button>
+                      ) : null}
+                    </div>
                     <Link
                       href="/"
                       style={{
@@ -1316,13 +1351,13 @@ export default function HireMePage() {
                         color: "#ffffff",
                         background: `linear-gradient(120deg, ${theme.accent} 0%, #0f694f 100%)`,
                         boxShadow: "0 14px 28px -18px rgba(15,105,79,0.72)",
-                        width: isMobile ? "100%" : "auto",
+                        width: isMobile ? "88%" : "auto",
                       }}
                     >
                       Return to Nafis&apos; World
                     </Link>
                   </div>
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 10 }}>
+                  <div style={{ display: "flex", flexWrap: "wrap", justifyContent: isMobile ? "center" : "flex-start", gap: 8, marginTop: 10 }}>
                     <ContactBubble href="mailto:nafisaslam1819@gmail.com" label="nafisaslam1819@gmail.com" icon="mail" />
                     <ContactBubble href="https://nafisaslam.com" label="nafisaslam.com" icon="web" />
                     <ContactBubble href="https://github.com/NafisAslam70" label="github.com/NafisAslam70" icon="github" />
@@ -1333,85 +1368,44 @@ export default function HireMePage() {
                 </div>
               </div>
             </div>
-            <div
-              role={isMobile ? "button" : undefined}
-              tabIndex={isMobile ? 0 : undefined}
-              onClick={
-                isMobile
-                  ? () => {
-                      setPopupReasonIndex(0);
-                      setShowReasons(true);
-                    }
-                  : undefined
-              }
-              onKeyDown={
-                isMobile
-                  ? (e) => {
-                      if (e.key === "Enter" || e.key === " ") {
-                        setPopupReasonIndex(0);
-                        setShowReasons(true);
-                      }
-                    }
-                  : undefined
-              }
-              style={{
-                borderRadius: 16,
-                border: "1px solid var(--resume-border)",
-                background: hirePanelBackground,
-                padding: isMobile ? 12 : 14,
-                color: hirePanelText,
-                minHeight: isMobile ? "auto" : 158,
-                maxWidth: isTablet ? "none" : 248,
-                justifySelf: isTablet ? "stretch" : "end",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                cursor: isMobile ? "pointer" : "default",
-              }}
-            >
-              <div style={{ fontSize: 11, letterSpacing: ".08em", textTransform: "uppercase", color: hirePanelLabel, fontWeight: 700 }}>
-                Why You Should Hire Me?
-              </div>
-              {isMobile ? (
-                <div
-                  style={{
-                    marginTop: 10,
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    gap: 10,
-                    borderRadius: 12,
-                    border: "1px solid rgba(255,255,255,0.14)",
-                    background: "rgba(255,255,255,0.06)",
-                    padding: "10px 12px",
-                  }}
-                >
-                  <span style={{ fontSize: 13, fontWeight: 700, color: hirePanelText }}>Tap to view 4 reasons</span>
-                  <span style={{ fontSize: 16, color: hirePanelText }}>→</span>
+            {!isMobile ? (
+              <div
+                style={{
+                  borderRadius: 16,
+                  border: "1px solid var(--resume-border)",
+                  background: hirePanelBackground,
+                  padding: 14,
+                  color: hirePanelText,
+                  minHeight: 158,
+                  maxWidth: isTablet ? "none" : 248,
+                  justifySelf: isTablet ? "stretch" : "end",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                }}
+              >
+                <div style={{ fontSize: 11, letterSpacing: ".08em", textTransform: "uppercase", color: hirePanelLabel, fontWeight: 700 }}>
+                  Why You Should Hire Me?
                 </div>
-              ) : (
-                <>
-                  <div>
-                    <div style={{ fontSize: isMobile ? 14 : 15, fontWeight: 700, marginBottom: 6 }}>{HIRE_REASONS[reasonIndex].title}</div>
-                    <p style={{ fontSize: isMobile ? 12 : 13, lineHeight: 1.58, color: hirePanelMuted }}>{HIRE_REASONS[reasonIndex].text}</p>
-                  </div>
-                  <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
-                    {HIRE_REASONS.map((_, idx) => (
-                      <span
-                        key={`reason-dot-${idx}`}
-                        style={{
-                          width: idx === reasonIndex ? 20 : 8,
-                          height: 8,
-                          borderRadius: 999,
-                          transition: "all .25s ease",
-                          background: idx === reasonIndex ? hireDotActive : hireDotIdle,
-                        }}
-                      />
-                    ))}
-                  </div>
-                </>
-              )}
-            </div>
+                <div>
+                  <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 6 }}>{HIRE_REASONS[0].title}</div>
+                  <p style={{ fontSize: 13, lineHeight: 1.58, color: hirePanelMuted }}>{HIRE_REASONS[0].text}</p>
+                </div>
+                <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
+                  {HIRE_REASONS.map((_, idx) => (
+                    <span
+                      key={`reason-dot-static-${idx}`}
+                      style={{
+                        width: idx === 0 ? 20 : 8,
+                        height: 8,
+                        borderRadius: 999,
+                        background: idx === 0 ? hireDotActive : hireDotIdle,
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
+            ) : null}
           </div>
         </div>
 
