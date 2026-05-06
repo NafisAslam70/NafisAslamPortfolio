@@ -1,0 +1,402 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --c-accent:#1D9E75;
+  --c-accent2:#7F77DD;
+  --c-accent2-light:#EEEDFE;
+  --c-teal-light:#E1F5EE;
+  --c-teal-mid:#9FE1CB;
+  --c-surface:var(--color-background-primary);
+  --c-surface2:var(--color-background-secondary);
+  --c-border:var(--color-border-tertiary);
+  --c-text:var(--color-text-primary);
+  --c-muted:var(--color-text-secondary);
+  --c-hint:var(--color-text-tertiary);
+}
+.resume-wrap{font-family:var(--font-sans);color:var(--c-text);padding:0 0 3rem}
+.hero{padding:2rem 1.5rem 1.5rem;border-bottom:0.5px solid var(--c-border)}
+.hero-top{display:flex;align-items:flex-start;gap:1.25rem;margin-bottom:1.25rem}
+.avatar{width:56px;height:56px;border-radius:50%;background:var(--c-accent);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:500;color:#fff;flex-shrink:0}
+.hero-name{font-size:22px;font-weight:500;line-height:1.2;margin-bottom:4px}
+.hero-tagline{font-size:13px;color:var(--c-muted);line-height:1.5}
+.hero-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:12px;padding:4px 10px;border-radius:20px;border:0.5px solid var(--c-border);color:var(--c-muted);text-decoration:none;cursor:pointer;background:var(--c-surface2);transition:border-color .15s}
+.pill:hover{border-color:var(--c-accent);color:var(--c-accent)}
+.pill-dot{width:6px;height:6px;border-radius:50%;background:var(--c-accent)}
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--c-border);border:0.5px solid var(--c-border);border-radius:var(--border-radius-md);overflow:hidden;margin:0 1.5rem 1.25rem}
+.stat{background:var(--c-surface);padding:10px 12px}
+.stat-num{font-size:18px;font-weight:500;color:var(--c-accent);line-height:1}
+.stat-label{font-size:11px;color:var(--c-hint);margin-top:3px}
+.tabs{display:flex;gap:0;border-bottom:0.5px solid var(--c-border);padding:0 1.5rem}
+.tab{font-size:13px;padding:8px 14px;cursor:pointer;color:var(--c-muted);border-bottom:2px solid transparent;transition:all .15s;background:none;border-top:none;border-left:none;border-right:none;margin-bottom:-0.5px}
+.tab.active{color:var(--c-accent);border-bottom-color:var(--c-accent);font-weight:500}
+.tab:hover:not(.active){color:var(--c-text)}
+.section{display:none;padding:1.5rem 1.5rem 0;animation:fadeIn .2s ease}
+.section.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.summary-card{background:var(--c-teal-light);border:0.5px solid var(--c-teal-mid);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;font-size:14px;line-height:1.7;color:#085041;margin-bottom:1.5rem}
+.exp-item{position:relative;padding-left:1.5rem;margin-bottom:2rem}
+.exp-item::before{content:'';position:absolute;left:0;top:6px;width:8px;height:8px;border-radius:50%;background:var(--c-accent);border:2px solid var(--c-surface)}
+.exp-item::after{content:'';position:absolute;left:3.5px;top:16px;bottom:-1rem;width:1px;background:var(--c-border)}
+.exp-item:last-child::after{display:none}
+.exp-header{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:4px}
+.exp-title{font-size:15px;font-weight:500}
+.exp-date{font-size:12px;color:var(--c-hint);white-space:nowrap;margin-top:2px}
+.exp-company{font-size:13px;color:var(--c-accent);margin-bottom:8px}
+.exp-bullets{list-style:none;padding:0}
+.exp-bullets li{font-size:13px;color:var(--c-muted);line-height:1.6;padding:2px 0 2px 14px;position:relative}
+.exp-bullets li::before{content:'·';position:absolute;left:4px;color:var(--c-accent)}
+.proof-tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:2px 8px;border-radius:12px;background:var(--c-accent2-light);color:#3C3489;border:0.5px solid #AFA9EC;text-decoration:none;margin-left:6px;cursor:pointer}
+.proof-tag:hover{background:#CECBF6}
+.award-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:2px 8px;border-radius:12px;background:#FAEEDA;color:#633806;border:0.5px solid #FAC775;margin-left:6px}
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem}
+.skill-cat{background:var(--c-surface2);border:0.5px solid var(--c-border);border-radius:var(--border-radius-md);padding:1rem}
+.skill-cat-title{font-size:12px;font-weight:500;color:var(--c-hint);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.skill-tag{display:inline-flex;align-items:center;font-size:12px;padding:3px 9px;border-radius:12px;background:var(--c-surface);border:0.5px solid var(--c-border);color:var(--c-muted);margin:3px 3px 3px 0}
+.skill-tag.hot{background:var(--c-teal-light);border-color:var(--c-teal-mid);color:#0F6E56}
+.edu-card{background:var(--c-surface);border:0.5px solid var(--c-border);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin-bottom:1rem}
+.edu-school{font-size:15px;font-weight:500;margin-bottom:3px}
+.edu-degree{font-size:13px;color:var(--c-muted);margin-bottom:8px}
+.edu-meta{display:flex;flex-wrap:wrap;gap:8px}
+.meta-pill{font-size:12px;padding:3px 10px;border-radius:12px;background:var(--c-surface2);color:var(--c-muted);border:0.5px solid var(--c-border)}
+.meta-pill.green{background:var(--c-teal-light);color:#0F6E56;border-color:var(--c-teal-mid)}
+.achievement-row{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:0.5px solid var(--c-border)}
+.achievement-row:last-child{border-bottom:none}
+.ach-icon{width:28px;height:28px;border-radius:50%;background:var(--c-teal-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:#0F6E56;font-weight:500}
+.ach-text{font-size:13px;line-height:1.5;color:var(--c-muted)}
+.ach-text strong{color:var(--c-text);font-weight:500}
+.section-label{font-size:11px;font-weight:500;letter-spacing:.5px;text-transform:uppercase;color:var(--c-hint);margin-bottom:12px}
+.hire-cta{margin:2rem 1.5rem 0;background:var(--c-accent);border-radius:var(--border-radius-lg);padding:1.25rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
+.hire-cta-text{font-size:15px;font-weight:500;color:#fff}
+.hire-cta-sub{font-size:13px;color:rgba(255,255,255,.75);margin-top:2px}
+.hire-btn{background:#fff;color:var(--c-accent);border:none;border-radius:var(--border-radius-md);padding:8px 18px;font-size:13px;font-weight:500;cursor:pointer}
+.hire-btn:hover{opacity:.9}
+.proj-card{background:var(--c-surface);border:0.5px solid var(--c-border);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin-bottom:1rem}
+.proj-card-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px}
+.proj-name{font-size:15px;font-weight:500}
+.proj-stack{display:flex;flex-wrap:wrap;gap:4px;margin:8px 0}
+.stack-tag{font-size:11px;padding:2px 8px;border-radius:12px;background:var(--c-accent2-light);color:#3C3489;border:0.5px solid #AFA9EC}
+.metric-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.metric-box{background:var(--c-surface2);border-radius:var(--border-radius-md);padding:8px;text-align:center}
+.metric-val{font-size:16px;font-weight:500;color:var(--c-accent)}
+.metric-lbl{font-size:11px;color:var(--c-hint);margin-top:2px}
+</style>
+
+<h2 class="sr-only">Nafis Aslam — Interactive Digital Resume: ML/CV Engineer</h2>
+
+<div class="resume-wrap">
+
+<div class="hero">
+  <div class="hero-top">
+    <div class="avatar">NA</div>
+    <div>
+      <div class="hero-name">Nafis Aslam</div>
+      <div class="hero-tagline">ML / Computer Vision Engineer · Open to Remote<br>USM (AI Major) · MIT MicroMasters · First-Author Preprint</div>
+      <div class="hero-links">
+        <a class="pill" href="mailto:nafisaslam1819@gmail.com"><span class="pill-dot"></span>nafisaslam1819@gmail.com</a>
+        <a class="pill" href="https://nafisaslam.com" target="_blank"><span class="pill-dot"></span>nafisaslam.com</a>
+        <a class="pill" href="https://github.com/NafisAslam70" target="_blank"><span class="pill-dot"></span>github.com/NafisAslam70</a>
+        <a class="pill" href="https://doi.org/10.5281/zenodo.19266394" target="_blank"><span class="pill-dot"></span>Preprint DOI</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat"><div class="stat-num">&lt;50ms</div><div class="stat-label">CPU inference</div></div>
+  <div class="stat"><div class="stat-num">9.55</div><div class="stat-label">Major GPA / 10</div></div>
+  <div class="stat"><div class="stat-num">16mo</div><div class="stat-label">MIT ML training</div></div>
+  <div class="stat"><div class="stat-num">6</div><div class="stat-label">Attention states classified</div></div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('overview')">Overview</button>
+  <button class="tab" onclick="switchTab('projects')">Projects</button>
+  <button class="tab" onclick="switchTab('experience')">Experience</button>
+  <button class="tab" onclick="switchTab('skills')">Skills</button>
+  <button class="tab" onclick="switchTab('education')">Education</button>
+  <button class="tab" onclick="switchTab('achievements')">Achievements</button>
+</div>
+
+<div id="tab-overview" class="section active">
+  <div class="summary-card">
+    A highly motivated ML/Computer Vision engineer who ships systems that work outside the lab — fast, deployable, and grounded in real problems. Built a real-time attention monitor (YOLO + MediaPipe, &lt;50ms CPU) with a first-author preprint, while completing a graduate-level MIT program self-funded alongside a full degree.
+  </div>
+
+  <div class="section-label">Highlights</div>
+  <div class="achievement-row">
+    <div class="ach-icon">★</div>
+    <div class="ach-text"><strong>Gold Award (Top 5%)</strong> — USM PIXEL 2025 for DeepWork AI, a real-time attention monitoring system using YOLO + MediaPipe. <a class="proof-tag" href="https://doi.org/10.5281/zenodo.19266394" target="_blank">Preprint ↗</a></div>
+  </div>
+  <div class="achievement-row">
+    <div class="ach-icon">★</div>
+    <div class="ach-text"><strong>MIT MicroMasters</strong> — 16-month graduate-level Stats & Data Science program, self-funded alongside full BSc. <span class="meta-pill green" style="display:inline;padding:1px 8px;">93% in Data Analysis</span></div>
+  </div>
+  <div class="achievement-row">
+    <div class="ach-icon">★</div>
+    <div class="ach-text"><strong>First-Author Preprint</strong> — DeepLens Engine for Focus (DLEF), Zenodo 2026. Novel 20/30s temporal heuristic for attention modelling. <a class="proof-tag" href="https://doi.org/10.5281/zenodo.19266394" target="_blank">DOI ↗</a></div>
+  </div>
+  <div class="achievement-row">
+    <div class="ach-icon">★</div>
+    <div class="ach-text"><strong>Gold Honor (Top 2%)</strong> — International Youth Math Challenge 2020</div>
+  </div>
+  <div class="achievement-row">
+    <div class="ach-icon">★</div>
+    <div class="ach-text"><strong>Dean's List</strong> — 3 consecutive final semesters at USM. Major GPA: 9.55/10 (3.82/4.00)</div>
+  </div>
+
+  <div class="hire-cta">
+    <div>
+      <div class="hire-cta-text">Open to remote ML/CV roles</div>
+      <div class="hire-cta-sub">Let's build something that works in the real world.</div>
+    </div>
+    <button class="hire-btn" onclick="window.open('mailto:nafisaslam1819@gmail.com')">Get in touch</button>
+  </div>
+</div>
+
+<div id="tab-projects" class="section">
+  <div class="proj-card">
+    <div class="proj-card-header">
+      <div>
+        <div class="proj-name">DeepWork AI / DeepLens Engine for Focus</div>
+        <div style="font-size:12px;color:var(--c-hint);margin-top:2px">2024 – 2025 · Flagship Project</div>
+      </div>
+      <span class="award-badge">Gold Award</span>
+    </div>
+    <div style="font-size:13px;color:var(--c-muted);line-height:1.6">
+      Real-time CV system classifying 6 attention/behaviour states from webcam feed. Engineered a novel 20/30s temporal heuristic — treating attention as a time-series signal, not per-frame. Shipped as a full-stack privacy-preserving web app with Pomodoro timer and session analytics.
+    </div>
+    <div class="proj-stack">
+      <span class="stack-tag">YOLOv11n-cls</span>
+      <span class="stack-tag">MediaPipe</span>
+      <span class="stack-tag">OpenCV</span>
+      <span class="stack-tag">PyTorch</span>
+      <span class="stack-tag">Next.js</span>
+      <span class="stack-tag">Flask</span>
+      <span class="stack-tag">Docker</span>
+    </div>
+    <div class="metric-row">
+      <div class="metric-box"><div class="metric-val">&lt;50ms</div><div class="metric-lbl">CPU latency</div></div>
+      <div class="metric-box"><div class="metric-val">6</div><div class="metric-lbl">States classified</div></div>
+      <div class="metric-box"><div class="metric-val">0</div><div class="metric-lbl">Video stored</div></div>
+    </div>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+      <a class="proof-tag" href="https://doi.org/10.5281/zenodo.19266394" target="_blank">First-author preprint ↗</a>
+      <a class="proof-tag" href="https://nafisaslam.com" target="_blank">Live demo ↗</a>
+      <a class="proof-tag" href="https://github.com/NafisAslam70" target="_blank">GitHub ↗</a>
+    </div>
+  </div>
+
+  <div class="proj-card">
+    <div class="proj-card-header">
+      <div>
+        <div class="proj-name">WorldQuant CV &amp; DL Fellowship Projects</div>
+        <div style="font-size:12px;color:var(--c-hint);margin-top:2px">2026 – present</div>
+      </div>
+    </div>
+    <ul class="exp-bullets" style="margin:0">
+      <li>Wildlife camera-trap classification (Côte d'Ivoire) — multi-class CNN from scratch, PyTorch, cloud VM</li>
+      <li>Crop disease classification (Uganda, 5 classes) — fine-tuned ResNet with transfer learning</li>
+      <li>MLP regression &amp; classification — manual forward/backprop then PyTorch</li>
+    </ul>
+    <div class="proj-stack">
+      <span class="stack-tag">PyTorch</span>
+      <span class="stack-tag">ResNet</span>
+      <span class="stack-tag">Transfer Learning</span>
+      <span class="stack-tag">Cloud VM</span>
+    </div>
+    <div style="margin-top:10px">
+      <a class="proof-tag" href="https://github.com/NafisAslam70" target="_blank">GitHub ↗</a>
+    </div>
+  </div>
+
+  <div class="proj-card">
+    <div class="proj-card-header">
+      <div>
+        <div class="proj-name">School Management Platform — Meed Public School</div>
+        <div style="font-size:12px;color:var(--c-hint);margin-top:2px">Oct 2025 – Feb 2026 · Freelance</div>
+      </div>
+    </div>
+    <div style="font-size:13px;color:var(--c-muted);line-height:1.6">
+      Full-stack platform for 30+ users with real-time dashboards, role-based access, and an LLM assistant with offline inference.
+    </div>
+    <div class="proj-stack">
+      <span class="stack-tag">Next.js</span>
+      <span class="stack-tag">Drizzle ORM</span>
+      <span class="stack-tag">NeonDB</span>
+      <span class="stack-tag">Twilio</span>
+      <span class="stack-tag">LLM (offline)</span>
+    </div>
+  </div>
+</div>
+
+<div id="tab-experience" class="section">
+  <div class="section-label">Work &amp; Research</div>
+
+  <div class="exp-item">
+    <div class="exp-header">
+      <div class="exp-title">Machine Learning Intern</div>
+      <div class="exp-date">Mar 2026 – present</div>
+    </div>
+    <div class="exp-company">Unified Mentor · Remote</div>
+    <ul class="exp-bullets">
+      <li>Built time-series forecasting pipeline (ARIMA, Random Forest, Gradient Boosting) on 3+ years of weekly government care load data; benchmarked 3 models end-to-end.</li>
+      <li>Developed unsupervised learner segmentation (K-Means, Hierarchical) with feature engineering from clickstream logs; co-authored internal research reports.</li>
+    </ul>
+  </div>
+
+  <div class="exp-item">
+    <div class="exp-header">
+      <div class="exp-title">CV &amp; Deep Learning Fellow</div>
+      <div class="exp-date">2026 – present</div>
+    </div>
+    <div class="exp-company">WorldQuant University · Online</div>
+    <ul class="exp-bullets">
+      <li>Applied CNNs, transfer learning (ResNet), and PyTorch to real-world classification tasks across Africa.</li>
+      <li>Explored MLP design, backprop, optimiser behaviour through structured applied projects.</li>
+    </ul>
+  </div>
+
+  <div class="exp-item">
+    <div class="exp-header">
+      <div class="exp-title">Software Engineer (Freelance)</div>
+      <div class="exp-date">Oct 2025 – Feb 2026</div>
+    </div>
+    <div class="exp-company">Meed Public School · India</div>
+    <ul class="exp-bullets">
+      <li>Full-stack platform (Next.js, Drizzle, NeonDB, Twilio) for 30+ users with real-time dashboards, role-based access, and LLM assistant with offline inference.</li>
+    </ul>
+  </div>
+
+  <div class="exp-item">
+    <div class="exp-header">
+      <div class="exp-title">Software Engineering Intern</div>
+      <div class="exp-date">Mar 2023 – Aug 2023</div>
+    </div>
+    <div class="exp-company">USM Speech Processing Group · Penang, Malaysia</div>
+    <ul class="exp-bullets">
+      <li>Built end-to-end stock analysis application (React, Node.js) with real-time data processing, interactive visualisation, and data pipeline construction.</li>
+    </ul>
+  </div>
+</div>
+
+<div id="tab-skills" class="section">
+  <div class="section-label">Core stack</div>
+  <div class="skills-grid">
+    <div class="skill-cat">
+      <div class="skill-cat-title">Computer Vision</div>
+      <span class="skill-tag hot">YOLO v9/v11</span>
+      <span class="skill-tag hot">MediaPipe</span>
+      <span class="skill-tag hot">OpenCV</span>
+      <span class="skill-tag">Gaze estimation</span>
+      <span class="skill-tag">ByteTrack</span>
+      <span class="skill-tag">Real-time detection</span>
+      <span class="skill-tag">Transfer learning</span>
+    </div>
+    <div class="skill-cat">
+      <div class="skill-cat-title">Deep Learning</div>
+      <span class="skill-tag hot">PyTorch</span>
+      <span class="skill-tag hot">CNNs</span>
+      <span class="skill-tag">Transformers</span>
+      <span class="skill-tag">GANs</span>
+      <span class="skill-tag">Diffusion Models</span>
+      <span class="skill-tag">Model pruning</span>
+      <span class="skill-tag">ONNX</span>
+    </div>
+    <div class="skill-cat">
+      <div class="skill-cat-title">Machine Learning</div>
+      <span class="skill-tag hot">Scikit-learn</span>
+      <span class="skill-tag">Ensemble Methods</span>
+      <span class="skill-tag">ARIMA</span>
+      <span class="skill-cat-title" style="display:inline"></span>
+      <span class="skill-tag">K-Means</span>
+      <span class="skill-tag">Feature engineering</span>
+      <span class="skill-tag">Pandas · NumPy</span>
+    </div>
+    <div class="skill-cat">
+      <div class="skill-cat-title">MLOps &amp; Deploy</div>
+      <span class="skill-tag hot">Docker</span>
+      <span class="skill-tag hot">Flask</span>
+      <span class="skill-tag">Streamlit</span>
+      <span class="skill-tag">Azure / GCP</span>
+      <span class="skill-tag">Hugging Face</span>
+      <span class="skill-tag">Next.js</span>
+      <span class="skill-tag">Linux · Git</span>
+    </div>
+  </div>
+  <div class="section-label">Proven in production</div>
+  <div style="font-size:13px;color:var(--c-muted);line-height:1.8">
+    YOLO + MediaPipe → shipped real-time web app · Flask + Docker → on-device inference, zero video storage · Next.js + NeonDB → live school platform · ARIMA + GBM → government forecasting pipeline
+  </div>
+</div>
+
+<div id="tab-education" class="section">
+  <div class="edu-card">
+    <div class="edu-school">Massachusetts Institute of Technology (MITx / edX)</div>
+    <div class="edu-degree">MicroMasters in Statistics and Data Science</div>
+    <div style="font-size:12px;color:var(--c-hint);margin-bottom:10px">Aug 2024 – Dec 2025 · 16 months · self-funded · 10–15 hrs/week alongside full degree</div>
+    <div class="edu-meta">
+      <span class="meta-pill green">Data Analysis: 93%</span>
+      <span class="meta-pill green">Machine Learning: 83%</span>
+      <span class="meta-pill">Probability: 78%</span>
+      <span class="meta-pill">Statistics: 60%</span>
+      <span class="meta-pill">Capstone: 73%</span>
+    </div>
+  </div>
+
+  <div class="edu-card">
+    <div class="edu-school">Universiti Sains Malaysia (USM)</div>
+    <div class="edu-degree">BSc (Hons.) Computer Science — Major: Intelligent Computing (AI)</div>
+    <div style="font-size:12px;color:var(--c-hint);margin-bottom:10px">2021 – 2025 · Penang, Malaysia</div>
+    <div class="edu-meta">
+      <span class="meta-pill green">Major GPA: 9.55/10 · 3.82/4.00</span>
+      <span class="meta-pill">CGPA: 8.3/10 · 3.32/4.00</span>
+      <span class="meta-pill green">Dean's List × 3</span>
+      <span class="meta-pill green">Gold Award — PIXEL 2025 (top 5%)</span>
+    </div>
+    <div style="font-size:12px;color:var(--c-hint);margin-top:8px">Trajectory: 3.49 → 3.65 → 3.73 → 3.82 (final 4 semesters)</div>
+  </div>
+</div>
+
+<div id="tab-achievements" class="section">
+  <div class="achievement-row">
+    <div class="ach-icon">P</div>
+    <div class="ach-text"><strong>First-author preprint</strong> — DeepLens Engine for Focus, Zenodo 2026. <a class="proof-tag" href="https://doi.org/10.5281/zenodo.19266394" target="_blank">DOI: 10.5281/zenodo.19266394 ↗</a></div>
+  </div>
+  <div class="achievement-row">
+    <div class="ach-icon">G</div>
+    <div class="ach-text"><strong>Gold Award (Top 5%)</strong> — USM PIXEL 2025 for DeepWork AI / DLEF system</div>
+  </div>
+  <div class="achievement-row">
+    <div class="ach-icon">M</div>
+    <div class="ach-text"><strong>Gold Honor (Top 2%)</strong> — International Youth Math Challenge 2020</div>
+  </div>
+  <div class="achievement-row">
+    <div class="ach-icon">D</div>
+    <div class="ach-text"><strong>Dean's List</strong> — 3 consecutive final semesters, USM. GPA trajectory: 3.49 → 3.82</div>
+  </div>
+  <div class="achievement-row">
+    <div class="ach-icon">L</div>
+    <div class="ach-text"><strong>Leadership</strong> — Superintendent, Meed Public School (2018–2022). Directed academics and operations for 300+ residential students. Observed structural attention gaps that directly motivated the DLEF research.</div>
+  </div>
+  <div class="achievement-row">
+    <div class="ach-icon">C</div>
+    <div class="ach-text"><strong>Competitive programming</strong> — Active on LeetCode (~50 problems), Kaggle. <a class="proof-tag" href="https://github.com/NafisAslam70" target="_blank">GitHub ↗</a></div>
+  </div>
+  <div class="achievement-row">
+    <div class="ach-icon">L</div>
+    <div class="ach-text"><strong>Languages</strong> — English (fluent), Hindi (native), Urdu (native), Bahasa Malaysia (basic)</div>
+  </div>
+</div>
+
+</div>
+
+<script>
+function switchTab(id){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
