@@ -75,8 +75,8 @@ html,body{
 body{
   color: rgb(var(--fg));
   background:
-    radial-gradient(1200px 600px at 80% -10%, rgba(99,102,241,.12), transparent 60%),
-    radial-gradient(1000px 500px at 0% 0%, rgba(236,72,153,.10), transparent 60%),
+    radial-gradient(1200px 600px at 80% -10%, rgba(15,23,42,.05), transparent 60%),
+    radial-gradient(1000px 500px at 0% 0%, rgba(16,185,129,.05), transparent 60%),
     rgb(var(--bg));
 }
 
@@ -137,7 +137,7 @@ th, td{ border-color: rgb(var(--border)); }
   position:absolute;
   inset:-3px;
   border-radius:inherit;
-  background:linear-gradient(120deg, rgba(14,165,233,.4), rgba(236,72,153,.35), rgba(99,102,241,.35));
+  background:linear-gradient(120deg, rgba(15,23,42,.20), rgba(16,185,129,.16), rgba(148,163,184,.18));
   filter: blur(22px);
   opacity:.55;
   transition: opacity .4s ease;

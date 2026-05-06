@@ -66,7 +66,7 @@ const sparkleKeyframes = `
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(120deg, transparent 5%, rgba(255,255,255,0.8) 45%, transparent 80%);
+  background: linear-gradient(120deg, transparent 5%, rgba(255,255,255,0.72) 45%, transparent 80%);
   transform: translateX(-140%);
   animation: hire-card-sparkle 3.2s linear infinite;
   pointer-events: none;
@@ -75,7 +75,7 @@ const sparkleKeyframes = `
 `;
 
 const SURFACE =
-  "rounded-3xl border border-indigo-200/50 bg-white/75 backdrop-blur-md shadow-[0_10px_30px_-12px_rgba(2,6,23,0.15)] dark:bg-white/[0.05] dark:border-white/10";
+  "rounded-3xl border border-slate-200/70 bg-white/80 backdrop-blur-md shadow-[0_10px_30px_-12px_rgba(2,6,23,0.10)] dark:bg-white/[0.05] dark:border-white/10";
 const SECTION_CONTAINER = "container mx-auto max-w-screen-2xl px-6 md:px-10";
 
 const PRODUCT_LINKS = [
@@ -131,32 +131,32 @@ const CONTACT_LINKS = [
 
 const PRODUCT_ACCENTS = {
   indigo: {
-    ring: "border-indigo-200/70 hover:border-indigo-300",
-    icon: "text-indigo-600 dark:text-indigo-300",
-    hover: "hover:text-indigo-600 dark:hover:text-indigo-300",
-    glow: "from-indigo-400 via-purple-400 to-pink-400",
-    bubble: "bg-indigo-500/20",
+    ring: "border-slate-200/80 hover:border-slate-300",
+    icon: "text-slate-700 dark:text-slate-200",
+    hover: "hover:text-slate-900 dark:hover:text-slate-100",
+    glow: "from-slate-500 via-slate-400 to-emerald-400",
+    bubble: "bg-slate-500/12",
   },
   violet: {
-    ring: "border-violet-200/70 hover:border-violet-300",
-    icon: "text-violet-600 dark:text-violet-300",
-    hover: "hover:text-violet-600 dark:hover:text-violet-300",
-    glow: "from-violet-400 via-indigo-400 to-purple-500",
-    bubble: "bg-violet-500/20",
+    ring: "border-slate-200/80 hover:border-slate-300",
+    icon: "text-slate-700 dark:text-slate-200",
+    hover: "hover:text-slate-900 dark:hover:text-slate-100",
+    glow: "from-slate-500 via-slate-400 to-emerald-400",
+    bubble: "bg-slate-500/12",
   },
   sky: {
-    ring: "border-sky-200/70 hover:border-sky-300",
-    icon: "text-sky-600 dark:text-sky-300",
-    hover: "hover:text-sky-600 dark:hover:text-sky-300",
-    glow: "from-sky-400 via-cyan-400 to-sky-500",
-    bubble: "bg-sky-500/25",
+    ring: "border-slate-200/80 hover:border-slate-300",
+    icon: "text-slate-700 dark:text-slate-200",
+    hover: "hover:text-slate-900 dark:hover:text-slate-100",
+    glow: "from-slate-500 via-slate-400 to-emerald-400",
+    bubble: "bg-slate-500/12",
   },
   rose: {
-    ring: "border-rose-200/70 hover:border-rose-300",
-    icon: "text-rose-600 dark:text-rose-300",
-    hover: "hover:text-rose-600 dark:hover:text-rose-300",
-    glow: "from-rose-400 via-pink-400 to-rose-500",
-    bubble: "bg-rose-500/20",
+    ring: "border-slate-200/80 hover:border-slate-300",
+    icon: "text-slate-700 dark:text-slate-200",
+    hover: "hover:text-slate-900 dark:hover:text-slate-100",
+    glow: "from-slate-500 via-slate-400 to-emerald-400",
+    bubble: "bg-slate-500/12",
   },
   amber: {
     ring: "border-amber-200/70 hover:border-amber-300",
@@ -665,10 +665,10 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
   return (
     <div className="min-h-screen">
       <nav className="pointer-events-none fixed left-2 top-24 z-40 hidden lg:block">
-        <div className="pointer-events-auto relative w-[192px] overflow-hidden rounded-[1.8rem] border border-indigo-200/60 bg-white/80 p-3.5 shadow-xl backdrop-blur dark:border-white/10 dark:bg-white/[0.06]">
-          <div className="absolute -left-24 top-10 h-36 w-36 rounded-full bg-indigo-400/25 blur-3xl dark:bg-indigo-500/25" />
-          <div className="absolute -right-28 bottom-0 h-32 w-32 rounded-full bg-purple-400/25 blur-[110px] dark:bg-purple-600/20" />
-          <div className="absolute left-[30px] top-6 bottom-16 w-px bg-gradient-to-b from-indigo-300/80 via-indigo-500/50 to-pink-400/50" />
+        <div className="pointer-events-auto relative w-[172px] overflow-hidden rounded-[1.8rem] border border-indigo-200/60 bg-white/80 p-3 shadow-xl backdrop-blur dark:border-white/10 dark:bg-white/[0.06]">
+          <div className="absolute -left-24 top-10 h-36 w-36 rounded-full bg-slate-300/20 blur-3xl dark:bg-slate-700/20" />
+          <div className="absolute -right-28 bottom-0 h-32 w-32 rounded-full bg-emerald-300/14 blur-[110px] dark:bg-emerald-500/14" />
+          <div className="absolute left-[30px] top-6 bottom-16 w-px bg-gradient-to-b from-slate-300/80 via-slate-500/45 to-emerald-400/35" />
           <ul className="relative flex flex-col gap-4">
             {NAV_SECTIONS.map((section) => {
               const Icon = section.icon;
@@ -679,7 +679,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                     <motion.div
                       layoutId="nav-active-pill"
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                      className="absolute left-0 right-3 top-1/2 h-12 -translate-y-1/2 rounded-2xl bg-gradient-to-r from-indigo-500/95 via-purple-500/85 to-pink-500/85 shadow-[0_18px_40px_-20px_rgba(79,70,229,0.85)]"
+                      className="absolute left-0 right-3 top-1/2 h-12 -translate-y-1/2 rounded-2xl bg-slate-900 shadow-[0_18px_40px_-20px_rgba(15,23,42,0.32)] dark:bg-emerald-600 dark:shadow-[0_18px_40px_-20px_rgba(16,185,129,0.22)]"
                     />
                   )}
                   <button
@@ -688,7 +688,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                     className={`group relative flex w-full items-center gap-3 rounded-2xl px-2 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] transition duration-300 ${
                       isActive
                         ? "text-white"
-                        : "text-slate-600 hover:text-indigo-600 dark:text-slate-200 dark:hover:text-indigo-200"
+                        : "text-slate-600 hover:text-slate-900 dark:text-slate-200 dark:hover:text-emerald-200"
                     }`}
                     aria-label={section.label}
                     aria-current={isActive ? "true" : undefined}
@@ -698,7 +698,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                       className={`relative flex h-10 w-10 items-center justify-center rounded-2xl border text-base transition duration-300 ${
                         isActive
                           ? "border-white/60 bg-white/15 text-white"
-                          : "border-indigo-200/70 bg-white/80 text-indigo-600 shadow-sm group-hover:border-indigo-400 group-hover:bg-white dark:border-white/10 dark:bg-white/[0.08] dark:text-indigo-200"
+                          : "border-slate-200/80 bg-white/80 text-slate-700 shadow-sm group-hover:border-slate-300 group-hover:bg-white dark:border-white/10 dark:bg-white/[0.08] dark:text-slate-200"
                       }`}
                     >
                       <Icon />
@@ -716,7 +716,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                       {section.label}
                     </span>
                     <span
-                      className={`absolute right-0 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-gradient-to-r from-indigo-400 to-pink-400 shadow-sm transition ${
+                      className={`absolute right-0 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-gradient-to-r from-slate-400 to-emerald-400 shadow-sm transition ${
                         isActive ? "scale-100 opacity-100" : "scale-50 opacity-0 group-hover:scale-90 group-hover:opacity-60"
                       }`}
                     />
@@ -730,23 +730,23 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.38, delay: 0.08 }}
-            className="mt-8 flex items-center justify-center gap-2 rounded-2xl border border-white/50 bg-white/70 px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.3em] text-indigo-600 shadow-sm dark:border-white/10 dark:bg-white/[0.05] dark:text-indigo-200"
+            className="mt-8 flex items-center justify-center gap-2 rounded-2xl border border-white/50 bg-white/70 px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.3em] text-slate-700 shadow-sm dark:border-white/10 dark:bg-white/[0.05] dark:text-slate-200"
           >
-            <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400" />
+            <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-r from-slate-400 to-emerald-400" />
             {NAV_SECTIONS[activeIndex]?.label ?? "Overview"}
           </motion.div>
         </div>
       </nav>
       <aside className="pointer-events-none fixed right-2 top-24 z-40 hidden xl:block">
         <div className="pointer-events-auto flex flex-col items-end gap-4">
-          <div className="relative w-[164px] overflow-visible rounded-[1.6rem] border border-indigo-200/60 bg-white/85 p-3 shadow-xl backdrop-blur dark:border-white/10 dark:bg-white/[0.08]">
-            <div className="absolute inset-0 bg-gradient-to-br from-white/60 via-transparent to-purple-200/25 opacity-70 dark:from-white/[0.04] dark:via-indigo-900/30 dark:to-purple-900/25" />
+          <div className="relative w-[148px] overflow-visible rounded-[1.6rem] border border-slate-200/70 bg-white/85 p-3 shadow-xl backdrop-blur dark:border-white/10 dark:bg-white/[0.08]">
+            <div className="absolute inset-0 bg-gradient-to-br from-white/60 via-transparent to-slate-200/20 opacity-70 dark:from-white/[0.04] dark:via-slate-900/30 dark:to-emerald-900/10" />
             <div className="relative space-y-3 text-center">
               <div className="space-y-1">
-                <div className="text-[10px] font-semibold uppercase tracking-[0.28em] text-indigo-500 dark:text-indigo-300">
+                <div className="text-[10px] font-semibold uppercase tracking-[0.28em] text-slate-600 dark:text-slate-300">
                   Quick Access
                 </div>
-                <div className="mx-auto h-px w-10 bg-gradient-to-r from-indigo-400/80 to-purple-400/80" />
+                <div className="mx-auto h-px w-10 bg-gradient-to-r from-slate-400/70 to-emerald-400/60" />
               </div>
               <ul className="flex flex-col items-center gap-3">
                 {PRODUCT_LINKS.map((item) => {
@@ -773,10 +773,10 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                 })}
               </ul>
               <div className="pt-4">
-                <div className="text-[10px] font-semibold uppercase tracking-[0.28em] text-indigo-500 dark:text-indigo-300">
+                <div className="text-[10px] font-semibold uppercase tracking-[0.28em] text-slate-600 dark:text-slate-300">
                   Contact
                 </div>
-                <div className="mx-auto mt-1 h-px w-8 bg-gradient-to-r from-indigo-400/60 to-purple-400/60" />
+                <div className="mx-auto mt-1 h-px w-8 bg-gradient-to-r from-slate-400/60 to-emerald-400/55" />
                 <ul className="mt-3 flex flex-col items-center gap-3">
                   {CONTACT_LINKS.map((item) => {
                     const Icon = item.icon || FaLink;
@@ -804,8 +804,8 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
               </div>
             </div>
           </div>
-          <div className="hire-cta-card relative w-[164px] overflow-hidden rounded-2xl border border-indigo-200/70 bg-gradient-to-br from-white/90 via-indigo-100/55 to-purple-100/45 p-4 text-center text-[11px] shadow-lg ring-1 ring-transparent transition duration-300 hover:shadow-indigo-300/35 hover:ring-indigo-200/60 dark:border-white/10 dark:from-white/[0.08] dark:via-indigo-900/25 dark:to-purple-900/20">
-            <div className="font-semibold uppercase tracking-[0.28em] text-indigo-600 dark:text-indigo-300">Need a Builder?</div>
+          <div className="hire-cta-card relative w-[148px] overflow-hidden rounded-2xl border border-slate-200/70 bg-gradient-to-br from-white/92 via-slate-100/60 to-emerald-100/25 p-4 text-center text-[11px] shadow-lg ring-1 ring-transparent transition duration-300 hover:shadow-slate-300/20 hover:ring-slate-200/50 dark:border-white/10 dark:from-white/[0.08] dark:via-slate-900/20 dark:to-emerald-900/12">
+            <div className="font-semibold uppercase tracking-[0.28em] text-slate-700 dark:text-slate-200">Need a Builder?</div>
             <p className="mt-2 text-[11px] font-medium text-slate-600 dark:text-slate-200">Let’s scope your next sprint together.</p>
             <Link
               href="/hire-me"
@@ -824,12 +824,12 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
         whileInView="visible"
         viewport={{ once: true }}
         variants={fadeIn}
-        className={`${SECTION_CONTAINER} scroll-mt-32 pt-12 md:pt-16 lg:pt-24`}
+        className={`${SECTION_CONTAINER} scroll-mt-32 pt-0`}
       >
-        <div className={`${SURFACE} relative overflow-hidden px-8 py-12 md:px-12 md:py-16`}>
+        <div className={`${SURFACE} relative overflow-hidden px-8 pb-12 pt-4 md:px-12 md:pb-16 md:pt-6`}>
           {/* soft inner gradient wash */}
           <div className="pointer-events-none absolute inset-0">
-            <div className="absolute inset-0 bg-gradient-to-br from-white/60 via-indigo-200/20 to-purple-200/25 dark:from-white/[0.02] dark:via-indigo-900/10 dark:to-purple-900/15" />
+            <div className="absolute inset-0 bg-gradient-to-br from-white/60 via-slate-200/14 to-emerald-200/10 dark:from-white/[0.02] dark:via-slate-900/10 dark:to-emerald-900/08" />
           </div>
 
           <div className="relative grid gap-12 lg:grid-cols-[1.05fr,0.95fr] lg:items-center">
@@ -839,7 +839,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                 <div className="min-w-0 flex-1">
                   <h1 className="text-4xl font-semibold leading-tight tracking-tight md:text-6xl">
                     Hi, I’m{" "}
-                    <span className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                    <span className="bg-gradient-to-r from-slate-800 via-slate-700 to-emerald-700 bg-clip-text text-transparent">
                       Nafis Aslam
                     </span>
                     <span className="mt-4 block text-lg font-medium text-slate-900 md:text-2xl dark:text-slate-200">
@@ -873,7 +873,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                 {/* Inline portrait (bigger, blended, with soft wave) */}
                 <div className="hidden md:block shrink-0">
                   <div className="relative h-56 w-56 lg:h-72 lg:w-72">
-                    <div className="absolute -inset-6 -z-10 rounded-[2.25rem] bg-gradient-to-br from-indigo-500/35 via-purple-500/25 to-pink-500/20 blur-2xl" />
+                    <div className="absolute -inset-6 -z-10 rounded-[2.25rem] bg-gradient-to-br from-slate-400/16 via-slate-300/10 to-emerald-400/10 blur-2xl" />
                     <div className="relative h-full w-full overflow-hidden rounded-[2rem] border-4 border-white/80 shadow-[0_45px_120px_-45px_rgba(79,70,229,0.6)] dark:border-white/15">
                       <Image
                         src="/images/me1.jpg"
@@ -912,7 +912,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
               {/* Feature cards */}
               <div className="grid gap-3 text-sm text-slate-900 dark:text-slate-200 sm:grid-cols-3">
                 <motion.div
-                  className="relative overflow-hidden rounded-3xl border border-indigo-300/60 bg-gradient-to-br from-indigo-600 via-purple-500 to-pink-500 px-4 py-4 text-white shadow-lg"
+                  className="relative overflow-hidden rounded-3xl border border-slate-300/60 bg-gradient-to-br from-slate-800 via-slate-700 to-emerald-700 px-4 py-4 text-white shadow-lg"
                   whileHover={CARD_HOVER_FLOAT}
                   whileTap={CARD_TAP_PRESS}
                 >
@@ -996,7 +996,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                     style={{ pointerEvents: "none" }}
                   />
                 </div>
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-indigo-500/15 via-transparent to-purple-500/25" />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-slate-500/10 via-transparent to-emerald-500/12" />
               </Link>
             </div>
           </div>
