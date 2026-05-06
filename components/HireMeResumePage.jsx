@@ -1269,7 +1269,7 @@ export default function HireMePage() {
                   <div style={{ fontSize: isMobile ? 12 : 13, color: "var(--resume-muted)", lineHeight: 1.65 }}>
                     ML / Computer Vision Engineer · Open to Remote
                     <br />
-                    USM (AI Major) · MIT MicroMasters · First-Author Preprint
+                    USM, Malaysia(AI Major) · MIT MicroMasters 
                   </div>
                   {isMobile ? (
                     <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 10, alignItems: "center" }}>
@@ -1332,7 +1332,7 @@ export default function HireMePage() {
                             flexShrink: 0,
                           }}
                         >
-                          Why?
+                          Why Me?
                         </button>
                       </div>
                       <Link
@@ -1676,7 +1676,7 @@ export default function HireMePage() {
                   Why You Should Hire Me?
                 </div>
                 <div style={{ fontSize: 16, fontWeight: 700, color: "var(--resume-text)", marginTop: 4 }}>
-                  Quick reasons, clearly framed
+                  Quick reasons
                 </div>
               </div>
               <button
