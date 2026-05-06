@@ -1418,7 +1418,7 @@ export default function HireMePage() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))",
+            gridTemplateColumns: isMobile ? "repeat(2, minmax(0, 1fr))" : "repeat(auto-fit, minmax(150px, 1fr))",
             gap: 10,
             background: "transparent",
             borderBottom: "1px solid var(--resume-border)",
@@ -1433,7 +1433,7 @@ export default function HireMePage() {
               href={item.href}
               style={{
                 background: metricCardBackground,
-                padding: isMobile ? "14px 14px" : "16px 16px",
+                padding: isMobile ? "12px 10px" : "16px 14px",
                 textDecoration: "none",
                 display: "block",
                 color: "inherit",
@@ -1444,18 +1444,18 @@ export default function HireMePage() {
             >
               <div
                 style={{
-                  fontSize: isMobile ? 15 : 18,
+                  fontSize: isMobile ? 13 : 18,
                   fontWeight: 700,
                   color: "var(--resume-accent)",
                   lineHeight: 1.15,
-                  paddingBottom: 8,
-                  marginBottom: 8,
+                  paddingBottom: 6,
+                  marginBottom: 6,
                   borderBottom: "1px solid var(--resume-border)",
                 }}
               >
                 {item.title}
               </div>
-              <div style={{ fontSize: 11, color: "var(--resume-hint)", lineHeight: 1.55 }}>{item.subtitle}</div>
+              <div style={{ fontSize: isMobile ? 10 : 11, color: "var(--resume-hint)", lineHeight: 1.45 }}>{item.subtitle}</div>
             </a>
           ))}
         </div>
@@ -1542,6 +1542,7 @@ export default function HireMePage() {
             overflowX: "auto",
             gap: 6,
             background: tabRailBackground,
+            position: "relative",
           }}
         >
           {TABS.map((tab, i) => (
@@ -1565,37 +1566,40 @@ export default function HireMePage() {
               {tab}
             </button>
           ))}
-        </div>
-        {isMobile ? (
-          <div
-            style={{
-              padding: "8px 1rem 0",
-              fontSize: 11,
-              fontWeight: 700,
-              letterSpacing: ".08em",
-              textTransform: "uppercase",
-              color: "var(--resume-hint)",
-              background: contentBackground,
-              display: "flex",
-              justifyContent: "flex-end",
-            }}
-          >
-            <span
+          {isMobile ? (
+            <div
               style={{
-                display: "inline-flex",
+                position: "sticky",
+                right: 0,
+                display: "flex",
                 alignItems: "center",
-                gap: 6,
-                padding: "6px 10px",
-                borderRadius: 999,
-                border: "1px solid var(--resume-accent-border)",
-                background: "var(--resume-accent-soft)",
-                color: "var(--resume-accent-strong)",
+                paddingLeft: 10,
+                marginLeft: -4,
+                background: `linear-gradient(90deg, rgba(0,0,0,0) 0%, ${contentBackground} 26%)`,
+                pointerEvents: "none",
               }}
             >
-              More tabs this way →
-            </span>
-          </div>
-        ) : null}
+              <span
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  padding: "4px 8px",
+                  borderRadius: 999,
+                  border: "1px solid var(--resume-accent-border)",
+                  background: "var(--resume-accent-soft)",
+                  color: "var(--resume-accent-strong)",
+                  fontSize: 10,
+                  fontWeight: 700,
+                  letterSpacing: ".06em",
+                  textTransform: "uppercase",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                Swipe
+              </span>
+            </div>
+          ) : null}
+        </div>
 
         <div style={{ padding: isMobile ? "1rem" : "1.5rem", background: contentBackground }}>
           <ActiveSection isMobile={isMobile} isTablet={isTablet} />
