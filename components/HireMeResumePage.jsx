@@ -41,20 +41,20 @@ const card = {
 
 const HIRE_REASONS = [
   {
-    title: "Reason 1 · Proven Real-time Delivery",
-    text: "Built and shipped a real-time CV system with sub-50ms CPU inference, not just a notebook prototype.",
+    title: "Built DeepWork AI, not just a model demo",
+    text: "I turned the DLEF idea into a working focus system: real-time attention monitoring, product framing, analytics, and deployable execution beyond a notebook environment.",
   },
   {
-    title: "Reason 2 · Research + Execution Combo",
-    text: "Strong academic grounding (MIT DSML + USM AI) plus practical product shipping discipline.",
+    title: "Discipline-first execution",
+    text: "My work is shaped by deep work, structured feedback, and consistency. I do not just experiment with models, I build systems around them and push them toward usable outcomes.",
   },
   {
-    title: "Reason 3 · Evidence-linked Work",
-    text: "Each major claim has proof: live demo, first-author preprint, and public code/research footprint.",
+    title: "Research thinking with builder instincts",
+    text: "MIT training, USM AI grounding, a first-author preprint, and hands-on shipping experience let me move between research reasoning and product execution without losing rigor.",
   },
   {
-    title: "Reason 4 · Ownership Mindset",
-    text: "Comfortable taking scoped goals end-to-end: build, validate, iterate, and ship usable outcomes.",
+    title: "Proof-backed, mission-driven work",
+    text: "The claims here are linked to demos, research, and shipped systems. I care about AI that protects attention, improves learning, and solves real behavioral problems.",
   },
 ];
 
@@ -380,18 +380,19 @@ function Overview({ isMobile }) {
         }}
       >
         A highly motivated ML/Computer Vision engineer who ships systems that work outside the lab: fast, deployable,
-        and grounded in real problems. Built a real-time attention monitor (YOLO + MediaPipe, &lt;50ms CPU) with a
-        first-author preprint, while completing a graduate-level MIT program self-funded alongside a full degree.
+        and grounded in real problems. Built DeepWork AI powered by DLEF, a real-time attention monitoring system
+        using YOLO + MediaPipe with &lt;50ms CPU inference, alongside a graduate-level MIT program and a full degree.
+        Actively seeking Computer Vision / Machine Learning engineer or research roles across CV, AI, and applied AI.
       </div>
 
       <div style={sectionTitle}>Highlights</div>
 
       <AchRow icon="★">
-        <strong style={{ color: "var(--resume-text)", fontWeight: 700 }}>Gold Award (Top 5%)</strong> — USM PIXEL 2025 for DeepWork AI, a real-time attention monitoring system using YOLO + MediaPipe.
+        <strong style={{ color: "var(--resume-text)", fontWeight: 700 }}>Gold Award (Top 5%)</strong> — USM PIXEL 2025 for DeepWork AI powered by DLEF, a real-time attention monitoring system using YOLO + MediaPipe.
         <ProofTag href="https://doi.org/10.5281/zenodo.19266394">Preprint</ProofTag>
       </AchRow>
       <AchRow icon="★">
-        <strong style={{ color: "var(--resume-text)", fontWeight: 700 }}>MIT MicroMasters</strong> — 16-month graduate-level Stats & Data Science program, self-funded alongside full BSc.{" "}
+        <strong style={{ color: "var(--resume-text)", fontWeight: 700 }}>MIT MicroMasters</strong> — 16-month graduate-level Stats & Data Science program completed alongside full BSc.{" "}
         <MetaPill green>93% in Data Analysis</MetaPill>
       </AchRow>
       <AchRow icon="★">
@@ -608,7 +609,7 @@ function Education() {
       <div style={{ ...card, marginBottom: 12 }}>
         <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 3, color: "var(--resume-text)" }}>Massachusetts Institute of Technology (MITx / edX)</div>
         <div style={{ fontSize: 13, color: "var(--resume-muted)", marginBottom: 6 }}>MicroMasters in Statistics and Data Science</div>
-        <div style={{ fontSize: 12, color: "var(--resume-hint)", marginBottom: 10 }}>Aug 2024-Dec 2025 · 16 months · self-funded · 10-15 hrs/week with full degree</div>
+        <div style={{ fontSize: 12, color: "var(--resume-hint)", marginBottom: 10 }}>Aug 2024-Dec 2025 · 16 months · 10-15 hrs/week with full degree</div>
         <div style={{ display: "flex", flexWrap: "wrap" }}>
           <MetaPill green>Data Analysis: 93%</MetaPill>
           <MetaPill green>Machine Learning: 83%</MetaPill>
@@ -752,6 +753,8 @@ const PROFILE_CARDS = [
 export default function HireMePage() {
   const [activeTab, setActiveTab] = useState(0);
   const [reasonIndex, setReasonIndex] = useState(0);
+  const [showReasons, setShowReasons] = useState(false);
+  const [popupReasonIndex, setPopupReasonIndex] = useState(0);
   const [isNight, setIsNight] = useState(true);
   const [viewportWidth, setViewportWidth] = useState(1280);
   const searchParams = useSearchParams();
@@ -860,6 +863,8 @@ export default function HireMePage() {
 
     return () => window.removeEventListener("resize", syncViewport);
   }, []);
+
+  const activePopupReason = HIRE_REASONS[popupReasonIndex];
 
   return (
     <div
@@ -1329,6 +1334,26 @@ export default function HireMePage() {
               </div>
             </div>
             <div
+              role={isMobile ? "button" : undefined}
+              tabIndex={isMobile ? 0 : undefined}
+              onClick={
+                isMobile
+                  ? () => {
+                      setPopupReasonIndex(0);
+                      setShowReasons(true);
+                    }
+                  : undefined
+              }
+              onKeyDown={
+                isMobile
+                  ? (e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        setPopupReasonIndex(0);
+                        setShowReasons(true);
+                      }
+                    }
+                  : undefined
+              }
               style={{
                 borderRadius: 16,
                 border: "1px solid var(--resume-border)",
@@ -1341,29 +1366,51 @@ export default function HireMePage() {
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
+                cursor: isMobile ? "pointer" : "default",
               }}
             >
               <div style={{ fontSize: 11, letterSpacing: ".08em", textTransform: "uppercase", color: hirePanelLabel, fontWeight: 700 }}>
                 Why You Should Hire Me?
               </div>
-              <div>
-                <div style={{ fontSize: isMobile ? 14 : 15, fontWeight: 700, marginBottom: 6 }}>{HIRE_REASONS[reasonIndex].title}</div>
-                <p style={{ fontSize: isMobile ? 12 : 13, lineHeight: 1.58, color: hirePanelMuted }}>{HIRE_REASONS[reasonIndex].text}</p>
-              </div>
-              <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
-                {HIRE_REASONS.map((_, idx) => (
-                  <span
-                    key={`reason-dot-${idx}`}
-                    style={{
-                      width: idx === reasonIndex ? 20 : 8,
-                      height: 8,
-                      borderRadius: 999,
-                      transition: "all .25s ease",
-                      background: idx === reasonIndex ? hireDotActive : hireDotIdle,
-                    }}
-                  />
-                ))}
-              </div>
+              {isMobile ? (
+                <div
+                  style={{
+                    marginTop: 10,
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    gap: 10,
+                    borderRadius: 12,
+                    border: "1px solid rgba(255,255,255,0.14)",
+                    background: "rgba(255,255,255,0.06)",
+                    padding: "10px 12px",
+                  }}
+                >
+                  <span style={{ fontSize: 13, fontWeight: 700, color: hirePanelText }}>Tap to view 4 reasons</span>
+                  <span style={{ fontSize: 16, color: hirePanelText }}>→</span>
+                </div>
+              ) : (
+                <>
+                  <div>
+                    <div style={{ fontSize: isMobile ? 14 : 15, fontWeight: 700, marginBottom: 6 }}>{HIRE_REASONS[reasonIndex].title}</div>
+                    <p style={{ fontSize: isMobile ? 12 : 13, lineHeight: 1.58, color: hirePanelMuted }}>{HIRE_REASONS[reasonIndex].text}</p>
+                  </div>
+                  <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
+                    {HIRE_REASONS.map((_, idx) => (
+                      <span
+                        key={`reason-dot-${idx}`}
+                        style={{
+                          width: idx === reasonIndex ? 20 : 8,
+                          height: 8,
+                          borderRadius: 999,
+                          transition: "all .25s ease",
+                          background: idx === reasonIndex ? hireDotActive : hireDotIdle,
+                        }}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -1371,13 +1418,13 @@ export default function HireMePage() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
-            gap: 1,
-            background: stripBackground,
-            borderBottom: `1px solid ${theme.border}`,
+            gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))",
+            gap: 10,
+            background: "transparent",
+            borderBottom: "1px solid var(--resume-border)",
             margin: isMobile ? "0 1rem" : "0 1.5rem",
             borderRadius: 12,
-            overflow: "hidden",
+            padding: "10px 0 0",
           }}
         >
           {PROFILE_CARDS.map((item) => (
@@ -1386,14 +1433,29 @@ export default function HireMePage() {
               href={item.href}
               style={{
                 background: metricCardBackground,
-                padding: "10px 12px",
+                padding: isMobile ? "14px 14px" : "16px 16px",
                 textDecoration: "none",
                 display: "block",
                 color: "inherit",
+                border: "1px solid var(--resume-border)",
+                borderRadius: 14,
+                boxShadow: "0 14px 28px -24px rgba(2,6,23,0.28)",
               }}
             >
-              <div style={{ fontSize: isMobile ? 15 : 18, fontWeight: 700, color: "var(--resume-accent)", lineHeight: 1.15 }}>{item.title}</div>
-              <div style={{ fontSize: 11, color: "var(--resume-hint)", marginTop: 3 }}>{item.subtitle}</div>
+              <div
+                style={{
+                  fontSize: isMobile ? 15 : 18,
+                  fontWeight: 700,
+                  color: "var(--resume-accent)",
+                  lineHeight: 1.15,
+                  paddingBottom: 8,
+                  marginBottom: 8,
+                  borderBottom: "1px solid var(--resume-border)",
+                }}
+              >
+                {item.title}
+              </div>
+              <div style={{ fontSize: 11, color: "var(--resume-hint)", lineHeight: 1.55 }}>{item.subtitle}</div>
             </a>
           ))}
         </div>
@@ -1447,7 +1509,7 @@ export default function HireMePage() {
               </div>
             </div>
             <div>
-              <div style={{ fontSize: 14, fontWeight: 700, color: "var(--resume-text)" }}>NBS Brain</div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: "var(--resume-text)" }}>Nafees Brain Society</div>
               <div style={{ fontSize: 12, color: "var(--resume-muted)", lineHeight: 1.6, marginTop: 4 }}>
                 For full brain architecture details, view it on the website.
               </div>
@@ -1510,13 +1572,28 @@ export default function HireMePage() {
               padding: "8px 1rem 0",
               fontSize: 11,
               fontWeight: 700,
-              letterSpacing: ".04em",
+              letterSpacing: ".08em",
               textTransform: "uppercase",
               color: "var(--resume-hint)",
               background: contentBackground,
+              display: "flex",
+              justifyContent: "flex-end",
             }}
           >
-            Swipe for more sections →
+            <span
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                padding: "6px 10px",
+                borderRadius: 999,
+                border: "1px solid var(--resume-accent-border)",
+                background: "var(--resume-accent-soft)",
+                color: "var(--resume-accent-strong)",
+              }}
+            >
+              More tabs this way →
+            </span>
           </div>
         ) : null}
 
@@ -1524,6 +1601,126 @@ export default function HireMePage() {
           <ActiveSection isMobile={isMobile} isTablet={isTablet} />
         </div>
       </div>
+      {showReasons ? (
+        <div
+          onClick={() => setShowReasons(false)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 60,
+            background: "rgba(2, 6, 23, 0.68)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "14px",
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              width: "min(760px, 100%)",
+              maxHeight: "88dvh",
+              overflow: "auto",
+              borderRadius: 18,
+              border: "1px solid var(--resume-border)",
+              background: shellBackground,
+              boxShadow: shellShadow,
+              padding: isMobile ? "14px" : "16px",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, marginBottom: 12 }}>
+              <div>
+                <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".08em", textTransform: "uppercase", color: "var(--resume-hint)" }}>
+                  Why You Should Hire Me?
+                </div>
+                <div style={{ fontSize: 16, fontWeight: 700, color: "var(--resume-text)", marginTop: 4 }}>
+                  Quick reasons, clearly framed
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowReasons(false)}
+                style={{
+                  width: 34,
+                  height: 34,
+                  borderRadius: 999,
+                  border: "1px solid var(--resume-border)",
+                  background: "var(--resume-panel)",
+                  color: "var(--resume-text)",
+                  cursor: "pointer",
+                }}
+              >
+                ×
+              </button>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: isMobile ? 8 : 12 }}>
+              <button
+                type="button"
+                onClick={() => setPopupReasonIndex((prev) => (prev - 1 + HIRE_REASONS.length) % HIRE_REASONS.length)}
+                aria-label="Previous reason"
+                style={{
+                  width: isMobile ? 38 : 42,
+                  height: isMobile ? 38 : 42,
+                  borderRadius: 999,
+                  border: "1px solid var(--resume-border)",
+                  background: "var(--resume-panel)",
+                  color: "var(--resume-text)",
+                  cursor: "pointer",
+                  flexShrink: 0,
+                  fontSize: 18,
+                  fontWeight: 700,
+                }}
+              >
+                ←
+              </button>
+              <article
+                style={{
+                  flex: 1,
+                  border: "1px solid var(--resume-border)",
+                  borderRadius: 14,
+                  padding: isMobile ? "14px" : "16px",
+                  background: popupReasonIndex % 2 === 0 ? "var(--resume-soft-panel)" : "var(--resume-panel)",
+                  minHeight: isMobile ? 210 : 190,
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, marginBottom: 10 }}>
+                  <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".06em", textTransform: "uppercase", color: "var(--resume-hint)" }}>
+                    Reason {popupReasonIndex + 1}
+                  </div>
+                  <div style={{ fontSize: 11, fontWeight: 700, color: "var(--resume-accent-strong)" }}>
+                    {popupReasonIndex + 1} / {HIRE_REASONS.length}
+                  </div>
+                </div>
+                <div style={{ fontSize: 16, fontWeight: 700, color: "var(--resume-text)", marginBottom: 10 }}>
+                  {activePopupReason.title}
+                </div>
+                <p style={{ fontSize: 13, lineHeight: 1.65, color: "var(--resume-muted)", margin: 0 }}>
+                  {activePopupReason.text}
+                </p>
+              </article>
+              <button
+                type="button"
+                onClick={() => setPopupReasonIndex((prev) => (prev + 1) % HIRE_REASONS.length)}
+                aria-label="Next reason"
+                style={{
+                  width: isMobile ? 38 : 42,
+                  height: isMobile ? 38 : 42,
+                  borderRadius: 999,
+                  border: "1px solid var(--resume-border)",
+                  background: "var(--resume-panel)",
+                  color: "var(--resume-text)",
+                  cursor: "pointer",
+                  flexShrink: 0,
+                  fontSize: 18,
+                  fontWeight: 700,
+                }}
+              >
+                →
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }
