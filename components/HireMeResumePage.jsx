@@ -1271,41 +1271,41 @@ export default function HireMePage() {
                     <br />
                     USM (AI Major) · MIT MicroMasters · First-Author Preprint
                   </div>
-                  <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 10, alignItems: isMobile ? "center" : "flex-start" }}>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        gap: 10,
-                        width: isMobile ? "88%" : "auto",
-                      }}
-                    >
-                      <a
-                        href={cvHref}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                  {isMobile ? (
+                    <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 10, alignItems: "center" }}>
+                      <div
                         style={{
-                          display: "inline-flex",
+                          display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
-                          gap: 8,
-                          fontSize: 12,
-                          fontWeight: 700,
-                          padding: "9px 14px",
-                          borderRadius: 999,
-                          textDecoration: "none",
-                          color: "var(--resume-text)",
-                          background: "var(--resume-panel)",
-                          border: "1px solid var(--resume-border)",
-                          boxShadow: "0 14px 28px -20px rgba(2,6,23,0.2)",
-                          width: isMobile ? "calc(100% - 64px)" : "auto",
-                          flex: isMobile ? 1 : "0 0 auto",
+                          gap: 10,
+                          width: "88%",
                         }}
                       >
-                        Download CV
-                      </a>
-                      {isMobile ? (
+                        <a
+                          href={cvHref}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            gap: 8,
+                            fontSize: 12,
+                            fontWeight: 700,
+                            padding: "9px 14px",
+                            borderRadius: 999,
+                            textDecoration: "none",
+                            color: "var(--resume-text)",
+                            background: "var(--resume-panel)",
+                            border: "1px solid var(--resume-border)",
+                            boxShadow: "0 14px 28px -20px rgba(2,6,23,0.2)",
+                            width: "calc(100% - 64px)",
+                            flex: 1,
+                          }}
+                        >
+                          Download CV
+                        </a>
                         <button
                           type="button"
                           onClick={() => {
@@ -1334,29 +1334,73 @@ export default function HireMePage() {
                         >
                           Why?
                         </button>
-                      ) : null}
+                      </div>
+                      <Link
+                        href="/"
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          gap: 8,
+                          fontSize: 13,
+                          fontWeight: 700,
+                          padding: "10px 16px",
+                          borderRadius: 999,
+                          textDecoration: "none",
+                          color: "#ffffff",
+                          background: `linear-gradient(120deg, ${theme.accent} 0%, #0f694f 100%)`,
+                          boxShadow: "0 14px 28px -18px rgba(15,105,79,0.72)",
+                          width: "88%",
+                        }}
+                      >
+                        Return to Nafis&apos; World
+                      </Link>
                     </div>
-                    <Link
-                      href="/"
-                      style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        gap: 8,
-                        fontSize: 13,
-                        fontWeight: 700,
-                        padding: "10px 16px",
-                        borderRadius: 999,
-                        textDecoration: "none",
-                        color: "#ffffff",
-                        background: `linear-gradient(120deg, ${theme.accent} 0%, #0f694f 100%)`,
-                        boxShadow: "0 14px 28px -18px rgba(15,105,79,0.72)",
-                        width: isMobile ? "88%" : "auto",
-                      }}
-                    >
-                      Return to Nafis&apos; World
-                    </Link>
-                  </div>
+                  ) : (
+                    <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", gap: 10, marginTop: 10 }}>
+                      <a
+                        href={cvHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          gap: 8,
+                          fontSize: 13,
+                          fontWeight: 700,
+                          padding: "10px 16px",
+                          borderRadius: 999,
+                          textDecoration: "none",
+                          color: "var(--resume-text)",
+                          background: "var(--resume-panel)",
+                          border: "1px solid var(--resume-border)",
+                          boxShadow: "0 14px 28px -20px rgba(2,6,23,0.2)",
+                        }}
+                      >
+                        Download CV
+                      </a>
+                      <Link
+                        href="/"
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          gap: 8,
+                          fontSize: 13,
+                          fontWeight: 700,
+                          padding: "10px 16px",
+                          borderRadius: 999,
+                          textDecoration: "none",
+                          color: "#ffffff",
+                          background: `linear-gradient(120deg, ${theme.accent} 0%, #0f694f 100%)`,
+                          boxShadow: "0 14px 28px -18px rgba(15,105,79,0.72)",
+                        }}
+                      >
+                        Return to Nafis&apos; World
+                      </Link>
+                    </div>
+                  )}
                   <div style={{ display: "flex", flexWrap: "wrap", justifyContent: isMobile ? "center" : "flex-start", gap: 8, marginTop: 10 }}>
                     <ContactBubble href="mailto:nafisaslam1819@gmail.com" label="nafisaslam1819@gmail.com" icon="mail" />
                     <ContactBubble href="https://nafisaslam.com" label="nafisaslam.com" icon="web" />
