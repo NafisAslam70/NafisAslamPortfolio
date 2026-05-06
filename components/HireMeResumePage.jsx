@@ -98,6 +98,28 @@ const ContactIcon = ({ type, color = "currentColor" }) => {
     );
   }
 
+  if (type === "linkedin") {
+    return (
+      <svg {...common}>
+        <path d="M8 10v8" />
+        <path d="M12 18v-4.5a2.5 2.5 0 0 1 5 0V18" />
+        <path d="M12 13a2.5 2.5 0 0 1 5 0" />
+        <circle cx="8" cy="7" r="1.2" fill={color} stroke="none" />
+        <rect x="4" y="3" width="16" height="18" rx="2.5" />
+      </svg>
+    );
+  }
+
+  if (type === "medium") {
+    return (
+      <svg {...common}>
+        <circle cx="8" cy="12" r="3.5" />
+        <ellipse cx="14.5" cy="12" rx="2.6" ry="4.6" />
+        <ellipse cx="19" cy="12" rx="1.2" ry="3.6" />
+      </svg>
+    );
+  }
+
   if (type === "sun") {
     return (
       <svg {...common}>
@@ -645,36 +667,32 @@ function VisionMission({ isMobile }) {
   return (
     <div>
       <div style={{ ...card, marginBottom: 14 }}>
-        <div style={sectionTitle}>Origin</div>
+        <div style={sectionTitle}>Core Idea</div>
         <div style={{ fontSize: 14, fontWeight: 700, color: "var(--resume-text)", marginBottom: 8 }}>
-          From personal discipline failure to a focus systems mission
+          Build systems that protect attention and turn discipline into measurable progress.
         </div>
         <p style={{ fontSize: 13, color: "var(--resume-muted)", lineHeight: 1.7, margin: 0 }}>
-          After underperforming in the CAT304 presentation at USM on January 31, 2023, I treated that moment as a reset point.
-          I rebuilt my academic life around structured execution, deep work, and feedback loops. That shift led to my DPM
-          framework, a GPA rise from 3.11 to 3.85, and eventually the DeepWork App as a serious AI product and research direction.
+          DeepWork AI came from a personal reset at USM: move from scattered effort to deliberate execution. That journey became a product, a research direction, and a wider mission around focus-first intelligent systems.
         </p>
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))", gap: 12, marginBottom: 14 }}>
         <div style={card}>
-          <div style={sectionTitle}>Problem I Care About</div>
+          <div style={sectionTitle}>Vision</div>
           <p style={{ fontSize: 13, color: "var(--resume-muted)", lineHeight: 1.7, margin: 0 }}>
-            The modern productivity crisis is really an attention crisis. Distraction-heavy environments destroy continuity of thought,
-            while most productivity tools only log time and fail to measure the quality of focus, real attention lapses, or long-term behavioral patterns.
+            In a distraction-heavy world, attention is the real scarce resource. I want to build AI products that help people focus deeply, learn deliberately, and stay aligned with long-term goals.
           </p>
         </div>
         <div style={card}>
-          <div style={sectionTitle}>Why This Became My Work</div>
+          <div style={sectionTitle}>Mission</div>
           <p style={{ fontSize: 13, color: "var(--resume-muted)", lineHeight: 1.7, margin: 0 }}>
-            I do not see AI and computer vision as demo material. I see them as tools to protect attention, improve disciplined learning,
-            and build systems that can help students and professionals operate better in real environments.
+            Use ML, CV, analytics, and product design to detect distraction, create feedback loops, and convert daily work into visible, compounding progress.
           </p>
         </div>
       </div>
 
       <div style={{ ...card, marginBottom: 14 }}>
-        <div style={sectionTitle}>Vision</div>
+        <div style={sectionTitle}>Why It Matters</div>
         <div style={{ display: "flex", flexWrap: "wrap", marginBottom: 10 }}>
           <MetaPill green>Attention as a scarce asset</MetaPill>
           <MetaPill green>AI for behavior change</MetaPill>
@@ -682,19 +700,18 @@ function VisionMission({ isMobile }) {
           <MetaPill green>Rural and under-resourced impact</MetaPill>
         </div>
         <p style={{ fontSize: 13, color: "var(--resume-muted)", lineHeight: 1.7, margin: 0 }}>
-          My long-term vision is to build intelligent systems that help people focus deeply, learn deliberately, and align daily work with meaningful goals.
-          That includes educational settings, productivity systems, and AI-powered tools that are especially useful for people who do not start with elite infrastructure.
+          This work is not just about productivity dashboards. It is about building practical systems that help students, builders, and professionals operate with more clarity, consistency, and depth.
         </p>
       </div>
 
       <div style={card}>
-        <div style={sectionTitle}>Mission</div>
+        <div style={sectionTitle}>Execution Principles</div>
         <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
           {[
-            "Build focus-first AI products that detect distraction, provide real-time nudges, and make deep work measurable.",
-            "Turn raw behavior into useful analytics so users can see consistency, distraction patterns, and progress over time.",
-            "Connect daily execution with larger goals instead of treating productivity as disconnected task logging.",
-            "Keep translating theory from Deep Work, deliberate practice, and structured feedback into deployable systems that work outside the lab.",
+            "Measure focus quality, not just time spent.",
+            "Turn distraction into feedback, not noise.",
+            "Connect daily sessions with meaningful goals.",
+            "Ship systems that work outside the lab.",
           ].map((item) => (
             <li key={item} style={{ fontSize: 13, color: "var(--resume-muted)", lineHeight: 1.65, padding: "6px 0 6px 14px", position: "relative" }}>
               <span style={{ position: "absolute", left: 0, color: "var(--resume-accent)" }}>•</span>
@@ -708,6 +725,29 @@ function VisionMission({ isMobile }) {
 }
 
 const TAB_COMPONENTS = [Overview, Projects, Experience, Skills, Education, Achievements, VisionMission];
+
+const PROFILE_CARDS = [
+  {
+    title: "Highly Disciplined",
+    subtitle: "& Passionate about ML & CV",
+    href: "/reels",
+  },
+  {
+    title: "MIT Trained",
+    subtitle: "& USM Malaysia Graduate",
+    href: "https://www.linkedin.com/in/nafis-aslam/",
+  },
+  {
+    title: "DeepWorkAI",
+    subtitle: "Founder & Meed Co-Founder",
+    href: "/ventures",
+  },
+  {
+    title: "Dean's List x3",
+    subtitle: "& Gold Awardee",
+    href: "https://www.linkedin.com/in/nafis-aslam/",
+  },
+];
 
 export default function HireMePage() {
   const [activeTab, setActiveTab] = useState(0);
@@ -1281,6 +1321,8 @@ export default function HireMePage() {
                     <ContactBubble href="mailto:nafisaslam1819@gmail.com" label="nafisaslam1819@gmail.com" icon="mail" />
                     <ContactBubble href="https://nafisaslam.com" label="nafisaslam.com" icon="web" />
                     <ContactBubble href="https://github.com/NafisAslam70" label="github.com/NafisAslam70" icon="github" />
+                    <ContactBubble href="https://www.linkedin.com/in/nafis-aslam/" label="linkedin.com/in/nafis-aslam" icon="linkedin" />
+                    <ContactBubble href="https://medium.com/@nafisaslam" label="medium.com/@nafisaslam" icon="medium" />
                     <ContactBubble href="https://doi.org/10.5281/zenodo.19266394" label="Preprint DOI" icon="doi" />
                   </div>
                 </div>
@@ -1338,11 +1380,21 @@ export default function HireMePage() {
             overflow: "hidden",
           }}
         >
-          {[["Highly Disciplined", "& Passionate"], ["MIT Trained", "& USM Graduate"], ["DeepWorkAI", "Founder"], ["Dean's List x3", "& Gold Awardee"]].map(([n, l]) => (
-            <div key={l} style={{ background: metricCardBackground, padding: "10px 12px" }}>
-              <div style={{ fontSize: isMobile ? 15 : 18, fontWeight: 700, color: "var(--resume-accent)", lineHeight: 1.15 }}>{n}</div>
-              <div style={{ fontSize: 11, color: "var(--resume-hint)", marginTop: 3 }}>{l}</div>
-            </div>
+          {PROFILE_CARDS.map((item) => (
+            <a
+              key={item.title}
+              href={item.href}
+              style={{
+                background: metricCardBackground,
+                padding: "10px 12px",
+                textDecoration: "none",
+                display: "block",
+                color: "inherit",
+              }}
+            >
+              <div style={{ fontSize: isMobile ? 15 : 18, fontWeight: 700, color: "var(--resume-accent)", lineHeight: 1.15 }}>{item.title}</div>
+              <div style={{ fontSize: 11, color: "var(--resume-hint)", marginTop: 3 }}>{item.subtitle}</div>
+            </a>
           ))}
         </div>
 
@@ -1364,19 +1416,35 @@ export default function HireMePage() {
           <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
             <div
               style={{
-                width: 92,
-                height: 92,
-                borderRadius: 20,
+                width: isMobile ? 72 : 84,
+                height: isMobile ? 72 : 84,
+                borderRadius: 999,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                background: metricCardBackground,
+                background: "transparent",
                 border: "1px solid var(--resume-border)",
                 boxShadow: "0 14px 30px -22px rgba(2,6,23,0.28)",
                 flexShrink: 0,
+                position: "relative",
+                overflow: "visible",
               }}
             >
-              <BrainOrbMini size={82} glow />
+              <div
+                style={{
+                  position: "relative",
+                  zIndex: 1,
+                  animation: "bob 3.6s ease-in-out infinite",
+                }}
+              >
+                <Image
+                  src="/images/brain-badge.svg"
+                  alt="NBS brain"
+                  width={isMobile ? 54 : 62}
+                  height={isMobile ? 54 : 62}
+                  style={{ width: isMobile ? 54 : 62, height: isMobile ? 54 : 62 }}
+                />
+              </div>
             </div>
             <div>
               <div style={{ fontSize: 14, fontWeight: 700, color: "var(--resume-text)" }}>NBS Brain</div>
@@ -1436,6 +1504,21 @@ export default function HireMePage() {
             </button>
           ))}
         </div>
+        {isMobile ? (
+          <div
+            style={{
+              padding: "8px 1rem 0",
+              fontSize: 11,
+              fontWeight: 700,
+              letterSpacing: ".04em",
+              textTransform: "uppercase",
+              color: "var(--resume-hint)",
+              background: contentBackground,
+            }}
+          >
+            Swipe for more sections →
+          </div>
+        ) : null}
 
         <div style={{ padding: isMobile ? "1rem" : "1.5rem", background: contentBackground }}>
           <ActiveSection isMobile={isMobile} isTablet={isTablet} />

@@ -1,0 +1,32 @@
+<svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(110 90) rotate(90) scale(110)">
+      <stop stop-color="#17313A"/>
+      <stop offset="1" stop-color="#09131A"/>
+    </radialGradient>
+    <linearGradient id="ring" x1="28" y1="28" x2="192" y2="192" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#73F0D0"/>
+      <stop offset="1" stop-color="#6E8BFF"/>
+    </linearGradient>
+    <linearGradient id="brain" x1="62" y1="56" x2="158" y2="162" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFD2C9"/>
+      <stop offset="1" stop-color="#F2A99C"/>
+    </linearGradient>
+  </defs>
+  <circle cx="110" cy="110" r="100" fill="url(#bg)"/>
+  <circle cx="110" cy="110" r="82" stroke="url(#ring)" stroke-opacity="0.45" stroke-width="2" stroke-dasharray="6 8"/>
+  <g filter="drop-shadow(0 8px 18px rgba(94, 234, 212, 0.18))">
+    <path d="M107.5 54C96 54 87 61.5 83 69.5C70.5 70 61 79 61 91C61 96.5 63 102 67 106C62.5 111 60 117.5 60 124C60 138 71 149 84.5 149H85C89 158.5 98 166 109.5 166C121 166 130 158.5 134 149H135C148.5 149 159 138 159 124C159 117.5 156.5 111 152 106C156 102 158 96.5 158 91C158 79 148.5 70 136 69.5C132 61.5 123 54 111.5 54H107.5Z" fill="url(#brain)"/>
+    <path d="M110 58V163" stroke="#B15D56" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M95 73C89 76 85 81 84 88" stroke="#B15D56" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M124 73C130 76 134 81 135 88" stroke="#B15D56" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M91 91C83 93 78 99 78 107C78 113 81 118 86 121" stroke="#B15D56" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M129 91C137 93 142 99 142 107C142 113 139 118 134 121" stroke="#B15D56" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M94 111C88 114 85 119 85 125C85 131 88 136 94 139" stroke="#B15D56" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M126 111C132 114 135 119 135 125C135 131 132 136 126 139" stroke="#B15D56" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M102 70C96 74 94 79 94 84C94 90 97 94 102 98" stroke="#B15D56" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M118 70C124 74 126 79 126 84C126 90 123 94 118 98" stroke="#B15D56" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M102 102C95 106 92 112 92 118C92 124 95 129 102 133" stroke="#B15D56" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M118 102C125 106 128 112 128 118C128 124 125 129 118 133" stroke="#B15D56" stroke-width="3.5" stroke-linecap="round"/>
+  </g>
+</svg>
