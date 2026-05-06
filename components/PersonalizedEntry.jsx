@@ -22,7 +22,7 @@ function EmployerPortfolioGate({ onDismiss, onSelectTrack }) {
               <p className="text-xs font-semibold uppercase tracking-[0.32em] text-slate-600 dark:text-slate-300">
                 Portfolio Router
               </p>
-              <h2 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">Are you an employer?</h2>
+              <h2 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">Are you an Employer/ or a Researcher?</h2>
               <p className="max-w-xl text-sm leading-relaxed text-slate-700 dark:text-slate-300">
                 I can show you a focused portfolio version for hiring decisions.
               </p>
