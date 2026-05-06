@@ -924,7 +924,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                     One workspace for tasks, rituals, chat, attendance, and notes.
                   </p>
                   <Link
-                    href="https://meedian-ai-flow-v2.vercel.app/"
+                    href="https://meedian-ai-flow-v222.vercel.app/"
                     target="_blank"
                     rel="noreferrer"
                     className="mt-3 inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.3em] text-indigo-600 transition hover:bg-white"
