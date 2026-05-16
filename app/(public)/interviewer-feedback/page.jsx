@@ -18,17 +18,17 @@ const RESUME_BASED_REASONS = [
 ];
 
 const BEHAVIORAL_QUESTIONS = [
-  "How clearly did the candidate communicate ideas?",
-  "How did they handle ambiguity and follow-up questions?",
-  "Did they show ownership, accountability, and collaboration mindset?",
-  "Would you trust this person with cross-functional communication?",
+  "How clearly did Nafees communicate ideas?",
+  "How did Nafees handle ambiguity and follow-up questions?",
+  "Did Nafees show ownership, accountability, and collaboration mindset?",
+  "Would you trust Nafees with cross-functional communication?",
 ];
 
 const TECHNICAL_QUESTIONS = [
-  "How strong was the problem-solving approach (not only final answer)?",
-  "How solid were core ML/CV fundamentals for the role?",
-  "How practical was system thinking (deployment, tradeoffs, scalability)?",
-  "Did technical depth match the resume claims (DeepWork AI, research, shipped work)?",
+  "How strong was Nafees' problem-solving approach (not only final answer)?",
+  "How solid were Nafees' core ML/CV fundamentals for the role?",
+  "How practical was Nafees' system thinking (deployment, tradeoffs, scalability)?",
+  "Did Nafees' technical depth match his resume claims (DeepWork AI, research, shipped work)?",
 ];
 
 export default function InterviewerFeedbackPage() {
