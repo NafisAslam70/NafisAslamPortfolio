@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 import { hireRequests } from "@/lib/schema";
 import { desc } from "drizzle-orm";
 import Link from "next/link";
+import InterviewerLinkBuilder from "@/components/admin/InterviewerLinkBuilder";
 
 export default async function AdminHirePage() {
   const rows = await db
@@ -12,6 +13,7 @@ export default async function AdminHirePage() {
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-bold">Hire Requests</h1>
+      <InterviewerLinkBuilder />
 
       <div className="flex items-center gap-3">
         <Link href="/api/hire/export" className="px-3 py-2 rounded bg-black text-white">

@@ -1570,9 +1570,7 @@ export default function HireMePage() {
           >
             Open NBS →
           </a>
-        </div>
-
-        <div
+        </div><div
           style={{
             display: "flex",
             borderBottom: "1px solid var(--resume-border)",

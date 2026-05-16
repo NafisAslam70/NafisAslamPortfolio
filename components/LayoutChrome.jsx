@@ -57,11 +57,13 @@ function SiteFooter() {
 export default function LayoutChrome({ session, lang, children }) {
   const pathname = usePathname();
   const isResumeRoute = pathname?.startsWith("/hire-me");
+  const isInterviewerFeedbackRoute = pathname?.startsWith("/interviewer-feedback");
+  const isStandaloneRoute = isResumeRoute || isInterviewerFeedbackRoute;
 
   return (
     <>
       <PersonalizedEntry />
-      {!isResumeRoute ? (
+      {!isStandaloneRoute ? (
         <SiteHeader
           session={session}
           lang={lang}
@@ -75,10 +77,10 @@ export default function LayoutChrome({ session, lang, children }) {
           ]}
         />
       ) : null}
-      <main className={isResumeRoute ? "w-full flex-grow" : "mx-auto w-full max-w-6xl px-4 sm:px-6 md:px-8 flex-grow pt-12 md:pt-16"}>
+      <main className={isStandaloneRoute ? "w-full flex-grow" : "mx-auto w-full max-w-6xl px-4 sm:px-6 md:px-8 flex-grow pt-12 md:pt-16"}>
         {children}
       </main>
-      {!isResumeRoute ? <SiteFooter /> : null}
+      {!isStandaloneRoute ? <SiteFooter /> : null}
     </>
   );
 }
