@@ -38,7 +38,9 @@ export default function InterviewerFeedbackPage() {
   const contextRole = searchParams.get("role") || "";
   const contextRound = searchParams.get("round") || "";
   const contextTrack = searchParams.get("track");
+  const resumeTrack = searchParams.get("resumeTrack") || "research";
   const hasPrefilledContext = Boolean(contextCompany || contextInterviewer || contextRole || contextRound || contextTrack);
+  const resumeHref = `/hire-me?track=${encodeURIComponent(resumeTrack)}&fromReview=1&returnToReview=${encodeURIComponent(`/interviewer-feedback?${searchParams.toString()}`)}`;
   const [reviewTrack, setReviewTrack] = useState(contextTrack === "technical" ? "technical" : "behavioral");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState("");
@@ -117,9 +119,6 @@ export default function InterviewerFeedbackPage() {
       <div className="mx-auto w-full max-w-3xl rounded-2xl border border-slate-300 bg-white p-6">
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
           <h1 className="text-xl font-semibold">Interviewer Feedback Form</h1>
-          <Link href="/hire-me?track=research" className="rounded-full border border-slate-600 px-3 py-1.5 text-sm">
-            Back to Digital Resume
-          </Link>
         </div>
         {hasPrefilledContext ? (
           <div className="mb-4 rounded-xl border border-slate-300 bg-slate-50 p-4 text-sm">
@@ -135,18 +134,20 @@ export default function InterviewerFeedbackPage() {
             </div>
           </div>
         ) : null}
-        <div className="mb-4 flex flex-wrap gap-2">
-          {REVIEW_TRACKS.map((track) => (
-            <button
-              key={track.id}
-              type="button"
-              onClick={() => setReviewTrack(track.id)}
-              className={`rounded-full border px-3 py-1.5 text-sm ${reviewTrack === track.id ? "border-emerald-500 bg-emerald-50 text-emerald-800" : "border-slate-300 text-slate-700"}`}
-            >
-              {track.label}
-            </button>
-          ))}
-        </div>
+        {!contextTrack ? (
+          <div className="mb-4 flex flex-wrap gap-2">
+            {REVIEW_TRACKS.map((track) => (
+              <button
+                key={track.id}
+                type="button"
+                onClick={() => setReviewTrack(track.id)}
+                className={`rounded-full border px-3 py-1.5 text-sm ${reviewTrack === track.id ? "border-emerald-500 bg-emerald-50 text-emerald-800" : "border-slate-300 text-slate-700"}`}
+              >
+                {track.label}
+              </button>
+            ))}
+          </div>
+        ) : null}
 
         <form onSubmit={submitReview} className="space-y-3">
           <div className="grid gap-2 sm:grid-cols-2">
@@ -194,6 +195,11 @@ export default function InterviewerFeedbackPage() {
           </button>
           {status ? <div className="text-sm text-slate-700">{status}</div> : null}
         </form>
+        <div className="mt-6 border-t border-slate-200 pt-4">
+          <Link href={resumeHref} className="inline-flex rounded-full border border-slate-400 px-4 py-2 text-sm font-semibold text-slate-800">
+            Back to Digital Resume
+          </Link>
+        </div>
       </div>
     </main>
   );
