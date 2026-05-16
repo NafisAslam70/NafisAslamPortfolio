@@ -102,6 +102,7 @@ export default function PersonalizedEntry() {
 
   useEffect(() => {
     if (!isPublicPath) return;
+    if (pathname === "/interviewer-feedback") return;
     if (hasPersonalizedCard) return;
     if (pathname === "/hire-me") {
       setShowEmployerGate(!track);

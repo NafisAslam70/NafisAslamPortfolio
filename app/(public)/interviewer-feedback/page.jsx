@@ -34,15 +34,16 @@ const TECHNICAL_QUESTIONS = [
 export default function InterviewerFeedbackPage() {
   const searchParams = useSearchParams();
   const contextCompany = searchParams.get("company") || "";
+  const contextInterviewer = searchParams.get("interviewer") || "";
   const contextRole = searchParams.get("role") || "";
   const contextRound = searchParams.get("round") || "";
   const contextTrack = searchParams.get("track");
-  const prefilledContext = [contextCompany, contextRole, contextRound].filter(Boolean).join(" | ");
+  const hasPrefilledContext = Boolean(contextCompany || contextInterviewer || contextRole || contextRound || contextTrack);
   const [reviewTrack, setReviewTrack] = useState(contextTrack === "technical" ? "technical" : "behavioral");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState("");
   const [form, setForm] = useState({
-    interviewerName: "",
+    interviewerName: contextInterviewer,
     interviewerEmail: "",
     companyRole: [contextCompany, contextRole].filter(Boolean).join(" - "),
     reasons: [],
@@ -120,10 +121,18 @@ export default function InterviewerFeedbackPage() {
             Back to Digital Resume
           </Link>
         </div>
-        {prefilledContext ? (
-          <div className="mb-4 rounded-lg border border-slate-300 bg-slate-50 p-3 text-sm">
-            <div className="font-semibold">Interview Context</div>
-            <div className="mt-1">{prefilledContext}</div>
+        {hasPrefilledContext ? (
+          <div className="mb-4 rounded-xl border border-slate-300 bg-slate-50 p-4 text-sm">
+            <div className="font-semibold text-slate-900">Interview Context</div>
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              <div className="rounded-md border border-slate-200 bg-white px-3 py-2"><span className="text-slate-500">Company:</span> <span className="font-medium">{contextCompany || "-"}</span></div>
+              <div className="rounded-md border border-slate-200 bg-white px-3 py-2"><span className="text-slate-500">Interviewer:</span> <span className="font-medium">{contextInterviewer || "-"}</span></div>
+              <div className="rounded-md border border-slate-200 bg-white px-3 py-2"><span className="text-slate-500">Role:</span> <span className="font-medium">{contextRole || "-"}</span></div>
+              <div className="rounded-md border border-slate-200 bg-white px-3 py-2"><span className="text-slate-500">Round:</span> <span className="font-medium">{contextRound || "-"}</span></div>
+            </div>
+            <div className="mt-2 inline-flex rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800">
+              Track: {reviewTrack === "technical" ? "Technical" : "Behavioral"}
+            </div>
           </div>
         ) : null}
         <div className="mb-4 flex flex-wrap gap-2">
@@ -144,7 +153,7 @@ export default function InterviewerFeedbackPage() {
             <input required placeholder="Interviewer name" value={form.interviewerName} onChange={(e) => setForm((p) => ({ ...p, interviewerName: e.target.value }))} className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900" />
             <input required type="email" placeholder="Interviewer email" value={form.interviewerEmail} onChange={(e) => setForm((p) => ({ ...p, interviewerEmail: e.target.value }))} className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900" />
           </div>
-          {!prefilledContext ? (
+          {!hasPrefilledContext ? (
             <input placeholder="Company + role" value={form.companyRole} onChange={(e) => setForm((p) => ({ ...p, companyRole: e.target.value }))} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900" />
           ) : null}
           <div className="pt-2 text-sm font-medium">Why choose me?</div>

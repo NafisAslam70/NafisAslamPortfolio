@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 export default function InterviewerLinkBuilder() {
   const [baseUrl, setBaseUrl] = useState("https://www.nafisaslam.com");
   const [company, setCompany] = useState("");
+  const [interviewer, setInterviewer] = useState("");
   const [role, setRole] = useState("");
   const [round, setRound] = useState("");
   const [track, setTrack] = useState("technical");
@@ -12,11 +13,12 @@ export default function InterviewerLinkBuilder() {
   const link = useMemo(() => {
     const params = new URLSearchParams();
     if (company) params.set("company", company);
+    if (interviewer) params.set("interviewer", interviewer);
     if (role) params.set("role", role);
     if (round) params.set("round", round);
     if (track) params.set("track", track);
     return `${baseUrl.replace(/\/$/, "")}/interviewer-feedback?${params.toString()}`;
-  }, [baseUrl, company, role, round, track]);
+  }, [baseUrl, company, interviewer, role, round, track]);
 
   return (
     <div className="rounded-lg border border-gray-300 bg-white p-4 space-y-3">
@@ -24,6 +26,7 @@ export default function InterviewerLinkBuilder() {
       <div className="grid gap-2 md:grid-cols-2">
         <input className="border rounded px-3 py-2" placeholder="Base URL" value={baseUrl} onChange={(e) => setBaseUrl(e.target.value)} />
         <input className="border rounded px-3 py-2" placeholder="Company" value={company} onChange={(e) => setCompany(e.target.value)} />
+        <input className="border rounded px-3 py-2" placeholder="Interviewer Name" value={interviewer} onChange={(e) => setInterviewer(e.target.value)} />
         <input className="border rounded px-3 py-2" placeholder="Role" value={role} onChange={(e) => setRole(e.target.value)} />
         <input className="border rounded px-3 py-2" placeholder="Round" value={round} onChange={(e) => setRound(e.target.value)} />
       </div>
