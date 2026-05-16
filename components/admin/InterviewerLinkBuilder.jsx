@@ -22,6 +22,28 @@ export default function InterviewerLinkBuilder() {
     return `${baseUrl.replace(/\/$/, "")}/interviewer-feedback?${params.toString()}`;
   }, [baseUrl, company, interviewer, interviewerEmail, role, round, track]);
 
+  const emailSubject = useMemo(() => {
+    const companyTag = company ? ` - ${company}` : "";
+    return `Interview Feedback Request${companyTag}`;
+  }, [company]);
+
+  const emailBody = useMemo(() => {
+    const nameLine = interviewer ? `Hi ${interviewer},` : "Hi,";
+    return [
+      nameLine,
+      "",
+      "Thank you again for taking my interview.",
+      "Could you please share your feedback using this short form?",
+      "",
+      link,
+      "",
+      "Your feedback means a lot and will help me improve.",
+      "",
+      "Best regards,",
+      "Nafees",
+    ].join("\n");
+  }, [interviewer, link]);
+
   return (
     <div className="rounded-lg border border-gray-300 bg-white p-4 space-y-3">
       <h2 className="text-lg font-semibold">Interviewer Link Builder</h2>
@@ -45,6 +67,27 @@ export default function InterviewerLinkBuilder() {
       >
         Copy Link
       </button>
+      <div className="rounded-lg border border-gray-300 bg-gray-50 p-3 space-y-2">
+        <div className="text-sm font-semibold">Sample Email (Auto)</div>
+        <div className="text-xs"><span className="font-semibold">To:</span> {interviewerEmail || "(add interviewer email above)"}</div>
+        <div className="text-xs"><span className="font-semibold">Subject:</span> {emailSubject}</div>
+        <pre className="text-xs whitespace-pre-wrap break-words bg-white border rounded p-2">{emailBody}</pre>
+        <div className="flex flex-wrap gap-2">
+          <button
+            type="button"
+            className="px-3 py-2 rounded border text-sm"
+            onClick={() => navigator.clipboard.writeText(`Subject: ${emailSubject}\n\n${emailBody}`)}
+          >
+            Copy Email Text
+          </button>
+          <a
+            className="px-3 py-2 rounded border text-sm inline-flex items-center"
+            href={`mailto:${encodeURIComponent(interviewerEmail)}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`}
+          >
+            Open in Mail App
+          </a>
+        </div>
+      </div>
     </div>
   );
 }

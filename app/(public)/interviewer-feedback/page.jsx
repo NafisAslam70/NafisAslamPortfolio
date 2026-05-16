@@ -51,6 +51,7 @@ export default function InterviewerFeedbackPage() {
     interviewerEmail: contextInterviewerEmail,
     companyRole: [contextCompany, contextRole].filter(Boolean).join(" - "),
     reasons: [],
+    improvementAreas: "",
     overallComment: "",
     hireDecision: "",
     overallRating: "8",
@@ -81,6 +82,7 @@ export default function InterviewerFeedbackPage() {
         "",
         `Hire Decision: ${form.hireDecision || "N/A"}`,
         `Overall Rating: ${form.overallRating}/10`,
+        `Where should he improve?: ${form.improvementAreas || "N/A"}`,
         `Overall Comment (strengths, weaknesses, analysis): ${form.overallComment || "N/A"}`,
       ].join("\n");
 
@@ -104,6 +106,7 @@ export default function InterviewerFeedbackPage() {
         interviewerEmail: contextInterviewerEmail,
         companyRole: "",
         reasons: [],
+        improvementAreas: "",
         overallComment: "",
         hireDecision: "",
         overallRating: "8",
@@ -212,6 +215,13 @@ export default function InterviewerFeedbackPage() {
           </div>
           <div className="text-sm font-bold text-slate-900">Overall rating: {form.overallRating}/10</div>
           <input type="range" min="1" max="10" value={form.overallRating} onChange={(e) => setForm((p) => ({ ...p, overallRating: e.target.value }))} className="w-full" />
+          <textarea
+            placeholder="Where should he improve?"
+            value={form.improvementAreas}
+            onChange={(e) => setForm((p) => ({ ...p, improvementAreas: e.target.value }))}
+            className="min-h-20 w-full rounded-lg border border-slate-300 !bg-white px-3 py-2 !text-slate-900 dark:!bg-white dark:!text-slate-900"
+            style={{ backgroundColor: "#ffffff", color: "#0f172a" }}
+          />
           <textarea
             placeholder="Overall comment: strengths, weaknesses, and general analysis"
             value={form.overallComment}
