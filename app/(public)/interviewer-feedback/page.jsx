@@ -156,7 +156,8 @@ export default function InterviewerFeedbackPage() {
             </div>
           ) : null}
           <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
-            <div className="mb-2 text-sm font-extrabold tracking-tight text-slate-900">Why did you give a chance to Nafees for this interview?</div>
+            <div className="mb-1 text-sm font-extrabold tracking-tight text-slate-900">Why did you give a chance to Nafees for this interview?</div>
+            <div className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-500">(Select all that apply)</div>
             <div className="grid gap-2 sm:grid-cols-2">
               {RESUME_BASED_REASONS.map((item) => {
                 const active = form.reasons.includes(item);
@@ -193,12 +194,20 @@ export default function InterviewerFeedbackPage() {
             );
           })}
           <div className="pt-2 text-sm font-extrabold tracking-tight text-slate-900">Final decision</div>
-          <div className="flex flex-wrap gap-3 text-sm">
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
             {["Strong Yes", "Yes", "I will let you know", "Leaning No", "No"].map((d) => (
-              <label key={d}>
-                <input type="radio" required name="hireDecision" checked={form.hireDecision === d} onChange={() => setForm((p) => ({ ...p, hireDecision: d }))} className="mr-2" />
+              <button
+                key={d}
+                type="button"
+                onClick={() => setForm((p) => ({ ...p, hireDecision: d }))}
+                className={`rounded-lg border px-3 py-2 text-sm font-semibold text-left ${
+                  form.hireDecision === d
+                    ? "border-emerald-500 bg-emerald-50 text-emerald-900"
+                    : "border-slate-300 bg-white text-slate-700"
+                }`}
+              >
                 {d}
-              </label>
+              </button>
             ))}
           </div>
           <div className="text-sm font-bold text-slate-900">Overall rating: {form.overallRating}/10</div>
