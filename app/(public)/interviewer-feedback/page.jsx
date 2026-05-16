@@ -33,13 +33,13 @@ const TECHNICAL_QUESTIONS = [
 
 export default function InterviewerFeedbackPage() {
   const searchParams = useSearchParams();
-  const contextCompany = searchParams.get("company") || "";
-  const contextInterviewer = searchParams.get("interviewer") || "";
-  const contextInterviewerEmail = searchParams.get("interviewerEmail") || "";
-  const contextRole = searchParams.get("role") || "";
-  const contextRound = searchParams.get("round") || "";
-  const contextTrack = searchParams.get("track");
-  const resumeTrack = searchParams.get("resumeTrack") || "research";
+  const contextCompany = searchParams.get("c") || searchParams.get("company") || "";
+  const contextInterviewer = searchParams.get("i") || searchParams.get("interviewer") || "";
+  const contextInterviewerEmail = searchParams.get("e") || searchParams.get("interviewerEmail") || "";
+  const contextRole = searchParams.get("r") || searchParams.get("role") || "";
+  const contextRound = searchParams.get("rd") || searchParams.get("round") || "";
+  const contextTrack = searchParams.get("t") || searchParams.get("track");
+  const resumeTrack = searchParams.get("rt") || searchParams.get("resumeTrack") || "research";
   const hasPrefilledContext = Boolean(contextCompany || contextInterviewer || contextInterviewerEmail || contextRole || contextRound || contextTrack);
   const resumeHref = `/hire-me?track=${encodeURIComponent(resumeTrack)}&fromReview=1&returnToReview=${encodeURIComponent(`/interviewer-feedback?${searchParams.toString()}`)}`;
   const [reviewTrack, setReviewTrack] = useState(contextTrack === "technical" ? "technical" : "behavioral");
@@ -116,20 +116,18 @@ export default function InterviewerFeedbackPage() {
   };
 
   return (
-    <main className="min-h-screen bg-slate-100 px-4 py-10 text-slate-900">
-      <div className="mx-auto w-full max-w-3xl rounded-2xl border border-slate-300 bg-white p-6">
+    <main className="min-h-screen bg-gradient-to-b from-slate-50 to-white px-3 py-6 text-slate-900 sm:px-4 sm:py-10">
+      <div className="mx-auto w-full max-w-3xl rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
           <h1 className="text-xl font-semibold">Interviewer Feedback Form</h1>
         </div>
         <p className="mb-4 text-sm text-slate-700">How did Nafees do? Could you please help him analyze his progress?</p>
         {hasPrefilledContext ? (
-          <div className="mb-4 rounded-xl border border-slate-300 bg-slate-50 p-4 text-sm">
+          <div className="mb-4 rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm sm:p-4">
             <div className="font-semibold text-slate-900">Interview Context</div>
             <div className="mt-3 grid gap-2 sm:grid-cols-2">
               <div className="rounded-md border border-slate-200 bg-white px-3 py-2"><span className="text-slate-500">Company:</span> <span className="font-medium">{contextCompany || "-"}</span></div>
               <div className="rounded-md border border-slate-200 bg-white px-3 py-2"><span className="text-slate-500">Interviewer:</span> <span className="font-medium">{contextInterviewer || "-"}</span></div>
-              <div className="rounded-md border border-slate-200 bg-white px-3 py-2"><span className="text-slate-500">Interviewer Email:</span> <span className="font-medium">{contextInterviewerEmail || "-"}</span></div>
-              <div className="rounded-md border border-slate-200 bg-white px-3 py-2"><span className="text-slate-500">Role:</span> <span className="font-medium">{contextRole || "-"}</span></div>
               <div className="rounded-md border border-slate-200 bg-white px-3 py-2"><span className="text-slate-500">Round:</span> <span className="font-medium">{contextRound || "-"}</span></div>
             </div>
             <div className="mt-2 inline-flex rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800">
@@ -152,14 +150,11 @@ export default function InterviewerFeedbackPage() {
           </div>
         ) : null}
 
-        <form onSubmit={submitReview} className="space-y-3">
+        <form onSubmit={submitReview} className="space-y-4">
           {!hasLockedIdentity ? (
             <div className="rounded-xl border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900">
               Missing locked interviewer identity in link. Please regenerate link from admin with interviewer name and email.
             </div>
-          ) : null}
-          {!hasPrefilledContext ? (
-            <input placeholder="Company + role" value={form.companyRole} onChange={(e) => setForm((p) => ({ ...p, companyRole: e.target.value }))} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900" />
           ) : null}
           <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
             <div className="mb-2 text-sm font-semibold">Why choose me?</div>
@@ -174,9 +169,9 @@ export default function InterviewerFeedbackPage() {
           {questionSet.map((q, i) => {
             const key = `score${i + 1}`;
             return (
-              <div key={q} className="space-y-1">
+              <div key={q} className="space-y-1 rounded-lg border border-slate-200 bg-white p-3">
                 <div className="text-sm text-slate-700">{q}</div>
-                <select required value={form[key] || ""} onChange={(e) => setForm((p) => ({ ...p, [key]: e.target.value }))} className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900">
+                <select required value={form[key] || ""} onChange={(e) => setForm((p) => ({ ...p, [key]: e.target.value }))} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 appearance-none">
                   <option value="">Select score</option>
                   <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
                 </select>

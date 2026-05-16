@@ -13,12 +13,12 @@ export default function InterviewerLinkBuilder() {
 
   const link = useMemo(() => {
     const params = new URLSearchParams();
-    if (company) params.set("company", company);
-    if (interviewer) params.set("interviewer", interviewer);
-    if (interviewerEmail) params.set("interviewerEmail", interviewerEmail);
-    if (role) params.set("role", role);
-    if (round) params.set("round", round);
-    if (track) params.set("track", track);
+    if (company) params.set("c", company);
+    if (interviewer) params.set("i", interviewer);
+    if (interviewerEmail) params.set("e", interviewerEmail);
+    if (role) params.set("r", role);
+    if (round) params.set("rd", round);
+    if (track) params.set("t", track);
     return `${baseUrl.replace(/\/$/, "")}/interviewer-feedback?${params.toString()}`;
   }, [baseUrl, company, interviewer, interviewerEmail, role, round, track]);
 
