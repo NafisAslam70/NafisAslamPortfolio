@@ -19,8 +19,8 @@ const RESUME_BASED_REASONS = [
 
 const BEHAVIORAL_QUESTIONS = [
   "How clearly did Nafees communicate ideas?",
-  "How did Nafees handle ambiguity and follow-up questions?",
-  "Did Nafees show ownership, accountability, and collaboration mindset?",
+  "How did he handle ambiguity and follow-up questions?",
+  "Did he show ownership, accountability, and collaboration mindset?",
   "Would you trust Nafees with cross-functional communication?",
 ];
 
@@ -116,20 +116,20 @@ export default function InterviewerFeedbackPage() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-50 to-white px-3 py-6 text-slate-900 sm:px-4 sm:py-10">
+    <main className="min-h-screen bg-gradient-to-b from-slate-50 to-white px-3 py-6 text-slate-900 sm:px-4 sm:py-10" style={{ fontFamily: "'Manrope', 'DM Sans', 'Geist', system-ui, sans-serif" }}>
       <div className="mx-auto w-full max-w-3xl rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
         <div className="mb-4">
-          <h1 className="text-lg font-semibold text-slate-900">How did Nafees do? Could you please help him analyze his progress? <span className="text-slate-500">(Review Form)</span></h1>
+          <h1 className="text-xl font-extrabold tracking-tight text-slate-900 sm:text-2xl">How did Nafees do? Could you please help him analyze his progress? <span className="text-slate-500 font-semibold">(Review Form)</span></h1>
         </div>
         {hasPrefilledContext ? (
           <div className="mb-4 rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm sm:p-4">
-            <div className="font-semibold text-slate-900">Interview Context</div>
+            <div className="font-extrabold tracking-tight text-slate-900">Interview Context</div>
             <div className="mt-3 grid gap-2 sm:grid-cols-2">
               <div className="rounded-md border border-slate-200 bg-white px-3 py-2"><span className="text-slate-500">Company:</span> <span className="font-medium">{contextCompany || "-"}</span></div>
               <div className="rounded-md border border-slate-200 bg-white px-3 py-2"><span className="text-slate-500">Interviewer:</span> <span className="font-medium">{contextInterviewer || "-"}</span></div>
               <div className="rounded-md border border-slate-200 bg-white px-3 py-2"><span className="text-slate-500">Round:</span> <span className="font-medium">{contextRound || "-"}</span></div>
             </div>
-            <div className="mt-2 inline-flex rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800">
+            <div className="mt-2 inline-flex rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-extrabold uppercase tracking-wide text-emerald-800">
               Track: {reviewTrack === "technical" ? "Technical" : "Behavioral"}
             </div>
           </div>
@@ -156,7 +156,7 @@ export default function InterviewerFeedbackPage() {
             </div>
           ) : null}
           <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
-            <div className="mb-2 text-sm font-semibold">Why did you give a chance to Nafees for this interview?</div>
+            <div className="mb-2 text-sm font-extrabold tracking-tight text-slate-900">Why did you give a chance to Nafees for this interview?</div>
             <div className="grid gap-2 sm:grid-cols-2">
               {RESUME_BASED_REASONS.map((item) => {
                 const active = form.reasons.includes(item);
@@ -173,7 +173,7 @@ export default function InterviewerFeedbackPage() {
               })}
             </div>
           </div>
-          <div className="pt-2 text-sm font-medium">{reviewTrack === "technical" ? "Technical scores (1-5)" : "Behavioral scores (1-5)"}</div>
+          <div className="pt-2 text-sm font-extrabold tracking-tight text-slate-900">{reviewTrack === "technical" ? "Technical scores (1-5)" : "Behavioral scores (1-5)"}</div>
           {questionSet.map((q, i) => {
             const key = `score${i + 1}`;
             return (
@@ -192,7 +192,7 @@ export default function InterviewerFeedbackPage() {
               </div>
             );
           })}
-          <div className="pt-2 text-sm font-medium">Final decision</div>
+          <div className="pt-2 text-sm font-extrabold tracking-tight text-slate-900">Final decision</div>
           <div className="flex flex-wrap gap-3 text-sm">
             {["Strong Yes", "Yes", "I will let you know", "Leaning No", "No"].map((d) => (
               <label key={d}>
@@ -201,7 +201,7 @@ export default function InterviewerFeedbackPage() {
               </label>
             ))}
           </div>
-          <div className="text-sm">Overall rating: {form.overallRating}/10</div>
+          <div className="text-sm font-bold text-slate-900">Overall rating: {form.overallRating}/10</div>
           <input type="range" min="1" max="10" value={form.overallRating} onChange={(e) => setForm((p) => ({ ...p, overallRating: e.target.value }))} className="w-full" />
           <textarea
             placeholder="Overall comment: strengths, weaknesses, and general analysis"
