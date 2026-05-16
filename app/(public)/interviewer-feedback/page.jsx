@@ -46,6 +46,7 @@ export default function InterviewerFeedbackPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState("");
   const [showThankYou, setShowThankYou] = useState(false);
+  const [scoreStep, setScoreStep] = useState(0);
   const [form, setForm] = useState({
     interviewerName: contextInterviewer,
     interviewerEmail: contextInterviewerEmail,
@@ -58,6 +59,7 @@ export default function InterviewerFeedbackPage() {
   });
   const hasLockedIdentity = Boolean(contextInterviewer && contextInterviewerEmail);
   const questionSet = reviewTrack === "technical" ? TECHNICAL_QUESTIONS : BEHAVIORAL_QUESTIONS;
+  const activeQuestion = questionSet[scoreStep];
 
   const toggleReason = (value) => {
     setForm((prev) => ({
@@ -68,6 +70,11 @@ export default function InterviewerFeedbackPage() {
 
   const submitReview = async (e) => {
     e.preventDefault();
+    const missingScore = questionSet.some((_, i) => !form[`score${i + 1}`]);
+    if (missingScore) {
+      setStatus("Please score all questions (1-5) before submitting.");
+      return;
+    }
     setIsSubmitting(true);
     setStatus("");
     try {
@@ -177,25 +184,35 @@ export default function InterviewerFeedbackPage() {
               })}
             </div>
           </div>
-          <div className="pt-2 text-sm font-extrabold tracking-tight text-slate-900">{reviewTrack === "technical" ? "Technical scores (1-5)" : "Behavioral scores (1-5)"}</div>
-          {questionSet.map((q, i) => {
-            const key = `score${i + 1}`;
-            return (
-              <div key={q} className="space-y-1 rounded-lg border border-slate-200 bg-white p-3">
-                <div className="text-sm text-slate-700">{q}</div>
-                <select
-                  required
-                  value={form[key] || ""}
-                  onChange={(e) => setForm((p) => ({ ...p, [key]: e.target.value }))}
-                  className="w-full rounded-lg border border-slate-300 !bg-white px-3 py-2 text-sm !text-slate-900 appearance-none dark:!bg-white dark:!text-slate-900"
-                  style={{ backgroundColor: "#ffffff", color: "#0f172a" }}
-                >
-                  <option value="">Select score</option>
-                  <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
-                </select>
-              </div>
-            );
-          })}
+          <div className="pt-2 text-sm font-extrabold tracking-tight text-slate-900">{reviewTrack === "technical" ? "Technical score" : "Behavioral score"}</div>
+          <div className="rounded-xl border border-slate-200 bg-white p-3 space-y-3">
+            <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">Question {scoreStep + 1} of {questionSet.length}</div>
+            <div className="text-sm text-slate-800">{activeQuestion}</div>
+            <div className="grid grid-cols-5 gap-2">
+              {[1, 2, 3, 4, 5].map((n) => {
+                const key = `score${scoreStep + 1}`;
+                const active = form[key] === String(n);
+                return (
+                  <button
+                    key={n}
+                    type="button"
+                    onClick={() => setForm((p) => ({ ...p, [key]: String(n) }))}
+                    className={`rounded-lg border py-2 text-sm font-bold ${active ? "border-emerald-500 bg-emerald-50 text-emerald-800" : "border-slate-300 bg-white text-slate-700"}`}
+                  >
+                    {n}
+                  </button>
+                );
+              })}
+            </div>
+            <div className="flex items-center justify-between">
+              <button type="button" onClick={() => setScoreStep((s) => Math.max(0, s - 1))} className="rounded-lg border border-slate-300 px-3 py-2 text-xs font-semibold" disabled={scoreStep === 0}>
+                Previous
+              </button>
+              <button type="button" onClick={() => setScoreStep((s) => Math.min(questionSet.length - 1, s + 1))} className="rounded-lg border border-slate-300 px-3 py-2 text-xs font-semibold" disabled={scoreStep === questionSet.length - 1}>
+                Next
+              </button>
+            </div>
+          </div>
           <div className="pt-2 text-sm font-extrabold tracking-tight text-slate-900">Final decision</div>
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
             {["Strong Yes", "Yes", "I will let you know", "Leaning No", "No"].map((d) => (
