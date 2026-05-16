@@ -1356,6 +1356,29 @@ export default function HireMePage() {
                       >
                         Return to Nafis&apos; World
                       </Link>
+                      {returnToReview ? (
+                        <Link
+                          href={returnToReview}
+                          style={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            gap: 8,
+                            fontSize: 13,
+                            fontWeight: 700,
+                            padding: "10px 16px",
+                            borderRadius: 999,
+                            textDecoration: "none",
+                            color: "var(--resume-text)",
+                            background: "var(--resume-panel)",
+                            border: "1px solid var(--resume-border)",
+                            boxShadow: "0 14px 28px -20px rgba(2,6,23,0.2)",
+                            width: "88%",
+                          }}
+                        >
+                          Back to Review Form
+                        </Link>
+                      ) : null}
                     </div>
                   ) : (
                     <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", gap: 10, marginTop: 10 }}>
