@@ -58,7 +58,6 @@ export default function InterviewerFeedbackPage() {
     hireDecision: "",
     overallRating: "8",
   });
-  const hasLockedIdentity = Boolean(contextInterviewer && contextInterviewerEmail);
   const questionSet = reviewTrack === "technical" ? TECHNICAL_QUESTIONS : BEHAVIORAL_QUESTIONS;
   const activeQuestion = questionSet[scoreStep];
 
@@ -71,11 +70,6 @@ export default function InterviewerFeedbackPage() {
 
   const submitReview = async (e) => {
     e.preventDefault();
-    const missingScore = questionSet.some((_, i) => !form[`score${i + 1}`]);
-    if (missingScore) {
-      setStatus("Please score all questions (1-5) before submitting.");
-      return;
-    }
     setIsSubmitting(true);
     setStatus("");
     try {
@@ -159,11 +153,6 @@ export default function InterviewerFeedbackPage() {
         ) : null}
 
         <form onSubmit={submitReview} className="space-y-4">
-          {!hasLockedIdentity ? (
-            <div className="rounded-xl border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900">
-              Missing locked interviewer identity in link. Please regenerate link from admin with interviewer name and email.
-            </div>
-          ) : null}
           <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
             <button
               type="button"
@@ -256,7 +245,7 @@ export default function InterviewerFeedbackPage() {
             className="min-h-24 w-full rounded-lg border border-slate-300 !bg-white px-3 py-2 !text-slate-900 dark:!bg-white dark:!text-slate-900"
             style={{ backgroundColor: "#ffffff", color: "#0f172a" }}
           />
-          <button type="submit" disabled={isSubmitting || !hasLockedIdentity} className="rounded-full border border-emerald-500 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-800 disabled:opacity-50">
+          <button type="submit" disabled={isSubmitting} className="rounded-full border border-emerald-500 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-800 disabled:opacity-50">
             {isSubmitting ? "Submitting..." : "Submit Review"}
           </button>
           {status ? <div className="text-sm text-slate-700">{status}</div> : null}
