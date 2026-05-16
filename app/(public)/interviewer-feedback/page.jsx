@@ -118,10 +118,9 @@ export default function InterviewerFeedbackPage() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-50 to-white px-3 py-6 text-slate-900 sm:px-4 sm:py-10">
       <div className="mx-auto w-full max-w-3xl rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
-        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-          <h1 className="text-xl font-semibold">Interviewer Feedback Form</h1>
+        <div className="mb-4">
+          <h1 className="text-lg font-semibold text-slate-900">How did Nafees do? Could you please help him analyze his progress? <span className="text-slate-500">(Review Form)</span></h1>
         </div>
-        <p className="mb-4 text-sm text-slate-700">How did Nafees do? Could you please help him analyze his progress?</p>
         {hasPrefilledContext ? (
           <div className="mb-4 rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm sm:p-4">
             <div className="font-semibold text-slate-900">Interview Context</div>
@@ -171,7 +170,13 @@ export default function InterviewerFeedbackPage() {
             return (
               <div key={q} className="space-y-1 rounded-lg border border-slate-200 bg-white p-3">
                 <div className="text-sm text-slate-700">{q}</div>
-                <select required value={form[key] || ""} onChange={(e) => setForm((p) => ({ ...p, [key]: e.target.value }))} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 appearance-none">
+                <select
+                  required
+                  value={form[key] || ""}
+                  onChange={(e) => setForm((p) => ({ ...p, [key]: e.target.value }))}
+                  className="w-full rounded-lg border border-slate-300 !bg-white px-3 py-2 text-sm !text-slate-900 appearance-none dark:!bg-white dark:!text-slate-900"
+                  style={{ backgroundColor: "#ffffff", color: "#0f172a" }}
+                >
                   <option value="">Select score</option>
                   <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
                 </select>
