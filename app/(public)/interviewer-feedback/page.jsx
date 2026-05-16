@@ -156,13 +156,22 @@ export default function InterviewerFeedbackPage() {
             </div>
           ) : null}
           <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
-            <div className="mb-2 text-sm font-semibold">Why choose me?</div>
-            {RESUME_BASED_REASONS.map((item) => (
-              <label key={item} className="block text-sm text-slate-700">
-              <input type="checkbox" checked={form.reasons.includes(item)} onChange={() => toggleReason(item)} className="mr-2 accent-emerald-600" />
-              {item}
-              </label>
-            ))}
+            <div className="mb-2 text-sm font-semibold">Why did you give a chance to Nafees for this interview?</div>
+            <div className="grid gap-2 sm:grid-cols-2">
+              {RESUME_BASED_REASONS.map((item) => {
+                const active = form.reasons.includes(item);
+                return (
+                  <button
+                    key={item}
+                    type="button"
+                    onClick={() => toggleReason(item)}
+                    className={`w-full rounded-lg border px-3 py-2 text-left text-sm ${active ? "border-emerald-500 bg-emerald-50 text-emerald-900" : "border-slate-300 bg-white text-slate-700"}`}
+                  >
+                    {item}
+                  </button>
+                );
+              })}
+            </div>
           </div>
           <div className="pt-2 text-sm font-medium">{reviewTrack === "technical" ? "Technical scores (1-5)" : "Behavioral scores (1-5)"}</div>
           {questionSet.map((q, i) => {
@@ -198,7 +207,8 @@ export default function InterviewerFeedbackPage() {
             placeholder="Overall comment: strengths, weaknesses, and general analysis"
             value={form.overallComment}
             onChange={(e) => setForm((p) => ({ ...p, overallComment: e.target.value }))}
-            className="min-h-24 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900"
+            className="min-h-24 w-full rounded-lg border border-slate-300 !bg-white px-3 py-2 !text-slate-900 dark:!bg-white dark:!text-slate-900"
+            style={{ backgroundColor: "#ffffff", color: "#0f172a" }}
           />
           <button type="submit" disabled={isSubmitting || !hasLockedIdentity} className="rounded-full border border-emerald-500 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-800 disabled:opacity-50">
             {isSubmitting ? "Submitting..." : "Submit Review"}
