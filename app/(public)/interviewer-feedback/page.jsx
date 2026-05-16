@@ -124,7 +124,7 @@ export default function InterviewerFeedbackPage() {
     <main className="min-h-screen bg-gradient-to-b from-slate-50 to-white px-3 py-6 text-slate-900 sm:px-4 sm:py-10" style={{ fontFamily: "'Manrope', 'DM Sans', 'Geist', system-ui, sans-serif" }}>
       <div className="mx-auto w-full max-w-3xl rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
         <div className="mb-4">
-          <h1 className="text-xl font-extrabold tracking-tight text-slate-900 sm:text-2xl">How did Nafees do? Could you please help him analyze his progress? <span className="text-slate-500 font-semibold">(Review Form)</span></h1>
+          <h1 className="text-xl font-extrabold tracking-tight text-slate-900 sm:text-2xl">How did Nafees do? Could you please help him analyze his performance? <span className="text-slate-500 font-semibold">(Review Form)</span></h1>
         </div>
         {hasPrefilledContext ? (
           <div className="mb-4 rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm sm:p-4">
