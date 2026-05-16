@@ -35,18 +35,20 @@ export default function InterviewerFeedbackPage() {
   const searchParams = useSearchParams();
   const contextCompany = searchParams.get("company") || "";
   const contextInterviewer = searchParams.get("interviewer") || "";
+  const contextInterviewerEmail = searchParams.get("interviewerEmail") || "";
   const contextRole = searchParams.get("role") || "";
   const contextRound = searchParams.get("round") || "";
   const contextTrack = searchParams.get("track");
   const resumeTrack = searchParams.get("resumeTrack") || "research";
-  const hasPrefilledContext = Boolean(contextCompany || contextInterviewer || contextRole || contextRound || contextTrack);
+  const hasPrefilledContext = Boolean(contextCompany || contextInterviewer || contextInterviewerEmail || contextRole || contextRound || contextTrack);
   const resumeHref = `/hire-me?track=${encodeURIComponent(resumeTrack)}&fromReview=1&returnToReview=${encodeURIComponent(`/interviewer-feedback?${searchParams.toString()}`)}`;
   const [reviewTrack, setReviewTrack] = useState(contextTrack === "technical" ? "technical" : "behavioral");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState("");
+  const [showThankYou, setShowThankYou] = useState(false);
   const [form, setForm] = useState({
     interviewerName: contextInterviewer,
-    interviewerEmail: "",
+    interviewerEmail: contextInterviewerEmail,
     companyRole: [contextCompany, contextRole].filter(Boolean).join(" - "),
     reasons: [],
     strengths: "",
@@ -54,6 +56,7 @@ export default function InterviewerFeedbackPage() {
     hireDecision: "",
     overallRating: "8",
   });
+  const hasLockedIdentity = Boolean(contextInterviewer && contextInterviewerEmail);
   const questionSet = reviewTrack === "technical" ? TECHNICAL_QUESTIONS : BEHAVIORAL_QUESTIONS;
 
   const toggleReason = (value) => {
@@ -97,9 +100,10 @@ export default function InterviewerFeedbackPage() {
       const data = await res.json();
       if (!res.ok || !data?.ok) throw new Error(data?.error || "Submit failed");
       setStatus("Submitted successfully.");
+      setShowThankYou(true);
       setForm({
-        interviewerName: "",
-        interviewerEmail: "",
+        interviewerName: contextInterviewer,
+        interviewerEmail: contextInterviewerEmail,
         companyRole: "",
         reasons: [],
         strengths: "",
@@ -120,12 +124,14 @@ export default function InterviewerFeedbackPage() {
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
           <h1 className="text-xl font-semibold">Interviewer Feedback Form</h1>
         </div>
+        <p className="mb-4 text-sm text-slate-700">How did Nafees do? Could you please help him analyze his progress?</p>
         {hasPrefilledContext ? (
           <div className="mb-4 rounded-xl border border-slate-300 bg-slate-50 p-4 text-sm">
             <div className="font-semibold text-slate-900">Interview Context</div>
             <div className="mt-3 grid gap-2 sm:grid-cols-2">
               <div className="rounded-md border border-slate-200 bg-white px-3 py-2"><span className="text-slate-500">Company:</span> <span className="font-medium">{contextCompany || "-"}</span></div>
               <div className="rounded-md border border-slate-200 bg-white px-3 py-2"><span className="text-slate-500">Interviewer:</span> <span className="font-medium">{contextInterviewer || "-"}</span></div>
+              <div className="rounded-md border border-slate-200 bg-white px-3 py-2"><span className="text-slate-500">Interviewer Email:</span> <span className="font-medium">{contextInterviewerEmail || "-"}</span></div>
               <div className="rounded-md border border-slate-200 bg-white px-3 py-2"><span className="text-slate-500">Role:</span> <span className="font-medium">{contextRole || "-"}</span></div>
               <div className="rounded-md border border-slate-200 bg-white px-3 py-2"><span className="text-slate-500">Round:</span> <span className="font-medium">{contextRound || "-"}</span></div>
             </div>
@@ -150,20 +156,23 @@ export default function InterviewerFeedbackPage() {
         ) : null}
 
         <form onSubmit={submitReview} className="space-y-3">
-          <div className="grid gap-2 sm:grid-cols-2">
-            <input required placeholder="Interviewer name" value={form.interviewerName} onChange={(e) => setForm((p) => ({ ...p, interviewerName: e.target.value }))} className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900" />
-            <input required type="email" placeholder="Interviewer email" value={form.interviewerEmail} onChange={(e) => setForm((p) => ({ ...p, interviewerEmail: e.target.value }))} className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900" />
-          </div>
+          {!hasLockedIdentity ? (
+            <div className="rounded-xl border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900">
+              Missing locked interviewer identity in link. Please regenerate link from admin with interviewer name and email.
+            </div>
+          ) : null}
           {!hasPrefilledContext ? (
             <input placeholder="Company + role" value={form.companyRole} onChange={(e) => setForm((p) => ({ ...p, companyRole: e.target.value }))} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900" />
           ) : null}
-          <div className="pt-2 text-sm font-medium">Why choose me?</div>
-          {RESUME_BASED_REASONS.map((item) => (
-            <label key={item} className="block text-sm text-slate-700">
+          <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+            <div className="mb-2 text-sm font-semibold">Why choose me?</div>
+            {RESUME_BASED_REASONS.map((item) => (
+              <label key={item} className="block text-sm text-slate-700">
               <input type="checkbox" checked={form.reasons.includes(item)} onChange={() => toggleReason(item)} className="mr-2 accent-emerald-600" />
               {item}
-            </label>
-          ))}
+              </label>
+            ))}
+          </div>
           <div className="pt-2 text-sm font-medium">{reviewTrack === "technical" ? "Technical scores (1-5)" : "Behavioral scores (1-5)"}</div>
           {questionSet.map((q, i) => {
             const key = `score${i + 1}`;
@@ -190,7 +199,7 @@ export default function InterviewerFeedbackPage() {
           <input type="range" min="1" max="10" value={form.overallRating} onChange={(e) => setForm((p) => ({ ...p, overallRating: e.target.value }))} className="w-full" />
           <textarea placeholder="Strongest signal" value={form.strengths} onChange={(e) => setForm((p) => ({ ...p, strengths: e.target.value }))} className="min-h-20 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900" />
           <textarea placeholder="Risk area / concern" value={form.risk} onChange={(e) => setForm((p) => ({ ...p, risk: e.target.value }))} className="min-h-20 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900" />
-          <button type="submit" disabled={isSubmitting} className="rounded-full border border-emerald-500 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-800">
+          <button type="submit" disabled={isSubmitting || !hasLockedIdentity} className="rounded-full border border-emerald-500 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-800 disabled:opacity-50">
             {isSubmitting ? "Submitting..." : "Submit Review"}
           </button>
           {status ? <div className="text-sm text-slate-700">{status}</div> : null}
@@ -201,6 +210,24 @@ export default function InterviewerFeedbackPage() {
           </Link>
         </div>
       </div>
+      {showThankYou ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/55 p-4">
+          <div className="w-full max-w-md rounded-2xl border border-emerald-200 bg-white p-6 text-slate-900 shadow-2xl">
+            <h2 className="text-xl font-bold">Thank You</h2>
+            <p className="mt-2 text-sm text-slate-700">
+              Thank you for sharing your feedback.
+            </p>
+            <p className="mt-2 text-sm text-slate-700">
+              Message from Nafees: I truly appreciate your time and honest review. Your feedback helps me improve with clarity.
+            </p>
+            <div className="mt-4">
+              <button onClick={() => setShowThankYou(false)} className="rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold">
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </main>
   );
 }
