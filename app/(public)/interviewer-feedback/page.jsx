@@ -51,8 +51,7 @@ export default function InterviewerFeedbackPage() {
     interviewerEmail: contextInterviewerEmail,
     companyRole: [contextCompany, contextRole].filter(Boolean).join(" - "),
     reasons: [],
-    strengths: "",
-    risk: "",
+    overallComment: "",
     hireDecision: "",
     overallRating: "8",
   });
@@ -82,8 +81,7 @@ export default function InterviewerFeedbackPage() {
         "",
         `Hire Decision: ${form.hireDecision || "N/A"}`,
         `Overall Rating: ${form.overallRating}/10`,
-        `Strongest Signal: ${form.strengths || "N/A"}`,
-        `Risk Area: ${form.risk || "N/A"}`,
+        `Overall Comment (strengths, weaknesses, analysis): ${form.overallComment || "N/A"}`,
       ].join("\n");
 
       const res = await fetch("/api/hire", {
@@ -106,8 +104,7 @@ export default function InterviewerFeedbackPage() {
         interviewerEmail: contextInterviewerEmail,
         companyRole: "",
         reasons: [],
-        strengths: "",
-        risk: "",
+        overallComment: "",
         hireDecision: "",
         overallRating: "8",
       });
@@ -188,7 +185,7 @@ export default function InterviewerFeedbackPage() {
           })}
           <div className="pt-2 text-sm font-medium">Final decision</div>
           <div className="flex flex-wrap gap-3 text-sm">
-            {["Strong Yes", "Yes", "Leaning No", "No"].map((d) => (
+            {["Strong Yes", "Yes", "I will let you know", "Leaning No", "No"].map((d) => (
               <label key={d}>
                 <input type="radio" required name="hireDecision" checked={form.hireDecision === d} onChange={() => setForm((p) => ({ ...p, hireDecision: d }))} className="mr-2" />
                 {d}
@@ -197,8 +194,12 @@ export default function InterviewerFeedbackPage() {
           </div>
           <div className="text-sm">Overall rating: {form.overallRating}/10</div>
           <input type="range" min="1" max="10" value={form.overallRating} onChange={(e) => setForm((p) => ({ ...p, overallRating: e.target.value }))} className="w-full" />
-          <textarea placeholder="Strongest signal" value={form.strengths} onChange={(e) => setForm((p) => ({ ...p, strengths: e.target.value }))} className="min-h-20 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900" />
-          <textarea placeholder="Risk area / concern" value={form.risk} onChange={(e) => setForm((p) => ({ ...p, risk: e.target.value }))} className="min-h-20 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900" />
+          <textarea
+            placeholder="Overall comment: strengths, weaknesses, and general analysis"
+            value={form.overallComment}
+            onChange={(e) => setForm((p) => ({ ...p, overallComment: e.target.value }))}
+            className="min-h-24 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900"
+          />
           <button type="submit" disabled={isSubmitting || !hasLockedIdentity} className="rounded-full border border-emerald-500 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-800 disabled:opacity-50">
             {isSubmitting ? "Submitting..." : "Submit Review"}
           </button>
