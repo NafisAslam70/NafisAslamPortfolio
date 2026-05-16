@@ -47,6 +47,7 @@ export default function InterviewerFeedbackPage() {
   const [status, setStatus] = useState("");
   const [showThankYou, setShowThankYou] = useState(false);
   const [scoreStep, setScoreStep] = useState(0);
+  const [showReasons, setShowReasons] = useState(false);
   const [form, setForm] = useState({
     interviewerName: contextInterviewer,
     interviewerEmail: contextInterviewerEmail,
@@ -134,10 +135,8 @@ export default function InterviewerFeedbackPage() {
         {hasPrefilledContext ? (
           <div className="mb-4 rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm sm:p-4">
             <div className="font-extrabold tracking-tight text-slate-900">Interview Context</div>
-            <div className="mt-3 grid gap-2 sm:grid-cols-2">
-              <div className="rounded-md border border-slate-200 bg-white px-3 py-2"><span className="text-slate-500">Company:</span> <span className="font-medium">{contextCompany || "-"}</span></div>
-              <div className="rounded-md border border-slate-200 bg-white px-3 py-2"><span className="text-slate-500">Interviewer:</span> <span className="font-medium">{contextInterviewer || "-"}</span></div>
-              <div className="rounded-md border border-slate-200 bg-white px-3 py-2"><span className="text-slate-500">Round:</span> <span className="font-medium">{contextRound || "-"}</span></div>
+            <div className="mt-3 rounded-md border border-slate-200 bg-white px-3 py-2 font-semibold text-slate-800">
+              {[contextCompany, contextInterviewer, contextRound].filter(Boolean).join(" | ") || "-"}
             </div>
             <div className="mt-2 inline-flex rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-extrabold uppercase tracking-wide text-emerald-800">
               Track: {reviewTrack === "technical" ? "Technical" : "Behavioral"}
@@ -166,23 +165,34 @@ export default function InterviewerFeedbackPage() {
             </div>
           ) : null}
           <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
-            <div className="mb-1 text-sm font-extrabold tracking-tight text-slate-900">Why did you give a chance to Nafees for this interview?</div>
-            <div className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-500">(Select all that apply)</div>
-            <div className="grid gap-2 sm:grid-cols-2">
-              {RESUME_BASED_REASONS.map((item) => {
-                const active = form.reasons.includes(item);
-                return (
-                  <button
-                    key={item}
-                    type="button"
-                    onClick={() => toggleReason(item)}
-                    className={`w-full rounded-lg border px-3 py-2 text-left text-sm ${active ? "border-emerald-500 bg-emerald-50 text-emerald-900" : "border-slate-300 bg-white text-slate-700"}`}
-                  >
-                    {item}
-                  </button>
-                );
-              })}
-            </div>
+            <button
+              type="button"
+              onClick={() => setShowReasons((s) => !s)}
+              className="flex w-full items-center justify-between text-left"
+            >
+              <span className="text-sm font-extrabold tracking-tight text-slate-900">
+                Why did you give a chance to Nafees for this interview?
+              </span>
+              <span className="text-xs font-semibold text-slate-500">{showReasons ? "Hide" : "Show"}</span>
+            </button>
+            <div className="mt-1 text-xs font-semibold uppercase tracking-wide text-slate-500">(Select all that apply)</div>
+            {showReasons ? (
+              <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                {RESUME_BASED_REASONS.map((item) => {
+                  const active = form.reasons.includes(item);
+                  return (
+                    <button
+                      key={item}
+                      type="button"
+                      onClick={() => toggleReason(item)}
+                      className={`w-full rounded-lg border px-3 py-2 text-left text-sm ${active ? "border-emerald-500 bg-emerald-50 text-emerald-900" : "border-slate-300 bg-white text-slate-700"}`}
+                    >
+                      {item}
+                    </button>
+                  );
+                })}
+              </div>
+            ) : null}
           </div>
           <div className="pt-2 text-sm font-extrabold tracking-tight text-slate-900">{reviewTrack === "technical" ? "Technical score" : "Behavioral score"}</div>
           <div className="rounded-xl border border-slate-200 bg-white p-3 space-y-3">
