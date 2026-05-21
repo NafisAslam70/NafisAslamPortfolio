@@ -51,7 +51,7 @@ function EmployerPortfolioGate({ onDismiss, onSelectTrack }) {
                 Role Direction
               </p>
               <h2 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">
-                Is the role research-focused or company-focused?
+                Which role track do you want to review?
               </h2>
               <p className="max-w-xl text-sm leading-relaxed text-slate-700 dark:text-slate-300">
                 Select one and I will load the matching digital resume.
@@ -71,6 +71,13 @@ function EmployerPortfolioGate({ onDismiss, onSelectTrack }) {
                 className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-left text-sm font-semibold text-emerald-800 transition hover:bg-emerald-100 dark:border-emerald-400/20 dark:bg-emerald-500/10 dark:text-emerald-200"
               >
                 Research Role (AI/ML Research Student Path)
+              </button>
+              <button
+                type="button"
+                onClick={() => onSelectTrack("data-science")}
+                className="rounded-2xl border border-sky-200 bg-sky-50 px-4 py-3 text-left text-sm font-semibold text-sky-800 transition hover:bg-sky-100 dark:border-sky-400/20 dark:bg-sky-500/10 dark:text-sky-200"
+              >
+                Data Scientist Role (Analytics / Forecasting / ML)
               </button>
             </div>
             <button

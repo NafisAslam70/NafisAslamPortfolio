@@ -758,12 +758,18 @@ export default function HireMePage() {
   const [viewportWidth, setViewportWidth] = useState(1280);
   const searchParams = useSearchParams();
   const ActiveSection = TAB_COMPONENTS[activeTab];
-  const isResearchTrack = searchParams.get("track") === "research";
+  const track = (searchParams.get("track") || "company").toLowerCase();
+  const isResearchTrack = track === "research";
+  const isDataScienceTrack = track === "data-science" || track === "datascience" || track === "data_science";
   const returnToReview = searchParams.get("returnToReview");
-  const cvHref = isResearchTrack ? "/pdfs/CV_research_resume.pdf" : "/pdfs/CV_job_resume_Final.pdf";
+  const cvHref = isResearchTrack
+    ? "/pdfs/CV_research_resume.pdf"
+    : isDataScienceTrack
+      ? "/pdfs/DataScience_resume.pdf"
+      : "/pdfs/CV_job_resume_Final.pdf";
   const isMobile = viewportWidth < 768;
   const isTablet = viewportWidth < 1024;
-  const trackLabel = isResearchTrack ? "Research Track" : "Industry Track";
+  const trackLabel = isResearchTrack ? "Research Track" : isDataScienceTrack ? "Data Science Track" : "Industry Track";
   const floatingLabels = isResearchTrack
     ? [
         { label: "CV", left: "18%", top: "26%", delay: "0s" },
@@ -773,6 +779,15 @@ export default function HireMePage() {
         { label: "DOI", left: "58%", top: "18%", delay: "1.9s" },
         { label: "PYTORCH", left: "12%", top: "62%", delay: "2.5s" },
       ]
+    : isDataScienceTrack
+      ? [
+          { label: "SQL", left: "18%", top: "26%", delay: "0s" },
+          { label: "ARIMA", left: "72%", top: "62%", delay: "0.8s" },
+          { label: "XGBOOST", left: "34%", top: "74%", delay: "1.4s" },
+          { label: "EDA", left: "80%", top: "30%", delay: "0.5s" },
+          { label: "PREDICT", left: "58%", top: "18%", delay: "1.9s" },
+          { label: "DASHBOARD", left: "12%", top: "62%", delay: "2.5s" },
+        ]
     : [
         { label: "DL", left: "18%", top: "26%", delay: "0s" },
         { label: "CV", left: "72%", top: "62%", delay: "0.8s" },
