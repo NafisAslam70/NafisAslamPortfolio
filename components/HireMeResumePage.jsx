@@ -364,7 +364,7 @@ const AchRow = ({ icon, children }) => (
   </div>
 );
 
-function Overview({ isMobile }) {
+function Overview({ isMobile, isDataScienceTrack }) {
   return (
     <div>
       <div
@@ -379,10 +379,9 @@ function Overview({ isMobile }) {
           marginBottom: 22,
         }}
       >
-        A highly motivated ML/Computer Vision engineer who ships systems that work outside the lab: fast, deployable,
-        and grounded in real problems. Built DeepWork AI powered by DLEF, a real-time attention monitoring system
-        using YOLO + MediaPipe with &lt;50ms CPU inference, alongside a graduate-level MIT program and a full degree.
-        Actively seeking Computer Vision / Machine Learning engineer or research roles across CV, AI, and applied AI.
+        {isDataScienceTrack
+          ? "MIT-trained Data Scientist and Machine Learning Engineer with strong foundations in statistical analysis, machine learning, SQL analytics, and predictive modeling. Experienced in forecasting systems, probabilistic modeling, and analytics dashboards for decision-making, with interests in manufacturing analytics, process optimization, and Industry 4.0."
+          : "A highly motivated ML/Computer Vision engineer who ships systems that work outside the lab: fast, deployable, and grounded in real problems. Built DeepWork AI powered by DLEF, a real-time attention monitoring system using YOLO + MediaPipe with <50ms CPU inference, alongside a graduate-level MIT program and a full degree. Actively seeking Computer Vision / Machine Learning engineer or research roles across CV, AI, and applied AI."}
       </div>
 
       <div style={sectionTitle}>Highlights</div>
@@ -420,7 +419,9 @@ function Overview({ isMobile }) {
         }}
       >
         <div>
-          <div style={{ fontSize: 15, fontWeight: 700, color: "#fff" }}>Open to remote ML/CV roles</div>
+          <div style={{ fontSize: 15, fontWeight: 700, color: "#fff" }}>
+            {isDataScienceTrack ? "Open to remote Data Scientist / ML roles" : "Open to remote ML/CV roles"}
+          </div>
           <div style={{ fontSize: 13, color: "rgba(255,255,255,.85)", marginTop: 2 }}>Let&apos;s build something that works in the real world.</div>
         </div>
         <a
@@ -445,7 +446,7 @@ function Overview({ isMobile }) {
   );
 }
 
-function Projects({ isMobile }) {
+function Projects({ isMobile, isDataScienceTrack }) {
   return (
     <div>
       <div style={{ ...card, marginBottom: 14 }}>
@@ -504,6 +505,30 @@ function Projects({ isMobile }) {
         </div>
       </div>
 
+      {isDataScienceTrack ? (
+        <div style={{ ...card, marginBottom: 14 }}>
+          <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 4, color: "var(--resume-text)" }}>MIT MicroMasters — Applied Analytics & ML Projects</div>
+          <div style={{ fontSize: 12, color: "var(--resume-hint)", marginBottom: 8 }}>2024-2025</div>
+          <ul style={{ listStyle: "none", padding: 0, margin: "0 0 10px" }}>
+            {[
+              "Statistical Forecasting & Time-Series Analysis with ARIMA and stationarity testing",
+              "Probabilistic Spatial Modeling using Gaussian Process regression",
+              "High-dimensional analytics with PCA, clustering, and dimensionality reduction",
+              "Recommendation analytics with GMM and Expectation-Maximization",
+            ].map((b, i) => (
+              <li key={i} style={{ fontSize: 13, color: "var(--resume-muted)", lineHeight: 1.6, padding: "2px 0 2px 14px", position: "relative" }}>
+                <span style={{ position: "absolute", left: 4, color: "var(--resume-accent)" }}>·</span>{b}
+              </li>
+            ))}
+          </ul>
+          <div style={{ display: "flex", flexWrap: "wrap" }}>
+            {["ARIMA", "Gaussian Process", "PCA", "Clustering", "GMM/EM"].map((t) => (
+              <StackTag key={t}>{t}</StackTag>
+            ))}
+          </div>
+        </div>
+      ) : null}
+
       <div style={card}>
         <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 4, color: "var(--resume-text)" }}>School Management Platform — Meed Public School</div>
         <div style={{ fontSize: 12, color: "var(--resume-hint)", marginBottom: 8 }}>Oct 2025-Feb 2026 · Freelance</div>
@@ -521,7 +546,7 @@ function Projects({ isMobile }) {
   );
 }
 
-function Experience() {
+function Experience({ isDataScienceTrack }) {
   return (
     <div>
       <div style={sectionTitle}>Work & Research</div>
@@ -530,8 +555,9 @@ function Experience() {
         company="Unified Mentor · Remote"
         date="Mar 2026-present"
         bullets={[
-          "Built time-series forecasting pipeline (ARIMA, Random Forest, Gradient Boosting) on 3+ years of weekly government care load data.",
-          "Developed learner segmentation (K-Means, Hierarchical) with feature engineering from clickstream logs.",
+          "Processed and analyzed multi-year datasets using SQL workflows and preprocessing pipelines.",
+          "Developed forecasting systems using ARIMA, Random Forest, and Gradient Boosting.",
+          "Applied K-Means and Hierarchical Clustering for behavioral segmentation and exploratory analytics.",
         ]}
       />
       <ExpItem
@@ -564,8 +590,27 @@ function Experience() {
   );
 }
 
-function Skills({ isMobile }) {
-  const cats = [
+function Skills({ isMobile, isDataScienceTrack }) {
+  const cats = isDataScienceTrack
+    ? [
+        {
+          title: "Data Analysis & Stats",
+          skills: [["Pandas", true], ["NumPy", true], ["EDA", true], ["Statistical Analysis", true], ["Data Cleaning", false], ["Hypothesis Testing", false], ["Feature Engineering", false]],
+        },
+        {
+          title: "Machine Learning",
+          skills: [["Scikit-learn", true], ["XGBoost", true], ["ARIMA", true], ["Random Forest", false], ["Gradient Boosting", false], ["K-Means", false], ["Hierarchical Clustering", false]],
+        },
+        {
+          title: "Databases & BI",
+          skills: [["SQL", true], ["PostgreSQL", true], ["MongoDB", false], ["Tableau", true], ["Matplotlib", false], ["Seaborn", false], ["Dashboard Design", false]],
+        },
+        {
+          title: "Engineering Stack",
+          skills: [["Python", true], ["Git", true], ["Docker", false], ["Linux", false], ["Jupyter", false], ["VS Code", false], ["Streamlit", false]],
+        },
+      ]
+    : [
     {
       title: "Computer Vision",
       skills: [["YOLO v9/v11", true], ["MediaPipe", true], ["OpenCV", true], ["Gaze estimation", false], ["ByteTrack", false], ["Real-time detection", false], ["Transfer learning", false]],
@@ -597,7 +642,9 @@ function Skills({ isMobile }) {
       </div>
       <div style={sectionTitle}>Proven in production</div>
       <div style={{ fontSize: 13, color: "var(--resume-muted)", lineHeight: 1.8 }}>
-        YOLO + MediaPipe → shipped real-time web app · Flask + Docker → on-device inference, zero video storage · Next.js + NeonDB → live school platform · ARIMA + GBM → forecasting pipeline
+        {isDataScienceTrack
+          ? "SQL + Python analytics pipelines · ARIMA + tree-based forecasting models · clustering-based segmentation · Tableau/Matplotlib dashboards for operational decision-making"
+          : "YOLO + MediaPipe → shipped real-time web app · Flask + Docker → on-device inference, zero video storage · Next.js + NeonDB → live school platform · ARIMA + GBM → forecasting pipeline"}
       </div>
     </div>
   );
@@ -1283,7 +1330,7 @@ export default function HireMePage() {
                   </div>
                   <div style={{ fontSize: isMobile ? 28 : 38, fontWeight: 800, lineHeight: 1.02, marginBottom: 8, color: "var(--resume-text)" }}>Nafis Aslam</div>
                   <div style={{ fontSize: isMobile ? 12 : 13, color: "var(--resume-muted)", lineHeight: 1.65 }}>
-                    ML / Computer Vision Engineer · Open to Remote
+                    {isDataScienceTrack ? "Data Scientist / Machine Learning Engineer · Open to Remote" : "ML / Computer Vision Engineer · Open to Remote"}
                     <br />
                     USM, Malaysia(AI Major) · MIT MicroMasters 
                   </div>
@@ -1699,7 +1746,7 @@ export default function HireMePage() {
         </div>
 
         <div style={{ padding: isMobile ? "1rem" : "1.5rem", background: contentBackground }}>
-          <ActiveSection isMobile={isMobile} isTablet={isTablet} />
+          <ActiveSection isMobile={isMobile} isTablet={isTablet} isResearchTrack={isResearchTrack} isDataScienceTrack={isDataScienceTrack} />
         </div>
       </div>
       {showReasons ? (
