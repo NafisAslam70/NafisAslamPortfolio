@@ -851,7 +851,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                     <span className="inline-block rounded-full bg-indigo-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.3em] text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-200">
                       Deep Work First
                     </span>{" "}
-                    Full-stack software developer and applied AI/ML builder focused on shipping useful products. BSc Computer Science, USM · MITx MicroMasters · Joint Master’s in Data Science & AI at IIT Madras and the University of Birmingham. Founder of{" "}
+                    Full-stack software developer and applied AI/ML builder focused on shipping useful products. BSc Computer Science, USM · MITx MicroMasters in Statistics & Data Science. Founder of{" "}
                     <Link
                       href="/ventures/deepwork-ai"
                       className="font-serif text-base font-semibold text-slate-900 transition hover:text-indigo-500 dark:text-slate-100 dark:hover:text-indigo-200 md:text-lg"
