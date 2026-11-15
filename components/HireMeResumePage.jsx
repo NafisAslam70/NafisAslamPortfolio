@@ -381,7 +381,7 @@ function Overview({ isMobile, isDataScienceTrack }) {
       >
         {isDataScienceTrack
           ? "MIT-trained Data Scientist and Machine Learning Engineer with strong foundations in statistical analysis, machine learning, SQL analytics, and predictive modeling. Experienced in forecasting systems, probabilistic modeling, and analytics dashboards for decision-making, with interests in manufacturing analytics, process optimization, and Industry 4.0."
-          : "A software developer and applied AI/ML builder who ships systems beyond notebooks. Built DeepWork AI, a full-stack focus product using Next.js, Flask, PostgreSQL, YOLO, and MediaPipe; also built operational dashboards and web applications. Currently pursuing a Joint Master’s in Data Science and AI at IIT Madras and the University of Birmingham. Seeking Kuwait-based full-stack developer, software engineer, Python developer, and applied AI/ML opportunities."}
+          : "A software developer and applied AI/ML builder who ships systems beyond notebooks. Built DeepWork AI, a full-stack focus product using Next.js, Flask, PostgreSQL, YOLO, and MediaPipe; also built operational dashboards and web applications. BSc Computer Science graduate from USM and MITx MicroMasters graduate in Statistics and Data Science. Seeking Kuwait-based full-stack developer, software engineer, Python developer, and applied AI/ML opportunities."}
       </div>
 
       <div style={sectionTitle}>Highlights</div>
@@ -446,10 +446,104 @@ function Overview({ isMobile, isDataScienceTrack }) {
   );
 }
 
+function ProjectVisual({ variant, label }) {
+  const palettes = {
+    focus: ["#111827", "#8b5cf6", "#34d399"],
+    vision: ["#102a2a", "#22c55e", "#a3e635"],
+    analytics: ["#172554", "#60a5fa", "#c4b5fd"],
+    school: ["#3b1f2b", "#fb7185", "#fbbf24"],
+  };
+  const [base, accent, secondary] = palettes[variant] || palettes.focus;
+
+  return (
+    <div
+      role="img"
+      aria-label={`Illustrated project preview: ${label}`}
+      style={{
+        height: 172,
+        margin: "-1rem -1.1rem 14px",
+        overflow: "hidden",
+        borderRadius: "14px 14px 10px 10px",
+        background: `linear-gradient(135deg, ${base}, #0f172a)`,
+      }}
+    >
+      <svg viewBox="0 0 900 340" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs>
+          <linearGradient id={`glow-${variant}`} x1="0" x2="1" y1="0" y2="1">
+            <stop stopColor={accent} stopOpacity=".7" />
+            <stop offset="1" stopColor={secondary} stopOpacity=".12" />
+          </linearGradient>
+        </defs>
+        <circle cx="760" cy="40" r="220" fill={`url(#glow-${variant})`} opacity=".55" />
+        {variant === "focus" ? (
+          <g>
+            <rect x="110" y="42" width="680" height="256" rx="22" fill="#0b1220" stroke="#ffffff" strokeOpacity=".22" />
+            <rect x="110" y="42" width="138" height="256" rx="22" fill="#ffffff" fillOpacity=".06" />
+            <circle cx="145" cy="79" r="9" fill={accent} /><rect x="163" y="73" width="59" height="11" rx="5" fill="#fff" fillOpacity=".7" />
+            <rect x="132" y="112" width="84" height="9" rx="4" fill="#fff" fillOpacity=".25" /><rect x="132" y="139" width="70" height="9" rx="4" fill="#fff" fillOpacity=".18" />
+            <rect x="132" y="166" width="78" height="9" rx="4" fill="#fff" fillOpacity=".18" />
+            <rect x="280" y="75" width="235" height="187" rx="18" fill="#fff" fillOpacity=".07" />
+            <circle cx="397" cy="153" r="47" fill={accent} fillOpacity=".2" stroke={accent} strokeWidth="5" />
+            <path d="M397 106 A47 47 0 1 1 355 174" fill="none" stroke={secondary} strokeWidth="5" strokeLinecap="round" />
+            <text x="397" y="157" textAnchor="middle" fill="#fff" fontSize="20" fontWeight="700">FOCUS</text>
+            <rect x="545" y="75" width="214" height="82" rx="16" fill="#fff" fillOpacity=".07" />
+            <path d="M570 132 L607 116 L637 124 L672 95 L710 107 L738 86" fill="none" stroke={accent} strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+            <rect x="545" y="177" width="214" height="85" rx="16" fill="#fff" fillOpacity=".07" />
+            <rect x="570" y="222" width="22" height="22" rx="6" fill={accent} /><rect x="602" y="205" width="22" height="39" rx="6" fill={secondary} />
+            <rect x="634" y="190" width="22" height="54" rx="6" fill={accent} /><rect x="666" y="213" width="22" height="31" rx="6" fill={secondary} />
+          </g>
+        ) : null}
+        {variant === "vision" ? (
+          <g>
+            <rect x="116" y="44" width="668" height="252" rx="22" fill="#091713" stroke="#ffffff" strokeOpacity=".2" />
+            <rect x="138" y="66" width="424" height="208" rx="15" fill="#183c30" />
+            <path d="M138 218 Q245 170 335 218 T562 205 V274 H138Z" fill="#285d41" />
+            <circle cx="360" cy="132" r="29" fill="#c2a686" /><path d="M317 215 Q323 160 360 160 Q398 160 408 215Z" fill="#243247" />
+            <rect x="301" y="95" width="120" height="133" rx="4" fill="none" stroke={accent} strokeWidth="4" />
+            <path d="M301 117V95h22M399 95h22v22M301 206v22h22M399 228h22v-22" stroke={secondary} strokeWidth="5" fill="none" />
+            <rect x="582" y="68" width="180" height="86" rx="15" fill="#fff" fillOpacity=".08" />
+            <text x="604" y="103" fill="#fff" fontSize="14" opacity=".65">ATTENTION STATE</text>
+            <text x="604" y="133" fill={secondary} fontSize="23" fontWeight="700">Focused</text>
+            <rect x="582" y="171" width="180" height="103" rx="15" fill="#fff" fillOpacity=".08" />
+            <text x="604" y="200" fill="#fff" fontSize="13" opacity=".65">LOCAL PROCESSING</text>
+            <circle cx="612" cy="232" r="6" fill={accent} /><text x="627" y="238" fill="#fff" fontSize="15">Video stays private</text>
+          </g>
+        ) : null}
+        {variant === "analytics" ? (
+          <g>
+            <rect x="110" y="42" width="680" height="256" rx="22" fill="#0d1838" stroke="#ffffff" strokeOpacity=".2" />
+            <text x="145" y="82" fill="#fff" fontSize="17" fontWeight="700">Forecasting &amp; Applied Analytics</text>
+            {[0,1,2,3].map((i) => <line key={i} x1="150" y1={119 + i * 34} x2="750" y2={119 + i * 34} stroke="#fff" strokeOpacity=".1" />)}
+            <path d="M158 238 L230 207 L298 224 L370 166 L440 185 L514 135 L584 160 L658 102 L741 122" fill="none" stroke={accent} strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M158 238 L230 207 L298 224 L370 166 L440 185 L514 135 L584 160 L658 102 L741 122 V274 H158Z" fill={accent} fillOpacity=".12" />
+            <path d="M158 252 L230 232 L298 241 L370 215 L440 222 L514 194 L584 206 L658 180 L741 184" fill="none" stroke={secondary} strokeWidth="4" strokeDasharray="8 8" />
+            <circle cx="658" cy="102" r="8" fill={secondary} stroke="#fff" strokeWidth="3" />
+          </g>
+        ) : null}
+        {variant === "school" ? (
+          <g>
+            <rect x="110" y="42" width="680" height="256" rx="22" fill="#281827" stroke="#ffffff" strokeOpacity=".2" />
+            <rect x="140" y="70" width="285" height="200" rx="15" fill="#fff" fillOpacity=".08" />
+            <path d="M185 162 L282 103 L380 162 V242 H185Z" fill={accent} fillOpacity=".82" />
+            <path d="M163 165 L282 90 L402 165" fill="none" stroke={secondary} strokeWidth="9" strokeLinejoin="round" />
+            <rect x="263" y="188" width="40" height="54" rx="4" fill="#fff" fillOpacity=".78" />
+            <rect x="205" y="174" width="29" height="29" rx="4" fill="#fff" fillOpacity=".48" /><rect x="330" y="174" width="29" height="29" rx="4" fill="#fff" fillOpacity=".48" />
+            <rect x="455" y="70" width="300" height="76" rx="15" fill="#fff" fillOpacity=".08" />
+            <circle cx="492" cy="108" r="15" fill={accent} /><rect x="520" y="95" width="195" height="10" rx="5" fill="#fff" fillOpacity=".65" /><rect x="520" y="116" width="148" height="8" rx="4" fill="#fff" fillOpacity=".25" />
+            <rect x="455" y="164" width="140" height="106" rx="15" fill="#fff" fillOpacity=".08" /><text x="480" y="207" fill="#fff" fontSize="26" fontWeight="700">30+</text><text x="480" y="234" fill="#fff" fontSize="13" opacity=".65">ACTIVE USERS</text>
+            <rect x="615" y="164" width="140" height="106" rx="15" fill="#fff" fillOpacity=".08" /><path d="M640 232 L665 211 L687 220 L729 187" fill="none" stroke={secondary} strokeWidth="5" strokeLinecap="round" />
+          </g>
+        ) : null}
+      </svg>
+    </div>
+  );
+}
+
 function Projects({ isMobile, isDataScienceTrack }) {
   return (
     <div>
-      <div style={{ ...card, marginBottom: 14 }}>
+      <div style={{ ...card, marginBottom: 14, overflow: "hidden" }}>
+        <ProjectVisual variant="vision" label="DeepWork AI attention recognition" />
         <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 6, gap: 10 }}>
           <div>
             <div style={{ fontSize: 15, fontWeight: 700, color: "var(--resume-text)" }}>DeepWork AI / DeepLens Engine for Focus</div>
@@ -481,7 +575,8 @@ function Projects({ isMobile, isDataScienceTrack }) {
         </div>
       </div>
 
-      <div style={{ ...card, marginBottom: 14 }}>
+      <div style={{ ...card, marginBottom: 14, overflow: "hidden" }}>
+        <ProjectVisual variant="focus" label="WorldQuant computer vision and deep learning projects" />
         <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 4, color: "var(--resume-text)" }}>WorldQuant CV & DL Fellowship Projects</div>
         <div style={{ fontSize: 12, color: "var(--resume-hint)", marginBottom: 8 }}>2026-present</div>
         <ul style={{ listStyle: "none", padding: 0, margin: "0 0 10px" }}>
@@ -506,7 +601,8 @@ function Projects({ isMobile, isDataScienceTrack }) {
       </div>
 
       {isDataScienceTrack ? (
-        <div style={{ ...card, marginBottom: 14 }}>
+        <div style={{ ...card, marginBottom: 14, overflow: "hidden" }}>
+          <ProjectVisual variant="analytics" label="Applied analytics and machine learning projects" />
           <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 4, color: "var(--resume-text)" }}>MIT MicroMasters — Applied Analytics & ML Projects</div>
           <div style={{ fontSize: 12, color: "var(--resume-hint)", marginBottom: 8 }}>2024-2025</div>
           <ul style={{ listStyle: "none", padding: 0, margin: "0 0 10px" }}>
@@ -529,7 +625,8 @@ function Projects({ isMobile, isDataScienceTrack }) {
         </div>
       ) : null}
 
-      <div style={card}>
+      <div style={{ ...card, overflow: "hidden" }}>
+        <ProjectVisual variant="school" label="Meed Public School management platform" />
         <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 4, color: "var(--resume-text)" }}>School Management Platform — Meed Public School</div>
         <div style={{ fontSize: 12, color: "var(--resume-hint)", marginBottom: 8 }}>Oct 2025-Feb 2026 · Freelance</div>
         <p style={{ fontSize: 13, color: "var(--resume-muted)", lineHeight: 1.6, margin: "0 0 10px" }}>
@@ -781,8 +878,8 @@ const PROFILE_CARDS = [
     href: "/reels",
   },
   {
-    title: "Joint Master’s Candidate",
-    subtitle: "IIT Madras + University of Birmingham",
+    title: "MIT MicroMasters",
+    subtitle: "Statistics & Data Science",
     href: "https://www.linkedin.com/in/nafis-aslam/",
   },
   {
