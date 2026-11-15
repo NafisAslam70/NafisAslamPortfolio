@@ -381,7 +381,7 @@ function Overview({ isMobile, isDataScienceTrack }) {
       >
         {isDataScienceTrack
           ? "MIT-trained Data Scientist and Machine Learning Engineer with strong foundations in statistical analysis, machine learning, SQL analytics, and predictive modeling. Experienced in forecasting systems, probabilistic modeling, and analytics dashboards for decision-making, with interests in manufacturing analytics, process optimization, and Industry 4.0."
-          : "A highly motivated ML/Computer Vision engineer who ships systems that work outside the lab: fast, deployable, and grounded in real problems. Built DeepWork AI powered by DLEF, a real-time attention monitoring system using YOLO + MediaPipe with <50ms CPU inference, alongside a graduate-level MIT program and a full degree. Actively seeking Computer Vision / Machine Learning engineer or research roles across CV, AI, and applied AI."}
+          : "A software developer and applied AI/ML builder who ships systems beyond notebooks. Built DeepWork AI, a full-stack focus product using Next.js, Flask, PostgreSQL, YOLO, and MediaPipe; also built operational dashboards and web applications. Currently pursuing a Joint Master’s in Data Science and AI at IIT Madras and the University of Birmingham. Seeking Kuwait-based full-stack developer, software engineer, Python developer, and applied AI/ML opportunities."}
       </div>
 
       <div style={sectionTitle}>Highlights</div>
@@ -420,9 +420,9 @@ function Overview({ isMobile, isDataScienceTrack }) {
       >
         <div>
           <div style={{ fontSize: 15, fontWeight: 700, color: "#fff" }}>
-            {isDataScienceTrack ? "Open to remote Data Scientist / ML roles" : "Open to remote ML/CV roles"}
+            {isDataScienceTrack ? "Open to Kuwait-based Data / ML roles" : "Open to Kuwait-based Software / Full-Stack / AI roles"}
           </div>
-          <div style={{ fontSize: 13, color: "rgba(255,255,255,.85)", marginTop: 2 }}>Let&apos;s build something that works in the real world.</div>
+          <div style={{ fontSize: 13, color: "rgba(255,255,255,.85)", marginTop: 2 }}>Available for software engineering and applied AI/ML opportunities in Kuwait.</div>
         </div>
         <a
           href="mailto:nafisaslam1819@gmail.com"
@@ -781,8 +781,8 @@ const PROFILE_CARDS = [
     href: "/reels",
   },
   {
-    title: "MIT Trained",
-    subtitle: "& USM Malaysia Graduate",
+    title: "Joint Master’s Candidate",
+    subtitle: "IIT Madras + University of Birmingham",
     href: "https://www.linkedin.com/in/nafis-aslam/",
   },
   {
