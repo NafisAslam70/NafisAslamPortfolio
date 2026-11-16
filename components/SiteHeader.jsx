@@ -24,7 +24,10 @@ export default function SiteHeader({ session, lang = "en", nav = [] }) {
   }, [pathname]);
 
   function applyTheme(next) {
-    document.documentElement.dataset.theme = next;
+    const root = document.documentElement;
+    root.dataset.theme = next;
+    root.classList.remove("light");
+    root.classList.toggle("dark", next === "dark");
     try { localStorage.setItem("theme", next); } catch {}
     setTheme(next);
   }

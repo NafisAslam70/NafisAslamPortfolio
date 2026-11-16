@@ -2,12 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, useReducedMotion, useSpring } from "framer-motion";
+import { FaGithub, FaArrowUpRightFromSquare } from "react-icons/fa6";
 
-function TiltCard({ children, className = "", style = {}, dir }) {
+function TiltCard({ children, className = "", style = {}, dir, id }) {
   const reduceMotion = useReducedMotion();
   const rotateX = useSpring(0, { stiffness: 180, damping: 18, mass: 0.4 });
   const rotateY = useSpring(0, { stiffness: 180, damping: 18, mass: 0.4 });
@@ -28,6 +29,7 @@ function TiltCard({ children, className = "", style = {}, dir }) {
 
   return (
     <motion.article
+      id={id}
       dir={dir}
       className={`portfolio-tilt ${className}`}
       style={{ ...style, rotateX, rotateY, transformPerspective: 1100 }}
@@ -40,6 +42,51 @@ function TiltCard({ children, className = "", style = {}, dir }) {
       <div className="portfolio-tilt-content"><div className="scroll-reveal-content">{children}</div></div>
     </motion.article>
   );
+}
+
+const HERO_ROLES = {
+  en: ["Software Engineer", "Applied AI / ML Engineer", "Research Engineer", "Full-Stack Developer"],
+  ar: ["مهندس برمجيات", "مهندس ذكاء اصطناعي تطبيقي", "مهندس أبحاث", "مطور برمجيات متكاملة"],
+};
+
+function TypedHeroRole({ lang }) {
+  const phrases = HERO_ROLES[lang] || HERO_ROLES.en;
+  const [text, setText] = useState(phrases[0]);
+
+  useEffect(() => {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) return;
+    let phraseIndex = 0;
+    let characterIndex = phrases[0].length;
+    let deleting = false;
+    let pause = 18;
+    const timer = window.setInterval(() => {
+      if (pause > 0) {
+        pause -= 1;
+        return;
+      }
+      const phrase = phrases[phraseIndex];
+      if (!deleting) {
+        characterIndex += 1;
+        setText(phrase.slice(0, characterIndex));
+        if (characterIndex >= phrase.length) {
+          deleting = true;
+          pause = 18;
+        }
+      } else {
+        characterIndex -= 1;
+        setText(phrase.slice(0, characterIndex));
+        if (characterIndex <= 0) {
+          deleting = false;
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+          pause = 3;
+        }
+      }
+    }, 75);
+    return () => window.clearInterval(timer);
+  }, [phrases]);
+
+  return <p className="hero-typed-role" aria-label={phrases.join(", ")} dir={lang === "ar" ? "rtl" : "ltr"}><span>{text}</span><i aria-hidden="true" /></p>;
 }
 
 function ScrollExperience() {
@@ -117,16 +164,25 @@ function ScrollExperience() {
 
 const experience = [
   {
-    role: "Software Engineer – Educational Technology",
+    order: 4,
+    role: "Technology Lead – Organisational Digital Ecosystem",
     organization: "Meed Public School Society (MPS Society) · Jharkhand, India",
     period: "Aug 2025 – May 2026",
+    projectLink: "#projects",
+    resourceLink: "/ventures/meed-public-school#resources",
+    gallery: [
+      "/images/meedian/1.png",
+      "/images/meedian/2.png",
+      "/images/meedian/3.png",
+    ],
     points: [
-      "Built MeedianAI Flow, an institutional operations platform with role-specific workspaces and permissions for administrators, managers, team managers, and frontline staff.",
-      "Implemented schedules, attendance, recurring tasks, progress tracking, tickets, escalations, leave requests, and supervisor-chain approvals.",
-      "Developed operational dashboards and reporting views; contributed AI-assisted support through DELU-GPT and backend assistant integrations.",
+      "Designed the organisation-wide technology roadmap and architecture across three audiences: institutional teams, parents and families, and public-facing school/community audiences.",
+      "Led MeedianAI Flow as the central operating platform, bringing daily operations, role-based access, attendance, schedules, tasks, approvals, reporting, parent communication, and team workflows into one system.",
+      "Delivered supporting digital products: the MEED International School website, MeedianAI Finance for accounts and fee operations, and the Meed Society public website.",
+      "Owned the ecosystem end to end: product flows, information architecture, frontend and backend systems, data models, deployment, and iterative improvement with operational teams.",
+      "Connected the institutional day lifecycle in MeedianAI Flow: day opening, scheduled activities, attendance capture, task and routine completion, day-close submissions, and managerial review.",
     ],
     more: [
-      "Connected the institutional day lifecycle: day opening, scheduled activities, attendance capture, task and routine completion, day-close submissions, and managerial review.",
       "Built configurable programmes and schedules with time slots, staff roles, post codes, and class-by-period assignments.",
       "Implemented QR-based session attendance and staff gate in/out records, with administrative and managerial monitoring screens.",
       "Integrated notifications, chat, Socket.IO real-time features, Twilio telephony workflows, and human-approved WhatsApp notifications.",
@@ -136,6 +192,26 @@ const experience = [
     ],
   },
   {
+    order: 1,
+    role: "Superintendent – School Operations & Community Leadership",
+    organization: "Meed Public School · Jharkhand, India",
+    period: "Jan 2018 – 2021",
+    resourceLink: "/pdfs/Nafis-Aslam-Meed-Story-Portfolio-Style.pdf",
+    resourceLabel: "Read My Meed Journey ↗",
+    points: [
+      "Led academic, residential, administrative, and parent-facing operations at a rural school serving more than 300 students and families, including 100+ hostel residents.",
+      "Built an operating structure across office, academic, and hostel teams; introduced daily reporting, review rhythms, clear ownership, and practical performance management.",
+      "Strengthened parent engagement through regular meetings, term-end reviews, student progress reports, and daily communication with guardians.",
+    ],
+    more: [
+      "Helped grow the organisation from 80–100 students to 300+, and from a 6–7 person team to 30–35 team members.",
+      "Managed school planning, staff coordination, recruitment, residential routines, student welfare, fee follow-up, and community trust-building in a remote setting.",
+      "Expanded facilities and operating capacity, including a computer lab, library, dining hall, and school transport; annual budget grew from approximately ₹10–12 lakh to ₹70–80 lakh.",
+      "Applied a continuous improvement approach: observe the problem, design an intervention, measure the result, and refine the process with staff and families.",
+    ],
+  },
+  {
+    order: 6,
     role: "CV & Deep Learning Fellow",
     organization: "WorldQuant University · Online",
     period: "2026 – Present",
@@ -146,6 +222,7 @@ const experience = [
     ],
   },
   {
+    order: 5,
     role: "Advanced Data Science Intern",
     organization: "IDEAS-TIH · Indian Statistical Institute (ISI), Kolkata, India",
     period: "May 2026 – Jul 2026",
@@ -164,6 +241,7 @@ const experience = [
     ],
   },
   {
+    order: 2,
     role: "Web Developer Intern · Malaysia Equity Market Platform",
     organization: "Speech Processing Group, School of Computer Sciences · Universiti Sains Malaysia",
     project: "Algorithmic Trading Project · Penang, Malaysia",
@@ -181,14 +259,6 @@ const experience = [
       "Served stylesheets and images through Express and added development/production startup commands, including Nodemon for development.",
       "Technology: Node.js, Express.js, EJS, JavaScript, SQLite, Axios, Cheerio, Puppeteer, HTML, CSS, Nodemon.",
     ],
-  },  {
-    role: "AI & Machine Learning Intern",
-    organization: "YBI Foundation",
-    period: "Jun 2024 – Jul 2024",
-    points: [
-      "Built a time-series forecasting pipeline with date reindexing, missing-date handling, lag and rolling features, weekday features, and chronological train/test split.",
-      "Benchmarked persistence, Random Forest, SARIMA, and linear regression; persistence performed best at MAE 6.68 and MAPE 0.30%.",
-    ],
   },
 ];
 
@@ -205,8 +275,8 @@ const COPY = {
   en: {
     field: "Software Engineering · Applied AI / ML · Data Science & Analytics",
     role: "Research engineer and full-stack software developer building institutional platforms, data systems, and applied AI solutions for digital health and community-centred technology.",
-    intro: "Computer Science graduate in Intelligent Computing (AI), with hands-on experience across full-stack software, backend systems, retrieval and reasoning, computer vision, and data pipelines. Based in India and available to relocate across the Gulf.",
-    contact: "Contact me", cv: "Download CV ↗", explore: "Explore projects ↓", bsc: "Bachelor of Computer Science (Honours) — Intelligent Computing (AI)", mit: "MicroMasters programme · Online", award: "ICSC 2026 · International 2nd Rank · 2nd National Award · Top 1%",
+    intro: "MIT-trained Computer Science graduate with a Bachelor of Computer Science (Honours) in Intelligent Computing (AI) from Universiti Sains Malaysia, Malaysia. Hands-on experience delivering full-stack institutional platforms, backend systems, retrieval and reasoning workflows, computer vision, and data pipelines. Based in India and available to relocate across the Gulf.",
+    contact: "Contact me", cv: "Download CV ↗", explore: "Explore projects ↓", bsc: "Bachelor of Computer Science (Honours) — Intelligent Computing (AI)", mit: "Statistics and Data Science MicroMasters (online)", award: "ICSC 2026 · International 2nd Rank · 2nd National Award · Top 1%",
     research: "Selected research", paper: "Read first-author preprint ↗", career: "Career history", experience: "Experience", selected: "Selected work", projects: "Projects with proof", projectIntro: "A closer look at systems I designed, built, evaluated, and documented.", allProjects: "View complete project portfolio ↗", toolkit: "Technical toolkit", expertise: "Expertise", educationEyebrow: "Education & recognition", education: "Academic foundation", next: "Next step", discuss: "Let’s discuss how I can contribute.", discussText: "For AI, machine learning, computer vision, data science, and software engineering opportunities.",
     flagship: "Institutional product delivery", forecast: "Applied AI / ML", shipped: "Research engineering", focus: "MeedianAI Flow", focusText: "Full-stack institutional operations platform with role-specific access, approvals, attendance, task workflows, and management reporting.", forecastTitle: "Video RAG search & reasoning", forecastText: "Layered retrieval combining FAISS, BM25, and knowledge-graph traversal for multimodal Bengali recipe-video understanding.", fullStack: "DeepWork AI / DLEF", fullStackText: "Computer-vision attention monitoring paired with a productivity platform; recipient of the USM PIXEL 2025 Gold Award.",
     cvProject: "Applied AI · Retrieval & Reasoning", platform: "Software Engineering · Product", data: "Data Science · Forecasting", fellowship: "Personal Product · Planning", live: "Live project ↗", video: "Demo video ↗", paperLink: "Paper ↗", github: "GitHub ↗", profile: "GitHub profile ↗", language: "English", location: "Based in India · Available to relocate across the Gulf",
@@ -214,8 +284,8 @@ const COPY = {
   ar: {
     field: "هندسة البرمجيات · الذكاء الاصطناعي التطبيقي · علوم البيانات والتحليلات",
     role: "مهندس أبحاث ومطور برمجيات متكاملة، أبني منصات مؤسسية وأنظمة بيانات وحلول ذكاء اصطناعي تطبيقي للصحة الرقمية والتقنيات المجتمعية.",
-    intro: "خريج علوم الحاسوب بتخصص الحوسبة الذكية والذكاء الاصطناعي، لدي خبرة عملية في تطوير البرمجيات المتكاملة والأنظمة الخلفية والاسترجاع والاستدلال والرؤية الحاسوبية ومسارات البيانات. أقيم في الهند ومتاح للانتقال والعمل في أنحاء دول الخليج.",
-    contact: "تواصل معي", cv: "تحميل السيرة الذاتية ↗", explore: "استكشف المشاريع ↓", bsc: "بكالوريوس علوم الحاسوب مع مرتبة الشرف — الحوسبة الذكية (الذكاء الاصطناعي)", mit: "برنامج MicroMasters · عبر الإنترنت", award: "المركز الدولي الثاني · الجائزة الوطنية الثانية · ضمن أفضل 1٪ في ICSC 2026",
+    intro: "خريج علوم الحاسوب ومدرّب من MIT، حاصل على بكالوريوس علوم الحاسوب مع مرتبة الشرف في الحوسبة الذكية والذكاء الاصطناعي من Universiti Sains Malaysia في ماليزيا. لدي خبرة عملية في تطوير المنصات المؤسسية المتكاملة والأنظمة الخلفية والاسترجاع والاستدلال والرؤية الحاسوبية ومسارات البيانات. أقيم في الهند ومتاح للانتقال والعمل في أنحاء دول الخليج.",
+    contact: "تواصل معي", cv: "تحميل السيرة الذاتية ↗", explore: "استكشف المشاريع ↓", bsc: "بكالوريوس علوم الحاسوب مع مرتبة الشرف — الحوسبة الذكية (الذكاء الاصطناعي)", mit: "برنامج MicroMasters في الإحصاء وعلوم البيانات (عبر الإنترنت)", award: "المركز الدولي الثاني · الجائزة الوطنية الثانية · ضمن أفضل 1٪ في ICSC 2026",
     research: "أبحاث مختارة", paper: "قراءة البحث المنشور باسمي الأول ↗", career: "المسيرة المهنية", experience: "الخبرة", selected: "مشاريع مختارة", projects: "مشاريع مختارة", projectIntro: "نظرة على الأنظمة التي صممتها وطورتها وقيّمتها ووثّقتها.", allProjects: "عرض portfolio المشاريع بالكامل ↗", toolkit: "الأدوات التقنية", expertise: "التخصصات", educationEyebrow: "التعليم والإنجازات", education: "الأساس الأكاديمي", next: "الخطوة التالية", discuss: "لنتحدث عن كيفية مساهمتي في فريقكم.", discussText: "فرص في الذكاء الاصطناعي وتعلم الآلة والرؤية الحاسوبية وعلوم البيانات وهندسة البرمجيات.",
     flagship: "تطوير منتجات مؤسسية", forecast: "الذكاء الاصطناعي التطبيقي", shipped: "هندسة البحث", focus: "MeedianAI Flow", focusText: "منصة متكاملة لإدارة العمليات المؤسسية بصلاحيات حسب الأدوار، والموافقات، والحضور، والمهام، والتقارير الإدارية.", forecastTitle: "البحث والاستدلال عبر Video RAG", forecastText: "استرجاع متعدد الطبقات يجمع FAISS وBM25 واستكشاف الرسم البياني المعرفي لفهم مقاطع وصفات بنغالية متعددة الوسائط.", fullStack: "DeepWork AI / DLEF", fullStackText: "مراقبة الانتباه بالرؤية الحاسوبية ضمن منصة إنتاجية؛ حاز المشروع الجائزة الذهبية في USM PIXEL 2025.",
     cvProject: "ذكاء اصطناعي تطبيقي · استرجاع واستدلال", platform: "هندسة البرمجيات · منتج", data: "علوم البيانات · التنبؤ", fellowship: "منتج شخصي · تخطيط", live: "المشروع المباشر ↗", video: "فيديو العرض ↗", paperLink: "البحث ↗", github: "GitHub ↗", profile: "ملف GitHub ↗", language: "العربية", location: "مقيم في الهند · متاح للانتقال إلى دول الخليج",
@@ -295,18 +365,44 @@ function LocalizedProjectDetails({ lang, kind, children }) {
   return <ul className="mt-3 space-y-2 text-sm leading-6 text-slate-600" dir={lang === "ar" ? "rtl" : "ltr"}>{points.map((point) => <li key={point}>{point}</li>)}</ul>;
 }
 
+function MeedRelatedProducts({ lang }) {
+  const products = lang === "ar"
+    ? [
+        { title: "MeedianAI Finance", text: "نظام للحسابات ورسوم الطلاب والمدفوعات والتقارير.", href: "/ventures#meedianai-finance" },
+        { title: "MEED International School Website", text: "موقع القبول والبرامج والهيئة التعليمية والفعاليات والاستفسارات.", href: "/ventures#meed-international-school-website" },
+      ]
+    : [
+        { title: "MeedianAI Finance", text: "Accounts, student fees, payments, dues, and reporting workflows.", href: "/ventures#meedianai-finance" },
+        { title: "MEED International School Website", text: "Admissions, programmes, faculty, events, and enquiry platform.", href: "/ventures#meed-international-school-website" },
+      ];
+  return <div className="experience-related-products mt-4 grid gap-2 sm:grid-cols-2">{products.map((product) => <Link key={product.title} href={product.href} className="experience-related-product"><span>{lang === "ar" ? "منتج ضمن المنظومة" : "Ecosystem product"}</span><strong>{product.title}</strong><small>{product.text}</small><b>{lang === "ar" ? "عرض التفاصيل ←" : "View project details →"}</b></Link>)}</div>;
+}
+
 export default function EmployerPortfolio({ lang = "en" }) {
   const c = COPY[lang] || COPY.en;
   const cvHref = lang === "ar"
     ? "/pdfs/Nafis_Aslam_Gulf_CV_Arabic_Bilingual_With_LinkedIn.pdf"
     : "/pdfs/Nafis_Aslam_Gulf_CV_English_Master_With_LinkedIn.pdf";
   const roles = lang === "ar" ? [
-    { role: "مهندس برمجيات – تقنيات التعليم", organization: "Meed Public School Society · جهارخاند، الهند", period: "أغسطس 2025 – مايو 2026", points: ["بناء MeedianAI Flow، منصة تشغيل مؤسسية بمساحات عمل وصلاحيات مخصصة للإدارة والمديرين والموظفين.", "تنفيذ الجداول والحضور والمهام المتكررة وتتبع التقدم والتذاكر والتصعيد وطلبات الإجازة والموافقات الإدارية.", "تطوير لوحات تشغيل وتقارير، والمساهمة في دعم مؤسسي بمساعدة الذكاء الاصطناعي عبر DELU-GPT وتكاملات المساعد الخلفي."] },
+    { role: "قائد التقنية – المنظومة الرقمية للمؤسسة", organization: "Meed Public School Society · جهارخاند، الهند", period: "أغسطس 2025 – مايو 2026", gallery: ["/images/meedian/1.png", "/images/meedian/2.png", "/images/meedian/3.png"], points: ["وضع خارطة الطريق التقنية والمعمارية للمنظومة الرقمية عبر ثلاثة جماهير: فرق المؤسسة، وأولياء الأمور والأسر، والجمهور المدرسي والمجتمعي.", "قيادة MeedianAI Flow كمنصة التشغيل المركزية، لتوحيد العمليات اليومية والصلاحيات والحضور والجداول والمهام والموافقات والتقارير وتواصل أولياء الأمور وسير عمل الفرق.", "تطوير منتجات رقمية مساندة: موقع MEED International School ومنصة MeedianAI Finance للحسابات والرسوم وموقع Meed Society العام."], more: ["تخطيط وتصميم وتطوير المنظومة من البداية إلى النهاية: تدفقات المنتج وهندسة المعلومات والواجهات والأنظمة الخلفية ونماذج البيانات والنشر والتحسين المتواصل مع فرق التشغيل.", "ربط دورة اليوم المؤسسي في MeedianAI Flow: فتح اليوم والأنشطة المجدولة والحضور وإتمام المهام والروتين وتقديم إغلاق اليوم والمراجعة الإدارية.", "إعداد البرامج والجداول القابلة للضبط، وسجلات الحضور عبر QR، ولوحات التشغيل، والتقارير، والإشعارات والدردشة والتكاملات الفورية وTwilio وWhatsApp بموافقة بشرية.", "التقنيات: Next.js 15 وReact 19 وJavaScript وPostgreSQL وDrizzle ORM وNextAuth وREST APIs وSocket.IO وTwilio وGit/GitHub وVercel."] },
+    { role: "مشرف عام – عمليات المدرسة وقيادة المجتمع", organization: "Meed Public School · جهارخاند، الهند", period: "يناير 2018 – 2021", points: ["قيادة العمليات الأكاديمية والسكنية والإدارية والتواصل مع أولياء الأمور في مدرسة ريفية خدمت أكثر من 300 طالب وأسرة، منهم أكثر من 100 طالب مقيم.", "بناء هيكل تشغيلي لفرق المكتب والأكاديميات والسكن، مع تقارير يومية واجتماعات مراجعة وملكية واضحة وإدارة عملية للأداء.", "تعزيز مشاركة أولياء الأمور عبر الاجتماعات الدورية والمراجعات الفصلية وتقارير تقدم الطلاب والتواصل اليومي مع أولياء الأمور."], more: ["المساهمة في نمو المؤسسة من 80–100 طالب إلى أكثر من 300 طالب، ومن فريق من 6–7 إلى 30–35 عضواً.", "إدارة تخطيط المدرسة وتنسيق الموظفين والتوظيف والروتين السكني ورفاه الطلاب ومتابعة الرسوم وبناء الثقة المجتمعية في بيئة نائية.", "توسيع المرافق والقدرة التشغيلية، بما فيها مختبر الحاسوب والمكتبة وقاعة الطعام والنقل المدرسي؛ ونما الميزانية السنوية من نحو 10–12 إلى 70–80 lakh روبية.", "اتباع منهج للتحسين المستمر: ملاحظة المشكلة وتصميم تدخل وقياس النتيجة وتحسين العملية مع الموظفين والأسر."] },
     { role: "زميل مختبر تطبيقي للرؤية الحاسوبية والتعلم العميق", organization: "WorldQuant University · عبر الإنترنت", period: "2026 – حتى الآن", points: ["تطوير مسارات تصنيف وشبكات GAN ونماذج انتشار باستخدام PyTorch وتجارب سحابية.", "بناء أنظمة لتصنيف صور كاميرات الحياة البرية واكتشاف أمراض المحاصيل باستخدام CNN ونقل التعلم والأجهزة الافتراضية السحابية.", "إعداد مسارات عمل قابلة لإعادة الإنتاج باستخدام Flask وStreamlit وDocker."] },
     { role: "متدرب علوم بيانات متقدمة", organization: "IDEAS-TIH · المعهد الإحصائي الهندي (ISI)، كولكاتا، الهند", period: "مايو 2026 – يوليو 2026", demo: "https://youtu.be/LX_btzkvX60", points: ["تطوير محرك البحث والاستدلال الموحد لمشروع Video RAG متعدد الوسائط لفهم مقاطع وصفات الطعام.", "دمج FAISS للاسترجاع الكثيف وBM25 للاسترجاع المعجمي وNetworkX لاستكشاف الرسم المعرفي ضمن VideoRAGEngine معياري.", "اختبار خمس مجموعات مرجعية لوصفات بنغالية: 384 مقطعاً متعدد الوسائط ورسم معرفي من 59 عقدة و81 حافة، مع Gemini وQwen2.5 وآليات رجوع."] },
     { role: "متدرب تطوير ويب · منصة سوق الأسهم الماليزية", organization: "مجموعة معالجة الكلام، كلية علوم الحاسوب · Universiti Sains Malaysia", project: "مشروع التداول الخوارزمي · بينانغ، ماليزيا", period: "1 مارس 2023 – 31 أغسطس 2023", points: ["المساهمة في تطوير الواجهة والخلفية لموقع سوق الأسهم الماليزية لتقديم تحديثات الأسهم والأخبار المرتبطة بالشركات.", "بناء البحث عن الشركات والتنقل إلى صفحاتها، مع صفحات ديناميكية لقائمة الشركات والملفات التعريفية والبيانات التاريخية والأخبار."], more: ["تنفيذ البحث من الصفحة الرئيسية: معالجة اسم الشركة وتوحيدها وربطها برمز السهم ثم توجيه المستخدم إلى صفحة الشركة المناسبة.", "تطوير مسارات Express للصفحة الرئيسية ودليل الشركات وصفحات التفاصيل وصفحة خطأ لعمليات البحث غير المدعومة.", "إنشاء قوالب EJS ديناميكية لعرض القوائم والملفات التعريفية والبيانات التاريخية والأخبار.", "ربط وحدات منفصلة لجلب بيانات الأسعار التاريخية وملفات الشركات والأخبار، مع إبقاء هذه المهام خارج معالج المسارات الرئيسي.", "استخدام Axios وCheerio لجلب البيانات وPuppeteer لمهام الجمع عبر المتصفح وSQLite ضمن تخزين التطبيق.", "تقديم ملفات CSS والصور عبر Express وإضافة أوامر تشغيل للتطوير والإنتاج، بما فيها Nodemon أثناء التطوير.", "التقنيات: Node.js وExpress.js وEJS وJavaScript وSQLite وAxios وCheerio وPuppeteer وHTML وCSS وNodemon."] },
-    { role: "متدرب ذكاء اصطناعي وتعلم آلي", organization: "YBI Foundation", period: "يونيو 2024 – يوليو 2024", points: ["بناء مسار للتنبؤ الزمني شمل تجهيز التواريخ والميزات الزمنية وتقسيماً زمنياً للتدريب والاختبار لمنع تسرب البيانات.", "مقارنة Persistence وRandom Forest وSARIMA والانحدار الخطي؛ حقق Persistence أفضل نتيجة: MAE 6.68 وMAPE 0.30٪."] },
   ] : experience;
+  const experienceOrder = {
+    "Technology Lead – Organisational Digital Ecosystem": 5,
+    "Advanced Data Science Intern": 4,
+    "CV & Deep Learning Fellow": 3,
+    "Web Developer Intern · Malaysia Equity Market Platform": 2,
+    "Superintendent – School Operations & Community Leadership": 1,
+    "قائد التقنية – المنظومة الرقمية للمؤسسة": 5,
+    "متدرب علوم بيانات متقدمة": 4,
+    "زميل مختبر تطبيقي للرؤية الحاسوبية والتعلم العميق": 3,
+    "متدرب تطوير ويب · منصة سوق الأسهم الماليزية": 2,
+    "مشرف عام – عمليات المدرسة وقيادة المجتمع": 1,
+  };
+  const orderedRoles = [...roles].sort((a, b) => (experienceOrder[b.role] || 0) - (experienceOrder[a.role] || 0));
   return (
     <main className="employer-portfolio bg-[#f7f8fa] text-slate-900 dark:bg-[#090d13] dark:text-slate-100">
       <ScrollExperience />
@@ -314,6 +410,21 @@ export default function EmployerPortfolio({ lang = "en" }) {
         <div aria-hidden="true" className="hero-science-glow hero-science-glow-one" />
         <div aria-hidden="true" className="hero-science-glow hero-science-glow-two" />
         <div aria-hidden="true" className="hero-science-art">
+          <div className="hero-orbital-system">
+            <div className="hero-orbital-halo" />
+            <div className="hero-orbital-sphere">
+              <span className="hero-sphere-latitude hero-sphere-latitude-one" />
+              <span className="hero-sphere-latitude hero-sphere-latitude-two" />
+              <span className="hero-sphere-longitude hero-sphere-longitude-one" />
+              <span className="hero-sphere-longitude hero-sphere-longitude-two" />
+              <span className="hero-sphere-shine" />
+            </div>
+            <span className="hero-orbit-track hero-orbit-track-one" />
+            <span className="hero-orbit-track hero-orbit-track-two" />
+            <i className="hero-orbital-satellite satellite-one" />
+            <i className="hero-orbital-satellite satellite-two" />
+            <div className="hero-type-signal"><span>BUILDING</span><b>APPLIED AI</b><i /></div>
+          </div>
           <svg className="hero-science-network" viewBox="0 0 900 620" fill="none" preserveAspectRatio="xMidYMid slice">
             <path className="science-line science-line-a" d="M46 438 188 322 314 371 430 208 574 255 718 126 858 190" />
             <path className="science-line science-line-b" d="m188 322 28-185 214 71 144-111 144 29M314 371l65 166 195-282 144 88 140-153" />
@@ -331,21 +442,22 @@ export default function EmployerPortfolio({ lang = "en" }) {
         </div>
         <div dir={lang === "ar" ? "rtl" : "ltr"}>
           <p className="inline-flex rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-indigo-700 dark:border-indigo-300/20 dark:bg-indigo-400/10 dark:text-indigo-200">{c.field}</p>
-          <div dir="ltr" className="mt-5 flex items-center justify-between gap-4 md:block">
-            <h1 className="text-4xl font-bold tracking-tight md:text-7xl">Nafis Aslam</h1>
-            <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-full border-4 border-white shadow-xl ring-1 ring-indigo-200 dark:border-slate-900 dark:ring-indigo-400/40 md:hidden">
+          <div dir="ltr" className="hero-name-row mt-5 flex items-center justify-start md:block">
+            <h1 className="hero-name text-4xl font-bold tracking-tight md:text-7xl">Nafis Aslam</h1>
+            <div className="hero-mobile-avatar relative shrink-0 overflow-hidden border-4 border-white shadow-xl ring-1 ring-indigo-200 dark:border-slate-900 dark:ring-indigo-400/40 md:hidden">
               <Image src="/images/me1.jpg" alt="Nafis Aslam" width={1734} height={1678} priority className="h-full w-full object-cover object-[center_22%]" />
             </div>
           </div>
-          <p className="mt-5 max-w-2xl text-xl font-medium leading-relaxed text-slate-700 dark:text-slate-200 md:text-2xl">{c.role}</p>
-          <p className="mt-5 max-w-2xl leading-7 text-slate-600 dark:text-slate-400">{c.intro}</p>
+          <TypedHeroRole lang={lang} />
+          <p className="mt-3 max-w-2xl text-base font-medium leading-relaxed text-slate-700 dark:text-slate-200 md:text-lg">{c.role}</p>
+          <p className="portfolio-hero-intro mt-5 max-w-2xl leading-7 text-slate-600 dark:text-slate-300">{c.intro}</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a className="inline-flex items-center rounded-full bg-indigo-700 px-5 py-3 text-sm font-semibold text-white hover:bg-indigo-600" href="mailto:nafisaslam70@gmail.com">{c.contact}</a>
             <a className={proofLink} href={cvHref} target="_blank" rel="noreferrer">{c.cv}</a>
             <Link className={proofLink} href="/#projects">{c.explore}</Link>
           </div>
           <div className="mt-10 flex flex-wrap gap-x-8 gap-y-3 border-t border-slate-200 pt-6 text-sm dark:border-white/10">
-            <span className="max-w-sm"><strong className="text-slate-950 dark:text-white">Universiti Sains Malaysia (USM), Malaysia</strong><span className="ml-2 text-slate-500">{c.bsc}</span></span>
+            <span className="portfolio-hero-degree max-w-sm"><strong className="text-slate-950 dark:text-white">Universiti Sains Malaysia (USM), Malaysia</strong><span className="ml-2 text-slate-500">{c.bsc}</span></span>
             <span className="max-w-xs"><strong className="text-slate-950 dark:text-white">Massachusetts Institute of Technology</strong><span className="ml-2 text-slate-500">{c.mit}</span></span>
             <span><strong className="text-slate-950 dark:text-white">{lang === "ar" ? "إنجاز" : "Recognition"}</strong><span className="ml-2 text-slate-500">{c.award}</span></span>
           </div>
@@ -368,36 +480,37 @@ export default function EmployerPortfolio({ lang = "en" }) {
 
       <section className="border-y border-slate-200 bg-white dark:border-white/10 dark:bg-white/[0.025]">
         <div className="mx-auto grid max-w-6xl gap-5 px-5 py-12 md:grid-cols-3 md:px-8">
-          <TiltCard className="rounded-2xl border border-slate-100 bg-gradient-to-br from-white to-indigo-50/80 p-6 shadow-sm dark:border-white/10 dark:from-white/[0.07] dark:to-indigo-400/[0.04]"><p className="text-sm font-semibold text-indigo-700 dark:text-indigo-300">{c.flagship}</p><h2 className="mt-2 text-xl font-bold">{c.focus}</h2><p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-400">{c.focusText}</p></TiltCard>
+          <TiltCard className="rounded-2xl border border-slate-100 bg-gradient-to-br from-white to-indigo-50/80 p-6 shadow-sm dark:border-white/10 dark:from-white/[0.07] dark:to-indigo-400/[0.04]"><p className="text-sm font-semibold text-indigo-700 dark:text-indigo-300">{c.flagship}</p><h2 className="mt-2 text-xl font-bold">{c.focus}</h2><p className="portfolio-highlight-copy mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{c.focusText}</p></TiltCard>
           <TiltCard className="rounded-2xl border border-slate-100 bg-gradient-to-br from-white to-sky-50/80 p-6 shadow-sm dark:border-white/10 dark:from-white/[0.07] dark:to-sky-400/[0.04]"><p className="text-sm font-semibold text-indigo-700 dark:text-indigo-300">{c.forecast}</p><h2 className="mt-2 text-xl font-bold">{c.forecastTitle}</h2><p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-400">{c.forecastText}</p></TiltCard>
           <TiltCard className="rounded-2xl border border-slate-100 bg-gradient-to-br from-white to-violet-50/80 p-6 shadow-sm dark:border-white/10 dark:from-white/[0.07] dark:to-violet-400/[0.04]"><p className="text-sm font-semibold text-indigo-700 dark:text-indigo-300">{c.shipped}</p><h2 className="mt-2 text-xl font-bold">{c.fullStack}</h2><p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-400">{c.fullStackText}</p></TiltCard>
         </div>
       </section>
 
-      <section id="experience" className="portfolio-science-section mx-auto max-w-6xl scroll-mt-28 px-5 py-16 md:px-8">
-        <div className="mb-8 max-w-2xl"><p className="text-sm font-semibold uppercase tracking-[0.18em] text-indigo-700 dark:text-indigo-300">{c.career}</p><h2 className="mt-2 text-3xl font-bold md:text-4xl">{c.experience}</h2></div>
-        <div className="space-y-4">
-          {roles.map((item) => <TiltCard key={item.role} dir={lang === "ar" ? "ltr" : undefined} className="experience-card grid gap-3 rounded-2xl border border-slate-200/90 bg-white p-6 shadow-sm transition hover:border-indigo-200 hover:shadow-lg hover:shadow-slate-900/5 dark:border-white/10 dark:bg-white/[0.035] dark:hover:border-indigo-300/30 md:grid-cols-[240px,1fr] md:gap-8">
-            <div dir={lang === "ar" ? "rtl" : undefined}><h3 className="font-bold">{item.role}</h3><p className="mt-1 text-sm text-slate-600 dark:text-slate-400">{item.organization}</p>{item.project && <p className="mt-2 text-xs font-medium text-slate-500 dark:text-slate-400">{item.project}</p>}<p className="mt-2 text-xs font-semibold uppercase tracking-wide text-indigo-700 dark:text-indigo-300">{item.period}</p>{item.demo && <a className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-indigo-700 underline decoration-indigo-300 underline-offset-4 dark:text-indigo-300" href={item.demo} target="_blank" rel="noreferrer">{lang === "ar" ? "فيديو المشروع ↗" : "Internship project video ↗"}</a>}</div>
-            <div dir={lang === "ar" ? "rtl" : undefined}><ul className="space-y-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{item.points.map((point) => <li key={point} className="flex gap-2"><span className="text-indigo-600">•</span><span>{point}</span></li>)}</ul>{item.more?.length > 0 && <details className="portfolio-disclosure mt-4"><summary>{lang === "ar" ? "المزيد من التفاصيل والتقنيات" : "More details & technology"}</summary><ul className="mt-3 space-y-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{item.more.map((point) => <li key={point} className="flex gap-2"><span className="text-indigo-600">•</span><span>{point}</span></li>)}</ul></details>}</div>
+      <section id="experience" className="portfolio-science-section mx-auto max-w-6xl scroll-mt-20 px-5 py-16 md:px-8">
+        <div className="mb-9 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"><div className="max-w-2xl"><p className="text-sm font-semibold uppercase tracking-[0.18em] text-indigo-700 dark:text-indigo-300">{c.career}</p><h2 className="mt-2 text-3xl font-bold md:text-4xl">{c.experience}</h2></div><span className="experience-ledger">{lang === "ar" ? "سجل المسار المهني · 2018 حتى الآن" : "Career record · 2018—present"}</span></div>
+        <div className={`experience-journey ${lang === "ar" ? "experience-journey-rtl" : ""}`}>
+          {orderedRoles.map((item, index) => <TiltCard key={item.role} dir={lang === "ar" ? "ltr" : undefined} className="experience-card relative grid gap-5 rounded-2xl border border-slate-200/90 bg-white p-6 shadow-sm transition hover:border-indigo-200 hover:shadow-lg hover:shadow-slate-900/5 dark:border-white/10 dark:bg-white/[0.035] dark:hover:border-indigo-300/30 md:grid-cols-[240px,1fr] md:gap-8">
+            <span className="experience-node" aria-hidden="true"><i>{String(index + 1).padStart(2, "0")}</i></span>
+            <div dir={lang === "ar" ? "rtl" : undefined} className="experience-meta"><span className="experience-label">{lang === "ar" ? "محطة مهنية" : "Career chapter"}</span><div className="mt-2 flex items-start gap-2"><h3 className="font-bold">{item.role}</h3>{item.gallery && <span className="experience-project-links"><a href="https://github.com/NafisAslam70/MeedianAI-Flow-v2" target="_blank" rel="noreferrer" aria-label="MeedianAI Flow GitHub" title="GitHub"><FaGithub /></a><a href="https://meedian-ai-flow-v222.vercel.app/" target="_blank" rel="noreferrer" aria-label="Open MeedianAI Flow" title="Live product"><FaArrowUpRightFromSquare /></a><Link href="#projects" aria-label={lang === "ar" ? "تفاصيل مشروع MeedianAI Flow" : "MeedianAI Flow project details"} title={lang === "ar" ? "تفاصيل المشروع" : "Project details"}>⌄</Link></span>}</div><p className="mt-1 text-sm text-slate-600 dark:text-slate-400">{item.organization}</p>{item.project && <p className="mt-2 text-xs font-medium text-slate-500 dark:text-slate-400">{item.project}</p>}<p className="mt-3 text-xs font-semibold uppercase tracking-wide text-indigo-700 dark:text-indigo-300">{item.period}</p>{item.demo && <a className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-indigo-700 underline decoration-indigo-300 underline-offset-4 dark:text-indigo-300" href={item.demo} target="_blank" rel="noreferrer">{lang === "ar" ? "فيديو المشروع ↗" : "Internship project video ↗"}</a>}</div>
+            <div dir={lang === "ar" ? "rtl" : undefined}><ul className="space-y-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{item.points.map((point, pointIndex) => <li key={point} className="flex gap-2"><span className="text-indigo-600">•</span><span>{point}{pointIndex === 0 && item.gallery && <Link href={item.resourceLink || "/ventures/meed-public-school#resources"} className="ml-2 inline-flex font-semibold text-indigo-700 underline decoration-indigo-300 underline-offset-4 dark:text-indigo-300">{lang === "ar" ? "عرض نظام المدرسة ←" : "View school system →"}</Link>}</span></li>)}</ul>{item.resourceLabel && <a href={item.resourceLink} target="_blank" rel="noreferrer" className="experience-journey-resource mt-5"><span>↗</span><div><small>{lang === "ar" ? "قصة القيادة والعمليات والأثر" : "Leadership, operations & impact story"}</small><strong>{lang === "ar" ? "عرض رحلة Meed" : "View My Meed Journey"}</strong></div></a>}{item.gallery && <><div className="experience-gallery mt-5 grid grid-cols-3 gap-2">{item.gallery.map((src, galleryIndex) => <div key={src} className="experience-gallery-shot"><Image src={src} alt={lang === "ar" ? `واجهة MeedianAI Flow ${galleryIndex + 1}` : `MeedianAI Flow interface ${galleryIndex + 1}`} width={960} height={600} className="h-full w-full object-cover" /></div>)}</div><MeedRelatedProducts lang={lang} /><Link href="/ventures#meedianai-flow" className="experience-gallery-link mt-3 inline-flex items-center gap-2">{lang === "ar" ? "عرض تفاصيل المشروع كاملة ←" : "View full project details →"}</Link></>}{item.more?.length > 0 && <details className="portfolio-disclosure mt-4"><summary>{lang === "ar" ? "المزيد من التفاصيل والتقنيات" : "More details & technology"}</summary><ul className="mt-3 space-y-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{item.more.map((point) => <li key={point} className="flex gap-2"><span className="text-indigo-600">•</span><span>{point}</span></li>)}</ul></details>}</div>
           </TiltCard>)}
         </div>
       </section>
 
-      <section id="projects" className="projects-showcase relative isolate scroll-mt-28 overflow-hidden border-y border-indigo-100/80 dark:border-indigo-300/10">
+      <section id="projects" className="projects-showcase relative isolate scroll-mt-20 overflow-hidden border-y border-indigo-100/80 dark:border-indigo-300/10">
         <div className="mx-auto max-w-6xl px-5 py-16 md:px-8">
           <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end"><div><p className="text-sm font-semibold uppercase tracking-[0.18em] text-indigo-300">{c.selected}</p><h2 className="mt-2 text-3xl font-bold md:text-4xl">{c.projects}</h2><p className="mt-3 max-w-2xl text-slate-300">{c.projectIntro}</p></div><Link className="inline-flex w-fit rounded-full bg-white px-5 py-3 text-sm font-semibold text-slate-900 hover:bg-indigo-100" href="/ventures">{c.allProjects}</Link></div>
           <div className={`project-journey mt-10 ${lang === "ar" ? "project-journey-rtl" : ""}`}>
             <TiltCard className="project-journey-card project-journey-featured rounded-3xl border border-indigo-200/80 bg-gradient-to-br from-white to-indigo-50/90 p-7 shadow-xl shadow-indigo-950/10 md:p-8"><span className="project-journey-index">01</span><div className="text-xs font-bold uppercase tracking-widest text-indigo-700">{c.cvProject}</div><h3 className="mt-3 text-2xl font-bold text-slate-950 md:text-3xl">{lang === "ar" ? "DeepWork AI / محرك DeepLens للتركيز" : "DeepWork AI / DeepLens Engine"}</h3><p className="mt-3 text-sm leading-6 text-slate-600">{lang === "ar" ? "تصنيف الانتباه والسلوك عبر كاميرا الويب ضمن ست حالات، باستخدام YOLO وMediaPipe ونهج زمني مدته 20/30 ثانية. صُمم للاستدلال على الجهاز دون تخزين الفيديو." : "Webcam attention classification across six behaviours, combining YOLO and MediaPipe with temporal validation and context-aware nudges. Focus sessions, goal-linked work, analytics, and privacy-aware local frame processing."}</p><div className="mt-5 flex flex-wrap gap-2"><a className="rounded-full bg-indigo-700 px-4 py-2 text-xs font-semibold text-white" href="https://deep-work-ai-nu.vercel.app/" target="_blank" rel="noreferrer">{c.live}</a><a className="rounded-full border border-indigo-200 bg-white/70 px-4 py-2 text-xs font-semibold text-indigo-700" href="https://youtu.be/Je0_qLxRbX8" target="_blank" rel="noreferrer">{c.video}</a><a className="rounded-full border border-indigo-200 bg-white/70 px-4 py-2 text-xs font-semibold text-indigo-700" href="https://doi.org/10.5281/zenodo.19266394" target="_blank" rel="noreferrer">{c.paperLink}</a></div><details className="portfolio-disclosure portfolio-icon-disclosure mt-5"><summary aria-label={lang === "ar" ? "تفاصيل المشروع" : "Project details"} title={lang === "ar" ? "تفاصيل المشروع" : "Project details"}><span className="sr-only">{lang === "ar" ? "تفاصيل المشروع" : "Project details"}</span></summary><LocalizedProjectDetails lang={lang} kind="deepWork"><ul className="mt-3 space-y-2 text-sm leading-6 text-slate-600"><li>Final-year project at Universiti Sains Malaysia (CAT405); Gold Award, USM PIXEL 2025; first-author research preprint.</li><li>DeepLens Engine for Focus: four layers for primary state classification, visual validation, temporal filtering, and context-aware feedback.</li><li>YOLOv11n-cls recognises Focused, Phone, Absent, Drowsy, LookingAway, and BadPosture. Dataset: 1,080 labelled base images, augmented to approximately 3,000; reported validation accuracy 94.76%.</li><li>Auxiliary signals use MediaPipe pose landmarks, FaceMesh iris tracking, Eye Aspect Ratio, YOLOv8, and OpenCV. Transient frame changes are filtered before selected audio/visual nudges.</li><li>Product features include Pomodoro-style focus/break sessions, goals, session summaries, focus analytics, and progress views. Video is processed locally; documentation describes storing derived metrics rather than video recordings.</li><li>Technology: Next.js, React, Tailwind CSS, Flask, Python, PostgreSQL, Drizzle ORM, Clerk, PyTorch, Ultralytics YOLO, MediaPipe, OpenCV.</li></ul></LocalizedProjectDetails></details></TiltCard>
             <TiltCard className="project-journey-card rounded-3xl border border-sky-200/80 bg-gradient-to-br from-white to-sky-50/90 p-6 shadow-lg shadow-sky-950/10 md:mt-20"><span className="project-journey-index">02</span><div className="text-xs font-bold uppercase tracking-widest text-indigo-700">{c.platform}</div><h3 className="mt-3 text-2xl font-bold text-slate-950">MeedianAI Flow</h3><p className="mt-3 text-sm leading-6 text-slate-600">{lang === "ar" ? "منصة لإدارة عمليات المدارس والمجتمعات بصلاحيات حسب الأدوار، وتشمل الجداول والمهام والحضور والرسائل والاستفسارات والتقارير." : "Role-based school and community operations platform spanning schedules, routines, tasks, attendance, messaging, enquiries, and reporting."}</p><div className="mt-5 flex flex-wrap gap-2"><a className="rounded-full bg-indigo-700 px-4 py-2 text-xs font-semibold text-white" href="https://meedian-ai-flow-v222.vercel.app/" target="_blank" rel="noreferrer">{c.live}</a><a className="rounded-full border border-indigo-200 bg-white/70 px-4 py-2 text-xs font-semibold text-indigo-700" href="https://github.com/NafisAslam70/MeedianAI-Flow-v2" target="_blank" rel="noreferrer">{c.github}</a></div><details className="portfolio-disclosure portfolio-icon-disclosure mt-5"><summary aria-label={lang === "ar" ? "تفاصيل المشروع" : "Project details"} title={lang === "ar" ? "تفاصيل المشروع" : "Project details"}><span className="sr-only">{lang === "ar" ? "تفاصيل المشروع" : "Project details"}</span></summary><LocalizedProjectDetails lang={lang} kind="meedian"/></details></TiltCard>
-            <TiltCard className="project-journey-card rounded-3xl border border-violet-200/80 bg-gradient-to-br from-white to-violet-50/90 p-6 shadow-lg shadow-violet-950/10"><span className="project-journey-index">03</span><div className="text-xs font-bold uppercase tracking-widest text-indigo-700">{c.cvProject}</div><h3 className="mt-3 text-2xl font-bold text-slate-950">{lang === "ar" ? "VideoRAG · البحث والاستدلال الموحد" : "VideoRAG · Unified Search & Reasoning"}</h3><p className="mt-3 text-sm leading-6 text-slate-600">{lang === "ar" ? "محرك معياري لفهم مقاطع وصفات بنغالية متعددة الوسائط. جمع FAISS وBM25 واستكشاف الرسم البياني عبر NetworkX، واختُبر على 384 مقطعاً و59 عقدة و81 حافة." : "Modular engine for multimodal Bengali recipe-video understanding. Combined FAISS, BM25, and NetworkX graph traversal; evaluated on 384 chunks and a graph with 59 nodes and 81 edges."}</p><div className="mt-5"><span className="rounded-full border border-violet-200 bg-white/70 px-4 py-2 text-xs font-semibold text-violet-800">IDEAS · ISI Kolkata</span><a className="rounded-full border border-violet-200 bg-white/70 px-4 py-2 text-xs font-semibold text-violet-800" href="https://youtu.be/LX_btzkvX60" target="_blank" rel="noreferrer">{c.video}</a></div><details className="portfolio-disclosure portfolio-icon-disclosure mt-5"><summary aria-label={lang === "ar" ? "تفاصيل المشروع" : "Project details"} title={lang === "ar" ? "تفاصيل المشروع" : "Project details"}><span className="sr-only">{lang === "ar" ? "تفاصيل المشروع" : "Project details"}</span></summary><LocalizedProjectDetails lang={lang} kind="videoRag"/></details></TiltCard>
+            <TiltCard className="project-journey-card rounded-3xl border border-violet-200/80 bg-gradient-to-br from-white to-violet-50/90 p-6 shadow-lg shadow-violet-950/10"><span className="project-journey-index">03</span><div className="text-xs font-bold uppercase tracking-widest text-indigo-700">{c.cvProject}</div><h3 className="mt-3 text-2xl font-bold text-slate-950">{lang === "ar" ? "VideoRAG · البحث والاستدلال الموحد" : "VideoRAG · Unified Search & Reasoning"}</h3><p className="mt-3 text-sm leading-6 text-slate-600">{lang === "ar" ? "محرك معياري لفهم مقاطع وصفات بنغالية متعددة الوسائط. جمع FAISS وBM25 واستكشاف الرسم البياني عبر NetworkX، واختُبر على 384 مقطعاً و59 عقدة و81 حافة." : "Modular engine for multimodal Bengali recipe-video understanding. Combined FAISS, BM25, and NetworkX graph traversal; evaluated on 384 chunks and a graph with 59 nodes and 81 edges."}</p><div className="mt-5 flex flex-wrap gap-2"><span className="rounded-full border border-violet-200 bg-white/70 px-4 py-2 text-xs font-semibold text-violet-800">IDEAS · ISI Kolkata</span><a className="rounded-full border border-violet-200 bg-white/70 px-4 py-2 text-xs font-semibold text-violet-800" href="https://youtu.be/LX_btzkvX60" target="_blank" rel="noreferrer">{c.video}</a><a className="rounded-full border border-violet-200 bg-white/70 px-4 py-2 text-xs font-semibold text-violet-800" href="https://github.com/Shibashis-Mandal/Multimodal-Video-Retrieval-Augmented-Generation-Video-RAG-/tree/main" target="_blank" rel="noreferrer">{c.github}</a></div><details className="portfolio-disclosure portfolio-icon-disclosure mt-5"><summary aria-label={lang === "ar" ? "تفاصيل المشروع" : "Project details"} title={lang === "ar" ? "تفاصيل المشروع" : "Project details"}><span className="sr-only">{lang === "ar" ? "تفاصيل المشروع" : "Project details"}</span></summary><LocalizedProjectDetails lang={lang} kind="videoRag"/></details></TiltCard>
             <TiltCard className="project-journey-card rounded-3xl border border-emerald-200/80 bg-gradient-to-br from-white to-emerald-50/90 p-6 shadow-lg shadow-emerald-950/10 md:mt-16"><span className="project-journey-index">04</span><div className="text-xs font-bold uppercase tracking-widest text-indigo-700">{c.data}</div><h3 className="mt-3 text-2xl font-bold text-slate-950">{lang === "ar" ? "YBI · التنبؤ بحِمل الرعاية" : "YBI Care-Load Forecasting"}</h3><p className="mt-3 text-sm leading-6 text-slate-600">{lang === "ar" ? "مسار تنبؤ زمني مع ميزات التأخر والمتوسطات المتحركة وتقسيم زمني للبيانات. حقق نموذج Persistence أفضل نتيجة: MAE 6.68 وMAPE 0.30٪." : "Time-series pipeline with lag and rolling features and chronological evaluation. Persistence was the strongest benchmark: MAE 6.68 and MAPE 0.30%."}</p><div className="mt-5"><a className="rounded-full border border-emerald-200 bg-white/70 px-4 py-2 text-xs font-semibold text-emerald-800" href="https://github.com/NafisAslam70/UF-Internship-hhs-care-forecast" target="_blank" rel="noreferrer">{c.github}</a></div><details className="portfolio-disclosure portfolio-icon-disclosure mt-5"><summary aria-label={lang === "ar" ? "تفاصيل المشروع" : "Project details"} title={lang === "ar" ? "تفاصيل المشروع" : "Project details"}><span className="sr-only">{lang === "ar" ? "تفاصيل المشروع" : "Project details"}</span></summary><LocalizedProjectDetails lang={lang} kind="forecast"/></details></TiltCard>
             <TiltCard className="project-journey-card rounded-3xl border border-amber-200/80 bg-gradient-to-br from-white to-amber-50/90 p-6 shadow-lg shadow-amber-950/10"><span className="project-journey-index">05</span><div className="text-xs font-bold uppercase tracking-widest text-indigo-700">{c.fellowship}</div><h3 className="mt-3 text-2xl font-bold text-slate-950">DeepCalendar</h3><p className="mt-3 text-sm leading-6 text-slate-600">{lang === "ar" ? "تطبيق ويب وهاتف للتخطيط يجمع الروتين الأسبوعي والخطط اليومية وفترات العمل المرتبطة بالأهداف وتتبع الوقت الفعلي وملاحظات نهاية اليوم." : "Planning companion to DeepWork AI in the DPM productivity ecosystem, connecting long-term goals with weekly routines and actionable daily work plans."}</p><div className="mt-5 flex flex-wrap gap-2"><a className="rounded-full border border-amber-200 bg-white/70 px-4 py-2 text-xs font-semibold text-amber-800" href="https://deep-calendar.vercel.app" target="_blank" rel="noreferrer">{c.live}</a><a className="rounded-full border border-amber-200 bg-white/70 px-4 py-2 text-xs font-semibold text-amber-800" href="https://github.com/NafisAslam70/deep-calendar" target="_blank" rel="noreferrer">{c.github}</a></div><details className="portfolio-disclosure portfolio-icon-disclosure mt-5"><summary aria-label={lang === "ar" ? "تفاصيل المشروع" : "Project details"} title={lang === "ar" ? "تفاصيل المشروع" : "Project details"}><span className="sr-only">{lang === "ar" ? "تفاصيل المشروع" : "Project details"}</span></summary><LocalizedProjectDetails lang={lang} kind="deepCalendar"><ul className="mt-3 space-y-2 text-sm leading-6 text-slate-600"><li>Web application built with Next.js 15, React 19, TypeScript, and a shared PostgreSQL backend; companion Expo/React Native mobile app.</li><li>Goal management, reusable weekly routines, custom single-day plans, routine time windows, and daily work blocks across three focus-depth levels.</li><li>Flexible merge-or-replace planning; planned, active, done, and skipped block states; actual-time recording, shutdown notes, and journaling.</li><li>Desktop weekly calendar and mobile single-day timeline, plus dashboard, routine builder, goals, account, and onboarding interfaces.</li><li>Drizzle ORM data model and APIs for authentication, goals, routines, day plans, block updates, and token-managed public read-only summaries. Cookie sessions for web and bearer tokens for mobile.</li><li>Technology: Next.js 15, React 19, TypeScript, PostgreSQL, Drizzle ORM, Tailwind CSS, Expo, React Native, Expo Router, JWT.</li></ul></LocalizedProjectDetails></details></TiltCard>
           </div>
         </div>
       </section>
 
-      <section id="expertise" className="capability-map portfolio-science-section mx-auto max-w-6xl scroll-mt-28 px-5 py-16 md:px-8">
+      <section id="expertise" className="capability-map portfolio-science-section mx-auto max-w-6xl scroll-mt-20 px-5 py-16 md:px-8">
         <div className="relative z-10"><p className="text-sm font-semibold uppercase tracking-[0.18em] text-indigo-700 dark:text-indigo-300">{lang === "ar" ? "خريطة القدرات · 04 مجالات" : "Capability map · 04 domains"}</p><h2 className="mt-2 text-3xl font-bold md:text-4xl">{c.expertise}</h2><p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600 dark:text-slate-400">{lang === "ar" ? "مجالاتي التقنية مترابطة: من بناء المنتجات والأنظمة إلى تطبيق الذكاء الاصطناعي وتحويل البيانات إلى قرارات." : "A connected skill set spanning product engineering, reliable data systems, applied AI, and delivery."}</p></div>
         <svg aria-hidden="true" className="capability-links" viewBox="0 0 1000 500" fill="none"><path d="M150 120 500 250 850 120M150 380 500 250 850 380M150 120 150 380M850 120 850 380" /><circle cx="500" cy="250" r="8" /></svg>
         <div className="capability-cards relative z-10 mt-8 grid gap-4 sm:grid-cols-2">{expertise.map((item, index) => {
@@ -414,14 +527,13 @@ export default function EmployerPortfolio({ lang = "en" }) {
         </div></div>
       </section>
 
-      <section id="recognition" className="portfolio-science-section mx-auto max-w-6xl scroll-mt-28 px-5 py-14 md:px-8"><p className="text-sm font-semibold uppercase tracking-[0.18em] text-indigo-700 dark:text-indigo-300">{lang === "ar" ? "الجوائز والتقدير" : "Awards & recognition"}</p><div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <section id="recognition" className="portfolio-science-section mx-auto max-w-6xl scroll-mt-20 px-5 py-14 md:px-8"><p className="text-sm font-semibold uppercase tracking-[0.18em] text-indigo-700 dark:text-indigo-300">{lang === "ar" ? "الجوائز والتقدير" : "Awards & recognition"}</p><div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <TiltCard className="rounded-2xl border border-amber-300/70 bg-gradient-to-br from-amber-50 to-yellow-100/60 p-5 shadow-md dark:border-amber-300/20 dark:from-amber-300/[0.08] dark:to-orange-300/[0.025]"><h3 className="font-bold">{lang === "ar" ? "المركز الدولي الثاني · ICSC 2026" : "International 2nd Rank · ICSC 2026"}</h3><p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{lang === "ar" ? "فئة الكبار؛ تقدير ذهبي ضمن أفضل 1٪ من نحو 4,300 مشارك. سفير المسابقة لمنطقة كولكاتا." : "Senior category; Gold Honour, top 1% among approximately 4,300 participants. Selected as Kolkata-region ambassador."}</p></TiltCard>
         <TiltCard className="rounded-2xl border border-slate-200 bg-gradient-to-br from-white to-indigo-50/70 p-5 shadow-sm dark:border-white/10 dark:from-white/[0.06] dark:to-indigo-400/[0.03]"><h3 className="font-bold">{lang === "ar" ? "الجائزة الذهبية · USM PIXEL 2025" : "Gold Award · USM PIXEL 2025"}</h3><p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{lang === "ar" ? "عن DeepWork AI وDeepLens Engine for Focus." : "For DeepWork AI and the DeepLens Engine for Focus."}</p></TiltCard>
-        <TiltCard className="rounded-2xl border border-slate-200 bg-gradient-to-br from-white to-slate-100 p-5 shadow-sm dark:border-white/10 dark:from-white/[0.06] dark:to-white/[0.02]"><h3 className="font-bold">{lang === "ar" ? "إنجازات أكاديمية وتقنية" : "Academic & technical recognition"}</h3><div className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{lang === "ar" ? "تقدير ذهبي في IYMC (أفضل 2٪) · جوائز أفضل واجب من USM · Coding Ninjas: 250+ مسألة DSA." : "IYMC Gold Honour (top 2%) · USM Best Assignment Awards · Coding Ninjas: 250+ DSA problems."}<details className="portfolio-disclosure mt-3"><summary>{lang === "ar" ? "المزيد من الإنجازات" : "More achievements & leadership"}</summary><ul className="mt-3 space-y-2"><li>ICSC 2026 Kolkata-region ambassador: mentoring students, guiding coding and problem-solving, and supporting workshops.</li><li>2nd National Award, India, at ICSC 2026.</li><li>Ashoka Young Changemaker, The Impactful Journey with Meed Public School (2020), for founding and leading a residential school serving 300+ underserved students in rural Jharkhand.</li><li>Superintendent, Meed Public School (2018–2022): academic operations and student welfare for 300+ residential students; this experience later informed the DeepLens attention research.</li><li>Dean’s List for three consecutive final semesters: Semester II 2023/2024, Semester I 2024/2025, Semester II 2024/2025.</li><li>Best Assignment Awards: CST235 (Computer Networks and Information Security, 2022) and CPC353 (Natural Language Processing, 2023); Coding Ninjas 100-day challenge, 250+ DSA problems, and approximately 50 LeetCode problems.</li></ul></details></div></TiltCard>
+        <TiltCard className="rounded-2xl border border-slate-200 bg-gradient-to-br from-white to-slate-100 p-5 shadow-sm dark:border-white/10 dark:from-white/[0.06] dark:to-white/[0.02]"><h3 className="font-bold">{lang === "ar" ? "إنجازات أكاديمية وتقنية" : "Academic & technical recognition"}</h3><div className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{lang === "ar" ? "تقدير ذهبي في IYMC (أفضل 2٪) · جوائز أفضل واجب من USM · Coding Ninjas: 250+ مسألة DSA." : "IYMC Gold Honour (top 2%) · USM Best Assignment Awards · Coding Ninjas: 250+ DSA problems."}<details className="portfolio-disclosure mt-3"><summary>{lang === "ar" ? "المزيد من الإنجازات" : "More achievements & leadership"}</summary><ul className="mt-3 space-y-2"><li>ICSC 2026 Kolkata-region ambassador: mentoring students, guiding coding and problem-solving, and supporting workshops.</li><li>2nd National Award, India, at ICSC 2026.</li><li>Ashoka Young Changemaker, The Impactful Journey with Meed Public School (2020), for founding and leading a residential school serving 300+ underserved students in rural Jharkhand.</li><li>Superintendent, Meed Public School (2018–2021): academic, residential, and operational leadership for 300+ students and families; this experience later informed the DeepLens attention research.</li><li>Dean’s List for three consecutive final semesters: Semester II 2023/2024, Semester I 2024/2025, Semester II 2024/2025.</li><li>Best Assignment Awards: CST235 (Computer Networks and Information Security, 2022) and CPC353 (Natural Language Processing, 2023); Coding Ninjas 100-day challenge, 250+ DSA problems, and approximately 50 LeetCode problems.</li></ul></details></div></TiltCard>
       </div></section>
 
-      <section id="leadership" className="border-y border-slate-200 bg-white dark:border-white/10 dark:bg-white/[0.025]"><div className="mx-auto max-w-6xl px-5 py-14 md:px-8"><p className="text-sm font-semibold uppercase tracking-[0.18em] text-indigo-700 dark:text-indigo-300">{lang === "ar" ? "القيادة" : "Leadership"}</p><h2 className="mt-2 text-3xl font-bold">{lang === "ar" ? "إدارة العمليات والفرق" : "School operations & team leadership"}</h2><p className="mt-4 max-w-4xl leading-7 text-slate-600 dark:text-slate-400">{lang === "ar" ? "مشرف · Meed Public School · جهارخاند، الهند · 2018–2022. قيادة العمليات الأكاديمية والسكنية والإدارية اليومية في مدرسة داخلية؛ دعم تعليم وسلامة ورفاه أكثر من 300 طالب. تنسيق الأنشطة الأكاديمية والموظفين وروتين الطلاب والسكن، وقيادة التوظيف مع نمو الفريق من نحو 6–7 إلى 30–40 عضواً." : "Superintendent · Meed Public School · Jharkhand, India · 2018–2022. Led day-to-day academic, residential, and administrative operations at a fully residential school, supporting the education, safety, and welfare of 300+ students. Coordinated school planning and staff responsibilities; led recruitment as the team grew from around 6–7 to 30–40 members."}</p></div></section>
-      <section id="contact" className="mx-auto max-w-6xl scroll-mt-28 px-5 py-16 text-center md:px-8"><p className="text-sm font-semibold uppercase tracking-[0.18em] text-indigo-700 dark:text-indigo-300">{c.next}</p><h2 className="mt-2 text-3xl font-bold md:text-4xl">{c.discuss}</h2><p className="mx-auto mt-3 max-w-xl text-slate-600 dark:text-slate-400">{c.discussText}</p><div className="mt-6 flex flex-wrap justify-center gap-3"><a className="rounded-full bg-indigo-700 px-5 py-3 text-sm font-semibold text-white hover:bg-indigo-600" href="mailto:nafisaslam70@gmail.com">nafisaslam70@gmail.com</a><a className={proofLink} href="https://wa.me/601137576465" target="_blank" rel="noreferrer">WhatsApp · +60 11-3757 6465 ↗</a><a className={proofLink} href="https://www.linkedin.com/in/nafis-aslam/" target="_blank" rel="noreferrer">LinkedIn ↗</a><a className={proofLink} href="https://github.com/NafisAslam70" target="_blank" rel="noreferrer">GitHub ↗</a></div></section>
+      <section id="contact" className="mx-auto max-w-6xl scroll-mt-20 px-5 py-16 text-center md:px-8"><p className="text-sm font-semibold uppercase tracking-[0.18em] text-indigo-700 dark:text-indigo-300">{c.next}</p><h2 className="mt-2 text-3xl font-bold md:text-4xl">{c.discuss}</h2><p className="mx-auto mt-3 max-w-xl text-slate-600 dark:text-slate-400">{c.discussText}</p><div className="mt-6 flex flex-wrap justify-center gap-3"><a className="rounded-full bg-indigo-700 px-5 py-3 text-sm font-semibold text-white hover:bg-indigo-600" href="mailto:nafisaslam70@gmail.com">nafisaslam70@gmail.com</a><a className={proofLink} href="https://wa.me/601137576465" target="_blank" rel="noreferrer">WhatsApp · +60 11-3757 6465 ↗</a><a className={proofLink} href="https://www.linkedin.com/in/nafis-aslam/" target="_blank" rel="noreferrer">LinkedIn ↗</a><a className={proofLink} href="https://github.com/NafisAslam70" target="_blank" rel="noreferrer">GitHub ↗</a></div></section>
     </main>
   );
 }

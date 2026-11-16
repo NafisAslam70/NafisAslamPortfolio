@@ -39,10 +39,10 @@ const stats = [
 
 const resourceCards = [
   {
-    title: "My Journey",
+    title: "My Meed Journey",
     description:
-      "Full story of how Meed grew from a neighbourhood experiment in Sahibganj into a systems-first school.",
-    href: "/pdfs/meed-my-journey.pdf",
+      "The full Meed leadership story: building school systems, community trust, operations, and growth from the ground up.",
+    href: "/pdfs/Nafis-Aslam-Meed-Story-Portfolio-Style.pdf",
     featured: true,
   },
   {
@@ -88,7 +88,7 @@ export default function MeedPublicSchool() {
             >
               Spotlight
             </span>
-            <h2 className="text-2xl md:text-3xl font-semibold">My Journey</h2>
+            <h2 className="text-2xl md:text-3xl font-semibold">My Meed Journey</h2>
             <div className="space-y-3 text-muted text-sm md:text-base">
               <p>
                 From a teenager volunteering at a neighbourhood school to leading a systems-first institution

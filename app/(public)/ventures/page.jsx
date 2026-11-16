@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export const metadata = {
   title: "Projects • Nafis Aslam | Gulf Software & Applied AI Portfolio",
@@ -17,6 +18,19 @@ const projects = [
         stack: "Next.js · React · PostgreSQL · Drizzle · Prisma · Redis · NextAuth · Tailwind",
         github: "https://github.com/NafisAslam70/MeedianAI-Flow-v2",
         live: "https://meedian-ai-flow-v222.vercel.app/",
+        gallery: [
+          "/images/meedian/1.png",
+          "/images/meedian/2.png",
+          "/images/meedian/3.png",
+          "/images/meedian/Screenshot%202026-11-15%20at%205.28.30%E2%80%AFPM.png",
+          "/images/meedian/Screenshot%202026-11-17%20at%203.08.42%E2%80%AFAM.png",
+          "/images/meedian/Screenshot%202026-11-17%20at%203.09.07%E2%80%AFAM.png",
+          "/images/meedian/Screenshot%202026-11-17%20at%203.10.07%E2%80%AFAM.png",
+          "/images/meedian/Screenshot%202026-11-17%20at%203.07.19%E2%80%AFAM.png",
+          "/images/meedian/Screenshot%202026-11-17%20at%203.08.30%E2%80%AFAM.png",
+          "/images/meedian/Screenshot%202026-11-17%20at%203.05.38%E2%80%AFAM.png",
+          "/images/meedian/Screenshot%202026-11-17%20at%203.07.11%E2%80%AFAM.png",
+        ],
       },
       {
         title: "MEED International School Website",
@@ -253,8 +267,9 @@ function ExternalLink({ href, children }) {
 }
 
 function ProjectCard({ project }) {
+  const projectId = project.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
   return (
-    <article className="flex h-full flex-col rounded-2xl border border-slate-200/80 bg-white/80 p-5 shadow-sm dark:border-white/10 dark:bg-white/[0.04]">
+    <article id={project.title === "MeedianAI Flow v2" ? "meedianai-flow" : projectId} className="flex h-full scroll-mt-24 flex-col rounded-2xl border border-slate-200/80 bg-white/80 p-5 shadow-sm dark:border-white/10 dark:bg-white/[0.04]">
       <div className="flex items-start justify-between gap-3">
         <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{project.title}</h3>
         {(project.private || project.status) && <span className="shrink-0 rounded-full bg-amber-100 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-amber-800 dark:bg-amber-300/10 dark:text-amber-200">{project.private ? "Private repo" : project.status}</span>}
@@ -262,6 +277,7 @@ function ProjectCard({ project }) {
       <p className="mt-3 flex-1 text-sm leading-6 text-slate-600 dark:text-slate-300">{project.description}</p>
       {project.stack && <p className="mt-4 text-xs leading-5 text-slate-500 dark:text-slate-400"><span className="font-semibold text-slate-700 dark:text-slate-200">Stack:</span> {project.stack}</p>}
       {project.video && <div className="mt-4 w-full max-w-xs overflow-hidden rounded-xl border border-slate-200 bg-slate-100 shadow-sm dark:border-white/10 dark:bg-black/20"><div className="relative aspect-video"><iframe className="absolute inset-0 h-full w-full" src={`https://www.youtube-nocookie.com/embed/${project.video}`} title={project.videoTitle || `${project.title} demo`} loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen /></div><p className="px-3 py-2 text-[11px] font-medium text-slate-500 dark:text-slate-400">{project.videoTitle || `${project.title} demo`}</p></div>}
+      {project.gallery && <div className="mt-4 grid grid-cols-2 gap-2">{project.gallery.map((src, index) => <div key={src} className="aspect-[1.5] overflow-hidden rounded-lg border border-slate-200 bg-slate-100 dark:border-white/10 dark:bg-slate-950"><Image src={src} alt={`MeedianAI Flow interface ${index + 1}`} width={960} height={600} className="h-full w-full object-cover transition duration-300 hover:scale-105" /></div>)}</div>}
       <div className="mt-4 flex flex-wrap gap-2">
         {project.github && <ExternalLink href={project.github}>GitHub</ExternalLink>}
         {project.live && <ExternalLink href={project.live}>Live project</ExternalLink>}
