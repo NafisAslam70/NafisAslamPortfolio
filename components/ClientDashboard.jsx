@@ -26,7 +26,7 @@ import {
 
 const DC_ORIGIN = "https://deep-calendar.vercel.app";
 const DC_TOKEN = "18e42020c705668bbfd96cabe813ba61d229abe75dea2d7d";
-const HERO_ROLES = ["data scientist", "AI developer", "AI researcher", "focus systems architect"];
+const HERO_ROLES = ["full-stack developer", "software engineer", "applied AI/ML engineer", "Python developer"];
 const GITHUB_USERNAME = "NafisAslam70"; // GitHub handle
 const NAV_SECTIONS = [
   { id: "overview", label: "Overview", icon: FaHome },
@@ -805,8 +805,8 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
             </div>
           </div>
           <div className="hire-cta-card relative w-[148px] overflow-hidden rounded-2xl border border-slate-200/70 bg-gradient-to-br from-white/92 via-slate-100/60 to-emerald-100/25 p-4 text-center text-[11px] shadow-lg ring-1 ring-transparent transition duration-300 hover:shadow-slate-300/20 hover:ring-slate-200/50 dark:border-white/10 dark:from-white/[0.08] dark:via-slate-900/20 dark:to-emerald-900/12">
-            <div className="font-semibold uppercase tracking-[0.28em] text-slate-700 dark:text-slate-200">Need a Builder?</div>
-            <p className="mt-2 text-[11px] font-medium text-slate-600 dark:text-slate-200">Let’s scope your next sprint together.</p>
+            <div className="font-semibold uppercase tracking-[0.28em] text-slate-700 dark:text-slate-200">Open to Kuwait Roles</div>
+            <p className="mt-2 text-[11px] font-medium text-slate-600 dark:text-slate-200">Full-stack · Software · Applied AI/ML</p>
             <Link
               href="/hire-me"
               className="mt-3 inline-flex w-full items-center justify-center rounded-full bg-indigo-600 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.25em] text-white transition duration-300 hover:bg-indigo-500"
@@ -865,7 +865,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                     >
                       Meed
                     </Link>
-                    . Open to data and AI roles where craft, rigor, and operating systems matter.
+                    . Open to Kuwait-based opportunities in full-stack development, software engineering, and applied AI/ML.
                   </p>
                 </div>
 
