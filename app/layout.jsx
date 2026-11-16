@@ -20,7 +20,7 @@ async function getSession() {
 
 function getLang() {
   const lang = cookies().get("lang")?.value;
-  return lang === "hi" ? "hi" : "en";
+  return lang === "ar" ? "ar" : "en";
 }
 
 function ThemeInitScript() {
@@ -42,7 +42,7 @@ export default async function RootLayout({ children }) {
   const lang = getLang();
 
   return (
-    <html lang={lang} suppressHydrationWarning>
+    <html lang={lang} dir={lang === "ar" ? "rtl" : "ltr"} suppressHydrationWarning>
       <head>
         <ThemeInitScript />
         <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />

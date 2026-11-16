@@ -5,6 +5,9 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import PersonalizedOverlay from "./PersonalizedOverlay";
 import { PERSONALIZED_MESSAGES } from "@/content/personalised";
 
+// Temporarily keep the employer role-selection popup hidden while the portfolio is being refocused.
+const SHOW_EMPLOYER_GATE = false;
+
 function EmployerPortfolioGate({ onDismiss, onSelectTrack }) {
   const [step, setStep] = useState("employer");
 
@@ -108,6 +111,7 @@ export default function PersonalizedEntry() {
   const isPublicPath = pathname ? !pathname.startsWith("/admin") && !pathname.startsWith("/api") : false;
 
   useEffect(() => {
+    if (!SHOW_EMPLOYER_GATE) return;
     if (!isPublicPath) return;
     if (pathname === "/interviewer-feedback") return;
     if (hasPersonalizedCard) return;
@@ -147,7 +151,7 @@ export default function PersonalizedEntry() {
     return <PersonalizedOverlay data={data} onClose={() => setDismissed(slug)} />;
   }
 
-  if (showEmployerGate) {
+  if (SHOW_EMPLOYER_GATE && showEmployerGate) {
     return <EmployerPortfolioGate onDismiss={dismissEmployerGate} onSelectTrack={handleTrackSelect} />;
   }
 

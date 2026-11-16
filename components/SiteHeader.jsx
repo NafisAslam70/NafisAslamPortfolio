@@ -32,13 +32,15 @@ export default function SiteHeader({ session, lang = "en", nav = [] }) {
     applyTheme(theme === "dark" ? "light" : "dark");
   }
 
-  function label(item) {
-    return curLang === "hi" ? (item.labelHi || item.labelEn) : item.labelEn;
-  }
-  function setLang(next) {
-    try { document.cookie = `lang=${next}; Path=/; Max-Age=31536000`; } catch {}
+  function toggleLanguage() {
+    const next = curLang === "ar" ? "en" : "ar";
+    document.cookie = `lang=${next}; Path=/; Max-Age=31536000; SameSite=Lax`;
     setCurLang(next);
-    router.refresh(); // server will set <html lang="...">
+    router.refresh();
+  }
+
+  function label(item) {
+    return curLang === "ar" ? (item.labelAr || item.labelEn) : item.labelEn;
   }
 
   async function logout() {
@@ -76,7 +78,7 @@ export default function SiteHeader({ session, lang = "en", nav = [] }) {
             <div className="flex flex-col leading-tight">
               <span className="text-base font-semibold md:text-lg">Nafis Aslam</span>
               <span className="hidden text-[11px] uppercase tracking-[0.28em] text-slate-600/80 dark:text-slate-300/80 md:block">
-                {curLang === "hi" ? "निर्माण मोड" : "Build Mode"}
+                {curLang === "ar" ? "ملف مهني" : "Professional Portfolio"}
               </span>
             </div>
           </Link>
@@ -92,7 +94,7 @@ export default function SiteHeader({ session, lang = "en", nav = [] }) {
                     <Link
                       key={item.href}
                       href={item.href}
-                      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-2xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-lg transition duration-300 hover:shadow-xl hover:bg-slate-800 dark:bg-emerald-600 dark:hover:bg-emerald-500"
+                      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-2xl bg-indigo-700 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-indigo-950/10 transition duration-300 hover:bg-indigo-600 hover:shadow-xl dark:bg-indigo-600 dark:hover:bg-indigo-500"
                     >
                       <span className="relative z-10">{label(item)}</span>
                       <span className="pointer-events-none absolute inset-0 bg-white/10 opacity-0 transition duration-300 group-hover:opacity-100" />
@@ -104,19 +106,19 @@ export default function SiteHeader({ session, lang = "en", nav = [] }) {
                     {active && (
                       <motion.span
                         layoutId="site-header-active"
-                        className="pointer-events-none absolute inset-0 rounded-2xl bg-slate-900 shadow-[0_12px_30px_-18px_rgba(15,23,42,0.28)] dark:bg-emerald-600 dark:shadow-[0_12px_30px_-18px_rgba(16,185,129,0.24)]"
+                        className="pointer-events-none absolute inset-0 rounded-2xl bg-indigo-700 shadow-[0_12px_30px_-18px_rgba(79,70,229,0.35)] dark:bg-indigo-600"
                         transition={{ type: "spring", stiffness: 380, damping: 32 }}
                       />
                     )}
                     {!active && (
-                      <span className="pointer-events-none absolute inset-0 rounded-2xl border border-slate-200/80 bg-white/80 transition duration-300 group-hover:border-slate-300 group-hover:bg-white dark:border-white/15 dark:bg-white/[0.06] dark:group-hover:border-emerald-300/30" />
+                      <span className="pointer-events-none absolute inset-0 rounded-2xl border border-slate-200/80 bg-white/80 transition duration-300 group-hover:border-indigo-300 group-hover:bg-white dark:border-white/15 dark:bg-white/[0.06] dark:group-hover:border-indigo-300/40" />
                     )}
                     <Link
                       href={item.href}
                       className={`relative z-10 flex items-center gap-2 rounded-2xl px-4 py-2 text-sm font-medium transition duration-200 ${
                         active
                           ? "text-white"
-                          : "text-slate-600 hover:text-slate-900 dark:text-slate-200 dark:hover:text-emerald-200"
+                          : "text-slate-600 hover:text-indigo-700 dark:text-slate-200 dark:hover:text-indigo-200"
                       }`}
                     >
                       {label(item)}
@@ -130,15 +132,14 @@ export default function SiteHeader({ session, lang = "en", nav = [] }) {
           {/* Actions */}
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-2 rounded-2xl border border-slate-200/70 bg-white/70 px-2 py-1 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/[0.06]">
-              {/* Lang toggle */}
               <button
-                className="rounded-full border border-transparent bg-indigo-500/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-indigo-600 transition hover:-translate-y-0.5 hover:bg-indigo-500/25 dark:text-indigo-200"
-                onClick={() => setLang(curLang === "hi" ? "en" : "hi")}
-                title="Switch language"
+                className="rounded-full border border-transparent bg-indigo-500/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-indigo-700 transition hover:-translate-y-0.5 hover:bg-indigo-500/25 dark:text-indigo-200"
+                onClick={toggleLanguage}
+                title="Switch language / تغيير اللغة"
+                aria-label="Switch language between English and Arabic"
               >
-                {curLang === "hi" ? "EN" : "हिं"}
+                {curLang === "ar" ? "EN" : "العربية"}
               </button>
-
               {/* Theme toggle */}
               <button
                 className="rounded-full border border-transparent bg-indigo-500/15 px-2.5 py-1 text-base transition hover:-translate-y-0.5 hover:bg-indigo-500/25"
@@ -165,14 +166,7 @@ export default function SiteHeader({ session, lang = "en", nav = [] }) {
                   Logout
                 </button>
               </>
-            ) : (
-              <Link
-                href="/login"
-                className="inline-flex overflow-hidden rounded-2xl border border-indigo-200/60 bg-white/70 px-4 py-2 text-sm font-semibold text-indigo-600 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-indigo-300 hover:text-indigo-500 dark:border-white/15 dark:bg-white/[0.08] dark:text-indigo-200"
-              >
-                Login
-              </Link>
-            )}
+            ) : null}
 
             {/* Mobile menu button */}
             <button
@@ -195,8 +189,8 @@ export default function SiteHeader({ session, lang = "en", nav = [] }) {
                   href={n.href}
                   className={`flex items-center justify-between rounded-2xl border px-4 py-3 text-sm font-semibold transition ${
                     n.variant === "primary"
-                      ? "border-transparent bg-gradient-to-r from-sky-500 via-blue-500 to-teal-500 text-white shadow-md"
-                      : "border-indigo-200/60 bg-white/70 text-slate-600 hover:border-indigo-300 hover:text-indigo-600 dark:border-white/15 dark:bg-white/[0.06] dark:text-slate-200"
+                      ? "border-transparent bg-indigo-700 text-white shadow-md dark:bg-indigo-600"
+                      : "border-slate-200 bg-white/80 text-slate-600 hover:border-indigo-300 hover:text-indigo-700 dark:border-white/15 dark:bg-white/[0.06] dark:text-slate-200"
                   }`}
                   onClick={() => setOpen(false)}
                 >

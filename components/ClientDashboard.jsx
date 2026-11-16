@@ -851,8 +851,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                     <span className="inline-block rounded-full bg-indigo-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.3em] text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-200">
                       Deep Work First
                     </span>{" "}
-                    AI systems engineer focused on disciplined execution. Computer Science (AI) @ USM · MIT Data Science
-                    MicroMasters. Founder of{" "}
+                    AI systems engineer focused on disciplined execution. Computer Science (AI) @ USM · MicroMasters Programme in Statistics and Data Science, Massachusetts Institute of Technology (Online). Founder of{" "}
                     <Link
                       href="/ventures/deepwork-ai"
                       className="font-serif text-base font-semibold text-slate-900 transition hover:text-indigo-500 dark:text-slate-100 dark:hover:text-indigo-200 md:text-lg"

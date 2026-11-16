@@ -50,7 +50,7 @@ const HIRE_REASONS = [
   },
   {
     title: "Research thinking with builder instincts",
-    text: "MIT training, USM AI grounding, a first-author preprint, and hands-on shipping experience let me move between research reasoning and product execution without losing rigor.",
+    text: "Graduate training through the MicroMasters Programme in Statistics and Data Science at the Massachusetts Institute of Technology (online), USM AI grounding, a first-author preprint, and hands-on shipping experience let me move between research reasoning and product execution without losing rigor.",
   },
   {
     title: "Proof-backed, mission-driven work",
@@ -380,8 +380,8 @@ function Overview({ isMobile, isDataScienceTrack }) {
         }}
       >
         {isDataScienceTrack
-          ? "MIT-trained Data Scientist and Machine Learning Engineer with strong foundations in statistical analysis, machine learning, SQL analytics, and predictive modeling. Experienced in forecasting systems, probabilistic modeling, and analytics dashboards for decision-making, with interests in manufacturing analytics, process optimization, and Industry 4.0."
-          : "A highly motivated ML/Computer Vision engineer who ships systems that work outside the lab: fast, deployable, and grounded in real problems. Built DeepWork AI powered by DLEF, a real-time attention monitoring system using YOLO + MediaPipe with <50ms CPU inference, alongside a graduate-level MIT program and a full degree. Actively seeking Computer Vision / Machine Learning engineer or research roles across CV, AI, and applied AI."}
+          ? "Graduate of the MicroMasters Programme in Statistics and Data Science offered through the Massachusetts Institute of Technology’s Institute for Data, Systems, and Society (online), with strong foundations in statistical analysis, machine learning, SQL analytics, and predictive modeling. Experienced in forecasting systems, probabilistic modeling, and analytics dashboards for decision-making, with interests in manufacturing analytics, process optimization, and Industry 4.0."
+          : "A highly motivated ML/Computer Vision engineer who ships systems that work outside the lab: fast, deployable, and grounded in real problems. Built DeepWork AI powered by DLEF, a real-time attention monitoring system using YOLO + MediaPipe with <50ms CPU inference, alongside the MicroMasters Programme in Statistics and Data Science offered through the Massachusetts Institute of Technology’s Institute for Data, Systems, and Society (online) and a full degree. Actively seeking Computer Vision / Machine Learning engineer or research roles across CV, AI, and applied AI."}
       </div>
 
       <div style={sectionTitle}>Highlights</div>
@@ -391,7 +391,7 @@ function Overview({ isMobile, isDataScienceTrack }) {
         <ProofTag href="https://doi.org/10.5281/zenodo.19266394">Preprint</ProofTag>
       </AchRow>
       <AchRow icon="★">
-        <strong style={{ color: "var(--resume-text)", fontWeight: 700 }}>MIT MicroMasters</strong> — 16-month graduate-level Stats & Data Science program completed alongside full BSc.{" "}
+        <strong style={{ color: "var(--resume-text)", fontWeight: 700 }}>MicroMasters Programme in Statistics and Data Science</strong> — offered through the Massachusetts Institute of Technology&apos;s Institute for Data, Systems, and Society (online), completed alongside the BSc.{" "}
         <MetaPill green>93% in Data Analysis</MetaPill>
       </AchRow>
       <AchRow icon="★">
@@ -425,7 +425,7 @@ function Overview({ isMobile, isDataScienceTrack }) {
           <div style={{ fontSize: 13, color: "rgba(255,255,255,.85)", marginTop: 2 }}>Let&apos;s build something that works in the real world.</div>
         </div>
         <a
-          href="mailto:nafisaslam1819@gmail.com"
+          href="mailto:nafisaslam70@gmail.com"
           style={{
             background: "var(--resume-panel)",
             color: theme.accent,
@@ -507,7 +507,7 @@ function Projects({ isMobile, isDataScienceTrack }) {
 
       {isDataScienceTrack ? (
         <div style={{ ...card, marginBottom: 14 }}>
-          <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 4, color: "var(--resume-text)" }}>MIT MicroMasters — Applied Analytics & ML Projects</div>
+          <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 4, color: "var(--resume-text)" }}>Applied Analytics & ML Projects — Massachusetts Institute of Technology</div>
           <div style={{ fontSize: 12, color: "var(--resume-hint)", marginBottom: 8 }}>2024-2025</div>
           <ul style={{ listStyle: "none", padding: 0, margin: "0 0 10px" }}>
             {[
@@ -654,9 +654,9 @@ function Education() {
   return (
     <div>
       <div style={{ ...card, marginBottom: 12 }}>
-        <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 3, color: "var(--resume-text)" }}>Massachusetts Institute of Technology (MITx / edX)</div>
-        <div style={{ fontSize: 13, color: "var(--resume-muted)", marginBottom: 6 }}>MicroMasters in Statistics and Data Science</div>
-        <div style={{ fontSize: 12, color: "var(--resume-hint)", marginBottom: 10 }}>Aug 2024-Dec 2025 · 16 months · 10-15 hrs/week with full degree</div>
+        <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 3, color: "var(--resume-text)" }}>Massachusetts Institute of Technology</div>
+        <div style={{ fontSize: 13, color: "var(--resume-muted)", marginBottom: 6 }}>MicroMasters Programme in Statistics and Data Science</div>
+        <div style={{ fontSize: 12, color: "var(--resume-hint)", marginBottom: 10 }}>Offered through the Institute for Data, Systems, and Society (IDSS) · Online · Aug 2024–Dec 2025 · 16 months</div>
         <div style={{ display: "flex", flexWrap: "wrap" }}>
           <MetaPill green>Data Analysis: 93%</MetaPill>
           <MetaPill green>Machine Learning: 83%</MetaPill>
@@ -666,16 +666,20 @@ function Education() {
         </div>
       </div>
       <div style={card}>
-        <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 3, color: "var(--resume-text)" }}>Universiti Sains Malaysia (USM)</div>
-        <div style={{ fontSize: 13, color: "var(--resume-muted)", marginBottom: 6 }}>BSc (Hons.) Computer Science — Intelligent Computing (AI)</div>
+        <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 3, color: "var(--resume-text)" }}>Universiti Sains Malaysia (USM), Malaysia</div>
+        <div style={{ fontSize: 13, color: "var(--resume-muted)", marginBottom: 6 }}>Bachelor of Computer Science (Honours) — Intelligent Computing (AI)</div>
         <div style={{ fontSize: 12, color: "var(--resume-hint)", marginBottom: 10 }}>2021-2025 · Penang, Malaysia</div>
         <div style={{ display: "flex", flexWrap: "wrap" }}>
-          <MetaPill green>Major GPA: 9.55/10 · 3.82/4.00</MetaPill>
-          <MetaPill>CGPA: 8.3/10 · 3.32/4.00</MetaPill>
+          <MetaPill>CGPA: 3.32/4.00</MetaPill>
+          <MetaPill green>Final-year GPA: 3.78</MetaPill>
           <MetaPill green>Dean&apos;s List × 3</MetaPill>
           <MetaPill green>Gold Award — PIXEL 2025 (top 5%)</MetaPill>
         </div>
-        <div style={{ fontSize: 12, color: "var(--resume-hint)", marginTop: 8 }}>Trajectory: 3.49 → 3.65 → 3.73 → 3.82 (final 4 semesters)</div>
+      </div>
+      <div style={card}>
+        <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 3, color: "var(--resume-text)" }}>Indira Gandhi National Open University</div>
+        <div style={{ fontSize: 13, color: "var(--resume-muted)", marginBottom: 6 }}>Bachelor of Arts (Honours) in English</div>
+        <div style={{ fontSize: 12, color: "var(--resume-hint)" }}>2020–2024 · First Division</div>
       </div>
     </div>
   );
@@ -781,7 +785,7 @@ const PROFILE_CARDS = [
     href: "/reels",
   },
   {
-    title: "MIT Trained",
+    title: "Statistics & Data Science",
     subtitle: "& USM Malaysia Graduate",
     href: "https://www.linkedin.com/in/nafis-aslam/",
   },
@@ -1332,7 +1336,7 @@ export default function HireMePage() {
                   <div style={{ fontSize: isMobile ? 12 : 13, color: "var(--resume-muted)", lineHeight: 1.65 }}>
                     {isDataScienceTrack ? "Data Scientist / Machine Learning Engineer · Open to Remote" : "ML / Computer Vision Engineer · Open to Remote"}
                     <br />
-                    USM, Malaysia(AI Major) · MIT MicroMasters 
+                    USM, Malaysia (AI Major) · MicroMasters Programme, Massachusetts Institute of Technology (Online)
                   </div>
                   {isMobile ? (
                     <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 10, alignItems: "center" }}>
@@ -1510,7 +1514,7 @@ export default function HireMePage() {
                     </div>
                   )}
                   <div style={{ display: "flex", flexWrap: "wrap", justifyContent: isMobile ? "center" : "flex-start", gap: 8, marginTop: 10 }}>
-                    <ContactBubble href="mailto:nafisaslam1819@gmail.com" label="nafisaslam1819@gmail.com" icon="mail" />
+                    <ContactBubble href="mailto:nafisaslam70@gmail.com" label="nafisaslam70@gmail.com" icon="mail" />
                     <ContactBubble href="https://nafisaslam.com" label="nafisaslam.com" icon="web" />
                     <ContactBubble href="https://github.com/NafisAslam70" label="github.com/NafisAslam70" icon="github" />
                     <ContactBubble href="https://www.linkedin.com/in/nafis-aslam/" label="linkedin.com/in/nafis-aslam" icon="linkedin" />

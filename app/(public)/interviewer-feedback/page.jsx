@@ -10,7 +10,7 @@ const REVIEW_TRACKS = [
 ];
 
 const RESUME_BASED_REASONS = [
-  "MIT MicroMasters + USM degree profile",
+  "Massachusetts Institute of Technology MicroMasters Programme + USM degree profile",
   "DeepWork AI / DLEF product execution",
   "Strong communication and enthusiasm",
   "Research + engineering blend",

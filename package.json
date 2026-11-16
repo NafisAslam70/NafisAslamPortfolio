@@ -21,6 +21,7 @@
     "drizzle-orm": "^0.44.4",
     "fast-xml-parser": "^5.2.5",
     "framer-motion": "^12.23.12",
+    "gsap": "^3.15.1",
     "heroicons": "^2.2.0",
     "jose": "^6.0.12",
     "lucide-react": "^0.539.0",

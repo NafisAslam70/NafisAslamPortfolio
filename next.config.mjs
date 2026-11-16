@@ -5,6 +5,17 @@
 import { withContentlayer } from 'next-contentlayer'
 const nextConfig = {
   reactStrictMode: true,
+  async redirects() {
+    return [
+      { source: "/reels", destination: "/", permanent: false },
+      { source: "/nbs", destination: "/", permanent: false },
+      { source: "/nbs/:path*", destination: "/", permanent: false },
+      { source: "/blog", destination: "/", permanent: false },
+      { source: "/blog/:path*", destination: "/", permanent: false },
+      { source: "/courses", destination: "/", permanent: false },
+      { source: "/courses/:path*", destination: "/", permanent: false },
+    ];
+  },
   images: {
     domains: ["img.youtube.com", "github-readme-stats.vercel.app", "res.cloudinary.com"],
     remotePatterns: [
