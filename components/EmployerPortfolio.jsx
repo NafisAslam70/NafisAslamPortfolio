@@ -320,10 +320,10 @@ const experience = [
 ];
 
 const expertise = [
-  { title: "Software Engineering", skills: ["JavaScript", "TypeScript", "Python", "React", "Next.js", "Node.js", "Express.js", "Flask", "HTML/CSS", "Tailwind CSS", "EJS", "REST APIs"] },
-  { title: "Backend & Databases", skills: ["PostgreSQL", "SQLite", "Drizzle ORM", "Authentication", "Role-based access", "Socket.IO", "Twilio", "Data integration", "Approval workflows", "Reporting"] },
+  { title: "Software Engineering & Backend", skills: ["JavaScript", "TypeScript", "React", "Node.js", "PostgreSQL", "Next.js", "Express.js", "Flask", "SQLite", "Drizzle ORM", "REST APIs", "Authentication", "Role-based access", "Socket.IO", "Data integration", "Approval workflows", "Reporting", "HTML/CSS", "Tailwind CSS", "EJS", "Twilio"] },
   { title: "Applied AI / ML", skills: ["RAG", "Sentence Transformers", "FAISS", "BM25", "NetworkX", "PyTorch", "TensorFlow", "Scikit-learn", "YOLO", "OpenCV", "PCA", "Gaussian Processes"] },
   { title: "Data, Vision & Delivery", skills: ["Pandas", "NumPy", "Forecasting", "Statistical analysis", "MediaPipe", "Git/GitHub", "Docker", "Linux", "Jupyter", "Vercel", "Azure/GCP VMs"] },
+  { title: "Automation & Workflows", skills: ["n8n", "Vapi", "MCP", "OpenAI", "CRM & Calendar automation", "Google Drive", "Google Sheets", "Gmail", "PDF extraction", "Human-approved messaging"] },
 ];
 
 const proofLink = "inline-flex items-center rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-indigo-400 hover:text-indigo-700 dark:border-white/15 dark:text-slate-200 dark:hover:border-indigo-300";
@@ -821,10 +821,10 @@ export default function EmployerPortfolio({ lang = "en" }) {
       </section>
 
       <section id="expertise" className="capability-map portfolio-science-section mx-auto max-w-6xl scroll-mt-20 px-5 py-16 md:px-8">
-        <div className="relative z-10"><p className="text-sm font-semibold uppercase tracking-[0.18em] text-indigo-700 dark:text-indigo-300">{lang === "ar" ? "خريطة القدرات · 04 مجالات" : "Capability map · 04 domains"}</p><h2 className="mt-2 text-3xl font-bold md:text-4xl">{c.expertise}</h2><p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600 dark:text-slate-400">{lang === "ar" ? "مجالاتي التقنية مترابطة: من بناء المنتجات والأنظمة إلى تطبيق الذكاء الاصطناعي وتحويل البيانات إلى قرارات." : "A connected skill set spanning product engineering, reliable data systems, applied AI, and delivery."}</p></div>
+        <div className="relative z-10"><p className="text-sm font-semibold uppercase tracking-[0.18em] text-indigo-700 dark:text-indigo-300">{lang === "ar" ? "خريطة القدرات · 04 مجالات" : "Capability map · 04 domains"}</p><h2 className="mt-2 text-3xl font-bold md:text-4xl">{c.expertise}</h2><p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600 dark:text-slate-400">{lang === "ar" ? "مجالاتي التقنية مترابطة: من هندسة المنتجات والأنظمة إلى تطبيق الذكاء الاصطناعي والأتمتة وتحويل البيانات إلى قرارات." : "A connected skill set spanning software and backend engineering, applied AI, data, and automation."}</p></div>
         <svg aria-hidden="true" className="capability-links" viewBox="0 0 1000 500" fill="none"><path d="M150 120 500 250 850 120M150 380 500 250 850 380M150 120 150 380M850 120 850 380" /><circle cx="500" cy="250" r="8" /></svg>
         <div className="capability-cards relative z-10 mt-8 grid gap-4 sm:grid-cols-2">{expertise.map((item, index) => {
-          const titlesAr = ["هندسة البرمجيات", "الأنظمة الخلفية وقواعد البيانات", "الذكاء الاصطناعي والتعلم الآلي التطبيقي", "البيانات والرؤية وتسليم الحلول"];
+          const titlesAr = ["هندسة البرمجيات والأنظمة الخلفية", "الذكاء الاصطناعي والتعلم الآلي التطبيقي", "البيانات والرؤية وتسليم الحلول", "الأتمتة وسير العمل"];
           return <TiltCard key={item.title} className="capability-card relative overflow-hidden rounded-2xl border border-indigo-100 bg-white/90 p-6 shadow-sm dark:border-white/10 dark:bg-slate-900/80"><span className="capability-index">0{index + 1}</span><span className="capability-orbit" aria-hidden="true"><i /><i /><i /></span><h3 className="relative z-10 max-w-[80%] font-bold">{lang === "ar" ? titlesAr[index] : item.title}</h3><div className="relative z-10 mt-4 flex flex-wrap gap-2">{item.skills.slice(0, 5).map((skill) => <span key={skill} className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-medium text-slate-600 dark:border-white/10 dark:bg-white/[0.05] dark:text-slate-300">{skill}</span>)}</div><details className="portfolio-disclosure relative z-10 mt-4"><summary>{lang === "ar" ? "عرض مجموعة المهارات" : `View all ${item.skills.length} skills`}</summary><div className="mt-3 flex flex-wrap gap-2">{item.skills.slice(5).map((skill) => <span key={skill} className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-medium text-slate-600 dark:border-white/10 dark:bg-white/[0.05] dark:text-slate-300">{skill}</span>)}</div></details></TiltCard>;
         })}</div>
       </section>
