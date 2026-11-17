@@ -10,30 +10,11 @@ export default function SiteHeader({ session, lang = "en", nav = [] }) {
   const router = useRouter();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [theme, setTheme] = useState("light");
   const [curLang, setCurLang] = useState(lang);
-
-  // hydrate theme from document (set in ThemeInitScript)
-  useEffect(() => {
-    const t = document.documentElement.dataset.theme || "light";
-    setTheme(t);
-  }, []);
 
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
-
-  function applyTheme(next) {
-    const root = document.documentElement;
-    root.dataset.theme = next;
-    root.classList.remove("light");
-    root.classList.toggle("dark", next === "dark");
-    try { localStorage.setItem("theme", next); } catch {}
-    setTheme(next);
-  }
-  function toggleTheme() {
-    applyTheme(theme === "dark" ? "light" : "dark");
-  }
 
   function toggleLanguage() {
     const next = curLang === "ar" ? "en" : "ar";
@@ -142,14 +123,6 @@ export default function SiteHeader({ session, lang = "en", nav = [] }) {
                 aria-label="Switch language between English and Arabic"
               >
                 {curLang === "ar" ? "EN" : "العربية"}
-              </button>
-              {/* Theme toggle */}
-              <button
-                className="rounded-full border border-transparent bg-indigo-500/15 px-2.5 py-1 text-base transition hover:-translate-y-0.5 hover:bg-indigo-500/25"
-                onClick={toggleTheme}
-                title="Toggle theme"
-              >
-                {theme === "dark" ? "☀️" : "🌙"}
               </button>
             </div>
 

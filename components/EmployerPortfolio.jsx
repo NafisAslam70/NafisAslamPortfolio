@@ -2,11 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import ProjectGallery from "@/components/ProjectGallery";
 import { useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, useReducedMotion, useSpring } from "framer-motion";
-import { FaGithub, FaArrowUpRightFromSquare } from "react-icons/fa6";
+import { FaGithub, FaArrowUpRightFromSquare, FaEnvelope, FaWhatsapp, FaLinkedinIn } from "react-icons/fa6";
 
 function TiltCard({ children, className = "", style = {}, dir, id }) {
   const reduceMotion = useReducedMotion();
@@ -48,6 +49,7 @@ const HERO_ROLES = {
   en: ["Software Engineer", "Applied AI / ML Engineer", "Research Engineer", "Full-Stack Developer"],
   ar: ["مهندس برمجيات", "مهندس ذكاء اصطناعي تطبيقي", "مهندس أبحاث", "مطور برمجيات متكاملة"],
 };
+const MOBILE_NAV_SECTION_IDS = ["overview", "experience", "projects", "education", "contact"];
 
 function TypedHeroRole({ lang }) {
   const phrases = HERO_ROLES[lang] || HERO_ROLES.en;
@@ -92,6 +94,13 @@ function TypedHeroRole({ lang }) {
 function ScrollExperience() {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
+    const openProjectsPage = (event) => {
+      if (event.target.closest(".experience-primary-project-link")) {
+        event.preventDefault();
+        window.location.assign("/ventures");
+      }
+    };
+    document.addEventListener("click", openProjectsPage);
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const root = document.documentElement;
     const context = gsap.context(() => {
@@ -142,6 +151,7 @@ function ScrollExperience() {
 
     return () => {
       context.revert();
+      document.removeEventListener("click", openProjectsPage);
     };
   }, []);
 
@@ -175,12 +185,16 @@ const experience = [
       "/images/meedian/2.png",
       "/images/meedian/3.png",
     ],
+    github: "https://github.com/NafisAslam70/MeedianAI-Flow-v2",
+    live: "https://meedian-ai-flow-v222.vercel.app/",
     points: [
       "Designed the organisation-wide technology roadmap and architecture across three audiences: institutional teams, parents and families, and public-facing school/community audiences.",
       "Led MeedianAI Flow as the central operating platform, bringing daily operations, role-based access, attendance, schedules, tasks, approvals, reporting, parent communication, and team workflows into one system.",
       "Delivered supporting digital products: the MEED International School website, MeedianAI Finance for accounts and fee operations, and the Meed Society public website.",
       "Owned the ecosystem end to end: product flows, information architecture, frontend and backend systems, data models, deployment, and iterative improvement with operational teams.",
       "Connected the institutional day lifecycle in MeedianAI Flow: day opening, scheduled activities, attendance capture, task and routine completion, day-close submissions, and managerial review.",
+      "Built configurable programmes, schedules, QR attendance, operational dashboards, and reporting for managers and frontline teams.",
+      "Integrated notifications, team chat, real-time updates, Twilio workflows, and human-approved WhatsApp communication for parent and team coordination.",
     ],
     more: [
       "Built configurable programmes and schedules with time slots, staff roles, post codes, and class-by-period assignments.",
@@ -202,6 +216,8 @@ const experience = [
       "Led academic, residential, administrative, and parent-facing operations at a rural school serving more than 300 students and families, including 100+ hostel residents.",
       "Built an operating structure across office, academic, and hostel teams; introduced daily reporting, review rhythms, clear ownership, and practical performance management.",
       "Strengthened parent engagement through regular meetings, term-end reviews, student progress reports, and daily communication with guardians.",
+      "Helped grow the organisation from 80–100 students to 300+, and from a 6–7 person team to 30–35 team members.",
+      "Expanded operating capacity with a computer lab, library, dining hall, school transport, and annual budget growth from approximately ₹10–12 lakh to ₹70–80 lakh.",
     ],
     more: [
       "Helped grow the organisation from 80–100 students to 300+, and from a 6–7 person team to 30–35 team members.",
@@ -227,10 +243,15 @@ const experience = [
     organization: "IDEAS-TIH · Indian Statistical Institute (ISI), Kolkata, India",
     period: "May 2026 – Jul 2026",
     demo: "https://youtu.be/LX_btzkvX60",
+    demoThumb: "https://i.ytimg.com/vi/LX_btzkvX60/hqdefault.jpg",
+    report: "/images/IDEAS/Nafis_Aslam_final_report_Summer_Internship.pdf",
+    github: "https://github.com/Shibashis-Mandal/Multimodal-Video-Retrieval-Augmented-Generation-Video-RAG-/tree/main",
     points: [
       "Developed the Layer 3 unified search and reasoning engine for a multimodal Video RAG system for recipe-video understanding.",
       "Combined FAISS dense retrieval, BM25 lexical search, and NetworkX knowledge-graph traversal behind a modular VideoRAGEngine interface.",
       "Evaluated five Bengali recipe-video benchmarks: 384 multimodal chunks and a knowledge graph with 59 nodes and 81 edges; integrated Gemini, local Qwen2.5, and fallback generation paths.",
+      "Designed a unified answer(query) interface that synthesises labelled retrieval context using templates, Gemini, or locally hosted Qwen2.5.",
+      "Contributed to the technical report and project demonstration video documenting the architecture, validation, and engineering decisions.",
     ],
     more: [
       "Designed a unified answer(query) interface that synthesises labelled retrieval context and supports configurable templates, Google Gemini, and locally hosted Qwen2.5 generation.",
@@ -246,9 +267,17 @@ const experience = [
     organization: "Speech Processing Group, School of Computer Sciences · Universiti Sains Malaysia",
     project: "Algorithmic Trading Project · Penang, Malaysia",
     period: "1 Mar 2023 – 31 Aug 2023",
+    github: "https://github.com/NafisAslam70/malaysia-equity-market",
+    previewGallery: [
+      "/images/malaysiaEquity/Screenshot%202026-11-17%20at%205.35.35%E2%80%AFPM.png",
+      "/images/malaysiaEquity/Screenshot%202026-11-17%20at%205.35.56%E2%80%AFPM.png",
+      "/images/malaysiaEquity/Screenshot%202026-11-17%20at%205.36.10%E2%80%AFPM.png",
+    ],
     points: [
       "Contributed to frontend and backend development of a Malaysia equity market website providing stock updates and company-related news.",
       "Built company search and routing features, with server-rendered pages for company listings, profiles, historical market data, and news.",
+      "Developed Express routes and dynamic EJS views for the landing page, company directory, company details, and unsupported-search handling.",
+      "Integrated separate modules for price history, company profiles, and news using Axios, Cheerio, Puppeteer, and SQLite.",
     ],
     more: [
       "Implemented company lookup from the landing page: normalized the company query, mapped it to an equity symbol, and routed users to the matching company page.",
@@ -273,21 +302,21 @@ const proofLink = "inline-flex items-center rounded-full border border-slate-300
 
 const COPY = {
   en: {
-    field: "Software Engineering · Applied AI / ML · Data Science & Analytics",
-    role: "Research engineer and full-stack software developer building institutional platforms, data systems, and applied AI solutions for digital health and community-centred technology.",
-    intro: "MIT-trained Computer Science graduate with a Bachelor of Computer Science (Honours) in Intelligent Computing (AI) from Universiti Sains Malaysia, Malaysia. Hands-on experience delivering full-stack institutional platforms, backend systems, retrieval and reasoning workflows, computer vision, and data pipelines. Based in India and available to relocate across the Gulf.",
+    field: "Software Engineering · Applied AI · Automation",
+    role: "Software Engineer | Applied AI & Automation",
+    intro: "MIT-trained Computer Science graduate from Universiti Sains Malaysia, Malaysia, specialising in Intelligent Computing (AI). I build practical web platforms, AI-powered workflows, retrieval systems, computer-vision tools, and business automation for real operational needs. Based in India and available to relocate across the Gulf.",
     contact: "Contact me", cv: "Download CV ↗", explore: "Explore projects ↓", bsc: "Bachelor of Computer Science (Honours) — Intelligent Computing (AI)", mit: "Statistics and Data Science MicroMasters (online)", award: "ICSC 2026 · International 2nd Rank · 2nd National Award · Top 1%",
     research: "Selected research", paper: "Read first-author preprint ↗", career: "Career history", experience: "Experience", selected: "Selected work", projects: "Projects with proof", projectIntro: "A closer look at systems I designed, built, evaluated, and documented.", allProjects: "View complete project portfolio ↗", toolkit: "Technical toolkit", expertise: "Expertise", educationEyebrow: "Education & recognition", education: "Academic foundation", next: "Next step", discuss: "Let’s discuss how I can contribute.", discussText: "For AI, machine learning, computer vision, data science, and software engineering opportunities.",
-    flagship: "Institutional product delivery", forecast: "Applied AI / ML", shipped: "Research engineering", focus: "MeedianAI Flow", focusText: "Full-stack institutional operations platform with role-specific access, approvals, attendance, task workflows, and management reporting.", forecastTitle: "Video RAG search & reasoning", forecastText: "Layered retrieval combining FAISS, BM25, and knowledge-graph traversal for multimodal Bengali recipe-video understanding.", fullStack: "DeepWork AI / DLEF", fullStackText: "Computer-vision attention monitoring paired with a productivity platform; recipient of the USM PIXEL 2025 Gold Award.",
+    flagship: "Software products", forecast: "Applied AI", shipped: "Automation & intelligence", focus: "Institutional platforms", focusText: "Role-aware web systems for operations, attendance, approvals, reporting, and parent or team workflows.", forecastTitle: "AI retrieval & reasoning", forecastText: "RAG systems combining semantic search, lexical retrieval, knowledge graphs, and reliable response workflows.", fullStack: "Automation that fits real work", fullStackText: "Web apps, data pipelines, AI-assisted tools, and measurable workflows built around operational needs.",
     cvProject: "Applied AI · Retrieval & Reasoning", platform: "Software Engineering · Product", data: "Data Science · Forecasting", fellowship: "Personal Product · Planning", live: "Live project ↗", video: "Demo video ↗", paperLink: "Paper ↗", github: "GitHub ↗", profile: "GitHub profile ↗", language: "English", location: "Based in India · Available to relocate across the Gulf",
   },
   ar: {
-    field: "هندسة البرمجيات · الذكاء الاصطناعي التطبيقي · علوم البيانات والتحليلات",
-    role: "مهندس أبحاث ومطور برمجيات متكاملة، أبني منصات مؤسسية وأنظمة بيانات وحلول ذكاء اصطناعي تطبيقي للصحة الرقمية والتقنيات المجتمعية.",
-    intro: "خريج علوم الحاسوب ومدرّب من MIT، حاصل على بكالوريوس علوم الحاسوب مع مرتبة الشرف في الحوسبة الذكية والذكاء الاصطناعي من Universiti Sains Malaysia في ماليزيا. لدي خبرة عملية في تطوير المنصات المؤسسية المتكاملة والأنظمة الخلفية والاسترجاع والاستدلال والرؤية الحاسوبية ومسارات البيانات. أقيم في الهند ومتاح للانتقال والعمل في أنحاء دول الخليج.",
+    field: "هندسة البرمجيات · الذكاء الاصطناعي التطبيقي · الأتمتة",
+    role: "مهندس برمجيات | ذكاء اصطناعي تطبيقي وأتمتة",
+    intro: "خريج علوم الحاسوب ومدرّب من MIT من Universiti Sains Malaysia في ماليزيا، بتخصص الحوسبة الذكية والذكاء الاصطناعي. أبني منصات ويب عملية وسير عمل مدعوماً بالذكاء الاصطناعي وأنظمة استرجاع وأدوات رؤية حاسوبية وأتمتة أعمال لمتطلبات تشغيلية حقيقية. أقيم في الهند ومتاح للانتقال والعمل في أنحاء دول الخليج.",
     contact: "تواصل معي", cv: "تحميل السيرة الذاتية ↗", explore: "استكشف المشاريع ↓", bsc: "بكالوريوس علوم الحاسوب مع مرتبة الشرف — الحوسبة الذكية (الذكاء الاصطناعي)", mit: "برنامج MicroMasters في الإحصاء وعلوم البيانات (عبر الإنترنت)", award: "المركز الدولي الثاني · الجائزة الوطنية الثانية · ضمن أفضل 1٪ في ICSC 2026",
     research: "أبحاث مختارة", paper: "قراءة البحث المنشور باسمي الأول ↗", career: "المسيرة المهنية", experience: "الخبرة", selected: "مشاريع مختارة", projects: "مشاريع مختارة", projectIntro: "نظرة على الأنظمة التي صممتها وطورتها وقيّمتها ووثّقتها.", allProjects: "عرض portfolio المشاريع بالكامل ↗", toolkit: "الأدوات التقنية", expertise: "التخصصات", educationEyebrow: "التعليم والإنجازات", education: "الأساس الأكاديمي", next: "الخطوة التالية", discuss: "لنتحدث عن كيفية مساهمتي في فريقكم.", discussText: "فرص في الذكاء الاصطناعي وتعلم الآلة والرؤية الحاسوبية وعلوم البيانات وهندسة البرمجيات.",
-    flagship: "تطوير منتجات مؤسسية", forecast: "الذكاء الاصطناعي التطبيقي", shipped: "هندسة البحث", focus: "MeedianAI Flow", focusText: "منصة متكاملة لإدارة العمليات المؤسسية بصلاحيات حسب الأدوار، والموافقات، والحضور، والمهام، والتقارير الإدارية.", forecastTitle: "البحث والاستدلال عبر Video RAG", forecastText: "استرجاع متعدد الطبقات يجمع FAISS وBM25 واستكشاف الرسم البياني المعرفي لفهم مقاطع وصفات بنغالية متعددة الوسائط.", fullStack: "DeepWork AI / DLEF", fullStackText: "مراقبة الانتباه بالرؤية الحاسوبية ضمن منصة إنتاجية؛ حاز المشروع الجائزة الذهبية في USM PIXEL 2025.",
+    flagship: "منتجات برمجية", forecast: "ذكاء اصطناعي تطبيقي", shipped: "أتمتة وذكاء تشغيلي", focus: "منصات مؤسسية", focusText: "أنظمة ويب بصلاحيات مخصصة لإدارة العمليات والحضور والموافقات والتقارير وسير عمل الفرق والأسر.", forecastTitle: "الاسترجاع والاستدلال بالذكاء الاصطناعي", forecastText: "أنظمة RAG تجمع البحث الدلالي والاسترجاع المعجمي والرسوم المعرفية وسير العمل الموثوق للإجابات.", fullStack: "أتمتة تناسب العمل الفعلي", fullStackText: "تطبيقات ويب ومسارات بيانات وأدوات مدعومة بالذكاء الاصطناعي وسير عمل قابل للقياس مبني حول الاحتياجات التشغيلية.",
     cvProject: "ذكاء اصطناعي تطبيقي · استرجاع واستدلال", platform: "هندسة البرمجيات · منتج", data: "علوم البيانات · التنبؤ", fellowship: "منتج شخصي · تخطيط", live: "المشروع المباشر ↗", video: "فيديو العرض ↗", paperLink: "البحث ↗", github: "GitHub ↗", profile: "ملف GitHub ↗", language: "العربية", location: "مقيم في الهند · متاح للانتقال إلى دول الخليج",
   },
 };
@@ -366,16 +395,147 @@ function LocalizedProjectDetails({ lang, kind, children }) {
 }
 
 function MeedRelatedProducts({ lang }) {
+  const flowImages = ["/images/meedian/1.png", "/images/meedian/2.png", "/images/meedian/3.png"];
   const products = lang === "ar"
     ? [
-        { title: "MeedianAI Finance", text: "نظام للحسابات ورسوم الطلاب والمدفوعات والتقارير.", href: "/ventures#meedianai-finance" },
-        { title: "MEED International School Website", text: "موقع القبول والبرامج والهيئة التعليمية والفعاليات والاستفسارات.", href: "/ventures#meed-international-school-website" },
+        { title: "MEED International School Website", text: "موقع القبول والبرامج والهيئة التعليمية والفعاليات والاستفسارات.", href: "/ventures#meed-international-school-website", image: "/images/meedInternational/Screenshot%202026-11-17%20at%205.26.39%E2%80%AFPM.png" },
+        { title: "موقع Meed Society", text: "موقع عام لعرض رسالة المجتمع ومبادراته وأثره.", href: "/ventures#meed-society-website", image: "/images/society/Screenshot%202026-11-17%20at%205.20.42%E2%80%AFPM.png" },
+        { title: "MeedianAI Finance", text: "نظام للحسابات ورسوم الطلاب والمدفوعات والتقارير.", href: "/ventures#meedianai-finance", image: "/images/meedFinance/Screenshot%202026-11-17%20at%205.53.58%E2%80%AFPM.png" },
       ]
     : [
-        { title: "MeedianAI Finance", text: "Accounts, student fees, payments, dues, and reporting workflows.", href: "/ventures#meedianai-finance" },
-        { title: "MEED International School Website", text: "Admissions, programmes, faculty, events, and enquiry platform.", href: "/ventures#meed-international-school-website" },
+        { title: "MEED International School Website", text: "Admissions, programmes, faculty, events, and enquiry platform.", href: "/ventures#meed-international-school-website", image: "/images/meedInternational/Screenshot%202026-11-17%20at%205.26.39%E2%80%AFPM.png" },
+        { title: "Meed Society Website", text: "Public website for the society’s mission, initiatives, and community impact.", href: "/ventures#meed-society-website", image: "/images/society/Screenshot%202026-11-17%20at%205.20.42%E2%80%AFPM.png" },
+        { title: "MeedianAI Finance", text: "Accounts, student fees, payments, dues, and reporting workflows.", href: "/ventures#meedianai-finance", image: "/images/meedFinance/Screenshot%202026-11-17%20at%205.53.58%E2%80%AFPM.png" },
       ];
-  return <div className="experience-related-products mt-4 grid gap-2 sm:grid-cols-2">{products.map((product) => <Link key={product.title} href={product.href} className="experience-related-product"><span>{lang === "ar" ? "منتج ضمن المنظومة" : "Ecosystem product"}</span><strong>{product.title}</strong><small>{product.text}</small><b>{lang === "ar" ? "عرض التفاصيل ←" : "View project details →"}</b></Link>)}</div>;
+  return <div className="mt-4"><Link href="/ventures#meedianai-flow" className="experience-flow-product"><div><strong>MeedianAI Flow</strong><small>{lang === "ar" ? "منصة موحدة للعمليات اليومية والحضور والمهام والموافقات والتقارير." : "Unified platform for daily operations, attendance, tasks, approvals, and reporting."}</small></div><div className="experience-flow-previews">{flowImages.map((src, index) => <Image key={src} src={src} alt={`MeedianAI Flow preview ${index + 1}`} width={180} height={110} />)}</div><b>{lang === "ar" ? "عرض تفاصيل المشروع ←" : "View project details →"}</b></Link><div className="experience-related-products mt-2 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">{products.map((product) => <Link key={product.title} href={product.href} className="experience-related-product">{product.image && <Image src={product.image} alt={`${product.title} preview`} width={200} height={120} className="experience-product-thumb" />}<strong>{product.title}</strong><small>{product.text}</small></Link>)}</div></div>;
+}
+
+function ExperienceProofLinks({ item, lang }) {
+  const isMalaysia = item.role.includes("Malaysia") || item.role.includes("ماليزيا");
+  const isSuperintendent = item.role.includes("Superintendent") || item.role.includes("مشرف عام");
+  const videoRagGithub = "https://github.com/Shibashis-Mandal/Multimodal-Video-Retrieval-Augmented-Generation-Video-RAG-/tree/main";
+  return (
+    <div className="experience-proof-links mt-3">
+      {item.gallery ? <a href="https://github.com/NafisAslam70/MeedianAI-Flow-v2" target="_blank" rel="noreferrer"><FaGithub /> GitHub</a> : null}
+      {item.gallery ? <a href="https://meedian-ai-flow-v222.vercel.app/" target="_blank" rel="noreferrer"><FaArrowUpRightFromSquare /> {lang === "ar" ? "المنصة المباشرة" : "Live platform"}</a> : null}
+      {item.demo ? <a href={videoRagGithub} target="_blank" rel="noreferrer"><FaGithub /> GitHub</a> : null}
+      {item.demo ? <a href={item.demo} target="_blank" rel="noreferrer">Video · {lang === "ar" ? "التدريب" : "Internship"}</a> : null}
+      {item.demo && item.report ? <a href={item.report} target="_blank" rel="noreferrer">PDF · {lang === "ar" ? "التقرير" : "Report"}</a> : null}
+      {isMalaysia && <a href="https://github.com/NafisAslam70/malaysia-equity-market" target="_blank" rel="noreferrer"><FaGithub /> GitHub</a>}
+      {isSuperintendent && <a href={item.resourceLink || "/pdfs/Nafis-Aslam-Meed-Story-Portfolio-Style.pdf"} target="_blank" rel="noreferrer">PDF {lang === "ar" ? "رحلة Meed" : "My Meed Journey"}</a>}
+    </div>
+  );
+}
+
+function ExperienceVisualProof({ item, lang }) {
+  const isMalaysia = item.role.includes("Malaysia") || item.role.includes("ماليزيا");
+  const malaysiaImages = [
+    "/images/malaysiaEquity/Screenshot%202026-11-17%20at%205.35.35%E2%80%AFPM.png",
+    "/images/malaysiaEquity/Screenshot%202026-11-17%20at%205.35.56%E2%80%AFPM.png",
+    "/images/malaysiaEquity/Screenshot%202026-11-17%20at%205.36.10%E2%80%AFPM.png",
+  ];
+  if (!isMalaysia) return null;
+  return <div className="experience-visual-proof mt-4"><ProjectGallery images={item.previewGallery || malaysiaImages} title="Malaysia Equity Market Platform" className="grid grid-cols-3 gap-2" /><Link href="/ventures#malaysia-equity-market-platform" className="experience-gallery-link mt-3 inline-flex items-center gap-2">{lang === "ar" ? "عرض تفاصيل المشروع كاملة ←" : "View project details →"}</Link></div>;
+}
+
+function ExperienceHighlights({ item, lang }) {
+  const visibleCount = item.role.includes("Technology Lead") || item.role.includes("قائد التقنية") ? 3 : 2;
+  const visiblePoints = item.points.slice(0, visibleCount);
+  const hiddenPoints = [...item.points.slice(visibleCount), ...(item.more || [])];
+  return <>
+    <ul className="space-y-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
+      {visiblePoints.map((point) => <li key={point} className="flex gap-2"><span className="text-indigo-600">•</span><span>{point}</span></li>)}
+    </ul>
+    {hiddenPoints.length > 0 && <details className="experience-points-toggle mt-4"><summary aria-label={lang === "ar" ? "عرض النقاط المتبقية" : "Show remaining highlights"} title={lang === "ar" ? "عرض النقاط المتبقية" : "Show remaining highlights"}><span className="sr-only">{lang === "ar" ? "عرض النقاط المتبقية" : "Show remaining highlights"}</span><i aria-hidden="true" /></summary><ul className="mt-3 space-y-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{hiddenPoints.map((point) => <li key={point} className="flex gap-2"><span className="text-indigo-600">•</span><span>{point}</span></li>)}</ul></details>}
+  </>;
+}
+
+function ContactCard({ href, icon: Icon, title, detail, className = "", external = false }) {
+  return (
+    <a
+      className={`group flex min-w-0 items-center gap-4 rounded-2xl border p-4 text-left shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl ${className}`}
+      href={href}
+      target={external ? "_blank" : undefined}
+      rel={external ? "noreferrer" : undefined}
+    >
+      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white/90 text-xl shadow-sm transition duration-300 group-hover:scale-110"><Icon aria-hidden="true" /></span>
+      <span className="min-w-0"><span className="block text-[11px] font-bold uppercase tracking-[0.16em] opacity-70">{title}</span><span className="mt-1 block truncate text-sm font-semibold">{detail}</span></span>
+      <FaArrowUpRightFromSquare className="ml-auto shrink-0 text-xs opacity-50 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100" aria-hidden="true" />
+    </a>
+  );
+}
+
+function MobileHireOverlay({ lang }) {
+  const [open, setOpen] = useState(false);
+  const [slide, setSlide] = useState(0);
+  const [touchStartX, setTouchStartX] = useState(null);
+  const reasons = lang === "ar" ? [
+    ["01", "إنجاز عملي", ["احتياج", "بناء", "تسليم"], "indigo"],
+    ["02", "الأتمتة والمنتجات", ["تكرار", "أتمتة", "تسريع"], "emerald"],
+    ["03", "بحث قابل للتطبيق", ["استكشاف", "تحقق", "تطبيق"], "sky"],
+    ["04", "ملكية كاملة", ["نطاق", "بناء", "تحسين"], "violet"],
+  ] : [
+    ["01", "I deliver", ["Need", "Build", "Ship"], "indigo"],
+    ["02", "I automate", ["Repeat", "Automate", "Accelerate"], "emerald"],
+    ["03", "I apply research", ["Explore", "Validate", "Apply"], "sky"],
+    ["04", "I own end to end", ["Scope", "Build", "Improve"], "violet"],
+  ];
+  const title = lang === "ar" ? "لماذا توظفني؟" : "Why hire me?";
+  const [number, heading, steps, tone] = reasons[slide];
+  const toneClasses = {
+    indigo: "border-indigo-200 bg-gradient-to-br from-indigo-100 via-violet-50 to-white text-indigo-950",
+    emerald: "border-emerald-200 bg-gradient-to-br from-emerald-100 via-teal-50 to-white text-emerald-950",
+    sky: "border-sky-200 bg-gradient-to-br from-sky-100 via-blue-50 to-white text-sky-950",
+    violet: "border-violet-200 bg-gradient-to-br from-violet-100 via-fuchsia-50 to-white text-violet-950",
+  };
+  const nextSlide = (direction = 1) => setSlide((current) => (current + direction + reasons.length) % reasons.length);
+  const handleTouchEnd = (event) => {
+    if (touchStartX === null) return;
+    const difference = event.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(difference) > 45) nextSlide(difference > 0 ? -1 : 1);
+    setTouchStartX(null);
+  };
+
+  return (
+    <div className="fixed inset-x-0 bottom-4 z-[80] px-4 md:hidden" dir={lang === "ar" ? "rtl" : "ltr"}>
+      {open && <button aria-label={lang === "ar" ? "إغلاق" : "Close"} className="fixed inset-0 -z-10 bg-slate-950/30 backdrop-blur-[2px]" onClick={() => setOpen(false)} />}
+      {open && <div className="absolute bottom-0 left-3 right-3 overflow-hidden rounded-[1.8rem] border border-white/60 bg-white/95 p-4 shadow-2xl shadow-indigo-950/30 backdrop-blur-xl">
+        <div className="mb-3 flex items-center justify-between"><div><p className="text-[10px] font-bold uppercase tracking-[0.18em] text-indigo-600">Nafis Aslam</p><h2 className="mt-0.5 text-xl font-bold text-slate-950">{title}</h2></div><button className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-lg font-medium text-slate-700" onClick={() => setOpen(false)} aria-label={lang === "ar" ? "إغلاق" : "Close"}>×</button></div>
+        <div key={number} onTouchStart={(event) => setTouchStartX(event.touches[0].clientX)} onTouchEnd={handleTouchEnd} className={`relative overflow-hidden rounded-2xl border p-5 ${toneClasses[tone]}`}>
+          <span className="absolute -right-2 -top-8 text-[8rem] font-black leading-none opacity-[0.09]" aria-hidden="true">{number}</span>
+          <div className="relative"><div className="flex items-end justify-between"><span className="text-5xl font-black tracking-tighter">{number}</span><span className="rounded-full bg-white/75 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em]">{lang === "ar" ? "اسحب" : "Swipe"} ↔</span></div><h3 className="mt-2 text-2xl font-black tracking-tight">{heading}</h3><div className="mt-6 flex items-center justify-between gap-1">{steps.map((step, index) => <div key={step} className="flex min-w-0 flex-1 items-center gap-1"><span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/90 text-xs font-black shadow-sm">{index + 1}</span><span className="text-[11px] font-bold leading-4">{step}</span>{index < 2 && <i className="mx-0.5 h-px min-w-2 flex-1 bg-current opacity-25" />}</div>)}</div></div>
+        </div>
+        <div className="mt-4 flex items-center justify-between"><div className="flex gap-1.5">{reasons.map(([itemNumber], index) => <button key={itemNumber} onClick={() => setSlide(index)} aria-label={`${title} ${index + 1}`} className={`h-2 rounded-full transition-all ${slide === index ? "w-6 bg-indigo-600" : "w-2 bg-slate-200"}`} />)}</div><div className="flex gap-2"><button onClick={() => nextSlide(-1)} className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white font-bold text-slate-700" aria-label="Previous">←</button><button onClick={() => nextSlide()} className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-950 font-bold text-white" aria-label="Next">→</button></div></div>
+        <a href="#contact" onClick={() => setOpen(false)} className="mt-4 flex items-center justify-center gap-2 rounded-xl bg-slate-950 px-4 py-3 text-sm font-semibold text-white">{lang === "ar" ? "لنتحدث" : "Let’s talk"} <FaArrowUpRightFromSquare aria-hidden="true" /></a>
+      </div>}
+      {!open && <button onClick={() => setOpen(true)} className="group mx-auto flex w-full max-w-sm items-center justify-between rounded-2xl border border-indigo-200/80 bg-slate-950 px-4 py-3 text-left text-white shadow-xl shadow-indigo-950/25"><span className="flex items-center gap-3"><span className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-400 to-violet-500 text-xs font-extrabold"><i className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 animate-pulse rounded-full bg-emerald-300 ring-2 ring-slate-950" />01</span><span><span className="block text-[10px] font-bold uppercase tracking-[0.16em] text-indigo-200">Nafis Aslam</span><span className="block text-sm font-bold">{title}</span></span></span><span className="rounded-full bg-white/10 px-3 py-1.5 text-xs font-semibold text-indigo-100">{lang === "ar" ? "اضغط" : "Tap"} →</span></button>}
+    </div>
+  );
+}
+
+function MobileScrollNavigator({ lang }) {
+  const sections = lang === "ar"
+    ? [["overview", "البداية"], ["experience", "الخبرة"], ["projects", "المشاريع"], ["education", "التعليم"], ["contact", "تواصل"]]
+    : [["overview", "Overview"], ["experience", "Experience"], ["projects", "Projects"], ["education", "Education"], ["contact", "Contact"]];
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const detectSection = () => {
+      const marker = window.innerHeight * 0.37;
+      let selected = 0;
+      MOBILE_NAV_SECTION_IDS.forEach((id, index) => {
+        const section = document.getElementById(id);
+        if (section && section.getBoundingClientRect().top <= marker) selected = index;
+      });
+      setActiveIndex(selected);
+    };
+    detectSection();
+    window.addEventListener("scroll", detectSection, { passive: true });
+    return () => window.removeEventListener("scroll", detectSection);
+  }, [lang]);
+
+  const navigate = (index) => document.getElementById(sections[index][0])?.scrollIntoView({ behavior: "smooth", block: "start" });
+  return <div className="fixed left-1/2 top-[5.35rem] z-40 -translate-x-1/2 md:hidden" dir={lang === "ar" ? "rtl" : "ltr"}><div className="flex items-center gap-1 rounded-full border border-white/80 bg-white/80 p-1 shadow-lg shadow-indigo-950/10 backdrop-blur-xl"><button onClick={() => navigate(Math.max(activeIndex - 1, 0))} disabled={activeIndex === 0} aria-label="Previous section" className="flex h-7 w-7 items-center justify-center rounded-full text-sm text-slate-500 disabled:opacity-25">←</button><button onClick={() => navigate((activeIndex + 1) % sections.length)} className="flex min-w-[8.6rem] items-center justify-center gap-2 rounded-full bg-slate-950 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.13em] text-white"><span className="flex gap-1">{sections.map(([id], index) => <i key={id} className={`h-1.5 rounded-full transition-all ${index === activeIndex ? "w-4 bg-indigo-300" : "w-1.5 bg-white/35"}`} />)}</span><span>{sections[activeIndex][1]}</span></button><button onClick={() => navigate(Math.min(activeIndex + 1, sections.length - 1))} disabled={activeIndex === sections.length - 1} aria-label="Next section" className="flex h-7 w-7 items-center justify-center rounded-full text-sm text-slate-500 disabled:opacity-25">→</button></div></div>;
 }
 
 export default function EmployerPortfolio({ lang = "en" }) {
@@ -491,8 +651,8 @@ export default function EmployerPortfolio({ lang = "en" }) {
         <div className={`experience-journey ${lang === "ar" ? "experience-journey-rtl" : ""}`}>
           {orderedRoles.map((item, index) => <TiltCard key={item.role} dir={lang === "ar" ? "ltr" : undefined} className="experience-card relative grid gap-5 rounded-2xl border border-slate-200/90 bg-white p-6 shadow-sm transition hover:border-indigo-200 hover:shadow-lg hover:shadow-slate-900/5 dark:border-white/10 dark:bg-white/[0.035] dark:hover:border-indigo-300/30 md:grid-cols-[240px,1fr] md:gap-8">
             <span className="experience-node" aria-hidden="true"><i>{String(index + 1).padStart(2, "0")}</i></span>
-            <div dir={lang === "ar" ? "rtl" : undefined} className="experience-meta"><span className="experience-label">{lang === "ar" ? "محطة مهنية" : "Career chapter"}</span><div className="mt-2 flex items-start gap-2"><h3 className="font-bold">{item.role}</h3>{item.gallery && <span className="experience-project-links"><a href="https://github.com/NafisAslam70/MeedianAI-Flow-v2" target="_blank" rel="noreferrer" aria-label="MeedianAI Flow GitHub" title="GitHub"><FaGithub /></a><a href="https://meedian-ai-flow-v222.vercel.app/" target="_blank" rel="noreferrer" aria-label="Open MeedianAI Flow" title="Live product"><FaArrowUpRightFromSquare /></a><Link href="#projects" aria-label={lang === "ar" ? "تفاصيل مشروع MeedianAI Flow" : "MeedianAI Flow project details"} title={lang === "ar" ? "تفاصيل المشروع" : "Project details"}>⌄</Link></span>}</div><p className="mt-1 text-sm text-slate-600 dark:text-slate-400">{item.organization}</p>{item.project && <p className="mt-2 text-xs font-medium text-slate-500 dark:text-slate-400">{item.project}</p>}<p className="mt-3 text-xs font-semibold uppercase tracking-wide text-indigo-700 dark:text-indigo-300">{item.period}</p>{item.demo && <a className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-indigo-700 underline decoration-indigo-300 underline-offset-4 dark:text-indigo-300" href={item.demo} target="_blank" rel="noreferrer">{lang === "ar" ? "فيديو المشروع ↗" : "Internship project video ↗"}</a>}</div>
-            <div dir={lang === "ar" ? "rtl" : undefined}><ul className="space-y-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{item.points.map((point, pointIndex) => <li key={point} className="flex gap-2"><span className="text-indigo-600">•</span><span>{point}{pointIndex === 0 && item.gallery && <Link href={item.resourceLink || "/ventures/meed-public-school#resources"} className="ml-2 inline-flex font-semibold text-indigo-700 underline decoration-indigo-300 underline-offset-4 dark:text-indigo-300">{lang === "ar" ? "عرض نظام المدرسة ←" : "View school system →"}</Link>}</span></li>)}</ul>{item.resourceLabel && <a href={item.resourceLink} target="_blank" rel="noreferrer" className="experience-journey-resource mt-5"><span>↗</span><div><small>{lang === "ar" ? "قصة القيادة والعمليات والأثر" : "Leadership, operations & impact story"}</small><strong>{lang === "ar" ? "عرض رحلة Meed" : "View My Meed Journey"}</strong></div></a>}{item.gallery && <><div className="experience-gallery mt-5 grid grid-cols-3 gap-2">{item.gallery.map((src, galleryIndex) => <div key={src} className="experience-gallery-shot"><Image src={src} alt={lang === "ar" ? `واجهة MeedianAI Flow ${galleryIndex + 1}` : `MeedianAI Flow interface ${galleryIndex + 1}`} width={960} height={600} className="h-full w-full object-cover" /></div>)}</div><MeedRelatedProducts lang={lang} /><Link href="/ventures#meedianai-flow" className="experience-gallery-link mt-3 inline-flex items-center gap-2">{lang === "ar" ? "عرض تفاصيل المشروع كاملة ←" : "View full project details →"}</Link></>}{item.more?.length > 0 && <details className="portfolio-disclosure mt-4"><summary>{lang === "ar" ? "المزيد من التفاصيل والتقنيات" : "More details & technology"}</summary><ul className="mt-3 space-y-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{item.more.map((point) => <li key={point} className="flex gap-2"><span className="text-indigo-600">•</span><span>{point}</span></li>)}</ul></details>}</div>
+            <div dir={lang === "ar" ? "rtl" : undefined} className="experience-meta"><span className="experience-label">{lang === "ar" ? "محطة مهنية" : "Career chapter"}</span><h3 className="mt-2 font-bold">{item.role}</h3><p className="mt-1 text-sm text-slate-600 dark:text-slate-400">{item.organization}</p><ExperienceProofLinks item={item} lang={lang} />{item.project && <p className="mt-2 text-xs font-medium text-slate-500 dark:text-slate-400">{item.project}</p>}<p className="mt-3 text-xs font-semibold uppercase tracking-wide text-indigo-700 dark:text-indigo-300">{item.period}</p>{item.gallery && <Link href="/ventures" className="experience-primary-project-link mt-3">{lang === "ar" ? "استكشف مشاريع المنظومة ↓" : "Explore ecosystem projects ↓"}</Link>}{item.demo && <div className="experience-proof-row mt-3"><a className="experience-demo-thumb" href={item.demo} target="_blank" rel="noreferrer" aria-label={lang === "ar" ? "فيديو مشروع التدريب" : "Internship project video"}><img src="https://i.ytimg.com/vi/LX_btzkvX60/hqdefault.jpg" alt="VideoRAG internship project video thumbnail" /><span>▶</span><small>{lang === "ar" ? "فيديو المشروع" : "Internship project video"}</small></a>{item.report && <a className="experience-report-thumb" href={item.report} target="_blank" rel="noreferrer"><span>PDF</span><div><small>{lang === "ar" ? "توثيق التدريب" : "Internship documentation"}</small><strong>{lang === "ar" ? "عرض التقرير" : "View report"}</strong></div></a>}</div>}</div>
+            <div dir={lang === "ar" ? "rtl" : undefined}><ExperienceHighlights item={item} lang={lang} />{item.resourceLabel && <a href={item.resourceLink} target="_blank" rel="noreferrer" className="experience-journey-resource mt-5"><span>↗</span><div><small>{lang === "ar" ? "قصة القيادة والعمليات والأثر" : "Leadership, operations & impact story"}</small><strong>{lang === "ar" ? "عرض رحلة Meed" : "View My Meed Journey"}</strong></div></a>}{item.gallery && <MeedRelatedProducts lang={lang} />}{item.gallery && <Link href={item.resourceLink || "/ventures/meed-public-school#resources"} className="experience-primary-project-link mt-4">{lang === "ar" ? "عرض مشروع المدرسة ←" : "View school venture →"}</Link>}<ExperienceVisualProof item={item} lang={lang} /></div>
           </TiltCard>)}
         </div>
       </section>
@@ -504,8 +664,8 @@ export default function EmployerPortfolio({ lang = "en" }) {
             <TiltCard className="project-journey-card project-journey-featured rounded-3xl border border-indigo-200/80 bg-gradient-to-br from-white to-indigo-50/90 p-7 shadow-xl shadow-indigo-950/10 md:p-8"><span className="project-journey-index">01</span><div className="text-xs font-bold uppercase tracking-widest text-indigo-700">{c.cvProject}</div><h3 className="mt-3 text-2xl font-bold text-slate-950 md:text-3xl">{lang === "ar" ? "DeepWork AI / محرك DeepLens للتركيز" : "DeepWork AI / DeepLens Engine"}</h3><p className="mt-3 text-sm leading-6 text-slate-600">{lang === "ar" ? "تصنيف الانتباه والسلوك عبر كاميرا الويب ضمن ست حالات، باستخدام YOLO وMediaPipe ونهج زمني مدته 20/30 ثانية. صُمم للاستدلال على الجهاز دون تخزين الفيديو." : "Webcam attention classification across six behaviours, combining YOLO and MediaPipe with temporal validation and context-aware nudges. Focus sessions, goal-linked work, analytics, and privacy-aware local frame processing."}</p><div className="mt-5 flex flex-wrap gap-2"><a className="rounded-full bg-indigo-700 px-4 py-2 text-xs font-semibold text-white" href="https://deep-work-ai-nu.vercel.app/" target="_blank" rel="noreferrer">{c.live}</a><a className="rounded-full border border-indigo-200 bg-white/70 px-4 py-2 text-xs font-semibold text-indigo-700" href="https://youtu.be/Je0_qLxRbX8" target="_blank" rel="noreferrer">{c.video}</a><a className="rounded-full border border-indigo-200 bg-white/70 px-4 py-2 text-xs font-semibold text-indigo-700" href="https://doi.org/10.5281/zenodo.19266394" target="_blank" rel="noreferrer">{c.paperLink}</a></div><details className="portfolio-disclosure portfolio-icon-disclosure mt-5"><summary aria-label={lang === "ar" ? "تفاصيل المشروع" : "Project details"} title={lang === "ar" ? "تفاصيل المشروع" : "Project details"}><span className="sr-only">{lang === "ar" ? "تفاصيل المشروع" : "Project details"}</span></summary><LocalizedProjectDetails lang={lang} kind="deepWork"><ul className="mt-3 space-y-2 text-sm leading-6 text-slate-600"><li>Final-year project at Universiti Sains Malaysia (CAT405); Gold Award, USM PIXEL 2025; first-author research preprint.</li><li>DeepLens Engine for Focus: four layers for primary state classification, visual validation, temporal filtering, and context-aware feedback.</li><li>YOLOv11n-cls recognises Focused, Phone, Absent, Drowsy, LookingAway, and BadPosture. Dataset: 1,080 labelled base images, augmented to approximately 3,000; reported validation accuracy 94.76%.</li><li>Auxiliary signals use MediaPipe pose landmarks, FaceMesh iris tracking, Eye Aspect Ratio, YOLOv8, and OpenCV. Transient frame changes are filtered before selected audio/visual nudges.</li><li>Product features include Pomodoro-style focus/break sessions, goals, session summaries, focus analytics, and progress views. Video is processed locally; documentation describes storing derived metrics rather than video recordings.</li><li>Technology: Next.js, React, Tailwind CSS, Flask, Python, PostgreSQL, Drizzle ORM, Clerk, PyTorch, Ultralytics YOLO, MediaPipe, OpenCV.</li></ul></LocalizedProjectDetails></details></TiltCard>
             <TiltCard className="project-journey-card rounded-3xl border border-sky-200/80 bg-gradient-to-br from-white to-sky-50/90 p-6 shadow-lg shadow-sky-950/10 md:mt-20"><span className="project-journey-index">02</span><div className="text-xs font-bold uppercase tracking-widest text-indigo-700">{c.platform}</div><h3 className="mt-3 text-2xl font-bold text-slate-950">MeedianAI Flow</h3><p className="mt-3 text-sm leading-6 text-slate-600">{lang === "ar" ? "منصة لإدارة عمليات المدارس والمجتمعات بصلاحيات حسب الأدوار، وتشمل الجداول والمهام والحضور والرسائل والاستفسارات والتقارير." : "Role-based school and community operations platform spanning schedules, routines, tasks, attendance, messaging, enquiries, and reporting."}</p><div className="mt-5 flex flex-wrap gap-2"><a className="rounded-full bg-indigo-700 px-4 py-2 text-xs font-semibold text-white" href="https://meedian-ai-flow-v222.vercel.app/" target="_blank" rel="noreferrer">{c.live}</a><a className="rounded-full border border-indigo-200 bg-white/70 px-4 py-2 text-xs font-semibold text-indigo-700" href="https://github.com/NafisAslam70/MeedianAI-Flow-v2" target="_blank" rel="noreferrer">{c.github}</a></div><details className="portfolio-disclosure portfolio-icon-disclosure mt-5"><summary aria-label={lang === "ar" ? "تفاصيل المشروع" : "Project details"} title={lang === "ar" ? "تفاصيل المشروع" : "Project details"}><span className="sr-only">{lang === "ar" ? "تفاصيل المشروع" : "Project details"}</span></summary><LocalizedProjectDetails lang={lang} kind="meedian"/></details></TiltCard>
             <TiltCard className="project-journey-card rounded-3xl border border-violet-200/80 bg-gradient-to-br from-white to-violet-50/90 p-6 shadow-lg shadow-violet-950/10"><span className="project-journey-index">03</span><div className="text-xs font-bold uppercase tracking-widest text-indigo-700">{c.cvProject}</div><h3 className="mt-3 text-2xl font-bold text-slate-950">{lang === "ar" ? "VideoRAG · البحث والاستدلال الموحد" : "VideoRAG · Unified Search & Reasoning"}</h3><p className="mt-3 text-sm leading-6 text-slate-600">{lang === "ar" ? "محرك معياري لفهم مقاطع وصفات بنغالية متعددة الوسائط. جمع FAISS وBM25 واستكشاف الرسم البياني عبر NetworkX، واختُبر على 384 مقطعاً و59 عقدة و81 حافة." : "Modular engine for multimodal Bengali recipe-video understanding. Combined FAISS, BM25, and NetworkX graph traversal; evaluated on 384 chunks and a graph with 59 nodes and 81 edges."}</p><div className="mt-5 flex flex-wrap gap-2"><span className="rounded-full border border-violet-200 bg-white/70 px-4 py-2 text-xs font-semibold text-violet-800">IDEAS · ISI Kolkata</span><a className="rounded-full border border-violet-200 bg-white/70 px-4 py-2 text-xs font-semibold text-violet-800" href="https://youtu.be/LX_btzkvX60" target="_blank" rel="noreferrer">{c.video}</a><a className="rounded-full border border-violet-200 bg-white/70 px-4 py-2 text-xs font-semibold text-violet-800" href="https://github.com/Shibashis-Mandal/Multimodal-Video-Retrieval-Augmented-Generation-Video-RAG-/tree/main" target="_blank" rel="noreferrer">{c.github}</a></div><details className="portfolio-disclosure portfolio-icon-disclosure mt-5"><summary aria-label={lang === "ar" ? "تفاصيل المشروع" : "Project details"} title={lang === "ar" ? "تفاصيل المشروع" : "Project details"}><span className="sr-only">{lang === "ar" ? "تفاصيل المشروع" : "Project details"}</span></summary><LocalizedProjectDetails lang={lang} kind="videoRag"/></details></TiltCard>
-            <TiltCard className="project-journey-card rounded-3xl border border-emerald-200/80 bg-gradient-to-br from-white to-emerald-50/90 p-6 shadow-lg shadow-emerald-950/10 md:mt-16"><span className="project-journey-index">04</span><div className="text-xs font-bold uppercase tracking-widest text-indigo-700">{c.data}</div><h3 className="mt-3 text-2xl font-bold text-slate-950">{lang === "ar" ? "YBI · التنبؤ بحِمل الرعاية" : "YBI Care-Load Forecasting"}</h3><p className="mt-3 text-sm leading-6 text-slate-600">{lang === "ar" ? "مسار تنبؤ زمني مع ميزات التأخر والمتوسطات المتحركة وتقسيم زمني للبيانات. حقق نموذج Persistence أفضل نتيجة: MAE 6.68 وMAPE 0.30٪." : "Time-series pipeline with lag and rolling features and chronological evaluation. Persistence was the strongest benchmark: MAE 6.68 and MAPE 0.30%."}</p><div className="mt-5"><a className="rounded-full border border-emerald-200 bg-white/70 px-4 py-2 text-xs font-semibold text-emerald-800" href="https://github.com/NafisAslam70/UF-Internship-hhs-care-forecast" target="_blank" rel="noreferrer">{c.github}</a></div><details className="portfolio-disclosure portfolio-icon-disclosure mt-5"><summary aria-label={lang === "ar" ? "تفاصيل المشروع" : "Project details"} title={lang === "ar" ? "تفاصيل المشروع" : "Project details"}><span className="sr-only">{lang === "ar" ? "تفاصيل المشروع" : "Project details"}</span></summary><LocalizedProjectDetails lang={lang} kind="forecast"/></details></TiltCard>
-            <TiltCard className="project-journey-card rounded-3xl border border-amber-200/80 bg-gradient-to-br from-white to-amber-50/90 p-6 shadow-lg shadow-amber-950/10"><span className="project-journey-index">05</span><div className="text-xs font-bold uppercase tracking-widest text-indigo-700">{c.fellowship}</div><h3 className="mt-3 text-2xl font-bold text-slate-950">DeepCalendar</h3><p className="mt-3 text-sm leading-6 text-slate-600">{lang === "ar" ? "تطبيق ويب وهاتف للتخطيط يجمع الروتين الأسبوعي والخطط اليومية وفترات العمل المرتبطة بالأهداف وتتبع الوقت الفعلي وملاحظات نهاية اليوم." : "Planning companion to DeepWork AI in the DPM productivity ecosystem, connecting long-term goals with weekly routines and actionable daily work plans."}</p><div className="mt-5 flex flex-wrap gap-2"><a className="rounded-full border border-amber-200 bg-white/70 px-4 py-2 text-xs font-semibold text-amber-800" href="https://deep-calendar.vercel.app" target="_blank" rel="noreferrer">{c.live}</a><a className="rounded-full border border-amber-200 bg-white/70 px-4 py-2 text-xs font-semibold text-amber-800" href="https://github.com/NafisAslam70/deep-calendar" target="_blank" rel="noreferrer">{c.github}</a></div><details className="portfolio-disclosure portfolio-icon-disclosure mt-5"><summary aria-label={lang === "ar" ? "تفاصيل المشروع" : "Project details"} title={lang === "ar" ? "تفاصيل المشروع" : "Project details"}><span className="sr-only">{lang === "ar" ? "تفاصيل المشروع" : "Project details"}</span></summary><LocalizedProjectDetails lang={lang} kind="deepCalendar"><ul className="mt-3 space-y-2 text-sm leading-6 text-slate-600"><li>Web application built with Next.js 15, React 19, TypeScript, and a shared PostgreSQL backend; companion Expo/React Native mobile app.</li><li>Goal management, reusable weekly routines, custom single-day plans, routine time windows, and daily work blocks across three focus-depth levels.</li><li>Flexible merge-or-replace planning; planned, active, done, and skipped block states; actual-time recording, shutdown notes, and journaling.</li><li>Desktop weekly calendar and mobile single-day timeline, plus dashboard, routine builder, goals, account, and onboarding interfaces.</li><li>Drizzle ORM data model and APIs for authentication, goals, routines, day plans, block updates, and token-managed public read-only summaries. Cookie sessions for web and bearer tokens for mobile.</li><li>Technology: Next.js 15, React 19, TypeScript, PostgreSQL, Drizzle ORM, Tailwind CSS, Expo, React Native, Expo Router, JWT.</li></ul></LocalizedProjectDetails></details></TiltCard>
+            <TiltCard className="project-journey-card rounded-3xl border border-emerald-200/80 bg-gradient-to-br from-white to-emerald-50/90 p-6 shadow-lg shadow-emerald-950/10 md:mt-16"><span className="project-journey-index">04</span><div className="text-xs font-bold uppercase tracking-widest text-emerald-700">{lang === "ar" ? "أتمتة الذكاء الاصطناعي · المالية" : "AI automation · finance"}</div><h3 className="mt-3 text-2xl font-bold text-slate-950">{lang === "ar" ? "أتمتة معالجة الفواتير بالذكاء الاصطناعي" : "AI Invoice Processing Automation"}</h3><p className="mt-3 text-sm leading-6 text-slate-600">{lang === "ar" ? "يتابع مجلد الفواتير، ويستخرج بيانات PDF، وينظم الحقول باستخدام الذكاء الاصطناعي، ثم يسجلها ويرسل إشعاراً لفريق الفوترة." : "A workflow that watches incoming invoices, extracts PDF text, structures the important fields with AI, records them, and alerts the billing team."}</p><div className="mt-5"><Link className="rounded-full border border-emerald-200 bg-white/70 px-4 py-2 text-xs font-semibold text-emerald-800" href="/ventures#ai-invoice-processing-automation">{lang === "ar" ? "عرض سير العمل ←" : "View workflow →"}</Link></div><details className="portfolio-disclosure portfolio-icon-disclosure mt-5"><summary aria-label={lang === "ar" ? "تفاصيل المشروع" : "Project details"} title={lang === "ar" ? "تفاصيل المشروع" : "Project details"}><span className="sr-only">{lang === "ar" ? "تفاصيل المشروع" : "Project details"}</span></summary><ul className="mt-3 space-y-2 text-sm leading-6 text-slate-600"><li>{lang === "ar" ? "Google Drive → استخراج نص PDF → OpenAI → Google Sheets → Gmail." : "Google Drive → PDF extraction → OpenAI → Google Sheets → Gmail."}</li><li>{lang === "ar" ? "يستخرج العميل ورقم الفاتورة والتاريخ والحالة وبنود الفاتورة والإجمالي وطريقة الدفع." : "Captures customer, invoice number, date, status, line items, total, and payment method."}</li></ul></details></TiltCard>
+            <TiltCard className="project-journey-card rounded-3xl border border-amber-200/80 bg-gradient-to-br from-white to-amber-50/90 p-6 shadow-lg shadow-amber-950/10"><span className="project-journey-index">05</span><div className="text-xs font-bold uppercase tracking-widest text-amber-700">{lang === "ar" ? "أتمتة الذكاء الاصطناعي · تجربة العملاء" : "AI automation · customer operations"}</div><h3 className="mt-3 text-2xl font-bold text-slate-950">{lang === "ar" ? "موظف استقبال صوتي بالذكاء الاصطناعي" : "AI Voice Receptionist"}</h3><p className="mt-3 text-sm leading-6 text-slate-600">{lang === "ar" ? "نظام استقبال صوتي لإدارة العملاء الجدد والحجوزات وتعديل المواعيد وإجابات قاعدة المعرفة مع تسجيل كامل للمكالمة." : "A voice front desk for new customers, appointments, rescheduling, knowledge-base questions, and complete call logging."}</p><div className="mt-5"><Link className="rounded-full border border-amber-200 bg-white/70 px-4 py-2 text-xs font-semibold text-amber-800" href="/ventures#ai-voice-receptionist">{lang === "ar" ? "عرض سير العمل ←" : "View workflow →"}</Link></div><details className="portfolio-disclosure portfolio-icon-disclosure mt-5"><summary aria-label={lang === "ar" ? "تفاصيل المشروع" : "Project details"} title={lang === "ar" ? "تفاصيل المشروع" : "Project details"}><span className="sr-only">{lang === "ar" ? "تفاصيل المشروع" : "Project details"}</span></summary><ul className="mt-3 space-y-2 text-sm leading-6 text-slate-600"><li>{lang === "ar" ? "Vapi على الواجهة وn8n/MCP في الخلفية مع CRM وتقويم العمل." : "Vapi at the voice layer, with n8n/MCP workflows connected to CRM and calendar systems."}</li><li>{lang === "ar" ? "وظائف محددة لكل أداة: البحث عن العميل وإنشاؤه، التوفر، الحجز، التحديث، والإلغاء." : "Focused tools for client lookup/creation, availability, booking, updates, and cancellation."}</li></ul></details></TiltCard>
           </div>
         </div>
       </section>
@@ -533,7 +693,21 @@ export default function EmployerPortfolio({ lang = "en" }) {
         <TiltCard className="rounded-2xl border border-slate-200 bg-gradient-to-br from-white to-slate-100 p-5 shadow-sm dark:border-white/10 dark:from-white/[0.06] dark:to-white/[0.02]"><h3 className="font-bold">{lang === "ar" ? "إنجازات أكاديمية وتقنية" : "Academic & technical recognition"}</h3><div className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{lang === "ar" ? "تقدير ذهبي في IYMC (أفضل 2٪) · جوائز أفضل واجب من USM · Coding Ninjas: 250+ مسألة DSA." : "IYMC Gold Honour (top 2%) · USM Best Assignment Awards · Coding Ninjas: 250+ DSA problems."}<details className="portfolio-disclosure mt-3"><summary>{lang === "ar" ? "المزيد من الإنجازات" : "More achievements & leadership"}</summary><ul className="mt-3 space-y-2"><li>ICSC 2026 Kolkata-region ambassador: mentoring students, guiding coding and problem-solving, and supporting workshops.</li><li>2nd National Award, India, at ICSC 2026.</li><li>Ashoka Young Changemaker, The Impactful Journey with Meed Public School (2020), for founding and leading a residential school serving 300+ underserved students in rural Jharkhand.</li><li>Superintendent, Meed Public School (2018–2021): academic, residential, and operational leadership for 300+ students and families; this experience later informed the DeepLens attention research.</li><li>Dean’s List for three consecutive final semesters: Semester II 2023/2024, Semester I 2024/2025, Semester II 2024/2025.</li><li>Best Assignment Awards: CST235 (Computer Networks and Information Security, 2022) and CPC353 (Natural Language Processing, 2023); Coding Ninjas 100-day challenge, 250+ DSA problems, and approximately 50 LeetCode problems.</li></ul></details></div></TiltCard>
       </div></section>
 
-      <section id="contact" className="mx-auto max-w-6xl scroll-mt-20 px-5 py-16 text-center md:px-8"><p className="text-sm font-semibold uppercase tracking-[0.18em] text-indigo-700 dark:text-indigo-300">{c.next}</p><h2 className="mt-2 text-3xl font-bold md:text-4xl">{c.discuss}</h2><p className="mx-auto mt-3 max-w-xl text-slate-600 dark:text-slate-400">{c.discussText}</p><div className="mt-6 flex flex-wrap justify-center gap-3"><a className="rounded-full bg-indigo-700 px-5 py-3 text-sm font-semibold text-white hover:bg-indigo-600" href="mailto:nafisaslam70@gmail.com">nafisaslam70@gmail.com</a><a className={proofLink} href="https://wa.me/601137576465" target="_blank" rel="noreferrer">WhatsApp · +60 11-3757 6465 ↗</a><a className={proofLink} href="https://www.linkedin.com/in/nafis-aslam/" target="_blank" rel="noreferrer">LinkedIn ↗</a><a className={proofLink} href="https://github.com/NafisAslam70" target="_blank" rel="noreferrer">GitHub ↗</a></div></section>
+      <section id="contact" className="mx-auto max-w-6xl scroll-mt-20 px-5 py-16 md:px-8">
+        <div className="relative overflow-hidden rounded-[2rem] border border-indigo-100 bg-gradient-to-br from-indigo-50 via-white to-sky-50 px-5 py-10 text-center shadow-[0_24px_70px_-36px_rgba(79,70,229,0.45)] sm:px-8 md:py-14">
+          <div className="absolute -left-16 top-0 h-40 w-40 rounded-full bg-violet-300/35 blur-3xl" aria-hidden="true" />
+          <div className="absolute -right-12 bottom-0 h-40 w-40 rounded-full bg-cyan-300/35 blur-3xl" aria-hidden="true" />
+          <div className="relative"><p className="text-sm font-bold uppercase tracking-[0.18em] text-indigo-700">{c.next}</p><h2 className="mt-2 text-3xl font-bold text-slate-950 md:text-4xl">{c.discuss}</h2><p className="mx-auto mt-3 max-w-xl text-slate-600">{c.discussText}</p></div>
+          <div className="relative mx-auto mt-8 grid max-w-4xl gap-3 text-slate-900 sm:grid-cols-2">
+            <ContactCard href="mailto:nafisaslam70@gmail.com" icon={FaEnvelope} title={lang === "ar" ? "البريد الإلكتروني" : "Email"} detail="nafisaslam70@gmail.com" className="border-indigo-200 bg-gradient-to-br from-indigo-100 to-violet-100 text-indigo-950 hover:border-indigo-400" />
+            <ContactCard href="https://wa.me/601137576465" icon={FaWhatsapp} title="WhatsApp" detail="+60 11-3757 6465" external className="border-emerald-200 bg-gradient-to-br from-emerald-100 to-teal-100 text-emerald-950 hover:border-emerald-400" />
+            <ContactCard href="https://www.linkedin.com/in/nafis-aslam/" icon={FaLinkedinIn} title="LinkedIn" detail="/in/nafis-aslam" external className="border-sky-200 bg-gradient-to-br from-sky-100 to-blue-100 text-sky-950 hover:border-sky-400" />
+            <ContactCard href="https://github.com/NafisAslam70" icon={FaGithub} title="GitHub" detail="@NafisAslam70" external className="border-slate-200 bg-gradient-to-br from-slate-100 to-slate-200 text-slate-900 hover:border-slate-400" />
+          </div>
+        </div>
+      </section>
+      <MobileScrollNavigator lang={lang} />
+      <MobileHireOverlay lang={lang} />
     </main>
   );
 }

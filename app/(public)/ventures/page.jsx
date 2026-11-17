@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import ProjectGallery from "@/components/ProjectGallery";
 
 export const metadata = {
   title: "Projects • Nafis Aslam | Gulf Software & Applied AI Portfolio",
@@ -38,12 +38,27 @@ const projects = [
           "School website covering admissions, programmes, faculty, hostel, and events, with multilingual content, Sanity CMS, and enquiry routes.",
         stack: "Next.js · React · Sanity · PostgreSQL/Neon · Drizzle · Tailwind",
         github: "https://github.com/NafisAslam70/meedSchoolWeb",
-        live: "https://www.mymeedai.org/",
+        live: "https://meed-two.vercel.app",
+        gallery: [
+          "/images/meedInternational/Screenshot%202026-11-17%20at%205.26.39%E2%80%AFPM.png",
+          "/images/meedInternational/Screenshot%202026-11-17%20at%205.26.50%E2%80%AFPM.png",
+          "/images/meedInternational/Screenshot%202026-11-17%20at%205.27.31%E2%80%AFPM.png",
+          "/images/meedInternational/Screenshot%202026-11-17%20at%205.27.43%E2%80%AFPM.png",
+          "/images/meedInternational/Screenshot%202026-11-17%20at%205.27.58%E2%80%AFPM.png",
+        ],
       },
       {
         title: "MEED Society Website",
-        description: "Website for Meed Development Society.",
-        stack: "Website · Meed Development Society",
+        description: "Public-facing website for Meed Development Society, presenting its mission, community work, initiatives, and impact.",
+        stack: "Next.js · React · Tailwind CSS · Community communications",
+        live: "https://mps-society.vercel.app/",
+        gallery: [
+          "/images/society/Screenshot%202026-11-17%20at%205.20.42%E2%80%AFPM.png",
+          "/images/society/Screenshot%202026-11-17%20at%205.21.11%E2%80%AFPM.png",
+          "/images/society/Screenshot%202026-11-17%20at%205.21.42%E2%80%AFPM.png",
+          "/images/society/Screenshot%202026-11-17%20at%205.22.34%E2%80%AFPM.png",
+          "/images/society/Screenshot%202026-11-17%20at%205.22.56%E2%80%AFPM.png",
+        ],
       },
       {
         title: "DeepCalendar",
@@ -59,6 +74,13 @@ const projects = [
           "Student and class records, fee structures, dues, payments, transport charges, Excel imports, and reporting for school finance workflows.",
         stack: "React · Vite · TypeScript · Express · PostgreSQL · Drizzle",
         github: "https://github.com/NafisAslam70/MeedianAI-Finance",
+        gallery: [
+          "/images/meedFinance/Screenshot%202026-11-17%20at%205.53.58%E2%80%AFPM.png",
+          "/images/meedFinance/Screenshot%202026-11-17%20at%205.54.16%E2%80%AFPM.png",
+          "/images/meedFinance/Screenshot%202026-11-17%20at%205.54.25%E2%80%AFPM.png",
+          "/images/meedFinance/Screenshot%202026-11-17%20at%205.54.47%E2%80%AFPM.png",
+          "/images/meedFinance/Screenshot%202026-11-17%20at%205.55.51%E2%80%AFPM.png",
+        ],
       },
       {
         title: "MEED Recruitment",
@@ -66,6 +88,25 @@ const projects = [
           "Recruitment application workflow with PDF CV upload, text and OCR extraction, and candidate review.",
         stack: "Flask · Python · pdfplumber · Tesseract · pdf2image · spaCy",
         github: "https://github.com/NafisAslam70/meed-recruitment",
+      },
+    ],
+  },
+  {
+    category: "AI Automation & Business Systems",
+    items: [
+      {
+        title: "AI Invoice Processing Automation",
+        description:
+          "Automated invoice intake workflow that watches a shared drive, extracts PDF text, structures invoice fields with an AI extractor, records them in a billing sheet, and notifies the internal team by email.",
+        stack: "n8n · Google Drive · OpenAI · PDF text extraction · Google Sheets · Gmail",
+        status: "Automation workflow",
+      },
+      {
+        title: "AI Voice Receptionist",
+        description:
+          "Voice-based front desk workflow for customer lookup, new-contact creation, appointment availability, booking, rescheduling, cancellation, knowledge-base answers, and call logging.",
+        stack: "Vapi · n8n · MCP · OpenAI · CRM · Calendar automation",
+        status: "Automation workflow",
       },
     ],
   },
@@ -207,52 +248,18 @@ const projects = [
         github: "https://github.com/NafisAslam70/USMWorld",
       },
       {
-        title: "MalaysiaStock-Pro / BMPro-stock",
+        title: "Malaysia Equity Market Platform",
         description:
-          "Malaysian listed-company information prototype with company profiles, news, and around one year of historical prices; scraper remains incomplete.",
+          "Malaysia equity-market web platform built during the Algorithmic Trading internship: company search, profiles, historical price information, and related news.",
         stack: "Node.js · Express · EJS · Axios · Cheerio · Puppeteer · SQLite",
-        github: "https://github.com/NafisAslam70/BMPro-stock",
-        private: true,
-      },
-    ],
-  },
-  {
-    category: "Personal & Small Applications",
-    items: [
-      {
-        title: "Personal Portfolio Website",
-        description: "Personal portfolio presenting Nafis Aslam’s experience, projects, technical expertise, education, and contact information.",
-        stack: "Next.js · React · Tailwind CSS",
-        live: "https://nafis-aslam-portfolio.vercel.app/",
-      },
-      {
-        title: "Weather Project",
-        description: "Small weather application project.",
-        stack: "Web application · Weather data",
-        status: "Small project",
-      },
-      {
-        title: "To-Do List",
-        description: "Task-list application for creating and tracking to-do items.",
-        stack: "Web application · Task management",
-        status: "Small project",
-      },
-    ],
-  },
-  {
-    category: "Planned Enterprise Automation Projects",
-    items: [
-      {
-        title: "Intelligent Enterprise Invoice Automation",
-        description: "Planned workflow for invoice extraction, duplicate detection, approval routing, exception handling, audit logs, and ERP simulation.",
-        stack: "n8n · UiPath · OCR / AI · SQL",
-        status: "Planned · Not yet built",
-      },
-      {
-        title: "Industrial Predictive Maintenance & Operations Automation",
-        description: "Planned system for sensor monitoring, anomaly alerts, maintenance tickets, and equipment-health dashboards using simulated IoT data.",
-        stack: "Python · Machine Learning · IoT simulation · n8n",
-        status: "Planned · Not yet built",
+        github: "https://github.com/NafisAslam70/malaysia-equity-market",
+        gallery: [
+          "/images/malaysiaEquity/Screenshot%202026-11-17%20at%205.35.35%E2%80%AFPM.png",
+          "/images/malaysiaEquity/Screenshot%202026-11-17%20at%205.35.56%E2%80%AFPM.png",
+          "/images/malaysiaEquity/Screenshot%202026-11-17%20at%205.36.10%E2%80%AFPM.png",
+          "/images/malaysiaEquity/Screenshot%202026-11-17%20at%205.36.36%E2%80%AFPM.png",
+          "/images/malaysiaEquity/Screenshot%202026-11-17%20at%205.36.58%E2%80%AFPM.png",
+        ],
       },
     ],
   },
@@ -269,15 +276,15 @@ function ExternalLink({ href, children }) {
 function ProjectCard({ project }) {
   const projectId = project.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
   return (
-    <article id={project.title === "MeedianAI Flow v2" ? "meedianai-flow" : projectId} className="flex h-full scroll-mt-24 flex-col rounded-2xl border border-slate-200/80 bg-white/80 p-5 shadow-sm dark:border-white/10 dark:bg-white/[0.04]">
+    <article id={project.title === "MeedianAI Flow v2" ? "meedianai-flow" : projectId} className="project-case-card flex h-full scroll-mt-24 flex-col rounded-2xl border border-slate-200/80 bg-white/80 p-5 shadow-sm dark:border-white/10 dark:bg-white/[0.04]">
       <div className="flex items-start justify-between gap-3">
-        <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{project.title}</h3>
+        <div><h3 className="text-lg font-semibold text-slate-900 dark:text-white">{project.title}</h3></div>
         {(project.private || project.status) && <span className="shrink-0 rounded-full bg-amber-100 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-amber-800 dark:bg-amber-300/10 dark:text-amber-200">{project.private ? "Private repo" : project.status}</span>}
       </div>
       <p className="mt-3 flex-1 text-sm leading-6 text-slate-600 dark:text-slate-300">{project.description}</p>
       {project.stack && <p className="mt-4 text-xs leading-5 text-slate-500 dark:text-slate-400"><span className="font-semibold text-slate-700 dark:text-slate-200">Stack:</span> {project.stack}</p>}
       {project.video && <div className="mt-4 w-full max-w-xs overflow-hidden rounded-xl border border-slate-200 bg-slate-100 shadow-sm dark:border-white/10 dark:bg-black/20"><div className="relative aspect-video"><iframe className="absolute inset-0 h-full w-full" src={`https://www.youtube-nocookie.com/embed/${project.video}`} title={project.videoTitle || `${project.title} demo`} loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen /></div><p className="px-3 py-2 text-[11px] font-medium text-slate-500 dark:text-slate-400">{project.videoTitle || `${project.title} demo`}</p></div>}
-      {project.gallery && <div className="mt-4 grid grid-cols-2 gap-2">{project.gallery.map((src, index) => <div key={src} className="aspect-[1.5] overflow-hidden rounded-lg border border-slate-200 bg-slate-100 dark:border-white/10 dark:bg-slate-950"><Image src={src} alt={`MeedianAI Flow interface ${index + 1}`} width={960} height={600} className="h-full w-full object-cover transition duration-300 hover:scale-105" /></div>)}</div>}
+      {project.gallery && <ProjectGallery images={project.gallery} title={project.title} className="mt-4" />}
       <div className="mt-4 flex flex-wrap gap-2">
         {project.github && <ExternalLink href={project.github}>GitHub</ExternalLink>}
         {project.live && <ExternalLink href={project.live}>Live project</ExternalLink>}
@@ -333,10 +340,7 @@ export default function ProjectsPage() {
         {projects.map((group) => (
           <section key={group.category}>
             <div className="mb-5 flex items-end justify-between gap-4">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-indigo-600 dark:text-indigo-300">Project portfolio</p>
-                <h2 className="mt-1 text-2xl font-bold text-slate-900 dark:text-white md:text-3xl">{group.category}</h2>
-              </div>
+              <div><h2 className="text-2xl font-bold text-slate-900 dark:text-white md:text-3xl">{group.category}</h2></div>
               <span className="text-sm text-slate-500 dark:text-slate-400">{group.items.length} projects</span>
             </div>
             <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
