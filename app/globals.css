@@ -812,6 +812,7 @@ html[data-theme="dark"] .experience-flow-product b { color:#c7d2fe; }
   margin-right: 0;
 }
 
+.project-journey-rtl .project-journey-index { right:auto; left:1.2rem; }
 .project-journey-rtl::before { left: auto; right: .45rem; transform: none; }
 .project-journey-rtl .project-journey-card::before,
 .project-journey-rtl .project-journey-card:nth-child(even)::before {
