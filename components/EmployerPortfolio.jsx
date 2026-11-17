@@ -48,16 +48,16 @@ function TiltCard({ children, className = "", style = {}, dir, id }) {
 
 const HERO_ROLES = {
   en: [
-    { prefix: "I'm a", title: "Software Product Engineer" },
-    { prefix: "I integrate", title: "AI automation in workflows" },
-    { prefix: "I'm a", title: "Junior Researcher" },
-    { prefix: "I enjoy", title: "Computer Vision & ML research" },
+    { prefix: "I'm a", title: "Software Product Engineer," },
+    { prefix: "I integrate", title: "AI automation in workflows...!" },
+    { prefix: "I'm a", title: "Junior Researcher," },
+    { prefix: "I enjoy", title: "Computer Vision & ML research...!" },
   ],
   ar: [
-    { prefix: "أنا", title: "مهندس منتجات برمجية" },
-    { prefix: "أدمج", title: "أتمتة الذكاء الاصطناعي في سير العمل" },
-    { prefix: "أنا", title: "باحث مبتدئ" },
-    { prefix: "أستمتع بالبحث في", title: "الرؤية الحاسوبية والتعلم الآلي" },
+    { prefix: "أنا", title: "مهندس منتجات برمجية،" },
+    { prefix: "أدمج", title: "أتمتة الذكاء الاصطناعي في سير العمل...!" },
+    { prefix: "أنا", title: "باحث مبتدئ،" },
+    { prefix: "أستمتع بالبحث في", title: "الرؤية الحاسوبية والتعلم الآلي...!" },
   ],
 };
 const MOBILE_NAV_SECTION_IDS = ["overview", "experience", "projects", "education", "contact"];
