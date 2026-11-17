@@ -81,7 +81,7 @@ export default function SiteHeader({ session, lang = "en", nav = [] }) {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden items-center md:flex">
+          <nav dir={curLang === "ar" ? "rtl" : "ltr"} className="hidden items-center md:flex">
             <div className="site-nav-dock relative flex items-center gap-1 p-1.5">
               {nav.map((item) => {
                 const active = isActive(item.href);
@@ -180,7 +180,7 @@ export default function SiteHeader({ session, lang = "en", nav = [] }) {
         {/* Mobile nav */}
         {open && (
           <div id="site-mobile-menu" className="site-mobile-menu mx-3 mt-1 rounded-2xl md:hidden">
-            <nav className="mx-auto grid max-w-6xl gap-2 p-3">
+            <nav dir={curLang === "ar" ? "rtl" : "ltr"} className="mx-auto grid max-w-6xl gap-2 p-3">
               {nav.map((n) => {
                 const Icon = NAV_ICONS[n.href];
                 return (

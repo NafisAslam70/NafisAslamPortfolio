@@ -49,12 +49,12 @@ function TiltCard({ children, className = "", style = {}, dir, id }) {
 const HERO_ROLES = {
   en: [
     { prefix: "I'm a", title: "Software Product Engineer" },
-    { prefix: "I integrate", title: "AI & automation into workflows" },
+    { prefix: "I build with", title: "Computer Vision & AI Automation" },
     { prefix: "I'm a", title: "Junior Researcher" },
   ],
   ar: [
     { prefix: "أنا", title: "مهندس منتجات برمجية" },
-    { prefix: "أدمج", title: "الذكاء الاصطناعي والأتمتة في سير العمل" },
+    { prefix: "أبني باستخدام", title: "الرؤية الحاسوبية وأتمتة الذكاء الاصطناعي" },
     { prefix: "أنا", title: "باحث مبتدئ" },
   ],
 };
@@ -331,13 +331,13 @@ const COPY = {
     profileLabel: "PROFILE SNAPSHOT",
     profileEducation: "Computer Science · USM Malaysia · MIT-trained",
     profileSpecialism: "Software Product Engineer",
-    profileSummary: "I build end-to-end software products and make real workflows smarter with AI and automation.",
+    profileSummary: "I build end-to-end software products and apply computer vision and AI automation to real-world problems.",
     profileCapabilitiesLabel: "Product & AI focus",
-    profileCapabilities: ["Product engineering", "Applied AI", "Workflow automation"],
+    profileCapabilities: ["Product engineering", "Computer vision", "AI automation"],
     profileLocation: "Based in India · Available to relocate across the Gulf",
     contact: "Contact me", cv: "Download CV ↗", explore: "Explore projects ↓", bsc: "Bachelor of Computer Science (Honours) — Intelligent Computing (AI)", mit: "Statistics and Data Science MicroMasters (online)", award: "ICSC 2026 · International 2nd Rank · 2nd National Award · Top 1%",
     research: "Selected research", paper: "Read first-author preprint ↗", career: "Career history", experience: "Experience", selected: "Selected work", projects: "Projects with proof", projectIntro: "A closer look at systems I designed, built, evaluated, and documented.", allProjects: "View complete project portfolio ↗", toolkit: "Technical toolkit", expertise: "Expertise", educationEyebrow: "Education & recognition", education: "Academic foundation", next: "Next step", discuss: "Let’s discuss how I can contribute.", discussText: "For AI, machine learning, computer vision, data science, and software engineering opportunities.",
-    flagship: "Software products", forecast: "Applied AI", shipped: "Automation & intelligence", focus: "Institutional platforms", focusText: "Role-based platforms for school operations, attendance, approvals, and reporting.", forecastTitle: "AI retrieval & reasoning", forecastText: "RAG systems linking semantic search, knowledge graphs, and answer generation.", fullStack: "Automation that fits real work", fullStackText: "Apps, data pipelines, and automation built around everyday operational needs.",
+    flagship: "Software products", forecast: "Applied AI", shipped: "Selected automation project", focus: "Institutional platforms", focusText: "Role-based platforms for school operations, attendance, approvals, and reporting.", forecastTitle: "AI retrieval & reasoning", forecastText: "RAG systems linking semantic search, knowledge graphs, and answer generation.", fullStack: "AI-assisted invoice workflow", fullStackText: "A focused project using AI to extract invoice details and route them into billing operations.",
     cvProject: "Applied AI · Retrieval & Reasoning", platform: "Software Engineering · Product", data: "Data Science · Forecasting", fellowship: "Personal Product · Planning", live: "Live project ↗", video: "Demo video ↗", paperLink: "Paper ↗", github: "GitHub ↗", profile: "GitHub profile ↗", language: "English", location: "Based in India · Available to relocate across the Gulf",
   },
   ar: {
@@ -345,13 +345,13 @@ const COPY = {
     profileLabel: "نبذة مهنية",
     profileEducation: "خريج علوم الحاسوب · Universiti Sains Malaysia · تدريب من MIT",
     profileSpecialism: "مهندس منتجات برمجية",
-    profileSummary: "أبني منتجات برمجية متكاملة وأعزز سير العمل الواقعي بالذكاء الاصطناعي والأتمتة.",
+    profileSummary: "أبني منتجات برمجية متكاملة وأستخدم الرؤية الحاسوبية وأتمتة الذكاء الاصطناعي لحل مشكلات واقعية.",
     profileCapabilitiesLabel: "المنتجات والذكاء الاصطناعي",
-    profileCapabilities: ["هندسة المنتجات", "الذكاء الاصطناعي التطبيقي", "أتمتة سير العمل"],
+    profileCapabilities: ["هندسة المنتجات", "الرؤية الحاسوبية", "أتمتة الذكاء الاصطناعي"],
     profileLocation: "مقيم في الهند · متاح للانتقال إلى دول الخليج",
     contact: "تواصل معي", cv: "تحميل السيرة الذاتية ↗", explore: "استكشف المشاريع ↓", bsc: "بكالوريوس علوم الحاسوب مع مرتبة الشرف — الحوسبة الذكية (الذكاء الاصطناعي)", mit: "برنامج MicroMasters في الإحصاء وعلوم البيانات (عبر الإنترنت)", award: "المركز الدولي الثاني · الجائزة الوطنية الثانية · ضمن أفضل 1٪ في ICSC 2026",
     research: "أبحاث مختارة", paper: "قراءة البحث المنشور باسمي الأول ↗", career: "المسيرة المهنية", experience: "الخبرة", selected: "مشاريع مختارة", projects: "مشاريع مختارة", projectIntro: "نظرة على الأنظمة التي صممتها وطورتها وقيّمتها ووثّقتها.", allProjects: "عرض portfolio المشاريع بالكامل ↗", toolkit: "الأدوات التقنية", expertise: "التخصصات", educationEyebrow: "التعليم والإنجازات", education: "الأساس الأكاديمي", next: "الخطوة التالية", discuss: "لنتحدث عن كيفية مساهمتي في فريقكم.", discussText: "فرص في الذكاء الاصطناعي وتعلم الآلة والرؤية الحاسوبية وعلوم البيانات وهندسة البرمجيات.",
-    flagship: "منتجات برمجية", forecast: "ذكاء اصطناعي تطبيقي", shipped: "أتمتة وذكاء تشغيلي", focus: "منصات مؤسسية", focusText: "منصات بصلاحيات للأعمال المدرسية والحضور والموافقات والتقارير.", forecastTitle: "الاسترجاع والاستدلال بالذكاء الاصطناعي", forecastText: "أنظمة RAG تربط البحث الدلالي بالرسوم المعرفية وتوليد الإجابات.", fullStack: "أتمتة تناسب العمل الفعلي", fullStackText: "تطبيقات ومسارات بيانات وأتمتة تلائم احتياجات العمل اليومية.",
+    flagship: "منتجات برمجية", forecast: "ذكاء اصطناعي تطبيقي", shipped: "مشروع أتمتة مختار", focus: "منصات مؤسسية", focusText: "منصات بصلاحيات للأعمال المدرسية والحضور والموافقات والتقارير.", forecastTitle: "الاسترجاع والاستدلال بالذكاء الاصطناعي", forecastText: "أنظمة RAG تربط البحث الدلالي بالرسوم المعرفية وتوليد الإجابات.", fullStack: "سير عمل للفواتير بمساعدة الذكاء الاصطناعي", fullStackText: "مشروع تطبيقي يستخرج بيانات الفواتير بالذكاء الاصطناعي ويوجهها إلى عمليات الفوترة.",
     cvProject: "ذكاء اصطناعي تطبيقي · استرجاع واستدلال", platform: "هندسة البرمجيات · منتج", data: "علوم البيانات · التنبؤ", fellowship: "منتج شخصي · تخطيط", live: "المشروع المباشر ↗", video: "فيديو العرض ↗", paperLink: "البحث ↗", github: "GitHub ↗", profile: "ملف GitHub ↗", language: "العربية", location: "مقيم في الهند · متاح للانتقال إلى دول الخليج",
   },
 };

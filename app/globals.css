@@ -146,7 +146,7 @@ html[data-theme="dark"] .site-mobile-menu { border-color:rgba(199,210,254,.18); 
 .site-footer-orbit { position:absolute; z-index:-1; top:-5.5rem; right:-2rem; width:15rem; height:15rem; border:1px solid rgba(165,180,252,.14); border-radius:50%; box-shadow:0 0 0 1.4rem rgba(129,140,248,.035),0 0 0 2.8rem rgba(56,189,248,.025); }
 .site-footer-content { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(12rem,.85fr) minmax(10rem,.65fr); gap:2.5rem; padding:2.35rem .25rem 1.8rem; }
 .site-footer-brand-heading { display:flex; align-items:center; gap:.8rem; }
-.site-footer-mark { display:grid; width:2.75rem; height:2.75rem; flex:none; place-items:center; border:1px solid rgba(199,210,254,.18); border-radius:.9rem; background:linear-gradient(145deg,#4f46e5,#0891b2); color:white; font-size:.8rem; font-weight:900; letter-spacing:-.06em; box-shadow:0 10px 22px -15px rgba(99,102,241,.85),inset 0 1px 0 rgba(255,255,255,.25); }
+.site-footer-mark { position:relative; display:block; width:2.75rem; height:2.75rem; flex:none; overflow:hidden; border:1px solid rgba(199,210,254,.18); border-radius:.9rem; background:linear-gradient(145deg,#4f46e5,#0891b2); box-shadow:0 10px 22px -15px rgba(99,102,241,.85),inset 0 1px 0 rgba(255,255,255,.25); }
 .site-footer-brand h3 { color:#f8fafc; font-size:1.03rem; font-weight:850; }
 .site-footer-brand-heading div > span { display:block; margin-top:.1rem; color:#a5b4fc; font-size:.68rem; font-weight:700; }
 .site-footer-brand > p { max-width:19rem; margin-top:.85rem; color:#aebbd0; font-size:.78rem; line-height:1.7; }
@@ -224,6 +224,7 @@ html[data-theme="dark"] .site-mobile-menu { border-color:rgba(199,210,254,.18); 
   .site-header-language button { padding:.3rem .5rem; font-size:.6rem; }
   .site-menu-trigger { width:2.15rem; height:2.15rem; font-size:.9rem; border-radius:.72rem; }
   .mobile-scroll-navigator { right:.32rem; top:50dvh; opacity:.78; transform:translateY(-50%) scale(.9); transform-origin:right center; transition:opacity .22s ease,transform .22s ease; }
+  .mobile-scroll-navigator[dir="rtl"] { right:auto; left:.32rem; transform-origin:left center; }
   .mobile-scroll-navigator:active, .mobile-scroll-navigator:hover { opacity:1; transform:translateY(-50%) scale(.96); }
   .mobile-scroll-water { position:absolute; inset:0; z-index:0; overflow:hidden; border-radius:inherit; pointer-events:none; }
   .mobile-scroll-water-fill { position:absolute; inset:0; display:block; border-radius:inherit; background:radial-gradient(circle at 28% 74%,rgba(255,255,255,.58) 0 1px,transparent 2px),radial-gradient(circle at 70% 61%,rgba(255,255,255,.38) 0 1.5px,transparent 2.5px),linear-gradient(180deg,rgba(34,211,238,.28),rgba(99,102,241,.25)); transform:scaleY(0); transform-origin:bottom; will-change:transform; }
@@ -507,14 +508,17 @@ html[data-theme="dark"] .portfolio-hero-profile-location svg { color:#67e8f9; }
   .hero-mobile-avatar { width: 6.25rem; height: 6.25rem; border-radius: 1.35rem; }
   .hero-mobile-avatar { order:-1; }
   .hero-mobile-avatar img { object-position: center 18%; }
-  .hero-typed-role { justify-content:center; flex-wrap:nowrap; min-height:1.75rem; margin-top:1rem; gap:.3rem; font-size:clamp(.8rem,3.8vw,1.05rem); text-align:center; white-space:nowrap; }
-  .hero-typed-role-prefix, .hero-typed-role-title { flex:none; white-space:nowrap; }
+  .hero-typed-role { justify-content:center; flex-wrap:wrap; min-height:1.75rem; margin-top:1rem; gap:.3rem; font-size:1.05rem; text-align:center; }
+  .hero-typed-role-prefix, .hero-typed-role-title { white-space:normal; }
   .portfolio-hero-profile { padding:.9rem; }
   .portfolio-hero-profile-meta { flex-direction:column; gap:.38rem; }
   .portfolio-hero-profile-title { margin-top:.68rem; font-size:1.15rem; }
   .portfolio-hero-profile-summary { margin-top:.65rem; font-size:.86rem; }
   .portfolio-hero-profile-capabilities { gap:.32rem; margin-top:.62rem; }
   .portfolio-hero-profile-capabilities li { font-size:.62rem; }
+}
+@media (max-width: 380px) {
+  .hero-typed-role { flex-direction:column; gap:.12rem; }
 }
 
 .portfolio-science-section {

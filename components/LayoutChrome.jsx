@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+import Image from "next/image";
 import SiteHeader from "@/components/SiteHeader";
 import PersonalizedEntry from "@/components/PersonalizedEntry";
 
@@ -31,7 +32,9 @@ function SiteFooter({ lang = "en" }) {
         <div className="site-footer-content">
           <div className="site-footer-brand">
             <div className="site-footer-brand-heading">
-              <span className="site-footer-mark" aria-hidden="true">NA</span>
+              <span className="site-footer-mark" aria-hidden="true">
+                <Image src="/images/grad.png" alt="" fill sizes="44px" className="object-cover object-[center_20%]" />
+              </span>
               <div>
                 <h3>Nafis Aslam</h3>
                 <span>{ar ? "مهندس منتجات برمجية" : "Software Product Engineer"}</span>
