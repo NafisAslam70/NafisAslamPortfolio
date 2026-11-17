@@ -43,13 +43,12 @@ export default function SiteHeader({ session, lang = "en", nav = [] }) {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 w-full bg-transparent">
-        <div className="pointer-events-none absolute inset-0 -z-10 border-b border-white/30 bg-white/70 backdrop-blur-lg dark:border-slate-800/70 dark:bg-slate-950/75" />
-        <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-32 bg-gradient-to-b from-slate-200/40 via-transparent to-transparent dark:from-slate-900/35" />
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 md:px-6">
+      <header className="site-header fixed inset-x-0 top-0 z-50 w-full bg-transparent">
+        <div className="site-header-aura pointer-events-none absolute inset-x-0 top-0 -z-10 h-32" />
+        <div className="site-header-shell mx-auto flex max-w-6xl items-center justify-between gap-3 px-3 py-3 md:px-4">
           {/* Brand */}
-          <Link href="/" className="group flex items-center gap-3">
-            <span className="relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-2xl border border-white/70 bg-white/80 shadow-md transition duration-300 group-hover:-translate-y-0.5 group-hover:shadow-lg dark:border-white/10 dark:bg-white/[0.08]">
+          <Link href="/" className="site-brand group flex items-center gap-3">
+            <span className="site-brand-mark relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-2xl">
               <Image
                 src="/my_gifFile.GIF"
                 alt="Nafis Aslam logo"
@@ -60,16 +59,14 @@ export default function SiteHeader({ session, lang = "en", nav = [] }) {
               />
             </span>
             <div className="flex flex-col leading-tight">
-              <span className="text-base font-semibold md:text-lg">Nafis Aslam</span>
-              <span className="hidden text-[11px] uppercase tracking-[0.28em] text-slate-600/80 dark:text-slate-300/80 md:block">
-                {curLang === "ar" ? "ملف مهني" : "Professional Portfolio"}
-              </span>
+              <span className="site-brand-name text-base font-semibold md:text-lg">Nafis Aslam</span>
+              <span className="site-brand-subtitle hidden md:block">{curLang === "ar" ? "ملف مهني" : "Applied AI · Systems"}</span>
             </div>
           </Link>
 
           {/* Desktop nav */}
           <nav className="hidden items-center md:flex">
-            <div className="relative flex items-center gap-2 rounded-[2.25rem] border border-slate-200/70 bg-white/70 px-3 py-2 shadow-lg shadow-slate-500/5 backdrop-blur dark:border-white/10 dark:bg-white/[0.06]">
+            <div className="site-nav-dock relative flex items-center gap-1 p-1.5">
               {nav.map((item) => {
                 const active = isActive(item.href);
                 const isPrimary = item.variant === "primary";
@@ -78,7 +75,7 @@ export default function SiteHeader({ session, lang = "en", nav = [] }) {
                     <Link
                       key={item.href}
                       href={item.href}
-                      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-2xl bg-indigo-700 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-indigo-950/10 transition duration-300 hover:bg-indigo-600 hover:shadow-xl dark:bg-indigo-600 dark:hover:bg-indigo-500"
+                      className="site-nav-primary group relative inline-flex items-center gap-2 overflow-hidden rounded-xl px-4 py-2 text-sm font-semibold text-white transition duration-300"
                     >
                       <span className="relative z-10">{label(item)}</span>
                       <span className="pointer-events-none absolute inset-0 bg-white/10 opacity-0 transition duration-300 group-hover:opacity-100" />
@@ -90,16 +87,16 @@ export default function SiteHeader({ session, lang = "en", nav = [] }) {
                     {active && (
                       <motion.span
                         layoutId="site-header-active"
-                        className="pointer-events-none absolute inset-0 rounded-2xl bg-indigo-700 shadow-[0_12px_30px_-18px_rgba(79,70,229,0.35)] dark:bg-indigo-600"
+                        className="pointer-events-none absolute inset-0 rounded-xl bg-slate-950 shadow-[0_10px_24px_-15px_rgba(15,23,42,.65)]"
                         transition={{ type: "spring", stiffness: 380, damping: 32 }}
                       />
                     )}
                     {!active && (
-                      <span className="pointer-events-none absolute inset-0 rounded-2xl border border-slate-200/80 bg-white/80 transition duration-300 group-hover:border-indigo-300 group-hover:bg-white dark:border-white/15 dark:bg-white/[0.06] dark:group-hover:border-indigo-300/40" />
+                      <span className="pointer-events-none absolute inset-0 rounded-xl transition duration-300 group-hover:bg-slate-100/80" />
                     )}
                     <Link
                       href={item.href}
-                      className={`relative z-10 flex items-center gap-2 rounded-2xl px-4 py-2 text-sm font-medium transition duration-200 ${
+                      className={`relative z-10 flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition duration-200 ${
                         active
                           ? "text-white"
                           : "text-slate-600 hover:text-indigo-700 dark:text-slate-200 dark:hover:text-indigo-200"
@@ -115,9 +112,9 @@ export default function SiteHeader({ session, lang = "en", nav = [] }) {
 
           {/* Actions */}
           <div className="flex items-center gap-2">
-            <div className="flex items-center gap-2 rounded-2xl border border-slate-200/70 bg-white/70 px-2 py-1 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/[0.06]">
+            <div className="site-header-language flex items-center gap-2 px-1.5 py-1">
               <button
-                className="rounded-full border border-transparent bg-indigo-500/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-indigo-700 transition hover:-translate-y-0.5 hover:bg-indigo-500/25 dark:text-indigo-200"
+                className="rounded-full border border-transparent bg-indigo-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-indigo-700 transition hover:-translate-y-0.5 hover:bg-indigo-500/20 dark:text-indigo-200"
                 onClick={toggleLanguage}
                 title="Switch language / تغيير اللغة"
                 aria-label="Switch language between English and Arabic"
@@ -146,7 +143,7 @@ export default function SiteHeader({ session, lang = "en", nav = [] }) {
 
             {/* Mobile menu button */}
             <button
-              className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-indigo-200/70 bg-white/70 text-lg shadow-sm transition hover:-translate-y-0.5 hover:border-indigo-300 hover:text-indigo-500 dark:border-white/15 dark:bg-white/[0.08] md:hidden"
+              className="site-menu-trigger inline-flex h-10 w-10 items-center justify-center rounded-xl text-lg transition md:hidden"
               onClick={() => setOpen((v) => !v)}
               aria-label="Menu"
             >
@@ -157,16 +154,16 @@ export default function SiteHeader({ session, lang = "en", nav = [] }) {
 
         {/* Mobile nav */}
         {open && (
-          <div className="border-t border-indigo-200/60 bg-white/80 shadow-lg shadow-indigo-500/10 backdrop-blur dark:border-white/10 dark:bg-slate-950/80 md:hidden">
-            <nav className="mx-auto grid max-w-6xl gap-2 p-4">
+          <div className="site-mobile-menu mx-3 mt-1 rounded-2xl md:hidden">
+            <nav className="mx-auto grid max-w-6xl gap-2 p-3">
               {nav.map((n) => (
                 <Link
                   key={n.href}
                   href={n.href}
                   className={`flex items-center justify-between rounded-2xl border px-4 py-3 text-sm font-semibold transition ${
                     n.variant === "primary"
-                      ? "border-transparent bg-indigo-700 text-white shadow-md dark:bg-indigo-600"
-                      : "border-slate-200 bg-white/80 text-slate-600 hover:border-indigo-300 hover:text-indigo-700 dark:border-white/15 dark:bg-white/[0.06] dark:text-slate-200"
+                      ? "border-transparent bg-slate-950 text-white shadow-md"
+                      : "border-slate-100 bg-white/70 text-slate-600 hover:border-indigo-300 hover:text-indigo-700"
                   }`}
                   onClick={() => setOpen(false)}
                 >

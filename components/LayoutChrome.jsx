@@ -66,7 +66,7 @@ export default function LayoutChrome({ session, lang, children }) {
           nav={[
             { href: "/", labelEn: "Overview", labelAr: "نظرة عامة" },
             { href: "/#experience", labelEn: "Experience", labelAr: "الخبرة" },
-            { href: "/#projects", labelEn: "Projects", labelAr: "المشاريع" },
+            { href: "/ventures", labelEn: "Projects", labelAr: "المشاريع" },
             { href: "/#expertise", labelEn: "Expertise", labelAr: "التخصصات" },
             { href: "/#education", labelEn: "Education", labelAr: "التعليم" },
             { href: "/#contact", labelEn: "Contact", labelAr: "تواصل", variant: "primary" },

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ProjectGallery from "@/components/ProjectGallery";
+import ProjectCategoryTabs from "@/components/ProjectCategoryTabs";
 
 export const metadata = {
   title: "Projects • Nafis Aslam | Gulf Software & Applied AI Portfolio",
@@ -9,29 +10,31 @@ export const metadata = {
 
 const projects = [
   {
-    category: "Software Engineering & Full-Stack",
+    category: "Flagship Projects",
     items: [
       {
+        title: "DeepWork AI",
+        description: "AI-assisted productivity platform with focus sessions, goal tracking, webcam attention classification, contextual nudges, and focus analytics.",
+        stack: "Next.js · React · Flask · Python · PostgreSQL · YOLO · MediaPipe · OpenCV · PyTorch",
+        github: "https://github.com/NafisAslam70/DeepWorkAI",
+        live: "https://deep-work-ai-nu.vercel.app/",
+        detail: "/ventures/deepwork-ai",
+        video: "Je0_qLxRbX8",
+        videoTitle: "DeepWork AI · product demo",
+      },
+      {
         title: "MeedianAI Flow v2",
-        description:
-          "School and community operations platform with role-based dashboards, schedules, routines, tasks, attendance, approvals, messaging, student enquiries, and reporting.",
+        description: "School and community operations platform with role-based dashboards, schedules, routines, tasks, attendance, approvals, messaging, student enquiries, and reporting.",
         stack: "Next.js · React · PostgreSQL · Drizzle · Prisma · Redis · NextAuth · Tailwind",
         github: "https://github.com/NafisAslam70/MeedianAI-Flow-v2",
         live: "https://meedian-ai-flow-v222.vercel.app/",
-        gallery: [
-          "/images/meedian/1.png",
-          "/images/meedian/2.png",
-          "/images/meedian/3.png",
-          "/images/meedian/Screenshot%202026-11-15%20at%205.28.30%E2%80%AFPM.png",
-          "/images/meedian/Screenshot%202026-11-17%20at%203.08.42%E2%80%AFAM.png",
-          "/images/meedian/Screenshot%202026-11-17%20at%203.09.07%E2%80%AFAM.png",
-          "/images/meedian/Screenshot%202026-11-17%20at%203.10.07%E2%80%AFAM.png",
-          "/images/meedian/Screenshot%202026-11-17%20at%203.07.19%E2%80%AFAM.png",
-          "/images/meedian/Screenshot%202026-11-17%20at%203.08.30%E2%80%AFAM.png",
-          "/images/meedian/Screenshot%202026-11-17%20at%203.05.38%E2%80%AFAM.png",
-          "/images/meedian/Screenshot%202026-11-17%20at%203.07.11%E2%80%AFAM.png",
-        ],
+        gallery: ["/images/meedian/1.png", "/images/meedian/2.png", "/images/meedian/3.png", "/images/meedian/Screenshot%202026-11-15%20at%205.28.30%E2%80%AFPM.png", "/images/meedian/Screenshot%202026-11-17%20at%203.08.42%E2%80%AFAM.png"],
       },
+    ],
+  },
+  {
+    category: "Software Engineering & Full-Stack",
+    items: [
       {
         title: "MEED International School Website",
         description:
@@ -265,6 +268,23 @@ const projects = [
   },
 ];
 
+const categoryId = (category) => category.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+const categoryTabLabel = (category) => ({
+  "Flagship / Major Projects": "Flagship",
+  "Automation Projects": "Automation",
+  "Software Engineering Projects": "Software Engineering",
+  "AI/ML & Data Science Projects": "AI/ML + Data",
+  "Research / University Projects": "Research / University",
+}[category] || category);
+
+const projectGroups = [
+  { category: "Flagship / Major Projects", items: projects[0].items },
+  { category: "Automation Projects", items: projects[2].items },
+  { category: "Software Engineering Projects", items: [...projects[1].items, ...projects[6].items.filter((project) => project.title === "Malaysia Equity Market Platform")] },
+  { category: "AI/ML & Data Science Projects", items: [...projects[3].items, ...projects[4].items] },
+  { category: "Research / University Projects", items: [...projects[5].items, ...projects[6].items.filter((project) => project.title !== "Malaysia Equity Market Platform")] },
+];
+
 function ExternalLink({ href, children }) {
   return (
     <a className="rounded-full border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:border-indigo-300 hover:text-indigo-700 dark:border-white/15 dark:text-slate-200 dark:hover:border-indigo-400" href={href} target="_blank" rel="noreferrer">
@@ -283,7 +303,7 @@ function ProjectCard({ project }) {
       </div>
       <p className="mt-3 flex-1 text-sm leading-6 text-slate-600 dark:text-slate-300">{project.description}</p>
       {project.stack && <p className="mt-4 text-xs leading-5 text-slate-500 dark:text-slate-400"><span className="font-semibold text-slate-700 dark:text-slate-200">Stack:</span> {project.stack}</p>}
-      {project.video && <div className="mt-4 w-full max-w-xs overflow-hidden rounded-xl border border-slate-200 bg-slate-100 shadow-sm dark:border-white/10 dark:bg-black/20"><div className="relative aspect-video"><iframe className="absolute inset-0 h-full w-full" src={`https://www.youtube-nocookie.com/embed/${project.video}`} title={project.videoTitle || `${project.title} demo`} loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen /></div><p className="px-3 py-2 text-[11px] font-medium text-slate-500 dark:text-slate-400">{project.videoTitle || `${project.title} demo`}</p></div>}
+      {project.video && <div className={`mt-4 w-full overflow-hidden rounded-xl border border-slate-200 bg-slate-100 shadow-sm dark:border-white/10 dark:bg-black/20 ${project.title === "DeepWork AI" ? "max-w-none" : "max-w-xs"}`}><div className="relative aspect-video"><iframe className="absolute inset-0 h-full w-full" src={`https://www.youtube-nocookie.com/embed/${project.video}`} title={project.videoTitle || `${project.title} demo`} loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen /></div><p className="px-3 py-2 text-[11px] font-medium text-slate-500 dark:text-slate-400">{project.videoTitle || `${project.title} demo`}</p></div>}
       {project.gallery && <ProjectGallery images={project.gallery} title={project.title} className="mt-4" />}
       <div className="mt-4 flex flex-wrap gap-2">
         {project.github && <ExternalLink href={project.github}>GitHub</ExternalLink>}
@@ -311,7 +331,7 @@ export default function ProjectsPage() {
         </div>
       </header>
 
-      <section className="mb-14 overflow-hidden rounded-3xl border border-slate-800 bg-slate-950 p-5 text-white shadow-xl dark:border-white/10 dark:bg-[#111923] md:p-8">
+      <section className="hidden mb-14 overflow-hidden rounded-3xl border border-slate-800 bg-slate-950 p-5 text-white shadow-xl dark:border-white/10 dark:bg-[#111923] md:p-8">
         <div className="grid gap-7 lg:grid-cols-[1.1fr,0.9fr] lg:items-center">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-indigo-200">Featured project · AI + Product Engineering</p>
@@ -336,9 +356,9 @@ export default function ProjectsPage() {
         </div>
       </section>
 
-      <div className="space-y-12">
-        {projects.map((group) => (
-          <section key={group.category}>
+      <ProjectCategoryTabs categories={projectGroups.map((group) => ({ id: categoryId(group.category), label: categoryTabLabel(group.category) }))}>
+        {projectGroups.map((group) => (
+          <section key={group.category} id={categoryId(group.category)} className="project-category-section">
             <div className="mb-5 flex items-end justify-between gap-4">
               <div><h2 className="text-2xl font-bold text-slate-900 dark:text-white md:text-3xl">{group.category}</h2></div>
               <span className="text-sm text-slate-500 dark:text-slate-400">{group.items.length} projects</span>
@@ -348,7 +368,7 @@ export default function ProjectsPage() {
             </div>
           </section>
         ))}
-      </div>
+      </ProjectCategoryTabs>
       </div>
     </main>
   );
