@@ -26,10 +26,13 @@ function getLang() {
 function ThemeInitScript() {
   const code = `
     try {
-      document.documentElement.dataset.theme = "light";
-      document.documentElement.classList.remove("light");
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
+      const root = document.documentElement;
+      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      const savedTheme = localStorage.getItem("theme");
+      const theme = savedTheme === "dark" || savedTheme === "light" ? savedTheme : systemTheme;
+      root.dataset.theme = theme;
+      root.classList.remove("light");
+      root.classList.toggle("dark", theme === "dark");
     } catch {}
   `.replace(/\s+/g, " ");
   return <script dangerouslySetInnerHTML={{ __html: code }} />;

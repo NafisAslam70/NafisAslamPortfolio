@@ -44,7 +44,7 @@ export default function SiteHeader({ session, lang = "en", nav = [] }) {
   return (
     <>
       <header className="site-header fixed inset-x-0 top-0 z-50 w-full bg-transparent">
-        <div className="site-header-aura pointer-events-none absolute inset-x-0 top-0 -z-10 h-32" />
+        <div className="site-header-aura pointer-events-none absolute inset-x-0 top-0 -z-10 h-16 md:h-[5.5rem]" />
         <div className="site-header-shell mx-auto flex max-w-6xl items-center justify-between gap-3 px-3 py-3 md:px-4">
           {/* Brand */}
           <Link href="/" className="site-brand group flex items-center gap-3">
@@ -92,7 +92,7 @@ export default function SiteHeader({ session, lang = "en", nav = [] }) {
                       />
                     )}
                     {!active && (
-                      <span className="pointer-events-none absolute inset-0 rounded-xl transition duration-300 group-hover:bg-slate-100/80" />
+                      <span className="pointer-events-none absolute inset-0 rounded-xl transition duration-300 group-hover:bg-slate-100/80 dark:group-hover:bg-indigo-500/20" />
                     )}
                     <Link
                       href={item.href}
@@ -163,7 +163,7 @@ export default function SiteHeader({ session, lang = "en", nav = [] }) {
                   className={`flex items-center justify-between rounded-2xl border px-4 py-3 text-sm font-semibold transition ${
                     n.variant === "primary"
                       ? "border-transparent bg-slate-950 text-white shadow-md"
-                      : "border-slate-100 bg-white/70 text-slate-600 hover:border-indigo-300 hover:text-indigo-700"
+                      : "border-slate-100 bg-white/70 text-slate-600 hover:border-indigo-300 hover:text-indigo-700 dark:border-white/10 dark:bg-slate-900 dark:text-slate-100 dark:hover:border-indigo-300 dark:hover:text-indigo-200"
                   }`}
                   onClick={() => setOpen(false)}
                 >
@@ -174,7 +174,7 @@ export default function SiteHeader({ session, lang = "en", nav = [] }) {
           </div>
         )}
       </header>
-      <div className="h-20 md:h-24" aria-hidden />
+      <div className="h-16 md:h-[5.5rem]" aria-hidden />
     </>
   );
 }

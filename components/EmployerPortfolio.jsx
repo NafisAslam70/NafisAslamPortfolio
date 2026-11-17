@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import ProjectGallery from "@/components/ProjectGallery";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, useReducedMotion, useSpring } from "framer-motion";
@@ -135,12 +135,23 @@ function ScrollExperience() {
           ease: "none",
           scrollTrigger: { trigger: document.documentElement, start: "top top", end: "bottom bottom", scrub: true },
         });
-        gsap.utils.toArray(".scroll-reveal-content").forEach((element) => {
-          gsap.fromTo(element, { y: 26, rotateX: 4, transformPerspective: 900 }, {
+        gsap.utils.toArray(".scroll-reveal-content").forEach((element, index) => {
+          gsap.fromTo(element, {
+            opacity: 0.62,
+            y: 20,
+            scale: 0.99,
+            rotateX: 1.2,
+            filter: "blur(2px)",
+            transformPerspective: 900,
+          }, {
+            opacity: 1,
             y: 0,
+            scale: 1,
             rotateX: 0,
-            duration: 0.78,
-            ease: "power3.out",
+            filter: "blur(0px)",
+            duration: 0.68,
+            delay: (index % 3) * 0.07,
+            ease: "power2.out",
             scrollTrigger: { trigger: element.closest(".portfolio-tilt"), start: "top 92%", once: true },
           });
         });
@@ -518,7 +529,7 @@ function MobileHireOverlay({ lang }) {
         <div className="mt-4 flex items-center justify-between"><div className="flex gap-1.5">{reasons.map(([itemNumber], index) => <button key={itemNumber} onClick={() => setSlide(index)} aria-label={`${title} ${index + 1}`} className={`h-2 rounded-full transition-all ${slide === index ? "w-6 bg-indigo-600" : "w-2 bg-slate-200"}`} />)}</div><div className="flex gap-2"><button onClick={() => nextSlide(-1)} className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white font-bold text-slate-700" aria-label="Previous">←</button><button onClick={() => nextSlide()} className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-950 font-bold text-white" aria-label="Next">→</button></div></div>
         <a href="#contact" onClick={() => setOpen(false)} className="mt-4 flex items-center justify-center gap-2 rounded-xl bg-slate-950 px-4 py-3 text-sm font-semibold text-white">{lang === "ar" ? "لنتحدث" : "Let’s talk"} <FaArrowUpRightFromSquare aria-hidden="true" /></a>
       </div>}
-      {!open && <button onClick={() => setOpen(true)} className="group mx-auto flex w-full max-w-sm items-center justify-between rounded-2xl border border-indigo-200/80 bg-slate-950 px-4 py-3 text-left text-white shadow-xl shadow-indigo-950/25"><span className="flex items-center gap-3"><span className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-400 to-violet-500 text-xs font-extrabold"><i className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 animate-pulse rounded-full bg-emerald-300 ring-2 ring-slate-950" />01</span><span><span className="block text-[10px] font-bold uppercase tracking-[0.16em] text-indigo-200">Nafis Aslam</span><span className="block text-sm font-bold">{title}</span></span></span><span className="rounded-full bg-white/10 px-3 py-1.5 text-xs font-semibold text-indigo-100">{lang === "ar" ? "اضغط" : "Tap"} →</span></button>}
+      {!open && <button onClick={() => setOpen(true)} className="mobile-hire-trigger group mx-auto flex w-full max-w-sm items-center justify-between rounded-2xl border border-indigo-200/80 bg-slate-950 px-4 py-3 text-left text-white shadow-xl shadow-indigo-950/25"><span className="flex items-center gap-3"><span className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-400 to-violet-500 text-xs font-extrabold"><i className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 animate-pulse rounded-full bg-emerald-300 ring-2 ring-slate-950" />01</span><span><span className="block text-[10px] font-bold uppercase tracking-[0.16em] text-indigo-200">Nafis Aslam</span><span className="block text-sm font-bold">{title}</span></span></span><span className="rounded-full bg-white/10 px-3 py-1.5 text-xs font-semibold text-indigo-100">{lang === "ar" ? "اضغط" : "Tap"} →</span></button>}
     </div>
   );
 }
@@ -528,9 +539,12 @@ function MobileScrollNavigator({ lang }) {
     ? [["overview", "البداية"], ["experience", "الخبرة"], ["projects", "المشاريع"], ["education", "التعليم"], ["contact", "تواصل"]]
     : [["overview", "Overview"], ["experience", "Experience"], ["projects", "Projects"], ["education", "Education"], ["contact", "Contact"]];
   const [activeIndex, setActiveIndex] = useState(0);
+  const progressFillRef = useRef(null);
 
   useEffect(() => {
-    const detectSection = () => {
+    let frameId = 0;
+    const updateNavigation = () => {
+      frameId = 0;
       const marker = window.innerHeight * 0.37;
       let selected = 0;
       MOBILE_NAV_SECTION_IDS.forEach((id, index) => {
@@ -538,14 +552,83 @@ function MobileScrollNavigator({ lang }) {
         if (section && section.getBoundingClientRect().top <= marker) selected = index;
       });
       setActiveIndex(selected);
+
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = maxScroll > 0 ? Math.min(Math.max(window.scrollY / maxScroll, 0), 1) : 0;
+      progressFillRef.current?.style.setProperty("transform", `scaleY(${progress})`);
     };
-    detectSection();
-    window.addEventListener("scroll", detectSection, { passive: true });
-    return () => window.removeEventListener("scroll", detectSection);
+    const scheduleUpdate = () => {
+      if (!frameId) frameId = window.requestAnimationFrame(updateNavigation);
+    };
+
+    updateNavigation();
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+    return () => {
+      window.cancelAnimationFrame(frameId);
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+    };
   }, [lang]);
 
   const navigate = (index) => document.getElementById(sections[index][0])?.scrollIntoView({ behavior: "smooth", block: "start" });
-  return <div className="mobile-scroll-navigator fixed right-2 top-1/2 z-40 -translate-y-1/2 md:hidden" dir={lang === "ar" ? "rtl" : "ltr"}><div className="flex flex-col items-center gap-2 rounded-full border border-white/80 bg-white/80 p-1.5 shadow-lg shadow-indigo-950/10 backdrop-blur-xl"><button onClick={() => navigate(Math.max(activeIndex - 1, 0))} disabled={activeIndex === 0} aria-label="Previous section" className="flex h-7 w-7 items-center justify-center rounded-full text-sm text-slate-500 disabled:opacity-25">↑</button><div className="relative flex flex-col items-center gap-1.5 py-1">{sections.map(([id, label], index) => <button key={id} onClick={() => navigate(index)} aria-label={label} className={`relative flex items-center justify-center rounded-full transition-all ${index === activeIndex ? "h-7 w-7 bg-slate-950 shadow-md shadow-indigo-950/20" : "h-3 w-3 bg-indigo-100 hover:bg-indigo-300"}`}><i className={`rounded-full ${index === activeIndex ? "h-2 w-2 bg-indigo-300" : "h-1.5 w-1.5 bg-indigo-400"}`} /></button>)}</div><button onClick={() => navigate(Math.min(activeIndex + 1, sections.length - 1))} disabled={activeIndex === sections.length - 1} aria-label="Next section" className="flex h-7 w-7 items-center justify-center rounded-full text-sm text-slate-500 disabled:opacity-25">↓</button><span className="mb-1 text-[8px] font-black tracking-[0.08em] text-indigo-600">{String(activeIndex + 1).padStart(2, "0")}</span></div></div>;
+  return (
+    <div
+      className="mobile-scroll-navigator fixed z-40 md:hidden"
+      dir={lang === "ar" ? "rtl" : "ltr"}
+      aria-label={lang === "ar" ? "التنقل بين الأقسام" : "Page navigation"}
+    >
+      <div className="flex flex-col items-center gap-2 rounded-full border border-white/80 bg-white/80 p-1.5 shadow-lg shadow-indigo-950/10 backdrop-blur-xl dark:border-white/15 dark:bg-slate-950/85 dark:shadow-black/40">
+        <button
+          onClick={() => navigate(Math.max(activeIndex - 1, 0))}
+          disabled={activeIndex === 0}
+          aria-label="Previous section"
+          className="flex h-7 w-7 items-center justify-center rounded-full text-sm text-slate-500 disabled:opacity-25 dark:text-slate-300"
+        >
+          ↑
+        </button>
+        <div className="mobile-scroll-sections relative flex flex-col items-center gap-1.5 py-1">
+          <span className="mobile-scroll-track" aria-hidden="true">
+            <span
+              ref={progressFillRef}
+              className="mobile-scroll-track-fill"
+            />
+          </span>
+          {sections.map(([id, label], index) => (
+            <button
+              key={id}
+              onClick={() => navigate(index)}
+              aria-label={label}
+              aria-current={index === activeIndex ? "step" : undefined}
+              className={`relative z-10 flex items-center justify-center rounded-full transition-all ${
+                index === activeIndex
+                  ? "h-7 w-7 bg-slate-950 shadow-md shadow-indigo-950/20 dark:bg-indigo-500 dark:shadow-indigo-500/30"
+                  : "h-3 w-3 bg-indigo-100 hover:bg-indigo-300 dark:bg-white/10 dark:hover:bg-white/20"
+              }`}
+            >
+              <i
+                aria-hidden="true"
+                className={`rounded-full ${
+                  index === activeIndex ? "h-2 w-2 bg-indigo-300 dark:bg-white" : "h-1.5 w-1.5 bg-indigo-400 dark:bg-indigo-200"
+                }`}
+              />
+            </button>
+          ))}
+        </div>
+        <button
+          onClick={() => navigate(Math.min(activeIndex + 1, sections.length - 1))}
+          disabled={activeIndex === sections.length - 1}
+          aria-label="Next section"
+          className="flex h-7 w-7 items-center justify-center rounded-full text-sm text-slate-500 disabled:opacity-25 dark:text-slate-300"
+        >
+          ↓
+        </button>
+        <span className="mb-1 text-[8px] font-black tracking-[0.08em] text-indigo-600 dark:text-indigo-300">
+          {String(activeIndex + 1).padStart(2, "0")}
+        </span>
+      </div>
+    </div>
+  );
 }
 
 export default function EmployerPortfolio({ lang = "en" }) {
@@ -576,7 +659,7 @@ export default function EmployerPortfolio({ lang = "en" }) {
   return (
     <main className="employer-portfolio bg-[#f7f8fa] text-slate-900 dark:bg-[#090d13] dark:text-slate-100">
       <ScrollExperience />
-      <section id="overview" dir="ltr" className="hero-science relative isolate mx-auto grid min-h-[78vh] max-w-6xl items-center gap-10 overflow-hidden px-5 py-10 md:grid-cols-[minmax(0,1fr)_minmax(320px,410px)] md:gap-14 md:px-8 md:py-14">
+      <section id="overview" dir="ltr" className="hero-science relative isolate mx-auto grid max-w-6xl items-start gap-10 overflow-hidden px-5 pb-8 pt-2 md:grid-cols-[minmax(0,1fr)_minmax(320px,410px)] md:gap-14 md:px-8 md:pb-10 md:pt-3">
         <div aria-hidden="true" className="hero-science-glow hero-science-glow-one" />
         <div aria-hidden="true" className="hero-science-glow hero-science-glow-two" />
         <div aria-hidden="true" className="hero-science-art">
@@ -707,7 +790,7 @@ export default function EmployerPortfolio({ lang = "en" }) {
         <div className="relative overflow-hidden rounded-[2rem] border border-indigo-100 bg-gradient-to-br from-indigo-50 via-white to-sky-50 px-5 py-10 text-center shadow-[0_24px_70px_-36px_rgba(79,70,229,0.45)] sm:px-8 md:py-14">
           <div className="absolute -left-16 top-0 h-40 w-40 rounded-full bg-violet-300/35 blur-3xl" aria-hidden="true" />
           <div className="absolute -right-12 bottom-0 h-40 w-40 rounded-full bg-cyan-300/35 blur-3xl" aria-hidden="true" />
-          <div className="relative"><p className="text-sm font-bold uppercase tracking-[0.18em] text-indigo-700">{c.next}</p><h2 className="mt-2 text-3xl font-bold text-slate-950 md:text-4xl">{c.discuss}</h2><p className="mx-auto mt-3 max-w-xl text-slate-600">{c.discussText}</p></div>
+          <div className="relative"><p className="text-sm font-bold uppercase tracking-[0.18em] text-indigo-700">{c.next}</p><h2 className="mt-2 text-3xl font-bold text-slate-950 md:text-4xl">{c.discuss}</h2><p className="contact-opportunities mx-auto mt-3 max-w-xl text-slate-600">{c.discussText}</p></div>
           <div className="relative mx-auto mt-8 grid max-w-4xl gap-3 text-slate-900 sm:grid-cols-2">
             <ContactCard href="mailto:nafisaslam70@gmail.com" icon={FaEnvelope} title={lang === "ar" ? "البريد الإلكتروني" : "Email"} detail="nafisaslam70@gmail.com" className="border-indigo-200 bg-gradient-to-br from-indigo-100 to-violet-100 text-indigo-950 hover:border-indigo-400" />
             <ContactCard href="https://wa.me/601137576465" icon={FaWhatsapp} title="WhatsApp" detail="+60 11-3757 6465" external className="border-emerald-200 bg-gradient-to-br from-emerald-100 to-teal-100 text-emerald-950 hover:border-emerald-400" />
