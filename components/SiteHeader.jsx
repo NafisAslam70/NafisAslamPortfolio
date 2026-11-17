@@ -5,6 +5,16 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { motion } from "framer-motion";
+import { Briefcase, Folder, GraduationCap, Home, Lightbulb, Mail } from "lucide-react";
+
+const NAV_ICONS = {
+  "/": Home,
+  "/#experience": Briefcase,
+  "/ventures": Folder,
+  "/#expertise": Lightbulb,
+  "/#education": GraduationCap,
+  "/#contact": Mail,
+};
 
 export default function SiteHeader({ session, lang = "en", nav = [] }) {
   const router = useRouter();
@@ -70,13 +80,15 @@ export default function SiteHeader({ session, lang = "en", nav = [] }) {
               {nav.map((item) => {
                 const active = isActive(item.href);
                 const isPrimary = item.variant === "primary";
+                const Icon = NAV_ICONS[item.href];
                 if (isPrimary) {
                   return (
                     <Link
                       key={item.href}
                       href={item.href}
-                      className="site-nav-primary group relative inline-flex items-center gap-2 overflow-hidden rounded-xl px-4 py-2 text-sm font-semibold text-white transition duration-300"
+                      className="site-nav-primary group relative inline-flex items-center gap-2 overflow-hidden rounded-full px-4 py-2 text-sm font-semibold text-white transition duration-300"
                     >
+                      {Icon && <Icon aria-hidden="true" size={15} strokeWidth={2.2} />}
                       <span className="relative z-10">{label(item)}</span>
                       <span className="pointer-events-none absolute inset-0 bg-white/10 opacity-0 transition duration-300 group-hover:opacity-100" />
                     </Link>
@@ -87,21 +99,22 @@ export default function SiteHeader({ session, lang = "en", nav = [] }) {
                     {active && (
                       <motion.span
                         layoutId="site-header-active"
-                        className="pointer-events-none absolute inset-0 rounded-xl bg-slate-950 shadow-[0_10px_24px_-15px_rgba(15,23,42,.65)]"
+                        className="site-nav-active-indicator pointer-events-none absolute inset-0 rounded-full bg-gradient-to-br from-indigo-600 via-violet-600 to-indigo-500 shadow-[0_10px_24px_-15px_rgba(79,70,229,.75)]"
                         transition={{ type: "spring", stiffness: 380, damping: 32 }}
                       />
                     )}
                     {!active && (
-                      <span className="pointer-events-none absolute inset-0 rounded-xl transition duration-300 group-hover:bg-slate-100/80 dark:group-hover:bg-indigo-500/20" />
+                      <span className="pointer-events-none absolute inset-0 rounded-full transition duration-300 group-hover:bg-slate-100/80 dark:group-hover:bg-indigo-500/20" />
                     )}
                     <Link
                       href={item.href}
-                      className={`relative z-10 flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition duration-200 ${
+                      className={`site-nav-link relative z-10 flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition duration-200 ${
                         active
                           ? "text-white"
                           : "text-slate-600 hover:text-indigo-700 dark:text-slate-200 dark:hover:text-indigo-200"
                       }`}
                     >
+                      {Icon && <Icon aria-hidden="true" size={15} strokeWidth={2.2} />}
                       {label(item)}
                     </Link>
                   </div>
@@ -111,7 +124,7 @@ export default function SiteHeader({ session, lang = "en", nav = [] }) {
           </nav>
 
           {/* Actions */}
-          <div className="flex items-center gap-2">
+          <div className="site-header-actions flex items-center gap-2">
             <div className="site-header-language flex items-center gap-2 px-1.5 py-1">
               <button
                 className="rounded-full border border-transparent bg-indigo-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-indigo-700 transition hover:-translate-y-0.5 hover:bg-indigo-500/20 dark:text-indigo-200"
@@ -145,31 +158,41 @@ export default function SiteHeader({ session, lang = "en", nav = [] }) {
             <button
               className="site-menu-trigger inline-flex h-10 w-10 items-center justify-center rounded-xl text-lg transition md:hidden"
               onClick={() => setOpen((v) => !v)}
-              aria-label="Menu"
+              aria-label={open ? "Close menu" : "Open menu"}
+              aria-expanded={open}
+              aria-controls="site-mobile-menu"
             >
-              ☰
+              <span className={`site-menu-icon ${open ? "is-open" : ""}`} aria-hidden="true">
+                <i />
+                <i />
+                <i />
+              </span>
             </button>
           </div>
         </div>
 
         {/* Mobile nav */}
         {open && (
-          <div className="site-mobile-menu mx-3 mt-1 rounded-2xl md:hidden">
+          <div id="site-mobile-menu" className="site-mobile-menu mx-3 mt-1 rounded-2xl md:hidden">
             <nav className="mx-auto grid max-w-6xl gap-2 p-3">
-              {nav.map((n) => (
-                <Link
-                  key={n.href}
-                  href={n.href}
-                  className={`flex items-center justify-between rounded-2xl border px-4 py-3 text-sm font-semibold transition ${
-                    n.variant === "primary"
-                      ? "border-transparent bg-slate-950 text-white shadow-md"
-                      : "border-slate-100 bg-white/70 text-slate-600 hover:border-indigo-300 hover:text-indigo-700 dark:border-white/10 dark:bg-slate-900 dark:text-slate-100 dark:hover:border-indigo-300 dark:hover:text-indigo-200"
-                  }`}
-                  onClick={() => setOpen(false)}
-                >
-                  {label(n)}
-                </Link>
-              ))}
+              {nav.map((n) => {
+                const Icon = NAV_ICONS[n.href];
+                return (
+                  <Link
+                    key={n.href}
+                    href={n.href}
+                    className={`site-mobile-link flex items-center gap-3 rounded-2xl border px-4 py-3 text-sm font-semibold transition ${
+                      n.variant === "primary"
+                        ? "border-transparent bg-gradient-to-br from-indigo-600 to-violet-600 text-white shadow-md"
+                        : "border-slate-100 bg-white/70 text-slate-600 hover:border-indigo-300 hover:text-indigo-700 dark:border-white/10 dark:bg-slate-900 dark:text-slate-100 dark:hover:border-indigo-300 dark:hover:text-indigo-200"
+                    }`}
+                    onClick={() => setOpen(false)}
+                  >
+                    {Icon && <Icon aria-hidden="true" size={16} strokeWidth={2.2} />}
+                    {label(n)}
+                  </Link>
+                );
+              })}
             </nav>
           </div>
         )}

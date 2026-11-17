@@ -540,6 +540,7 @@ function MobileScrollNavigator({ lang }) {
     : [["overview", "Overview"], ["experience", "Experience"], ["projects", "Projects"], ["education", "Education"], ["contact", "Contact"]];
   const [activeIndex, setActiveIndex] = useState(0);
   const progressFillRef = useRef(null);
+  const waterFillRef = useRef(null);
 
   useEffect(() => {
     let frameId = 0;
@@ -556,6 +557,7 @@ function MobileScrollNavigator({ lang }) {
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
       const progress = maxScroll > 0 ? Math.min(Math.max(window.scrollY / maxScroll, 0), 1) : 0;
       progressFillRef.current?.style.setProperty("transform", `scaleY(${progress})`);
+      waterFillRef.current?.style.setProperty("transform", `scaleY(${progress})`);
     };
     const scheduleUpdate = () => {
       if (!frameId) frameId = window.requestAnimationFrame(updateNavigation);
@@ -578,16 +580,19 @@ function MobileScrollNavigator({ lang }) {
       dir={lang === "ar" ? "rtl" : "ltr"}
       aria-label={lang === "ar" ? "التنقل بين الأقسام" : "Page navigation"}
     >
-      <div className="flex flex-col items-center gap-2 rounded-full border border-white/80 bg-white/80 p-1.5 shadow-lg shadow-indigo-950/10 backdrop-blur-xl dark:border-white/15 dark:bg-slate-950/85 dark:shadow-black/40">
+      <div className="mobile-scroll-water-capsule relative isolate flex flex-col items-center gap-2 rounded-full border border-white/80 bg-white/80 p-1.5 shadow-lg shadow-indigo-950/10 backdrop-blur-xl dark:border-white/15 dark:bg-slate-950/85 dark:shadow-black/40">
+        <span className="mobile-scroll-water" aria-hidden="true">
+          <span ref={waterFillRef} className="mobile-scroll-water-fill" />
+        </span>
         <button
           onClick={() => navigate(Math.max(activeIndex - 1, 0))}
           disabled={activeIndex === 0}
           aria-label="Previous section"
-          className="flex h-7 w-7 items-center justify-center rounded-full text-sm text-slate-500 disabled:opacity-25 dark:text-slate-300"
+          className="relative z-10 flex h-7 w-7 items-center justify-center rounded-full text-sm text-slate-500 disabled:opacity-25 dark:text-slate-300"
         >
           ↑
         </button>
-        <div className="mobile-scroll-sections relative flex flex-col items-center gap-1.5 py-1">
+        <div className="mobile-scroll-sections relative z-10 flex flex-col items-center gap-1.5 py-1">
           <span className="mobile-scroll-track" aria-hidden="true">
             <span
               ref={progressFillRef}
@@ -629,11 +634,11 @@ function MobileScrollNavigator({ lang }) {
           onClick={() => navigate(Math.min(activeIndex + 1, sections.length - 1))}
           disabled={activeIndex === sections.length - 1}
           aria-label="Next section"
-          className="flex h-7 w-7 items-center justify-center rounded-full text-sm text-slate-500 disabled:opacity-25 dark:text-slate-300"
+          className="relative z-10 flex h-7 w-7 items-center justify-center rounded-full text-sm text-slate-500 disabled:opacity-25 dark:text-slate-300"
         >
           ↓
         </button>
-        <span className="mb-1 text-[8px] font-black tracking-[0.08em] text-indigo-600 dark:text-indigo-300">
+        <span className="mobile-scroll-count relative z-10 mb-1 text-[8px] font-black tracking-[0.08em] text-indigo-600 dark:text-indigo-300">
           {String(activeIndex + 1).padStart(2, "0")}
         </span>
       </div>
