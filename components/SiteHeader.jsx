@@ -68,9 +68,15 @@ export default function SiteHeader({ session, lang = "en", nav = [] }) {
                 priority
               />
             </span>
-            <div className="flex flex-col leading-tight">
-              <span className="site-brand-name text-base font-semibold md:text-lg">Nafis Aslam</span>
-              <span className="site-brand-subtitle hidden md:block">{curLang === "ar" ? "ملف مهني" : "Applied AI · Systems"}</span>
+            <div className="site-brand-copy flex flex-col items-center text-center leading-tight">
+              <span className="site-brand-heading" dir="ltr">
+                <span className="site-brand-name text-2xl font-bold md:text-3xl">Nafis Aslam</span>
+              </span>
+              <span className="site-brand-subtitle-track">
+                <span className="site-brand-subtitle">{curLang === "ar" ? "هدف · موعد نهائي · تفانٍ · إنجاز" : "Goal. Deadline. Dedication. Deliver."}</span>
+                <span className="site-brand-target" aria-hidden="true"><i /></span>
+                <span className="site-brand-projectile" aria-hidden="true" />
+              </span>
             </div>
           </Link>
 

@@ -8,6 +8,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, useReducedMotion, useSpring } from "framer-motion";
 import { FaGithub, FaArrowUpRightFromSquare, FaEnvelope, FaWhatsapp, FaLinkedinIn } from "react-icons/fa6";
+import { mitMicroMastersProjects, researchProjectPreviews } from "@/content/academicProjects";
 
 function TiltCard({ children, className = "", style = {}, dir, id }) {
   const reduceMotion = useReducedMotion();
@@ -46,20 +47,33 @@ function TiltCard({ children, className = "", style = {}, dir, id }) {
 }
 
 const HERO_ROLES = {
-  en: ["Software Engineer", "Applied AI / ML Engineer", "Research Engineer", "Full-Stack Developer"],
-  ar: ["مهندس برمجيات", "مهندس ذكاء اصطناعي تطبيقي", "مهندس أبحاث", "مطور برمجيات متكاملة"],
+  en: [
+    { article: "a", title: "Software Engineer" },
+    { article: "an", title: "AI Automation Engineer" },
+    { article: "a", title: "Junior Researcher" },
+    { article: "a", title: "Full-Stack Developer" },
+  ],
+  ar: [
+    { article: "", title: "مهندس برمجيات" },
+    { article: "", title: "مهندس أتمتة الذكاء الاصطناعي" },
+    { article: "", title: "باحث مبتدئ" },
+    { article: "", title: "مطور برمجيات متكاملة" },
+  ],
 };
 const MOBILE_NAV_SECTION_IDS = ["overview", "experience", "projects", "education", "contact"];
 
 function TypedHeroRole({ lang }) {
-  const phrases = HERO_ROLES[lang] || HERO_ROLES.en;
-  const [text, setText] = useState(phrases[0]);
+  const roles = HERO_ROLES[lang] || HERO_ROLES.en;
+  const [text, setText] = useState(roles[0].title);
+  const [article, setArticle] = useState(roles[0].article);
 
   useEffect(() => {
+    setText(roles[0].title);
+    setArticle(roles[0].article);
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduceMotion) return;
     let phraseIndex = 0;
-    let characterIndex = phrases[0].length;
+    let characterIndex = roles[0].title.length;
     let deleting = false;
     let pause = 18;
     const timer = window.setInterval(() => {
@@ -67,7 +81,7 @@ function TypedHeroRole({ lang }) {
         pause -= 1;
         return;
       }
-      const phrase = phrases[phraseIndex];
+      const phrase = roles[phraseIndex].title;
       if (!deleting) {
         characterIndex += 1;
         setText(phrase.slice(0, characterIndex));
@@ -80,15 +94,18 @@ function TypedHeroRole({ lang }) {
         setText(phrase.slice(0, characterIndex));
         if (characterIndex <= 0) {
           deleting = false;
-          phraseIndex = (phraseIndex + 1) % phrases.length;
+          phraseIndex = (phraseIndex + 1) % roles.length;
+          setArticle(roles[phraseIndex].article);
           pause = 3;
         }
       }
     }, 75);
     return () => window.clearInterval(timer);
-  }, [phrases]);
+  }, [roles]);
 
-  return <p className="hero-typed-role" aria-label={phrases.join(", ")} dir={lang === "ar" ? "rtl" : "ltr"}><span>{text}</span><i aria-hidden="true" /></p>;
+  const prefix = lang === "ar" ? "أنا" : `I'm ${article}`;
+  const accessibleRoles = roles.map(({ article: roleArticle, title }) => lang === "ar" ? title : `${roleArticle} ${title}`).join(", ");
+  return <p className="hero-typed-role" aria-label={`${lang === "ar" ? "أنا" : "I'm"} ${accessibleRoles}`} dir={lang === "ar" ? "rtl" : "ltr"}><span>{prefix}</span><span className="hero-typed-role-title">{text}</span><i aria-hidden="true" /></p>;
 }
 
 function ScrollExperience() {
@@ -313,8 +330,7 @@ const proofLink = "inline-flex items-center rounded-full border border-slate-300
 
 const COPY = {
   en: {
-    field: "Software Engineering · Applied AI · Automation",
-    role: "Software Engineer | Applied AI & Automation",
+    greeting: "Hi, I am",
     intro: "MIT-trained Computer Science graduate from Universiti Sains Malaysia, Malaysia, specialising in Intelligent Computing (AI). I build practical web platforms, AI-powered workflows, retrieval systems, computer-vision tools, and business automation for real operational needs. Based in India and available to relocate across the Gulf.",
     contact: "Contact me", cv: "Download CV ↗", explore: "Explore projects ↓", bsc: "Bachelor of Computer Science (Honours) — Intelligent Computing (AI)", mit: "Statistics and Data Science MicroMasters (online)", award: "ICSC 2026 · International 2nd Rank · 2nd National Award · Top 1%",
     research: "Selected research", paper: "Read first-author preprint ↗", career: "Career history", experience: "Experience", selected: "Selected work", projects: "Projects with proof", projectIntro: "A closer look at systems I designed, built, evaluated, and documented.", allProjects: "View complete project portfolio ↗", toolkit: "Technical toolkit", expertise: "Expertise", educationEyebrow: "Education & recognition", education: "Academic foundation", next: "Next step", discuss: "Let’s discuss how I can contribute.", discussText: "For AI, machine learning, computer vision, data science, and software engineering opportunities.",
@@ -322,8 +338,7 @@ const COPY = {
     cvProject: "Applied AI · Retrieval & Reasoning", platform: "Software Engineering · Product", data: "Data Science · Forecasting", fellowship: "Personal Product · Planning", live: "Live project ↗", video: "Demo video ↗", paperLink: "Paper ↗", github: "GitHub ↗", profile: "GitHub profile ↗", language: "English", location: "Based in India · Available to relocate across the Gulf",
   },
   ar: {
-    field: "هندسة البرمجيات · الذكاء الاصطناعي التطبيقي · الأتمتة",
-    role: "مهندس برمجيات | ذكاء اصطناعي تطبيقي وأتمتة",
+    greeting: "مرحباً، أنا",
     intro: "خريج علوم الحاسوب ومدرّب من MIT من Universiti Sains Malaysia في ماليزيا، بتخصص الحوسبة الذكية والذكاء الاصطناعي. أبني منصات ويب عملية وسير عمل مدعوماً بالذكاء الاصطناعي وأنظمة استرجاع وأدوات رؤية حاسوبية وأتمتة أعمال لمتطلبات تشغيلية حقيقية. أقيم في الهند ومتاح للانتقال والعمل في أنحاء دول الخليج.",
     contact: "تواصل معي", cv: "تحميل السيرة الذاتية ↗", explore: "استكشف المشاريع ↓", bsc: "بكالوريوس علوم الحاسوب مع مرتبة الشرف — الحوسبة الذكية (الذكاء الاصطناعي)", mit: "برنامج MicroMasters في الإحصاء وعلوم البيانات (عبر الإنترنت)", award: "المركز الدولي الثاني · الجائزة الوطنية الثانية · ضمن أفضل 1٪ في ICSC 2026",
     research: "أبحاث مختارة", paper: "قراءة البحث المنشور باسمي الأول ↗", career: "المسيرة المهنية", experience: "الخبرة", selected: "مشاريع مختارة", projects: "مشاريع مختارة", projectIntro: "نظرة على الأنظمة التي صممتها وطورتها وقيّمتها ووثّقتها.", allProjects: "عرض portfolio المشاريع بالكامل ↗", toolkit: "الأدوات التقنية", expertise: "التخصصات", educationEyebrow: "التعليم والإنجازات", education: "الأساس الأكاديمي", next: "الخطوة التالية", discuss: "لنتحدث عن كيفية مساهمتي في فريقكم.", discussText: "فرص في الذكاء الاصطناعي وتعلم الآلة والرؤية الحاسوبية وعلوم البيانات وهندسة البرمجيات.",
@@ -481,7 +496,7 @@ function HireValueGraphic({ kind }) {
   if (kind === "automation") return <div className="hire-corporate-graphic hire-graphic-automation" aria-hidden="true"><span>IN</span><i /><b>AI</b><i /><em>OUT</em></div>;
   if (kind === "lead") return <div className="hire-corporate-graphic hire-graphic-lead" aria-hidden="true"><span>01</span><i /><b>02</b><i /><em>03</em></div>;
   if (kind === "research") return <div className="hire-corporate-graphic hire-graphic-research" aria-hidden="true"><span>R</span><i /><b>+</b><em>✓</em></div>;
-  return <div className="hire-corporate-graphic hire-graphic-ownership" aria-hidden="true"><span>OWN</span><i /><b>↻</b><em>DONE</em></div>;
+  return null;
 }
 
 function MobileHireOverlay({ lang }) {
@@ -489,20 +504,19 @@ function MobileHireOverlay({ lang }) {
   const [slide, setSlide] = useState(0);
   const [touchStartX, setTouchStartX] = useState(null);
   const reasons = lang === "ar" ? [
-    ["01", "أبني منتجك البرمجي", ["فكرة", "بناء", "إطلاق"], "indigo", "product"],
-    ["02", "أتمتة عمليات شركتك", ["تحديد", "أتمتة", "توسيع"], "emerald", "automation"],
-    ["03", "قيادة من البداية للنهاية", ["خطة", "تنفيذ", "تسليم"], "sky", "lead"],
-    ["04", "بحث من أجل الابتكار", ["استكشاف", "اختبار", "تطبيق"], "violet", "research"],
-    ["05", "التفاني والملكية", ["التزام", "تعلّم", "إنهاء"], "indigo", "ownership"],
+    ["01", "سأبني منتجات برمجية لشركتك", ["تخطيط", "بناء", "إطلاق"], "indigo", "product"],
+    ["02", "سأؤتمت عمليات شركتك", ["تحديد", "أتمتة", "توسيع"], "emerald", "automation"],
+    ["03", "امنحني مشروعاً لأقوده من البداية إلى النهاية", ["تخطيط", "قيادة", "تسليم"], "sky", "lead"],
+    ["04", "أبحث وأبتكر عندما يتطلب المشروع ذلك", ["استكشاف", "بحث", "ابتكار"], "violet", "research"],
   ] : [
-    ["01", "I will build your software product", ["Idea", "Build", "Launch"], "indigo", "product"],
-    ["02", "I will automate your processes", ["Map", "Automate", "Scale"], "emerald", "automation"],
-    ["03", "I can lead end to end", ["Plan", "Build", "Deliver"], "sky", "lead"],
-    ["04", "I can research for innovation", ["Explore", "Test", "Apply"], "violet", "research"],
-    ["05", "I bring dedication & ownership", ["Commit", "Learn", "Finish"], "indigo", "ownership"],
+    ["01", "I will build a software product for your company", ["Plan", "Build", "Launch"], "indigo", "product"],
+    ["02", "I will automate your company’s processes", ["Map", "Automate", "Scale"], "emerald", "automation"],
+    ["03", "Give me a project; I’ll lead it end to end", ["Plan", "Lead", "Deliver"], "sky", "lead"],
+    ["04", "I can research and innovate when required", ["Explore", "Research", "Innovate"], "violet", "research"],
   ];
   const title = lang === "ar" ? "لماذا توظفني؟" : "Why hire me?";
-  const [number, heading, steps, tone, kind] = reasons[slide];
+  const activeSlide = Math.min(slide, reasons.length - 1);
+  const [number, heading, steps, tone, kind] = reasons[activeSlide];
   const toneClasses = {
     indigo: "border-indigo-200 bg-gradient-to-br from-indigo-100 via-violet-50 to-white text-indigo-950",
     emerald: "border-emerald-200 bg-gradient-to-br from-emerald-100 via-teal-50 to-white text-emerald-950",
@@ -526,7 +540,7 @@ function MobileHireOverlay({ lang }) {
           <span className="absolute -right-2 -top-8 text-[8rem] font-black leading-none opacity-[0.09]" aria-hidden="true">{number}</span>
           <div className="relative"><div className="flex items-end justify-between"><span className="text-5xl font-black tracking-tighter">{number}</span><span className="rounded-full bg-white/75 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em]">{lang === "ar" ? "اسحب" : "Swipe"} ↔</span></div><h3 className="mt-2 text-2xl font-black tracking-tight">{heading}</h3><HireValueGraphic kind={kind} /><div className="mt-4 flex items-center justify-between gap-1">{steps.map((step, index) => <div key={step} className="flex min-w-0 flex-1 items-center gap-1"><span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/90 text-xs font-black shadow-sm">{index + 1}</span><span className="text-[11px] font-bold leading-4">{step}</span>{index < 2 && <i className="mx-0.5 h-px min-w-2 flex-1 bg-current opacity-25" />}</div>)}</div></div>
         </div>
-        <div className="mt-4 flex items-center justify-between"><div className="flex gap-1.5">{reasons.map(([itemNumber], index) => <button key={itemNumber} onClick={() => setSlide(index)} aria-label={`${title} ${index + 1}`} className={`h-2 rounded-full transition-all ${slide === index ? "w-6 bg-indigo-600" : "w-2 bg-slate-200"}`} />)}</div><div className="flex gap-2"><button onClick={() => nextSlide(-1)} className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white font-bold text-slate-700" aria-label="Previous">←</button><button onClick={() => nextSlide()} className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-950 font-bold text-white" aria-label="Next">→</button></div></div>
+        <div className="mt-4 flex items-center justify-between"><div className="flex gap-1.5">{reasons.map(([itemNumber], index) => <button key={itemNumber} onClick={() => setSlide(index)} aria-label={`${title} ${index + 1}`} className={`h-2 rounded-full transition-all ${activeSlide === index ? "w-6 bg-indigo-600" : "w-2 bg-slate-200"}`} />)}</div><div className="flex gap-2"><button onClick={() => nextSlide(-1)} className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white font-bold text-slate-700" aria-label="Previous">←</button><button onClick={() => nextSlide()} className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-950 font-bold text-white" aria-label="Next">→</button></div></div>
         <a href="#contact" onClick={() => setOpen(false)} className="mt-4 flex items-center justify-center gap-2 rounded-xl bg-slate-950 px-4 py-3 text-sm font-semibold text-white">{lang === "ar" ? "لنتحدث" : "Let’s talk"} <FaArrowUpRightFromSquare aria-hidden="true" /></a>
       </div>}
       {!open && <button onClick={() => setOpen(true)} className="mobile-hire-trigger group mx-auto flex w-full max-w-sm items-center justify-between rounded-2xl border border-indigo-200/80 bg-slate-950 px-4 py-3 text-left text-white shadow-xl shadow-indigo-950/25"><span className="flex items-center gap-3"><span className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-400 to-violet-500 text-xs font-extrabold"><i className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 animate-pulse rounded-full bg-emerald-300 ring-2 ring-slate-950" />01</span><span><span className="block text-[10px] font-bold uppercase tracking-[0.16em] text-indigo-200">Nafis Aslam</span><span className="block text-sm font-bold">{title}</span></span></span><span className="rounded-full bg-white/10 px-3 py-1.5 text-xs font-semibold text-indigo-100">{lang === "ar" ? "اضغط" : "Tap"} →</span></button>}
@@ -709,15 +723,13 @@ export default function EmployerPortfolio({ lang = "en" }) {
           <span className="science-crosshair crosshair-one" /><span className="science-crosshair crosshair-two" />
         </div>
         <div dir={lang === "ar" ? "rtl" : "ltr"}>
-          <p className="inline-flex rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-indigo-700 dark:border-indigo-300/20 dark:bg-indigo-400/10 dark:text-indigo-200">{c.field}</p>
           <div dir="ltr" className="hero-name-row mt-5 flex items-center justify-start md:block">
-            <h1 className="hero-name text-4xl font-bold tracking-tight md:text-7xl">Nafis Aslam</h1>
+            <h1 className="hero-name font-bold tracking-tight"><span className="hero-name-greeting" dir={lang === "ar" ? "rtl" : "ltr"}>{c.greeting}</span><span className="hero-name-person">Nafis Aslam</span></h1>
             <div className="hero-mobile-avatar relative shrink-0 overflow-hidden border-4 border-white shadow-xl ring-1 ring-indigo-200 dark:border-slate-900 dark:ring-indigo-400/40 md:hidden">
               <Image src="/images/me1.jpg" alt="Nafis Aslam" width={1734} height={1678} priority className="h-full w-full object-cover object-[center_22%]" />
             </div>
           </div>
           <TypedHeroRole lang={lang} />
-          <p className="mt-3 max-w-2xl text-base font-medium leading-relaxed text-slate-700 dark:text-slate-200 md:text-lg">{c.role}</p>
           <p className="portfolio-hero-intro mt-5 max-w-2xl leading-7 text-slate-600 dark:text-slate-300">{c.intro}</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a className="inline-flex items-center rounded-full bg-indigo-700 px-5 py-3 text-sm font-semibold text-white hover:bg-indigo-600" href="https://wa.me/601137576465" target="_blank" rel="noreferrer">{c.contact}</a>
@@ -773,6 +785,36 @@ export default function EmployerPortfolio({ lang = "en" }) {
             <TiltCard className="project-journey-card rounded-3xl border border-amber-200/80 bg-gradient-to-br from-white to-amber-50/90 p-6 shadow-lg shadow-amber-950/10 md:mt-20"><span className="project-journey-index">02</span><div className="text-xs font-bold uppercase tracking-widest text-amber-700">{lang === "ar" ? "أتمتة الذكاء الاصطناعي · تجربة العملاء" : "AI automation · customer operations"}</div><h3 className="mt-3 text-2xl font-bold text-slate-950">{lang === "ar" ? "موظف استقبال صوتي بالذكاء الاصطناعي" : "AI Voice Receptionist"}</h3><p className="mt-3 text-sm leading-6 text-slate-600">{lang === "ar" ? "نظام استقبال صوتي لإدارة العملاء الجدد والحجوزات وتعديل المواعيد وإجابات قاعدة المعرفة مع تسجيل كامل للمكالمة." : "A voice front desk for new customers, appointments, rescheduling, knowledge-base questions, and complete call logging."}</p><div className="mt-5"><Link className="rounded-full border border-amber-200 bg-white/70 px-4 py-2 text-xs font-semibold text-amber-800" href="/ventures#ai-voice-receptionist">{lang === "ar" ? "عرض سير العمل ←" : "View workflow →"}</Link></div></TiltCard>
             <TiltCard className="project-journey-card rounded-3xl border border-sky-200/80 bg-gradient-to-br from-white to-sky-50/90 p-6 shadow-lg shadow-sky-950/10"><span className="project-journey-index">03</span><div className="text-xs font-bold uppercase tracking-widest text-indigo-700">{c.platform}</div><h3 className="mt-3 text-2xl font-bold text-slate-950">MeedianAI Flow</h3><p className="mt-3 text-sm leading-6 text-slate-600">{lang === "ar" ? "منصة لإدارة عمليات المدارس والمجتمعات بصلاحيات حسب الأدوار، وتشمل الجداول والمهام والحضور والرسائل والاستفسارات والتقارير." : "Role-based school and community operations platform spanning schedules, routines, tasks, attendance, messaging, enquiries, and reporting."}</p><div className="mt-5 flex flex-wrap gap-2"><a className="rounded-full bg-indigo-700 px-4 py-2 text-xs font-semibold text-white" href="https://meedian-ai-flow-v222.vercel.app/" target="_blank" rel="noreferrer">{c.live}</a><a className="rounded-full border border-indigo-200 bg-white/70 px-4 py-2 text-xs font-semibold text-indigo-700" href="https://github.com/NafisAslam70/MeedianAI-Flow-v2" target="_blank" rel="noreferrer">{c.github}</a></div></TiltCard>
             <TiltCard className="project-journey-card rounded-3xl border border-emerald-200/80 bg-gradient-to-br from-white to-emerald-50/90 p-6 shadow-lg shadow-emerald-950/10 md:mt-16"><span className="project-journey-index">04</span><div className="text-xs font-bold uppercase tracking-widest text-emerald-700">{lang === "ar" ? "أتمتة الذكاء الاصطناعي · المالية" : "AI automation · finance"}</div><h3 className="mt-3 text-2xl font-bold text-slate-950">{lang === "ar" ? "أتمتة معالجة الفواتير بالذكاء الاصطناعي" : "AI Invoice Processing Automation"}</h3><p className="mt-3 text-sm leading-6 text-slate-600">{lang === "ar" ? "يتابع مجلد الفواتير، ويستخرج بيانات PDF، وينظم الحقول باستخدام الذكاء الاصطناعي، ثم يسجلها ويرسل إشعاراً لفريق الفوترة." : "A workflow that watches incoming invoices, extracts PDF text, structures the important fields with AI, records them, and alerts the billing team."}</p><div className="mt-5"><Link className="rounded-full border border-emerald-200 bg-white/70 px-4 py-2 text-xs font-semibold text-emerald-800" href="/ventures#ai-invoice-processing-automation">{lang === "ar" ? "عرض سير العمل ←" : "View workflow →"}</Link></div></TiltCard>
+            <TiltCard dir={lang === "ar" ? "rtl" : undefined} className="project-journey-card rounded-3xl border border-indigo-200/80 bg-gradient-to-br from-white to-indigo-50/90 p-6 shadow-xl shadow-indigo-950/10">
+              <span className="project-journey-index">05</span>
+              <p className="academic-project-eyebrow">{lang === "ar" ? "مشاريع جامعية وبحثية" : "UNIVERSITY & RESEARCH"}</p>
+              <h3 className="mt-2 text-2xl font-bold text-slate-950">{lang === "ar" ? "مشاريع البحث" : "Research Projects"}</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-600">{lang === "ar" ? "أعمال مختارة في الرؤية الحاسوبية والتعلم الآلي واسترجاع الفيديو." : "Selected work in computer vision, machine learning, and knowledge-graph video retrieval."}</p>
+              <details className="portfolio-disclosure mt-4">
+                <summary>{lang === "ar" ? "عرض 3 معاينات للمشاريع" : "Show 3 project previews"}</summary>
+                <ul className="mt-3 space-y-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
+                  {researchProjectPreviews.slice(0, 3).map((project) => <li key={project.title}>{project.title}</li>)}
+                </ul>
+              </details>
+              <Link className="academic-project-cta mt-4" href="/ventures#research-university-projects">
+                {lang === "ar" ? "التفاصيل الكاملة في صفحة المشاريع" : "Full details on project page"} <FaArrowUpRightFromSquare aria-hidden="true" />
+              </Link>
+            </TiltCard>
+            <TiltCard dir={lang === "ar" ? "rtl" : undefined} className="project-journey-card rounded-3xl border border-violet-200/80 bg-gradient-to-br from-white to-violet-50/90 p-6 shadow-xl shadow-indigo-950/10">
+              <span className="project-journey-index">06</span>
+              <p className="academic-project-eyebrow">{lang === "ar" ? "ماجستير مصغر في الإحصاء وعلوم البيانات" : "MITx MICROMASTERS · STATISTICS & DATA SCIENCE"}</p>
+              <h3 className="mt-2 text-2xl font-bold text-slate-950">{lang === "ar" ? "مشاريع MIT" : "MIT Projects"}</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-600">{lang === "ar" ? "أربعة مشاريع تطبيقية في النمذجة الاحتمالية والبيانات والشبكات والتنبؤ." : "Four applied projects in probabilistic modelling, genomics, forecasting, and network analysis."}</p>
+              <details className="portfolio-disclosure mt-4">
+                <summary>{lang === "ar" ? "عرض 3 معاينات للمشاريع" : "Show 3 project previews"}</summary>
+                <ul className="mt-3 space-y-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
+                  {mitMicroMastersProjects.slice(0, 3).map((project) => <li key={project.title}>{project.title}</li>)}
+                </ul>
+              </details>
+              <Link className="academic-project-cta mt-4" href="/ventures#mitx-micromasters-projects">
+                {lang === "ar" ? "التفاصيل الكاملة في صفحة المشاريع" : "Full details on project page"} <FaArrowUpRightFromSquare aria-hidden="true" />
+              </Link>
+            </TiltCard>
           </div>
           <div className="mt-10 flex justify-center"><Link className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white px-6 py-3 text-sm font-bold text-slate-900 shadow-lg shadow-indigo-950/15 transition hover:-translate-y-1 hover:bg-indigo-50" href="/ventures">{lang === "ar" ? "استكشف كل المشاريع" : "Explore all projects"} <FaArrowUpRightFromSquare aria-hidden="true" /></Link></div>
         </div>
