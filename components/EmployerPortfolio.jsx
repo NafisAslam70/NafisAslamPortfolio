@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, useReducedMotion, useSpring } from "framer-motion";
-import { FaGithub, FaArrowUpRightFromSquare, FaEnvelope, FaWhatsapp, FaLinkedinIn } from "react-icons/fa6";
+import { FaGithub, FaArrowUpRightFromSquare, FaEnvelope, FaLocationDot, FaWhatsapp, FaLinkedinIn } from "react-icons/fa6";
 import { mitMicroMastersProjects, researchProjectPreviews } from "@/content/academicProjects";
 
 function TiltCard({ children, className = "", style = {}, dir, id }) {
@@ -253,7 +253,7 @@ const experience = [
   },
   {
     order: 6,
-    role: "CV & Deep Learning Fellow",
+    role: "Computer Vision & Deep Learning Fellow",
     organization: "WorldQuant University · Online",
     period: "2026 – Present",
     points: [
@@ -330,11 +330,10 @@ const COPY = {
     greeting: "Hi, I am",
     profileLabel: "PROFILE SNAPSHOT",
     profileEducation: "Computer Science · USM Malaysia · MIT-trained",
-    profileSpecialismLabel: "CORE FOCUS",
     profileSpecialism: "Software Product Engineer",
     profileSummary: "I build end-to-end software products and make real workflows smarter with AI and automation.",
     profileCapabilitiesLabel: "Product & AI focus",
-    profileCapabilities: ["Product engineering", "Applied AI", "Workflow automation", "Retrieval systems", "Computer vision"],
+    profileCapabilities: ["Product engineering", "Applied AI", "Workflow automation"],
     profileLocation: "Based in India · Available to relocate across the Gulf",
     contact: "Contact me", cv: "Download CV ↗", explore: "Explore projects ↓", bsc: "Bachelor of Computer Science (Honours) — Intelligent Computing (AI)", mit: "Statistics and Data Science MicroMasters (online)", award: "ICSC 2026 · International 2nd Rank · 2nd National Award · Top 1%",
     research: "Selected research", paper: "Read first-author preprint ↗", career: "Career history", experience: "Experience", selected: "Selected work", projects: "Projects with proof", projectIntro: "A closer look at systems I designed, built, evaluated, and documented.", allProjects: "View complete project portfolio ↗", toolkit: "Technical toolkit", expertise: "Expertise", educationEyebrow: "Education & recognition", education: "Academic foundation", next: "Next step", discuss: "Let’s discuss how I can contribute.", discussText: "For AI, machine learning, computer vision, data science, and software engineering opportunities.",
@@ -345,11 +344,10 @@ const COPY = {
     greeting: "مرحباً، أنا",
     profileLabel: "نبذة مهنية",
     profileEducation: "خريج علوم الحاسوب · Universiti Sains Malaysia · تدريب من MIT",
-    profileSpecialismLabel: "التركيز الأساسي",
     profileSpecialism: "مهندس منتجات برمجية",
     profileSummary: "أبني منتجات برمجية متكاملة وأعزز سير العمل الواقعي بالذكاء الاصطناعي والأتمتة.",
     profileCapabilitiesLabel: "المنتجات والذكاء الاصطناعي",
-    profileCapabilities: ["هندسة المنتجات", "الذكاء الاصطناعي التطبيقي", "أتمتة سير العمل", "أنظمة الاسترجاع", "الرؤية الحاسوبية"],
+    profileCapabilities: ["هندسة المنتجات", "الذكاء الاصطناعي التطبيقي", "أتمتة سير العمل"],
     profileLocation: "مقيم في الهند · متاح للانتقال إلى دول الخليج",
     contact: "تواصل معي", cv: "تحميل السيرة الذاتية ↗", explore: "استكشف المشاريع ↓", bsc: "بكالوريوس علوم الحاسوب مع مرتبة الشرف — الحوسبة الذكية (الذكاء الاصطناعي)", mit: "برنامج MicroMasters في الإحصاء وعلوم البيانات (عبر الإنترنت)", award: "المركز الدولي الثاني · الجائزة الوطنية الثانية · ضمن أفضل 1٪ في ICSC 2026",
     research: "أبحاث مختارة", paper: "قراءة البحث المنشور باسمي الأول ↗", career: "المسيرة المهنية", experience: "الخبرة", selected: "مشاريع مختارة", projects: "مشاريع مختارة", projectIntro: "نظرة على الأنظمة التي صممتها وطورتها وقيّمتها ووثّقتها.", allProjects: "عرض portfolio المشاريع بالكامل ↗", toolkit: "الأدوات التقنية", expertise: "التخصصات", educationEyebrow: "التعليم والإنجازات", education: "الأساس الأكاديمي", next: "الخطوة التالية", discuss: "لنتحدث عن كيفية مساهمتي في فريقكم.", discussText: "فرص في الذكاء الاصطناعي وتعلم الآلة والرؤية الحاسوبية وعلوم البيانات وهندسة البرمجيات.",
@@ -686,7 +684,7 @@ export default function EmployerPortfolio({ lang = "en" }) {
   const experienceOrder = {
     "Technology Lead – Organisational Digital Ecosystem": 5,
     "Advanced Data Science Intern": 4,
-    "CV & Deep Learning Fellow": 2,
+    "Computer Vision & Deep Learning Fellow": 2,
     "Web Developer · Malaysia Equity Market Platform": 3,
     "Superintendent – School Operations & Community Leadership": 1,
     "قائد التقنية – المنظومة الرقمية للمؤسسة": 5,
@@ -746,18 +744,12 @@ export default function EmployerPortfolio({ lang = "en" }) {
               <span className="portfolio-hero-profile-label"><i aria-hidden="true" />{c.profileLabel}</span>
               <span className="portfolio-hero-profile-education">{c.profileEducation}</span>
             </div>
-            <div className="portfolio-hero-profile-specialism">
-              <span className="portfolio-hero-profile-mark" aria-hidden="true">AI</span>
-              <div>
-                <span className="portfolio-hero-profile-overline">{c.profileSpecialismLabel}</span>
-                <h2 className="portfolio-hero-profile-title">{c.profileSpecialism}</h2>
-              </div>
-            </div>
+            <h2 className="portfolio-hero-profile-title">{c.profileSpecialism}</h2>
             <p className="portfolio-hero-profile-summary">{c.profileSummary}</p>
             <ul className="portfolio-hero-profile-capabilities" aria-label={c.profileCapabilitiesLabel}>
               {c.profileCapabilities.map((capability) => <li key={capability}>{capability}</li>)}
             </ul>
-            <div className="portfolio-hero-profile-location"><i aria-hidden="true" />{c.profileLocation}</div>
+            <div className="portfolio-hero-profile-location"><FaLocationDot aria-hidden="true" /><span>{c.profileLocation}</span></div>
           </div>
           <div className="mt-8 flex flex-wrap gap-3">
             <a className="inline-flex items-center rounded-full bg-indigo-700 px-5 py-3 text-sm font-semibold text-white hover:bg-indigo-600" href="https://wa.me/601137576465" target="_blank" rel="noreferrer">{c.contact}</a>

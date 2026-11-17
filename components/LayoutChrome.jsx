@@ -9,41 +9,62 @@ import PersonalizedEntry from "@/components/PersonalizedEntry";
 function SiteFooter({ lang = "en" }) {
   const ar = lang === "ar";
   return (
-    <footer className="border-t border-slate-200 bg-white py-8 dark:border-white/10 dark:bg-[#090d13]">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 grid grid-cols-1 sm:grid-cols-3 gap-8">
-        <div>
-          <h3 className="text-lg font-semibold mb-2 dark:text-slate-100">Nafis Aslam</h3>
-          <p className="text-sm text-gray-600 dark:text-slate-300">
-            {ar ? "ملف مهني في الذكاء الاصطناعي وتعلم الآلة والرؤية الحاسوبية." : "AI, machine learning, and computer vision engineering portfolio."}
-          </p>
-        </div>
-
-        <div>
-          <h3 className="text-lg font-semibold mb-2 dark:text-slate-100">{ar ? "روابط سريعة" : "Quick Links"}</h3>
-          <ul className="space-y-1 text-sm">
-            <li><Link href="/#experience" className="text-slate-700 transition hover:text-indigo-600 dark:text-slate-200 dark:hover:text-indigo-300">{ar ? "الخبرة" : "Experience"}</Link></li>
-            <li><Link href="/#projects" className="text-slate-700 transition hover:text-indigo-600 dark:text-slate-200 dark:hover:text-indigo-300">{ar ? "المشاريع" : "Projects"}</Link></li>
-            <li><Link href="/#expertise" className="text-slate-700 transition hover:text-indigo-600 dark:text-slate-200 dark:hover:text-indigo-300">{ar ? "التخصصات" : "Expertise"}</Link></li>
-            <li><Link href="/#education" className="text-slate-700 transition hover:text-indigo-600 dark:text-slate-200 dark:hover:text-indigo-300">{ar ? "التعليم" : "Education"}</Link></li>
-            <li><Link href="/#contact" className="text-slate-700 transition hover:text-indigo-600 dark:text-slate-200 dark:hover:text-indigo-300">{ar ? "تواصل" : "Contact"}</Link></li>
-          </ul>
-        </div>
-
-        <div>
-          <h3 className="text-lg font-semibold mb-2 dark:text-slate-100">{ar ? "تواصل" : "Connect"}</h3>
-          <div className="flex space-x-4 text-xl">
-            <a href="https://github.com/NafisAslam70" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="text-slate-700 transition hover:text-indigo-600 dark:text-slate-200 dark:hover:text-indigo-300">
-              <FaGithub />
+    <footer className="site-footer" dir={ar ? "rtl" : "ltr"}>
+      <div className="site-footer-shell">
+        <section className="site-footer-cta" aria-label={ar ? "ابدأ محادثة" : "Start a conversation"}>
+          <div className="site-footer-cta-copy">
+            <span className="site-footer-eyebrow"><i aria-hidden="true" />{ar ? "متاح لفرص المنتجات والذكاء الاصطناعي والأتمتة" : "OPEN TO PRODUCT, AI & AUTOMATION WORK"}</span>
+            <h2>{ar ? "لنبنِ شيئاً مفيداً معاً." : "Let’s build something useful."}</h2>
+            <p>{ar ? "هندسة منتجات برمجية وذكاء اصطناعي تطبيقي وأتمتة لسير العمل الحقيقي." : "Software products, applied AI, and automation for real-world workflows."}</p>
+          </div>
+          <div className="site-footer-cta-actions">
+            <a href="https://wa.me/601137576465" target="_blank" rel="noopener noreferrer" className="site-footer-primary-link">
+              {ar ? "ابدأ محادثة" : "Start a conversation"} <span aria-hidden="true">↗</span>
             </a>
-            <a href="https://www.linkedin.com/in/nafis-aslam/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-slate-700 transition hover:text-indigo-600 dark:text-slate-200 dark:hover:text-indigo-300">
-              <FaLinkedin />
-            </a>
+            <Link href="/#projects" className="site-footer-secondary-link">
+              {ar ? "استكشف المشاريع" : "Explore projects"} <span aria-hidden="true">→</span>
+            </Link>
+          </div>
+          <span className="site-footer-orbit" aria-hidden="true" />
+        </section>
+
+        <div className="site-footer-content">
+          <div className="site-footer-brand">
+            <div className="site-footer-brand-heading">
+              <span className="site-footer-mark" aria-hidden="true">NA</span>
+              <div>
+                <h3>Nafis Aslam</h3>
+                <span>{ar ? "مهندس منتجات برمجية" : "Software Product Engineer"}</span>
+              </div>
+            </div>
+            <p>{ar ? "أبني منتجات برمجية متكاملة وأدمج الذكاء الاصطناعي والأتمتة حيث يضيفان قيمة حقيقية." : "Building end-to-end products and integrating AI where it creates real value."}</p>
+          </div>
+
+          <nav className="site-footer-navigation" aria-label={ar ? "روابط سريعة" : "Quick links"}>
+            <h3>{ar ? "استكشف" : "Explore"}</h3>
+            <ul>
+              <li><Link href="/#experience">{ar ? "الخبرة" : "Experience"}</Link></li>
+              <li><Link href="/#projects">{ar ? "المشاريع" : "Projects"}</Link></li>
+              <li><Link href="/#expertise">{ar ? "التخصصات" : "Expertise"}</Link></li>
+              <li><Link href="/#education">{ar ? "التعليم" : "Education"}</Link></li>
+              <li><Link href="/#contact">{ar ? "تواصل" : "Contact"}</Link></li>
+            </ul>
+          </nav>
+
+          <div className="site-footer-social">
+            <h3>{ar ? "تواصل" : "Connect"}</h3>
+            <p>{ar ? "تابع عملي أو تواصل معي مباشرة." : "Follow my work or get in touch."}</p>
+            <div className="site-footer-social-links">
+              <a href="https://github.com/NafisAslam70" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><FaGithub /></a>
+              <a href="https://www.linkedin.com/in/nafis-aslam/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><FaLinkedin /></a>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="mt-8 text-center text-xs text-slate-500 dark:text-slate-300">
-        © {new Date().getFullYear()} Nafis Aslam. {ar ? "جميع الحقوق محفوظة." : "All rights reserved."}
+        <div className="site-footer-bottom">
+          <span>© {new Date().getFullYear()} Nafis Aslam. {ar ? "جميع الحقوق محفوظة." : "All rights reserved."}</span>
+          <Link href="/#overview">{ar ? "العودة إلى الأعلى ↑" : "Back to top ↑"}</Link>
+        </div>
       </div>
     </footer>
   );

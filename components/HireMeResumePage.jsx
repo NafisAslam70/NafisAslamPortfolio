@@ -658,7 +658,7 @@ function Experience({ isDataScienceTrack }) {
         ]}
       />
       <ExpItem
-        title="CV & Deep Learning Fellow"
+        title="Computer Vision & Deep Learning Fellow"
         company="WorldQuant University · Online"
         date="2026-present"
         bullets={[
