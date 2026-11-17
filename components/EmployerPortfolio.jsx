@@ -484,11 +484,11 @@ function MobileHireOverlay({ lang }) {
     ["04", "بحث من أجل الابتكار", ["استكشاف", "اختبار", "تطبيق"], "violet", "research"],
     ["05", "التفاني والملكية", ["التزام", "تعلّم", "إنهاء"], "indigo", "ownership"],
   ] : [
-    ["01", "I build your software product", ["Idea", "Build", "Launch"], "indigo", "product"],
-    ["02", "I automate company processes", ["Map", "Automate", "Scale"], "emerald", "automation"],
-    ["03", "I lead end to end", ["Plan", "Build", "Deliver"], "sky", "lead"],
-    ["04", "I research for innovation", ["Explore", "Test", "Apply"], "violet", "research"],
-    ["05", "Dedication & ownership", ["Commit", "Learn", "Finish"], "indigo", "ownership"],
+    ["01", "I will build your software product", ["Idea", "Build", "Launch"], "indigo", "product"],
+    ["02", "I will automate your processes", ["Map", "Automate", "Scale"], "emerald", "automation"],
+    ["03", "I can lead end to end", ["Plan", "Build", "Deliver"], "sky", "lead"],
+    ["04", "I can research for innovation", ["Explore", "Test", "Apply"], "violet", "research"],
+    ["05", "I bring dedication & ownership", ["Commit", "Learn", "Finish"], "indigo", "ownership"],
   ];
   const title = lang === "ar" ? "لماذا توظفني؟" : "Why hire me?";
   const [number, heading, steps, tone, kind] = reasons[slide];
