@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { cookies } from "next/headers";
 import ProjectGallery from "@/components/ProjectGallery";
 import ProjectCategoryTabs from "@/components/ProjectCategoryTabs";
 import { mitMicroMastersProjects } from "@/content/academicProjects";
@@ -279,6 +280,46 @@ const categoryTabLabel = (category) => ({
   "MITx MicroMasters Projects": "MITx Projects",
 }[category] || category);
 
+const arCategoryLabels = {
+  "Flagship / Major Projects": "المشاريع الرئيسية",
+  "Automation Projects": "مشاريع الأتمتة",
+  "Software Engineering Projects": "هندسة البرمجيات",
+  "AI/ML & Data Science Projects": "الذكاء الاصطناعي والبيانات",
+  "Research / University Projects": "البحث والمشاريع الجامعية",
+  "MITx MicroMasters Projects": "مشاريع MITx",
+};
+
+const arProjectDescriptions = {
+  "DeepWork AI": "منصة إنتاجية مدعومة بالذكاء الاصطناعي تشمل جلسات التركيز وتتبع الأهداف وتصنيف الانتباه عبر كاميرا الويب والتوجيهات السياقية وتحليلات التركيز.",
+  "MeedianAI Flow v2": "منصة للعمليات المدرسية والمجتمعية تشمل لوحات حسب الأدوار والجداول الروتينية والمهام والحضور والموافقات والرسائل واستفسارات الطلاب والتقارير.",
+  "MEED International School Website": "موقع مدرسي يغطي القبول والبرامج وأعضاء الهيئة والفنون والإقامة والفعاليات، مع محتوى متعدد اللغات ونظام Sanity ومسارات الاستفسار.",
+  "MEED Society Website": "موقع مجتمعي يعرض مهمة جمعية ميد وتنظيماتها ومبادراتها وأثر أعمالها المجتمعية.",
+  "DeepCalendar": "تطبيق تخطيط متعدد المنصات للروتين الأسبوعي وخطط الأيام المرتبطة بالأهداف وتتبع الوقت الفعلي وملاحظات نهاية اليوم.",
+  "MeedianAI Finance": "إدارة سجلات الطلاب والفصول وهيكل الرسوم والمستحقات والمدفوعات ورسوم النقل والاستيراد من Excel والتقارير لعمليات المالية المدرسية.",
+  "MEED Recruitment": "مسار توظيف يتيح رفع السير الذاتية بصيغة PDF واستخراج النصوص وOCR ومراجعة المرشحين.",
+  "AI Invoice Processing Automation": "مسار أتمتة يستلم الفواتير من مجلد مشترك ويستخرج نص PDF وينظم حقول الفاتورة بالذكاء الاصطناعي ويسجلها في جدول ويخطر الفريق داخلياً بالبريد.",
+  "AI Voice Receptionist": "نظام استقبال صوتي للبحث عن العملاء وإنشاء جهات اتصال جديدة والتحقق من المواعيد والحجز وإعادة الجدولة والإلغاء والإجابة من قاعدة المعرفة وتسجيل المكالمات.",
+  "DELU-GPT": "مساعد ذكاء اصطناعي مبني بـ Flask للردود وتقسيم المناهج والمهام.",
+  "VideoRAG — Unified Search & Reasoning Engine": "محرك بحث واستدلال متعدد الوسائط لفهم وصفات الفيديو البنغالية، يجمع استرجاع FAISS وبحث BM25 ورسم NetworkX والمعرفة وتوليد Gemini/Qwen2.5 مع آليات رجوع.",
+  "Anomaly Detection System": "نموذج Streamlit لتقييم المعاملات الشاذة باستخدام Isolation Forest.",
+  "Naive Bayes Text Classification": "تصنيف مجموعة Twenty Newsgroups باستخدام TF-IDF وMultinomialNB مع توثيق نتائج خط الأساس.",
+  "30 ML Projects": "مجموعة تعلم وتجارب. المحتوى المتحقق يشمل مساراً أساسياً ومفكرة الانحدار اللوجستي، وهي مجموعة تدريب وليست 30 منتجاً مكتملًا.",
+  "Handwritten Digit Prediction": "مشروع مستقل للتعرف على الأرقام المكتوبة بخط اليد.",
+  "HHS Care Forecast Dashboard": "مسار تنبؤ يومي للرعاية مع إعادة ترتيب التواريخ ومعالجة الأيام المفقودة وخاصية التأخر والنوافذ المتحركة والتقييم الزمني.",
+  "British Airways Review Analysis": "جمع وتنظيف وتحليل ألف مراجعة من Skytrax.",
+  "Titanic Survival Prediction": "معالجة البيانات والتنبؤ ببقاء ركاب تيتانيك باستخدام Logistic Regression.",
+  "Iris Decision Tree & K-means": "تصنيف Iris باستخدام Decision Tree وتنفيذ مستقل لخوارزمية K-means.",
+  "DeepLens Engine for Focus": "نموذج أولي لمراقبة الانتباه في الوقت الحقيقي يجمع تصنيف YOLO وفحص النظرة والحضور والنوافذ الزمنية المتحركة.",
+  "Bird Species Classifier": "مصنف ResNet-50 مُدرّب لأنواع طيور؛ حقق دقة تحقق بلغت 90.91% عبر 396 صورة.",
+  "Video Retrieval Using Knowledge Graphs": "مشروع بحثي لاسترجاع الفيديو عبر تمثيلات الرسوم المعرفية.",
+  "WorldQuant University Computer Vision Lab Projects": "أعمال مختبرية ومشاريع رؤية حاسوبية من خلال برنامج WorldQuant University للرؤية الحاسوبية والتعلم العميق.",
+  "MongoDB Standalone vs Atlas (CPC451)": "مقارنة فريق باستخدام بيانات YouTube Trending: عشرة ملفات CSV و11 ملف JSON و539.2 ميجابايت من البيانات وما يقارب 285 ألف سجل مع معالجة متسقة للاستعلامات.",
+  "Netflix Reviews: N-grams & Parts of Speech (CPC353)": "مشروع NLP فردي حاز على 100/100 وكان الأفضل في الصف.",
+  "DFA-Based Conference & Workshop Finder (CPT411)": "مشروع Python وDFA نال 96/100 في الواجب و95/100 في التقييم.",
+  "USMWorld": "موقع مجتمع جامعي للأكاديميا والتبادل والحياة الجامعية والعروض والخرائط.",
+  "Malaysia Equity Market Platform": "منصة سوق ماليزي للأسهم بُنيت خلال تدريب التداول الخوارزمي، وتشمل البحث عن الشركات والملفات والبيانات التاريخية والأخبار.",
+};
+
 const projectGroups = [
   { category: "Flagship / Major Projects", items: projects[0].items },
   { category: "Automation Projects", items: projects[2].items },
@@ -296,44 +337,48 @@ function ExternalLink({ href, children }) {
   );
 }
 
-function ProjectCard({ project }) {
+function ProjectCard({ project, lang = "en" }) {
+  const ar = lang === "ar";
+  const description = ar ? (arProjectDescriptions[project.title] || "مشروع توثيقي يشرح نطاق التنفيذ والأدوات والنتائج المتاحة.") : project.description;
   const projectId = project.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
   return (
-    <article id={project.title === "MeedianAI Flow v2" ? "meedianai-flow" : projectId} className="project-case-card flex h-full scroll-mt-24 flex-col rounded-2xl border border-slate-200/80 bg-white/80 p-5 shadow-sm dark:border-white/10 dark:bg-white/[0.04]">
+    <article dir={ar ? "rtl" : "ltr"} lang={ar ? "ar" : "en"} id={project.title === "MeedianAI Flow v2" ? "meedianai-flow" : projectId} className="project-case-card flex h-full scroll-mt-24 flex-col rounded-2xl border border-slate-200/80 bg-white/80 p-5 shadow-sm dark:border-white/10 dark:bg-white/[0.04]">
       <div className="flex items-start justify-between gap-3">
         <div><h3 className="text-lg font-semibold text-slate-900 dark:text-white">{project.title}</h3></div>
-        {(project.private || project.status) && <span className="shrink-0 rounded-full bg-amber-100 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-amber-800 dark:bg-amber-300/10 dark:text-amber-200">{project.private ? "Private repo" : project.status}</span>}
+        {(project.private || project.status) && <span className="shrink-0 rounded-full bg-amber-100 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-amber-800 dark:bg-amber-300/10 dark:text-amber-200">{ar ? (project.private ? "مستودع خاص" : "حالة المشروع") : (project.private ? "Private repo" : project.status)}</span>}
       </div>
-      <p className="mt-3 flex-1 text-sm leading-6 text-slate-600 dark:text-slate-300">{project.description}</p>
-      {project.stack && <p className="mt-4 text-xs leading-5 text-slate-500 dark:text-slate-400"><span className="font-semibold text-slate-700 dark:text-slate-200">Stack:</span> {project.stack}</p>}
+      <p className="mt-3 flex-1 text-sm leading-6 text-slate-600 dark:text-slate-300">{description}</p>
+      {project.stack && <p className="mt-4 text-xs leading-5 text-slate-500 dark:text-slate-400"><span className="font-semibold text-slate-700 dark:text-slate-200">{ar ? "التقنيات:" : "Stack:"}</span> {project.stack}</p>}
       {project.highlights?.length > 0 && <ul className="mt-4 space-y-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{project.highlights.map((highlight) => <li key={highlight} className="flex gap-2"><span className="text-indigo-500" aria-hidden="true">•</span><span>{highlight}</span></li>)}</ul>}
       {project.accuracyNote && <p className="mt-4 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-xs leading-5 text-amber-900 dark:border-amber-300/20 dark:bg-amber-300/10 dark:text-amber-100"><span className="font-bold">Result caveat: </span>{project.accuracyNote}</p>}
       {project.resumeFocus?.length > 0 && <div className="mt-4"><p className="text-xs font-semibold text-slate-700 dark:text-slate-200">Resume focus</p><div className="mt-2 flex flex-wrap gap-1.5">{project.resumeFocus.map((focus) => <span key={focus} className="rounded-full bg-indigo-50 px-2.5 py-1 text-[10px] font-semibold text-indigo-700 dark:bg-indigo-300/10 dark:text-indigo-200">{focus}</span>)}</div></div>}
       {project.video && <div className={`mt-4 w-full overflow-hidden rounded-xl border border-slate-200 bg-slate-100 shadow-sm dark:border-white/10 dark:bg-black/20 ${project.title === "DeepWork AI" ? "max-w-none" : "max-w-xs"}`}><div className="relative aspect-video"><iframe className="absolute inset-0 h-full w-full" src={`https://www.youtube-nocookie.com/embed/${project.video}`} title={project.videoTitle || `${project.title} demo`} loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen /></div><p className="px-3 py-2 text-[11px] font-medium text-slate-500 dark:text-slate-400">{project.videoTitle || `${project.title} demo`}</p></div>}
       {project.gallery && <ProjectGallery images={project.gallery} title={project.title} className="mt-4" />}
       <div className="mt-4 flex flex-wrap gap-2">
-        {project.github && <ExternalLink href={project.github}>GitHub</ExternalLink>}
-        {project.live && <ExternalLink href={project.live}>Live project</ExternalLink>}
-        {project.detail && <Link className="rounded-full bg-indigo-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-indigo-500" href={project.detail}>Case study</Link>}
+        {project.github && <ExternalLink href={project.github}>{ar ? "GitHub" : "GitHub"}</ExternalLink>}
+        {project.live && <ExternalLink href={project.live}>{ar ? "المشروع المباشر" : "Live project"}</ExternalLink>}
+        {project.detail && <Link className="rounded-full bg-indigo-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-indigo-500" href={project.detail}>{ar ? "دراسة الحالة" : "Case study"}</Link>}
         {project.links?.map((link) => <ExternalLink key={link.href} href={link.href}>{link.label}</ExternalLink>)}
       </div>
     </article>
   );
 }
 
-export default function ProjectsPage() {
+export default async function ProjectsPage() {
+  const lang = cookies().get("lang")?.value === "ar" ? "ar" : "en";
+  const ar = lang === "ar";
   return (
-    <main className="ventures-page w-full bg-[#f7f8fa] text-slate-900 dark:bg-[#090d13] dark:text-slate-100">
+    <main dir={ar ? "rtl" : "ltr"} lang={ar ? "ar" : "en"} className="ventures-page w-full bg-[#f7f8fa] text-slate-900 dark:bg-[#090d13] dark:text-slate-100">
       <div className="mx-auto max-w-6xl px-5 py-12 md:px-8 md:py-16">
       <header className="mb-12 max-w-3xl">
-        <p className="text-xs font-bold uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-300">Nafis Aslam · Selected Work</p>
-        <h1 className="mt-3 text-5xl font-bold tracking-tight text-slate-950 dark:text-white md:text-7xl">Projects</h1>
+        <p className="text-xs font-bold uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-300">{ar ? "Nafis Aslam · أعمال مختارة" : "Nafis Aslam · Selected Work"}</p>
+        <h1 className="mt-3 text-5xl font-bold tracking-tight text-slate-950 dark:text-white md:text-7xl">{ar ? "المشاريع" : "Projects"}</h1>
         <p className="mt-5 text-base leading-7 text-slate-600 dark:text-slate-300 md:text-lg">
-          Practical software products and AI-driven systems across full-stack engineering, machine learning, computer vision, and data analytics. Each project includes its scope, tools, and available proof or project links.
+          {ar ? "منتجات برمجية عملية وأنظمة مدعومة بالذكاء الاصطناعي في هندسة المنتجات والتعلم الآلي والرؤية الحاسوبية وتحليل البيانات. ويعرض كل مشروع نطاقه والأدوات وروابط الإثبات المتاحة." : "Practical software products and AI-driven systems across full-stack engineering, machine learning, computer vision, and data analytics. Each project includes its scope, tools, and available proof or project links."}
         </p>
         <div className="mt-6 flex flex-wrap gap-3">
-          <ExternalLink href="https://github.com/NafisAslam70">GitHub profile</ExternalLink>
-          <a className="rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white dark:bg-white dark:text-slate-900" href="mailto:nafisaslam70@gmail.com">Contact</a>
+          <ExternalLink href="https://github.com/NafisAslam70">{ar ? "ملف GitHub" : "GitHub profile"}</ExternalLink>
+          <a className="rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white dark:bg-white dark:text-slate-900" href="mailto:nafisaslam70@gmail.com">{ar ? "تواصل" : "Contact"}</a>
         </div>
       </header>
 
@@ -362,15 +407,15 @@ export default function ProjectsPage() {
         </div>
       </section>
 
-      <ProjectCategoryTabs categories={projectGroups.map((group) => ({ id: categoryId(group.category), label: categoryTabLabel(group.category) }))}>
+      <ProjectCategoryTabs categories={projectGroups.map((group) => ({ id: categoryId(group.category), label: ar ? arCategoryLabels[group.category] : categoryTabLabel(group.category) }))}>
         {projectGroups.map((group) => (
           <section key={group.category} id={categoryId(group.category)} className="project-category-section scroll-mt-24">
             <div className="mb-5 flex items-end justify-between gap-4">
-              <div><h2 className="text-2xl font-bold text-slate-900 dark:text-white md:text-3xl">{group.category}</h2></div>
-              <span className="text-sm text-slate-500 dark:text-slate-400">{group.items.length} projects</span>
+              <div><h2 className="text-2xl font-bold text-slate-900 dark:text-white md:text-3xl">{ar ? arCategoryLabels[group.category] : group.category}</h2></div>
+              <span className="text-sm text-slate-500 dark:text-slate-400">{group.items.length} {ar ? "مشاريع" : "projects"}</span>
             </div>
             <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-              {group.items.map((project) => <ProjectCard key={project.title} project={project} />)}
+              {group.items.map((project) => <ProjectCard key={project.title} project={project} lang={lang} />)}
             </div>
           </section>
         ))}

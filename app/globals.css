@@ -615,6 +615,10 @@ html[data-theme="dark"] .portfolio-hero-profile-location svg { color:#67e8f9; }
 .project-lightbox { position:fixed; z-index:100; inset:0; display:grid; place-items:center; padding:1.5rem; background:rgba(2,6,23,.8); backdrop-filter:blur(10px); cursor:zoom-out; }
 .project-lightbox-panel { position:relative; display:grid; max-width:min(94vw,1100px); max-height:90vh; place-items:center; border:1px solid rgba(255,255,255,.22); border-radius:1rem; padding:.7rem; background:#0f172a; box-shadow:0 28px 80px rgba(0,0,0,.45); cursor:default; }
 .project-lightbox-close { position:absolute; z-index:1; top:.35rem; right:.35rem; display:grid; width:2rem; height:2rem; place-items:center; border:1px solid rgba(255,255,255,.22); border-radius:50%; background:rgba(15,23,42,.82); color:white; font-size:1.5rem; line-height:1; }
+.project-lightbox-nav { position:absolute; z-index:1; top:50%; display:grid; width:2.5rem; height:2.5rem; place-items:center; border:1px solid rgba(255,255,255,.22); border-radius:50%; background:rgba(15,23,42,.82); color:white; font-size:2rem; line-height:1; transform:translateY(-50%); touch-action:none; }
+.project-lightbox-panel { touch-action:pan-y; user-select:none; }
+.project-lightbox-prev { left:.75rem; }
+.project-lightbox-next { right:.75rem; }
 .project-lightbox-panel p { width:100%; margin:.4rem 0 0; color:#cbd5e1; font-size:.72rem; text-align:center; }
 .experience-gallery-link { color:#4f46e5; font-size:.75rem; font-weight:700; }
 .experience-gallery-link:hover { color:#0284c7; }
