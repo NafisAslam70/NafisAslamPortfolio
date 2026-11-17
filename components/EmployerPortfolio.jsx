@@ -48,16 +48,14 @@ function TiltCard({ children, className = "", style = {}, dir, id }) {
 
 const HERO_ROLES = {
   en: [
-    { article: "a", title: "Software Engineer" },
-    { article: "an", title: "AI Automation Engineer" },
-    { article: "a", title: "Junior Researcher" },
-    { article: "a", title: "Full-Stack Developer" },
+    { prefix: "I'm a", title: "Software Product Engineer" },
+    { prefix: "I integrate", title: "AI & automation into workflows" },
+    { prefix: "I'm a", title: "Junior Researcher" },
   ],
   ar: [
-    { article: "", title: "مهندس برمجيات" },
-    { article: "", title: "مهندس أتمتة الذكاء الاصطناعي" },
-    { article: "", title: "باحث مبتدئ" },
-    { article: "", title: "مطور برمجيات متكاملة" },
+    { prefix: "أنا", title: "مهندس منتجات برمجية" },
+    { prefix: "أدمج", title: "الذكاء الاصطناعي والأتمتة في سير العمل" },
+    { prefix: "أنا", title: "باحث مبتدئ" },
   ],
 };
 const MOBILE_NAV_SECTION_IDS = ["overview", "experience", "projects", "education", "contact"];
@@ -65,11 +63,11 @@ const MOBILE_NAV_SECTION_IDS = ["overview", "experience", "projects", "education
 function TypedHeroRole({ lang }) {
   const roles = HERO_ROLES[lang] || HERO_ROLES.en;
   const [text, setText] = useState(roles[0].title);
-  const [article, setArticle] = useState(roles[0].article);
+  const [prefix, setPrefix] = useState(roles[0].prefix);
 
   useEffect(() => {
     setText(roles[0].title);
-    setArticle(roles[0].article);
+    setPrefix(roles[0].prefix);
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduceMotion) return;
     let phraseIndex = 0;
@@ -95,7 +93,7 @@ function TypedHeroRole({ lang }) {
         if (characterIndex <= 0) {
           deleting = false;
           phraseIndex = (phraseIndex + 1) % roles.length;
-          setArticle(roles[phraseIndex].article);
+          setPrefix(roles[phraseIndex].prefix);
           pause = 3;
         }
       }
@@ -103,9 +101,8 @@ function TypedHeroRole({ lang }) {
     return () => window.clearInterval(timer);
   }, [roles]);
 
-  const prefix = lang === "ar" ? "أنا" : `I'm ${article}`;
-  const accessibleRoles = roles.map(({ article: roleArticle, title }) => lang === "ar" ? title : `${roleArticle} ${title}`).join(", ");
-  return <p className="hero-typed-role" aria-label={`${lang === "ar" ? "أنا" : "I'm"} ${accessibleRoles}`} dir={lang === "ar" ? "rtl" : "ltr"}><span>{prefix}</span><span className="hero-typed-role-title">{text}</span><i aria-hidden="true" /></p>;
+  const accessibleRoles = roles.map(({ prefix: rolePrefix, title }) => `${rolePrefix} ${title}`).join(", ");
+  return <p className="hero-typed-role" aria-label={accessibleRoles} dir={lang === "ar" ? "rtl" : "ltr"}><span className="hero-typed-role-prefix">{prefix}</span><span className="hero-typed-role-title">{text}</span><i aria-hidden="true" /></p>;
 }
 
 function ScrollExperience() {
@@ -331,18 +328,32 @@ const proofLink = "inline-flex items-center rounded-full border border-slate-300
 const COPY = {
   en: {
     greeting: "Hi, I am",
-    intro: "MIT-trained Computer Science graduate from Universiti Sains Malaysia, Malaysia, specialising in Intelligent Computing (AI). I build practical web platforms, AI-powered workflows, retrieval systems, computer-vision tools, and business automation for real operational needs. Based in India and available to relocate across the Gulf.",
+    profileLabel: "PROFILE SNAPSHOT",
+    profileEducation: "Computer Science · USM Malaysia · MIT-trained",
+    profileSpecialismLabel: "CORE FOCUS",
+    profileSpecialism: "Software Product Engineer",
+    profileSummary: "I build end-to-end software products and make real workflows smarter with AI and automation.",
+    profileCapabilitiesLabel: "Product & AI focus",
+    profileCapabilities: ["Product engineering", "Applied AI", "Workflow automation", "Retrieval systems", "Computer vision"],
+    profileLocation: "Based in India · Available to relocate across the Gulf",
     contact: "Contact me", cv: "Download CV ↗", explore: "Explore projects ↓", bsc: "Bachelor of Computer Science (Honours) — Intelligent Computing (AI)", mit: "Statistics and Data Science MicroMasters (online)", award: "ICSC 2026 · International 2nd Rank · 2nd National Award · Top 1%",
     research: "Selected research", paper: "Read first-author preprint ↗", career: "Career history", experience: "Experience", selected: "Selected work", projects: "Projects with proof", projectIntro: "A closer look at systems I designed, built, evaluated, and documented.", allProjects: "View complete project portfolio ↗", toolkit: "Technical toolkit", expertise: "Expertise", educationEyebrow: "Education & recognition", education: "Academic foundation", next: "Next step", discuss: "Let’s discuss how I can contribute.", discussText: "For AI, machine learning, computer vision, data science, and software engineering opportunities.",
-    flagship: "Software products", forecast: "Applied AI", shipped: "Automation & intelligence", focus: "Institutional platforms", focusText: "Role-aware web systems for operations, attendance, approvals, reporting, and parent or team workflows.", forecastTitle: "AI retrieval & reasoning", forecastText: "RAG systems combining semantic search, lexical retrieval, knowledge graphs, and reliable response workflows.", fullStack: "Automation that fits real work", fullStackText: "Web apps, data pipelines, AI-assisted tools, and measurable workflows built around operational needs.",
+    flagship: "Software products", forecast: "Applied AI", shipped: "Automation & intelligence", focus: "Institutional platforms", focusText: "Role-based platforms for school operations, attendance, approvals, and reporting.", forecastTitle: "AI retrieval & reasoning", forecastText: "RAG systems linking semantic search, knowledge graphs, and answer generation.", fullStack: "Automation that fits real work", fullStackText: "Apps, data pipelines, and automation built around everyday operational needs.",
     cvProject: "Applied AI · Retrieval & Reasoning", platform: "Software Engineering · Product", data: "Data Science · Forecasting", fellowship: "Personal Product · Planning", live: "Live project ↗", video: "Demo video ↗", paperLink: "Paper ↗", github: "GitHub ↗", profile: "GitHub profile ↗", language: "English", location: "Based in India · Available to relocate across the Gulf",
   },
   ar: {
     greeting: "مرحباً، أنا",
-    intro: "خريج علوم الحاسوب ومدرّب من MIT من Universiti Sains Malaysia في ماليزيا، بتخصص الحوسبة الذكية والذكاء الاصطناعي. أبني منصات ويب عملية وسير عمل مدعوماً بالذكاء الاصطناعي وأنظمة استرجاع وأدوات رؤية حاسوبية وأتمتة أعمال لمتطلبات تشغيلية حقيقية. أقيم في الهند ومتاح للانتقال والعمل في أنحاء دول الخليج.",
+    profileLabel: "نبذة مهنية",
+    profileEducation: "خريج علوم الحاسوب · Universiti Sains Malaysia · تدريب من MIT",
+    profileSpecialismLabel: "التركيز الأساسي",
+    profileSpecialism: "مهندس منتجات برمجية",
+    profileSummary: "أبني منتجات برمجية متكاملة وأعزز سير العمل الواقعي بالذكاء الاصطناعي والأتمتة.",
+    profileCapabilitiesLabel: "المنتجات والذكاء الاصطناعي",
+    profileCapabilities: ["هندسة المنتجات", "الذكاء الاصطناعي التطبيقي", "أتمتة سير العمل", "أنظمة الاسترجاع", "الرؤية الحاسوبية"],
+    profileLocation: "مقيم في الهند · متاح للانتقال إلى دول الخليج",
     contact: "تواصل معي", cv: "تحميل السيرة الذاتية ↗", explore: "استكشف المشاريع ↓", bsc: "بكالوريوس علوم الحاسوب مع مرتبة الشرف — الحوسبة الذكية (الذكاء الاصطناعي)", mit: "برنامج MicroMasters في الإحصاء وعلوم البيانات (عبر الإنترنت)", award: "المركز الدولي الثاني · الجائزة الوطنية الثانية · ضمن أفضل 1٪ في ICSC 2026",
     research: "أبحاث مختارة", paper: "قراءة البحث المنشور باسمي الأول ↗", career: "المسيرة المهنية", experience: "الخبرة", selected: "مشاريع مختارة", projects: "مشاريع مختارة", projectIntro: "نظرة على الأنظمة التي صممتها وطورتها وقيّمتها ووثّقتها.", allProjects: "عرض portfolio المشاريع بالكامل ↗", toolkit: "الأدوات التقنية", expertise: "التخصصات", educationEyebrow: "التعليم والإنجازات", education: "الأساس الأكاديمي", next: "الخطوة التالية", discuss: "لنتحدث عن كيفية مساهمتي في فريقكم.", discussText: "فرص في الذكاء الاصطناعي وتعلم الآلة والرؤية الحاسوبية وعلوم البيانات وهندسة البرمجيات.",
-    flagship: "منتجات برمجية", forecast: "ذكاء اصطناعي تطبيقي", shipped: "أتمتة وذكاء تشغيلي", focus: "منصات مؤسسية", focusText: "أنظمة ويب بصلاحيات مخصصة لإدارة العمليات والحضور والموافقات والتقارير وسير عمل الفرق والأسر.", forecastTitle: "الاسترجاع والاستدلال بالذكاء الاصطناعي", forecastText: "أنظمة RAG تجمع البحث الدلالي والاسترجاع المعجمي والرسوم المعرفية وسير العمل الموثوق للإجابات.", fullStack: "أتمتة تناسب العمل الفعلي", fullStackText: "تطبيقات ويب ومسارات بيانات وأدوات مدعومة بالذكاء الاصطناعي وسير عمل قابل للقياس مبني حول الاحتياجات التشغيلية.",
+    flagship: "منتجات برمجية", forecast: "ذكاء اصطناعي تطبيقي", shipped: "أتمتة وذكاء تشغيلي", focus: "منصات مؤسسية", focusText: "منصات بصلاحيات للأعمال المدرسية والحضور والموافقات والتقارير.", forecastTitle: "الاسترجاع والاستدلال بالذكاء الاصطناعي", forecastText: "أنظمة RAG تربط البحث الدلالي بالرسوم المعرفية وتوليد الإجابات.", fullStack: "أتمتة تناسب العمل الفعلي", fullStackText: "تطبيقات ومسارات بيانات وأتمتة تلائم احتياجات العمل اليومية.",
     cvProject: "ذكاء اصطناعي تطبيقي · استرجاع واستدلال", platform: "هندسة البرمجيات · منتج", data: "علوم البيانات · التنبؤ", fellowship: "منتج شخصي · تخطيط", live: "المشروع المباشر ↗", video: "فيديو العرض ↗", paperLink: "البحث ↗", github: "GitHub ↗", profile: "ملف GitHub ↗", language: "العربية", location: "مقيم في الهند · متاح للانتقال إلى دول الخليج",
   },
 };
@@ -730,7 +741,24 @@ export default function EmployerPortfolio({ lang = "en" }) {
             </div>
           </div>
           <TypedHeroRole lang={lang} />
-          <p className="portfolio-hero-intro mt-5 max-w-2xl leading-7 text-slate-600 dark:text-slate-300">{c.intro}</p>
+          <div className="portfolio-hero-profile mt-5" dir={lang === "ar" ? "rtl" : "ltr"}>
+            <div className="portfolio-hero-profile-meta">
+              <span className="portfolio-hero-profile-label"><i aria-hidden="true" />{c.profileLabel}</span>
+              <span className="portfolio-hero-profile-education">{c.profileEducation}</span>
+            </div>
+            <div className="portfolio-hero-profile-specialism">
+              <span className="portfolio-hero-profile-mark" aria-hidden="true">AI</span>
+              <div>
+                <span className="portfolio-hero-profile-overline">{c.profileSpecialismLabel}</span>
+                <h2 className="portfolio-hero-profile-title">{c.profileSpecialism}</h2>
+              </div>
+            </div>
+            <p className="portfolio-hero-profile-summary">{c.profileSummary}</p>
+            <ul className="portfolio-hero-profile-capabilities" aria-label={c.profileCapabilitiesLabel}>
+              {c.profileCapabilities.map((capability) => <li key={capability}>{capability}</li>)}
+            </ul>
+            <div className="portfolio-hero-profile-location"><i aria-hidden="true" />{c.profileLocation}</div>
+          </div>
           <div className="mt-8 flex flex-wrap gap-3">
             <a className="inline-flex items-center rounded-full bg-indigo-700 px-5 py-3 text-sm font-semibold text-white hover:bg-indigo-600" href="https://wa.me/601137576465" target="_blank" rel="noreferrer">{c.contact}</a>
             <a className={proofLink} href={cvHref} target="_blank" rel="noreferrer">{c.cv}</a>
@@ -772,7 +800,35 @@ export default function EmployerPortfolio({ lang = "en" }) {
           {orderedRoles.map((item, index) => <TiltCard key={item.role} dir={lang === "ar" ? "ltr" : undefined} className="experience-card relative grid gap-5 rounded-2xl border border-slate-200/90 bg-white p-6 shadow-sm transition hover:border-indigo-200 hover:shadow-lg hover:shadow-slate-900/5 dark:border-white/10 dark:bg-white/[0.035] dark:hover:border-indigo-300/30 md:grid-cols-[240px,1fr] md:gap-8">
             <span className="experience-node" aria-hidden="true"><i>{String(index + 1).padStart(2, "0")}</i></span>
             <div dir={lang === "ar" ? "rtl" : undefined} className="experience-meta"><span className="experience-label">{lang === "ar" ? "محطة مهنية" : "Career chapter"}</span><h3 className="mt-2 font-bold">{item.role}</h3><p className="mt-1 text-sm text-slate-600 dark:text-slate-400">{item.organization}</p><ExperienceProofLinks item={item} lang={lang} />{item.project && <p className="mt-2 text-xs font-medium text-slate-500 dark:text-slate-400">{item.project}</p>}<p className="mt-3 text-xs font-semibold uppercase tracking-wide text-indigo-700 dark:text-indigo-300">{item.period}</p>{item.gallery && <Link href="/ventures" className="experience-primary-project-link mt-3">{lang === "ar" ? "استكشف مشاريع المنظومة ↓" : "Explore ecosystem projects ↓"}</Link>}{item.demo && <div className="experience-proof-row mt-3"><a className="experience-demo-thumb" href={item.demo} target="_blank" rel="noreferrer" aria-label={lang === "ar" ? "فيديو مشروع التدريب" : "Internship project video"}><img src="https://i.ytimg.com/vi/LX_btzkvX60/hqdefault.jpg" alt="VideoRAG internship project video thumbnail" /><span>▶</span><small>{lang === "ar" ? "فيديو المشروع" : "Internship project video"}</small></a>{item.report && <a className="experience-report-thumb" href={item.report} target="_blank" rel="noreferrer"><span>PDF</span><div><small>{lang === "ar" ? "توثيق التدريب" : "Internship documentation"}</small><strong>{lang === "ar" ? "عرض التقرير" : "View report"}</strong></div></a>}</div>}</div>
-            <div dir={lang === "ar" ? "rtl" : undefined}><ExperienceHighlights item={item} lang={lang} />{item.resourceLabel && <a href={item.resourceLink} target="_blank" rel="noreferrer" className="experience-pdf-preview mt-3" aria-label={lang === "ar" ? "فتح معاينة رحلة Meed" : "Open My Meed Journey PDF"}><div className="experience-pdf-sheet"><iframe src={`${item.resourceLink}#page=1&toolbar=0&navpanes=0&scrollbar=0`} title="My Meed Journey PDF preview" tabIndex="-1" /></div><span><b>PDF</b><small>{lang === "ar" ? "معاينة رحلة Meed" : "My Meed Journey · Preview"}</small></span><i>↗</i></a>}{item.gallery && <MeedRelatedProducts lang={lang} />}{item.gallery && <Link href={item.resourceLink || "/ventures/meed-public-school#resources"} className="experience-primary-project-link mt-4">{lang === "ar" ? "عرض مشروع المدرسة ←" : "View school venture →"}</Link>}<ExperienceVisualProof item={item} lang={lang} /></div>
+            <div dir={lang === "ar" ? "rtl" : undefined}>
+              <ExperienceHighlights item={item} lang={lang} />
+              {item.resourceLabel && (
+                <div className="experience-pdf-preview mt-3">
+                  <div className="experience-pdf-sheet" aria-hidden="true">
+                    <span>PDF</span><i /><i /><i />
+                  </div>
+                  <div className="experience-pdf-preview-copy">
+                    <b>PDF</b>
+                    <small>{lang === "ar" ? "معاينة رحلة Meed" : "My Meed Journey · Preview"}</small>
+                    <a className="experience-pdf-open" href={item.resourceLink}>
+                      {lang === "ar" ? "فتح الملف" : "Open PDF"} ↗
+                    </a>
+                  </div>
+                  <a
+                    className="experience-pdf-download"
+                    href={item.resourceLink}
+                    download
+                    aria-label={lang === "ar" ? "تنزيل PDF رحلة Meed" : "Download My Meed Journey PDF"}
+                    title={lang === "ar" ? "تنزيل PDF" : "Download PDF"}
+                  >
+                    ↓
+                  </a>
+                </div>
+              )}
+              {item.gallery && <MeedRelatedProducts lang={lang} />}
+              {item.gallery && <Link href={item.resourceLink || "/ventures/meed-public-school#resources"} className="experience-primary-project-link mt-4">{lang === "ar" ? "عرض مشروع المدرسة ←" : "View school venture →"}</Link>}
+              <ExperienceVisualProof item={item} lang={lang} />
+            </div>
           </TiltCard>)}
         </div>
       </section>

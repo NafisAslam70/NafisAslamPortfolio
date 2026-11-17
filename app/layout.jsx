@@ -29,6 +29,13 @@ function ThemeInitScript() {
       const root = document.documentElement;
       const colorScheme = window.matchMedia("(prefers-color-scheme: dark)");
       const applyTheme = () => {
+        const migrationKey = "themePreferenceSystemDefaultV1";
+        if (localStorage.getItem(migrationKey) !== "done") {
+          if (localStorage.getItem("themePreference") === "light") {
+            localStorage.removeItem("themePreference");
+          }
+          localStorage.setItem(migrationKey, "done");
+        }
         const savedTheme = localStorage.getItem("themePreference");
         const theme = savedTheme === "dark" || savedTheme === "light"
           ? savedTheme
