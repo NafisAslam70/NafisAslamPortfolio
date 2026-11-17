@@ -33,7 +33,7 @@ function SiteFooter({ lang = "en" }) {
           <div className="site-footer-brand">
             <div className="site-footer-brand-heading">
               <span className="site-footer-mark" aria-hidden="true">
-                <Image src="/images/grad.png" alt="" fill sizes="44px" className="object-cover object-[center_20%]" />
+                <Image src="/images/grad.png" alt="" fill sizes="44px" className="object-cover object-[center_20%] scale-125" />
               </span>
               <div>
                 <h3>Nafis Aslam</h3>
@@ -80,7 +80,7 @@ export default function LayoutChrome({ session, lang, children }) {
   const isStandaloneRoute = isResumeRoute || isInterviewerFeedbackRoute;
   const isPortfolioRoute = pathname === "/" || pathname === "/ventures";
 
-  return (
+  const chrome = (
     <>
       <PersonalizedEntry />
       {!isStandaloneRoute ? (
@@ -103,4 +103,5 @@ export default function LayoutChrome({ session, lang, children }) {
       {!isStandaloneRoute ? <SiteFooter lang={lang} /> : null}
     </>
   );
+  return isPortfolioRoute ? <div className="portfolio-page-zoom">{chrome}</div> : chrome;
 }

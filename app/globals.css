@@ -6,6 +6,15 @@
   initial-value: 0deg;
 }
 
+.portfolio-page-zoom {
+  display:flex;
+  flex:1 0 auto;
+  flex-direction:column;
+  width:105.263%;
+  min-height:105.263vh;
+  zoom:.95;
+}
+
 /* Split floating command dock */
 .site-header { padding-top: .6rem; }
 .site-header-aura { background: linear-gradient(180deg, rgba(238,242,255,.72), rgba(255,255,255,0)); }
@@ -504,7 +513,7 @@ html[data-theme="dark"] .portfolio-hero-profile-location svg { color:#67e8f9; }
 @media (max-width: 767px) {
   .hero-name-row { flex-direction:column; gap:.85rem; min-height:0; text-align:center; }
   .hero-name { max-width:none; line-height:.96; }
-  .hero-name-person { font-size:clamp(2.2rem, 11vw, 2.7rem); }
+  .hero-name-person { font-size:2.7rem; }
   .hero-mobile-avatar { width: 6.25rem; height: 6.25rem; border-radius: 1.35rem; }
   .hero-mobile-avatar { order:-1; }
   .hero-mobile-avatar img { object-position: center 18%; }
@@ -517,8 +526,21 @@ html[data-theme="dark"] .portfolio-hero-profile-location svg { color:#67e8f9; }
   .portfolio-hero-profile-capabilities { gap:.32rem; margin-top:.62rem; }
   .portfolio-hero-profile-capabilities li { font-size:.62rem; }
 }
+@media (max-width: 480px) {
+  .portfolio-hero-actions { flex-wrap:nowrap; gap:.35rem; }
+  .portfolio-hero-actions > a {
+    flex:1 1 0;
+    min-width:0;
+    justify-content:center;
+    padding:.5rem .4rem;
+    font-size:.68rem;
+    line-height:1.1;
+    white-space:nowrap;
+  }
+}
 @media (max-width: 380px) {
-  .hero-typed-role { flex-direction:column; gap:.12rem; }
+  .portfolio-hero-actions { gap:.25rem; }
+  .portfolio-hero-actions > a { padding:.4rem .25rem; font-size:.6rem; }
 }
 
 .portfolio-science-section {

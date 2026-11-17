@@ -49,13 +49,15 @@ function TiltCard({ children, className = "", style = {}, dir, id }) {
 const HERO_ROLES = {
   en: [
     { prefix: "I'm a", title: "Software Product Engineer" },
-    { prefix: "I build with", title: "Computer Vision & AI Automation" },
+    { prefix: "I integrate", title: "AI automation in workflows" },
     { prefix: "I'm a", title: "Junior Researcher" },
+    { prefix: "I enjoy", title: "Computer Vision & ML research" },
   ],
   ar: [
     { prefix: "أنا", title: "مهندس منتجات برمجية" },
-    { prefix: "أبني باستخدام", title: "الرؤية الحاسوبية وأتمتة الذكاء الاصطناعي" },
+    { prefix: "أدمج", title: "أتمتة الذكاء الاصطناعي في سير العمل" },
     { prefix: "أنا", title: "باحث مبتدئ" },
+    { prefix: "أستمتع بالبحث في", title: "الرؤية الحاسوبية والتعلم الآلي" },
   ],
 };
 const MOBILE_NAV_SECTION_IDS = ["overview", "experience", "projects", "education", "contact"];
@@ -751,7 +753,7 @@ export default function EmployerPortfolio({ lang = "en" }) {
             </ul>
             <div className="portfolio-hero-profile-location"><FaLocationDot aria-hidden="true" /><span>{c.profileLocation}</span></div>
           </div>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="portfolio-hero-actions mt-8 flex flex-wrap gap-3">
             <a className="inline-flex items-center rounded-full bg-indigo-700 px-5 py-3 text-sm font-semibold text-white hover:bg-indigo-600" href="https://wa.me/601137576465" target="_blank" rel="noreferrer">{c.contact}</a>
             <a className={proofLink} href={cvHref} target="_blank" rel="noreferrer">{c.cv}</a>
             <Link className={proofLink} href="/#projects">{c.explore}</Link>
