@@ -63,9 +63,20 @@
 .hire-graphic-ownership i { flex:1; height:1px; background:currentColor; opacity:.25; }
 @media (max-width: 767px) {
   .site-header { padding-top:.35rem; }
-  .site-header-shell { border-radius:1.1rem; }
-  .site-brand-mark { width:2.55rem; height:2.55rem; border-radius:.85rem; }
-  .site-brand-name { font-size:.94rem; }
+  .site-header-shell { min-height:3.35rem; border-radius:1rem; padding-top:.35rem; padding-bottom:.35rem; }
+  .site-brand-mark { width:2.2rem; height:2.2rem; border-radius:.72rem; }
+  .site-brand-name { font-size:.86rem; }
+  .site-header-language { padding:.16rem; }
+  .site-header-language button { padding:.3rem .5rem; font-size:.6rem; }
+  .site-menu-trigger { width:2.15rem; height:2.15rem; font-size:.9rem; border-radius:.72rem; }
+  .mobile-scroll-navigator { right:.32rem; opacity:.52; transform:translateY(-50%) scale(.72); transform-origin:right center; transition:opacity .22s ease,transform .22s ease; }
+  .mobile-scroll-navigator:active, .mobile-scroll-navigator:hover { opacity:.95; transform:translateY(-50%) scale(.8); }
+  .mobile-hire-overlay > button { max-width:17.5rem; padding:.55rem .75rem; border-radius:1rem; }
+  .mobile-hire-overlay > button > span:first-child { gap:.5rem; }
+  .mobile-hire-overlay > button > span:first-child > span:first-child { width:1.8rem; height:1.8rem; border-radius:.6rem; font-size:.58rem; }
+  .mobile-hire-overlay > button > span:first-child > span:last-child > span:first-child { font-size:.48rem; }
+  .mobile-hire-overlay > button > span:first-child > span:last-child > span:last-child { font-size:.72rem; }
+  .mobile-hire-overlay > button > span:last-child { padding:.28rem .5rem; font-size:.58rem; }
 }
 
 /* Light (default) */
