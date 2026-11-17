@@ -594,26 +594,36 @@ function MobileScrollNavigator({ lang }) {
               className="mobile-scroll-track-fill"
             />
           </span>
-          {sections.map(([id, label], index) => (
-            <button
-              key={id}
-              onClick={() => navigate(index)}
-              aria-label={label}
-              aria-current={index === activeIndex ? "step" : undefined}
-              className={`relative z-10 flex items-center justify-center rounded-full transition-all ${
-                index === activeIndex
-                  ? "h-7 w-7 bg-slate-950 shadow-md shadow-indigo-950/20 dark:bg-indigo-500 dark:shadow-indigo-500/30"
-                  : "h-3 w-3 bg-indigo-100 hover:bg-indigo-300 dark:bg-white/10 dark:hover:bg-white/20"
-              }`}
-            >
-              <i
-                aria-hidden="true"
-                className={`rounded-full ${
-                  index === activeIndex ? "h-2 w-2 bg-indigo-300 dark:bg-white" : "h-1.5 w-1.5 bg-indigo-400 dark:bg-indigo-200"
+          {sections.map(([id, label], index) => {
+            const isActive = index === activeIndex;
+            const isComplete = index < activeIndex;
+            return (
+              <button
+                key={id}
+                onClick={() => navigate(index)}
+                aria-label={label}
+                aria-current={isActive ? "step" : undefined}
+                className={`relative z-10 flex items-center justify-center rounded-full transition-all ${
+                  isActive
+                    ? "h-7 w-7 bg-gradient-to-br from-indigo-500 to-cyan-400 shadow-lg shadow-indigo-500/40 ring-4 ring-indigo-200/70 dark:ring-indigo-400/20"
+                    : isComplete
+                      ? "h-3 w-3 bg-gradient-to-br from-indigo-500 to-cyan-400 shadow-md shadow-indigo-500/30"
+                      : "h-3 w-3 bg-indigo-100 hover:bg-indigo-300 dark:bg-white/10 dark:hover:bg-white/20"
                 }`}
-              />
-            </button>
-          ))}
+              >
+                <i
+                  aria-hidden="true"
+                  className={`rounded-full ${
+                    isActive
+                      ? "h-2 w-2 bg-white shadow-sm"
+                      : isComplete
+                        ? "h-1.5 w-1.5 bg-white/90"
+                        : "h-1.5 w-1.5 bg-indigo-400 dark:bg-indigo-200"
+                  }`}
+                />
+              </button>
+            );
+          })}
         </div>
         <button
           onClick={() => navigate(Math.min(activeIndex + 1, sections.length - 1))}

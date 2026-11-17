@@ -27,12 +27,18 @@ function ThemeInitScript() {
   const code = `
     try {
       const root = document.documentElement;
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-      const savedTheme = localStorage.getItem("theme");
-      const theme = savedTheme === "dark" || savedTheme === "light" ? savedTheme : systemTheme;
-      root.dataset.theme = theme;
-      root.classList.remove("light");
-      root.classList.toggle("dark", theme === "dark");
+      const colorScheme = window.matchMedia("(prefers-color-scheme: dark)");
+      const applyTheme = () => {
+        const savedTheme = localStorage.getItem("themePreference");
+        const theme = savedTheme === "dark" || savedTheme === "light"
+          ? savedTheme
+          : colorScheme.matches ? "dark" : "light";
+        root.dataset.theme = theme;
+        root.classList.remove("light");
+        root.classList.toggle("dark", theme === "dark");
+      };
+      applyTheme();
+      colorScheme.addEventListener("change", applyTheme);
     } catch {}
   `.replace(/\s+/g, " ");
   return <script dangerouslySetInnerHTML={{ __html: code }} />;

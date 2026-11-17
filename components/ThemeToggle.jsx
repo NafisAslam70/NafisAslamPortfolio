@@ -7,7 +7,7 @@ export default function ThemeToggle() {
   useEffect(() => {
     const root = document.documentElement;
     root.classList.remove("light");
-    const saved = localStorage.getItem("theme") || "system";
+    const saved = localStorage.getItem("themePreference") || "system";
     const sysDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     const theme = saved === "system" ? (sysDark ? "dark" : "light") : saved;
     root.dataset.theme = theme;
@@ -21,7 +21,7 @@ export default function ThemeToggle() {
     const nextTheme = isLight ? "dark" : "light";
     root.dataset.theme = nextTheme;
     root.classList.toggle("dark", nextTheme === "dark");
-    localStorage.setItem("theme", nextTheme);
+    localStorage.setItem("themePreference", nextTheme);
     setIsLight(nextTheme === "light");
   }
 
