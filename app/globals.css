@@ -10,14 +10,14 @@
   display:flex;
   flex:1 0 auto;
   flex-direction:column;
-  width:111.111%;
+  width:100%;
   min-height:111.111vh;
   zoom:.9;
 }
 
 /* Split floating command dock */
 .site-header { padding-top: .6rem; }
-.portfolio-page-zoom > .site-header { width:111.111%; zoom:.9; }
+.portfolio-page-zoom > .site-header { width:100%; zoom:1; }
 .site-header-aura { background: linear-gradient(180deg, rgba(238,242,255,.72), rgba(255,255,255,0)); }
 .site-header-shell { position:relative; isolation:isolate; width:calc(100% - 2rem); padding:0; }
 .site-header-shell::before, .site-header-shell::after { display:none; }
