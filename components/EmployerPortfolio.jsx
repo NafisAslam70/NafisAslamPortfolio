@@ -526,6 +526,12 @@ function MobileHireOverlay({ lang }) {
     ["04", "I can research and innovate when required", ["Explore", "Research", "Innovate"], "violet", "research"],
   ];
   const title = lang === "ar" ? "لماذا توظفني؟" : "Why hire me?";
+  const whyConsiderMePdf = lang === "ar"
+    ? "/pdfs/Nafis_Aslam_Why_Consider_Me_v22_AR.pdf"
+    : "/pdfs/Nafis_Aslam_Why_Consider_Me_v22.pdf";
+  const whyConsiderMeFilename = lang === "ar"
+    ? "Nafis_Aslam_Why_Consider_Me_AR.pdf"
+    : "Nafis_Aslam_Why_Consider_Me.pdf";
   const activeSlide = Math.min(slide, reasons.length - 1);
   const [number, heading, steps, tone, kind] = reasons[activeSlide];
   const toneClasses = {
@@ -557,10 +563,10 @@ function MobileHireOverlay({ lang }) {
           <p className="min-w-0 flex-1 text-xs leading-5">{lang === "ar" ? "هل ترغب في معرفة المزيد؟ إليك نسخة PDF للتعرّف على المزيد." : "Want to know more? Here’s a PDF version for you to explore."}</p>
         </div>
         <div className="mt-2 grid grid-cols-2 gap-2">
-          <a href="/pdfs/Nafis_Aslam_Why_Consider_Me_v22.pdf" target="_blank" rel="noreferrer" className="inline-flex min-w-0 items-center justify-center gap-2 rounded-xl border border-indigo-200 bg-white px-3 py-2.5 text-xs font-bold text-indigo-800">
+          <a href={whyConsiderMePdf} target="_blank" rel="noreferrer" className="inline-flex min-w-0 items-center justify-center gap-2 rounded-xl border border-indigo-200 bg-white px-3 py-2.5 text-xs font-bold text-indigo-800">
             <FaFilePdf aria-hidden="true" />{lang === "ar" ? "فتح ملف PDF" : "Open PDF"}
           </a>
-          <a href="/pdfs/Nafis_Aslam_Why_Consider_Me_v22.pdf" download="Nafis_Aslam_Why_Consider_Me.pdf" className="inline-flex min-w-0 items-center justify-center gap-2 rounded-xl bg-indigo-700 px-3 py-2.5 text-xs font-bold text-white">
+          <a href={whyConsiderMePdf} download={whyConsiderMeFilename} className="inline-flex min-w-0 items-center justify-center gap-2 rounded-xl bg-indigo-700 px-3 py-2.5 text-xs font-bold text-white">
             <FaDownload aria-hidden="true" />{lang === "ar" ? "تنزيل PDF" : "Download PDF"}
           </a>
         </div>
