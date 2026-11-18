@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, useReducedMotion, useSpring } from "framer-motion";
-import { FaGithub, FaArrowUpRightFromSquare, FaEnvelope, FaLocationDot, FaWhatsapp, FaLinkedinIn } from "react-icons/fa6";
+import { FaGithub, FaArrowUpRightFromSquare, FaEnvelope, FaLocationDot, FaWhatsapp, FaLinkedinIn, FaFilePdf, FaDownload } from "react-icons/fa6";
 import { mitMicroMastersProjects, researchProjectPreviews } from "@/content/academicProjects";
 
 function TiltCard({ children, className = "", style = {}, dir, id }) {
@@ -545,13 +545,25 @@ function MobileHireOverlay({ lang }) {
   return (
     <div className="mobile-hire-overlay fixed inset-x-0 bottom-3 z-[80] px-4 md:hidden" dir={lang === "ar" ? "rtl" : "ltr"}>
       {open && <button aria-label={lang === "ar" ? "إغلاق" : "Close"} className="fixed inset-0 -z-10 bg-slate-950/30 backdrop-blur-[2px]" onClick={() => setOpen(false)} />}
-      {open && <div className="absolute bottom-0 left-3 right-3 overflow-hidden rounded-[1.8rem] border border-white/60 bg-white/95 p-4 shadow-2xl shadow-indigo-950/30 backdrop-blur-xl">
+      {open && <div className="absolute bottom-0 left-3 right-3 max-h-[calc(100dvh-1.5rem)] overflow-y-auto overscroll-contain rounded-[1.8rem] border border-white/60 bg-white/95 p-4 shadow-2xl shadow-indigo-950/30 backdrop-blur-xl">
         <div className="mb-3 flex items-center justify-between"><div><p className="text-[10px] font-bold uppercase tracking-[0.18em] text-indigo-600">Nafis Aslam</p><h2 className="mt-0.5 text-xl font-bold text-slate-950">{title}</h2></div><button className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-lg font-medium text-slate-700" onClick={() => setOpen(false)} aria-label={lang === "ar" ? "إغلاق" : "Close"}>×</button></div>
         <div key={number} onTouchStart={(event) => setTouchStartX(event.touches[0].clientX)} onTouchEnd={handleTouchEnd} className={`relative overflow-hidden rounded-2xl border p-5 ${toneClasses[tone]}`}>
           <span className="absolute -right-2 -top-8 text-[8rem] font-black leading-none opacity-[0.09]" aria-hidden="true">{number}</span>
           <div className="relative"><div className="flex items-end justify-between"><span className="text-5xl font-black tracking-tighter">{number}</span><span className="rounded-full bg-white/75 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em]">{lang === "ar" ? "اسحب" : "Swipe"} ↔</span></div><h3 className="mt-2 text-2xl font-black tracking-tight">{heading}</h3><HireValueGraphic kind={kind} /><div className="mt-4 flex items-center justify-between gap-1">{steps.map((step, index) => <div key={step} className="flex min-w-0 flex-1 items-center gap-1"><span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/90 text-xs font-black shadow-sm">{index + 1}</span><span className="text-[11px] font-bold leading-4">{step}</span>{index < 2 && <i className="mx-0.5 h-px min-w-2 flex-1 bg-current opacity-25" />}</div>)}</div></div>
         </div>
         <div className="mt-4 flex items-center justify-between"><div className="flex gap-1.5">{reasons.map(([itemNumber], index) => <button key={itemNumber} onClick={() => setSlide(index)} aria-label={`${title} ${index + 1}`} className={`h-2 rounded-full transition-all ${activeSlide === index ? "w-6 bg-indigo-600" : "w-2 bg-slate-200"}`} />)}</div><div className="flex gap-2"><button onClick={() => nextSlide(-1)} className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white font-bold text-slate-700" aria-label="Previous">←</button><button onClick={() => nextSlide()} className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-950 font-bold text-white" aria-label="Next">→</button></div></div>
+        <div className="mt-4 flex items-center gap-3 rounded-xl border border-indigo-100 bg-indigo-50/80 p-3 text-indigo-950">
+          <FaFilePdf className="shrink-0 text-xl text-indigo-600" aria-hidden="true" />
+          <p className="min-w-0 flex-1 text-xs leading-5">{lang === "ar" ? "هل ترغب في معرفة المزيد؟ إليك نسخة PDF للتعرّف على المزيد." : "Want to know more? Here’s a PDF version for you to explore."}</p>
+        </div>
+        <div className="mt-2 grid grid-cols-2 gap-2">
+          <a href="/pdfs/Nafis_Aslam_Why_Consider_Me_v22.pdf" target="_blank" rel="noreferrer" className="inline-flex min-w-0 items-center justify-center gap-2 rounded-xl border border-indigo-200 bg-white px-3 py-2.5 text-xs font-bold text-indigo-800">
+            <FaFilePdf aria-hidden="true" />{lang === "ar" ? "فتح ملف PDF" : "Open PDF"}
+          </a>
+          <a href="/pdfs/Nafis_Aslam_Why_Consider_Me_v22.pdf" download="Nafis_Aslam_Why_Consider_Me.pdf" className="inline-flex min-w-0 items-center justify-center gap-2 rounded-xl bg-indigo-700 px-3 py-2.5 text-xs font-bold text-white">
+            <FaDownload aria-hidden="true" />{lang === "ar" ? "تنزيل PDF" : "Download PDF"}
+          </a>
+        </div>
         <a href="#contact" onClick={() => setOpen(false)} className="mt-4 flex items-center justify-center gap-2 rounded-xl bg-slate-950 px-4 py-3 text-sm font-semibold text-white">{lang === "ar" ? "لنتحدث" : "Let’s talk"} <FaArrowUpRightFromSquare aria-hidden="true" /></a>
       </div>}
       {!open && <button onClick={() => setOpen(true)} className="mobile-hire-trigger group mx-auto flex w-full max-w-sm items-center justify-between rounded-2xl border border-indigo-200/80 bg-slate-950 px-4 py-3 text-left text-white shadow-xl shadow-indigo-950/25"><span className="flex items-center gap-3"><span className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-400 to-violet-500 text-xs font-extrabold"><i className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 animate-pulse rounded-full bg-emerald-300 ring-2 ring-slate-950" />01</span><span><span className="block text-[10px] font-bold uppercase tracking-[0.16em] text-indigo-200">Nafis Aslam</span><span className="block text-sm font-bold">{title}</span></span></span><span className="rounded-full bg-white/10 px-3 py-1.5 text-xs font-semibold text-indigo-100">{lang === "ar" ? "اضغط" : "Tap"} →</span></button>}
