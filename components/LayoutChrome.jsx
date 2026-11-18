@@ -9,7 +9,7 @@ import PersonalizedEntry from "@/components/PersonalizedEntry";
 
 function SiteFooter({ lang = "en" }) {
   const ar = lang === "ar";
-  const chrome = (
+  return (
     <footer className="site-footer" dir={ar ? "rtl" : "ltr"}>
       <div className="site-footer-shell">
         <section className="site-footer-cta" aria-label={ar ? "ابدأ محادثة" : "Start a conversation"}>
@@ -80,7 +80,7 @@ export default function LayoutChrome({ session, lang, children }) {
   const isStandaloneRoute = isResumeRoute || isInterviewerFeedbackRoute;
   const isPortfolioRoute = pathname === "/" || pathname === "/ventures";
 
-  return (
+  const chrome = (
     <>
       <PersonalizedEntry />
       {!isStandaloneRoute ? (
