@@ -476,35 +476,6 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
   const [activeSection, setActiveSection] = useState("overview");
   const [activeBuildTab, setActiveBuildTab] = useState(BUILD_TABS[0].id);
   const [hoveredReel, setHoveredReel] = useState(null);
-  const heroVideoRef = useRef(null);
-
-  useEffect(() => {
-    const video = heroVideoRef.current;
-    if (!video) return;
-
-    const ensurePlayback = () => {
-      video.defaultMuted = true;
-      video.muted = true;
-      video.playsInline = true;
-      video.setAttribute("muted", "");
-      const playPromise = video.play();
-      if (playPromise && typeof playPromise.then === "function") {
-        playPromise.catch(() => {
-          /* autoplay blocked by browser; ignore */
-        });
-      }
-    };
-
-    if (video.readyState >= 2) {
-      requestAnimationFrame(ensurePlayback);
-    } else {
-      const handleCanPlay = () => requestAnimationFrame(ensurePlayback);
-      video.addEventListener("canplay", handleCanPlay, { once: true });
-      return () => {
-        video.removeEventListener("canplay", handleCanPlay);
-      };
-    }
-  }, []);
 
   useEffect(() => {
     (async () => {
@@ -982,18 +953,7 @@ export default function ClientDashboard({ posts = [], now, reels = [], ventures 
                 className="relative w-full max-w-3xl overflow-hidden rounded-[2.5rem] border border-white/60 shadow-[0_45px_120px_-45px_rgba(79,70,229,0.6)] transition hover:-translate-y-1"
               >
                 <div className="relative" style={{ aspectRatio: "16 / 9" }}>
-                  <video
-                    ref={heroVideoRef}
-                    className="absolute inset-0 h-full w-full object-cover"
-                    src="/myvdo1.mov"
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    poster="/white2.jpg"
-                    preload="auto"
-                    style={{ pointerEvents: "none" }}
-                  />
+                  <Image src="/white2.jpg" alt="Portfolio reel preview" fill sizes="(max-width: 768px) 100vw, 768px" className="object-cover" />
                 </div>
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-slate-500/10 via-transparent to-emerald-500/12" />
               </Link>
