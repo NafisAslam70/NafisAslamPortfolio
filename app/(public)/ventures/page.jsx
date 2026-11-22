@@ -105,6 +105,13 @@ const projects = [
           "Automated invoice intake workflow that watches a shared drive, extracts PDF text, structures invoice fields with an AI extractor, records them in a billing sheet, and notifies the internal team by email.",
         stack: "n8n · Google Drive · OpenAI · PDF text extraction · Google Sheets · Gmail",
         status: "Automation workflow",
+        links: [
+          {
+            href: "/pdfs/AI_Invoice_Automation_Presentation.pdf",
+            label: "View workflow",
+            arLabel: "عرض سير العمل",
+          },
+        ],
       },
       {
         title: "AI Voice Receptionist",
@@ -358,7 +365,7 @@ function ProjectCard({ project, lang = "en" }) {
         {project.github && <ExternalLink href={project.github}>{ar ? "GitHub" : "GitHub"}</ExternalLink>}
         {project.live && <ExternalLink href={project.live}>{ar ? "المشروع المباشر" : "Live project"}</ExternalLink>}
         {project.detail && <Link className="rounded-full bg-indigo-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-indigo-500" href={project.detail}>{ar ? "دراسة الحالة" : "Case study"}</Link>}
-        {project.links?.map((link) => <ExternalLink key={link.href} href={link.href}>{link.label}</ExternalLink>)}
+        {project.links?.map((link) => <ExternalLink key={link.href} href={link.href}>{ar ? (link.arLabel || link.label) : link.label}</ExternalLink>)}
       </div>
     </article>
   );

@@ -432,10 +432,27 @@ th, td{ border-color: rgb(var(--border)); }
 }
 .hero-name-person {
   display: block;
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  color: #916610;
+  background-image: linear-gradient(108deg, #805812 0%, #a8771b 19%, #b58120 34%, #b98727 44%, #9b6b16 54%, #b7801a 69%, #805812 85%, #a8771b 100%);
+  background-position: 100% center;
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   font-size: clamp(2.8rem, 6vw, 4.5rem);
   line-height: .96;
+  animation: heroNameGoldShimmer 5.5s ease-in-out infinite alternate;
 }
+.hero-name-accent { margin-left: .14em; }
 html[data-theme="dark"] .hero-name-greeting { color:#cbd5e1; }
+html[data-theme="dark"] .hero-name-person {
+  color: #e4bd5e;
+  background-image: linear-gradient(108deg, #c18b24 0%, #e5bf53 19%, #fff0a7 34%, #fff9d8 44%, #c48b22 54%, #f1d176 69%, #bd8420 85%, #e5bf53 100%);
+}
+@keyframes heroNameGoldShimmer {
+  to { background-position: 0% center; }
+}
 .hero-typed-role {
   display: flex;
   align-items: center;
@@ -518,7 +535,7 @@ html[data-theme="dark"] .portfolio-hero-profile-location svg { color:#67e8f9; }
 @media (max-width: 767px) {
   .hero-name-row { flex-direction:column; gap:.85rem; min-height:0; text-align:center; }
   .hero-name { max-width:none; line-height:.96; }
-  .hero-name-person { font-size:2.7rem; }
+  .hero-name-person { font-size:clamp(2.1rem, 10.5vw, 2.7rem); white-space:nowrap; }
   .hero-mobile-avatar { width: 6.25rem; height: 6.25rem; border-radius: 1.35rem; }
   .hero-mobile-avatar { order:-1; }
   .hero-mobile-avatar img { object-position: center 18%; }
@@ -1205,6 +1222,7 @@ html[data-theme="dark"] .hero-type-signal { color:rgba(199,210,254,.72); }
 @media (prefers-reduced-motion: reduce) {
   .hero-science-glow-one, .hero-science-glow-two, .science-line,
   .science-node, .science-orbit { animation: none !important; }
+  .hero-name-person { animation: none !important; background-position: 50% center; }
   .site-header-shell, .site-header-shell::after, .site-menu-icon i { transition:none !important; }
   .site-brand-projectile, .site-brand-target::after { animation:none !important; }
   .site-brand-projectile { display:none !important; }

@@ -753,7 +753,7 @@ export default function EmployerPortfolio({ lang = "en" }) {
         </div>
         <div dir={lang === "ar" ? "rtl" : "ltr"}>
           <div dir="ltr" className="hero-name-row mt-5 flex items-center justify-start md:block">
-            <h1 className="hero-name font-bold tracking-tight"><span className="hero-name-greeting" dir={lang === "ar" ? "rtl" : "ltr"}>{c.greeting}</span><span className="hero-name-person">Nafis Aslam</span></h1>
+            <h1 className="hero-name font-bold tracking-tight"><span className="hero-name-greeting" dir={lang === "ar" ? "rtl" : "ltr"}>{c.greeting}</span><span className="hero-name-person">Nafis <span className="hero-name-accent">Aslam.</span></span></h1>
             <div className="hero-mobile-avatar relative shrink-0 overflow-hidden border-4 border-white shadow-xl ring-1 ring-indigo-200 dark:border-slate-900 dark:ring-indigo-400/40 md:hidden">
               <Image src="/images/me1.jpg" alt="Nafis Aslam" width={1734} height={1678} priority className="h-full w-full object-cover object-[center_22%]" />
             </div>
