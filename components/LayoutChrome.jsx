@@ -50,6 +50,7 @@ function SiteFooter({ lang = "en" }) {
               <li><Link href="/#projects">{ar ? "المشاريع" : "Projects"}</Link></li>
               <li><Link href="/#expertise">{ar ? "التخصصات" : "Expertise"}</Link></li>
               <li><Link href="/#education">{ar ? "التعليم" : "Education"}</Link></li>
+              <li><Link href="/research">{ar ? "الملف البحثي" : "Research profile"}</Link></li>
               <li><Link href="/#contact">{ar ? "تواصل" : "Contact"}</Link></li>
             </ul>
           </nav>

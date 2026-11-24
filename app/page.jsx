@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import EmployerPortfolio from "@/components/EmployerPortfolio";
+import AudienceChooser from "@/components/AudienceChooser";
 
 export const metadata = {
   title: "Nafis Aslam | AI & Machine Learning Engineer",
@@ -9,5 +10,10 @@ export const metadata = {
 
 export default function HomePage() {
   const lang = cookies().get("lang")?.value === "ar" ? "ar" : "en";
-  return <EmployerPortfolio lang={lang} />;
+  return (
+    <>
+      <AudienceChooser lang={lang} />
+      <EmployerPortfolio lang={lang} />
+    </>
+  );
 }

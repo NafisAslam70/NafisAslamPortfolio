@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { Briefcase, Folder, GraduationCap, Home, Lightbulb, Mail } from "lucide-react";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 const NAV_ICONS = {
   "/": Home,
@@ -26,8 +27,12 @@ export default function SiteHeader({ session, lang = "en", nav = [] }) {
     setOpen(false);
   }, [pathname]);
 
-  function toggleLanguage() {
-    const next = curLang === "ar" ? "en" : "ar";
+  useEffect(() => {
+    setCurLang(lang);
+  }, [lang]);
+
+  function selectLanguage(next) {
+    if (next === curLang) return;
     document.cookie = `lang=${next}; Path=/; Max-Age=31536000; SameSite=Lax`;
     setCurLang(next);
     router.refresh();
@@ -131,16 +136,11 @@ export default function SiteHeader({ session, lang = "en", nav = [] }) {
 
           {/* Actions */}
           <div className="site-header-actions flex items-center gap-2">
-            <div className="site-header-language flex items-center gap-2 px-1.5 py-1">
-              <button
-                className="rounded-full border border-transparent bg-indigo-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-indigo-700 transition hover:-translate-y-0.5 hover:bg-indigo-500/20 dark:text-indigo-200"
-                onClick={toggleLanguage}
-                title="Switch language / تغيير اللغة"
-                aria-label="Switch language between English and Arabic"
-              >
-                {curLang === "ar" ? "EN" : "العربية"}
-              </button>
-            </div>
+            <LanguageSwitcher
+              lang={curLang}
+              onChange={selectLanguage}
+              className="site-header-language"
+            />
 
             {/* Auth */}
             {session?.role === "admin" ? (
